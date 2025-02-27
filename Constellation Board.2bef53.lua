@@ -3,11 +3,46 @@ shipSize = Global.getTable("shipSize").medium
 checkedArc = nil
 checkedArc = nil
 
-function onLoad()
+alert = 1
+power = 1
+health = 1
+crew = 3
+object = nil
 
-  local myscale = self.getScale()
-  arc_scale = myscale.x --get x scale
-  log (arc_scale)
+function onLoad(script_state)
+    local state = JSON.decode(script_state)
+    if state then
+        myShip = getObjectFromGUID(state.myShip_GUID)
+        alert = state.alert_value
+        alertWheel = getObjectFromGUID(state.alert_GUID)
+        power = state.power_value
+        powerWheel = getObjectFromGUID(state.power_GUID)
+        crew = state.crew_value
+        crewWheel = getObjectFromGUID(state.crew_GUID)
+        health = state.health_value
+        healthWheel = getObjectFromGUID(state.health_GUID)
+    end
+    local myscale = self.getScale()
+    arc_scale = myscale.x --get x scale
+    log (arc_scale)
+    if myShip and alertWheel and crewWheel and healthWheel then
+        setUp()
+    end
+end
+
+function onSave()
+    local state = {
+        myShip_GUID = myShip and myShip.getGUID() or nil,
+        alert_value = alert,
+        alert_GUID = alertWheel and alertWheel.getGUID() or nil,
+        power_value = power,
+        power_GUID = powerWheel and powerWheel.getGUID() or nil,
+        crew_value = crew,
+        crew_GUID = crewWheel and crewWheel.getGUID() or nil,
+        health_value = health,
+        health_GUID = healthWheel and healthWheel.getGUID() or nil
+    }
+    return JSON.encode(state)
 end
 
 local shipClass = getObjectFromGUID("82f75d")
@@ -53,123 +88,112 @@ function setUp()
     end
 
     -- Alert Wheel
-    local alertPos = calculateWorldPosition(3, -0.2)
-    local alertWheel = shipBag.takeObject({ guid = alertToken })
-    alertWheel.setPosition({alertPos.x, alertPos.y, alertPos.z})
-    alertWheel.setRotation(rot)
+    if not alertWheel then
+        local alertPos = calculateWorldPosition(3, -0.2)
+        alertWheel = shipBag.takeObject({ guid = alertToken })
+        alertWheel.setPosition({alertPos.x, alertPos.y, alertPos.z})
+        alertWheel.setRotation(rot)
+    end
     alertWheel.jointTo(self, {["type"] = "Fixed"})
 
     -- Power Wheel
-    local powerPos = calculateWorldPosition(-0.6, 3.6)
-    local powerWheel = shipBag.takeObject({ guid = powerToken })
-    powerWheel.setPosition({powerPos.x, powerPos.y, powerPos.z})
-    powerWheel.setRotation(rot)
+    if not powerWheel then
+        local powerPos = calculateWorldPosition(-0.6, 3.6)
+        powerWheel = shipBag.takeObject({ guid = powerToken })
+        powerWheel.setPosition({powerPos.x, powerPos.y, powerPos.z})
+        powerWheel.setRotation(rot)
+    end
     powerWheel.jointTo(self, {["type"] = "Fixed"})
 
     -- Crew Wheel
-    local crewPos = calculateWorldPosition(-4.5, -0.2)
-    local crewWheel = shipBag.takeObject({ guid = crewToken })
-    crewWheel.setPosition({crewPos.x, crewPos.y, crewPos.z})
-    crewWheel.setRotation(rot)
+    if not crewWheel then
+        local crewPos = calculateWorldPosition(-4.5, -0.2)
+        crewWheel = shipBag.takeObject({ guid = crewToken })
+        crewWheel.setPosition({crewPos.x, crewPos.y, crewPos.z})
+        crewWheel.setRotation(rot)
+    end
     crewWheel.jointTo(self, {["type"] = "Fixed"})
 
     -- Health Wheel
-    local healthPos = calculateWorldPosition(-4.6, 2.6)
-    local healthWheel = shipBag.takeObject({ guid = healthToken })
-    healthWheel.setPosition({healthPos.x, healthPos.y, healthPos.z})
-    healthWheel.setRotation(rot)
+    if not healthWheel then
+        local healthPos = calculateWorldPosition(-4.6, 2.6)
+        healthWheel = shipBag.takeObject({ guid = healthToken })
+        healthWheel.setPosition({healthPos.x, healthPos.y, healthPos.z})
+        healthWheel.setRotation(rot)
+    end
     healthWheel.jointTo(self, {["type"] = "Fixed"})
 
     -- Ship
-    local shipPos = calculateWorldPosition(-5, 5)
-    myShip = shipBag.takeObject({ guid = shipClass })
-    myShip.setPosition({shipPos.x, shipPos.y+1, shipPos.z})
-    myShip.setRotation(rot)
-    myShip.setVar("myShipBase", "Small")
-    myShip.addContextMenuItem('Impulse', function() impulseMoveStart() end, false)
-    myShip.addContextMenuItem('Warp Speed', function() placeWarpTemplate() end, false)
-	
+    if not myShip then
+        local shipPos = calculateWorldPosition(-5, 5)
+        myShip = shipBag.takeObject({ guid = shipClass })
+        myShip.setPosition({shipPos.x, shipPos.y+1, shipPos.z})
+        myShip.setRotation(rot)
+        myShip.setVar("myShipBase", "Small")
+        myShip.addContextMenuItem('Impulse', function() impulseMoveStart() end, false)
+        myShip.addContextMenuItem('Warp Speed', function() placeWarpTemplate() end, false)
+	end
 	shipBag.destroy()
 end
 
 
 
 
-local alert = 1
-local power = 1
-local health = 1
-local crew = 3
-local object = nil
+
 
 function alertUp()
 	if alert <=5 then
-    alert = alert + 1
-	callTag = "Alert"
-	locate()
-	object.setState(alert)
+        alert = alert + 1
+        alertWheel = alertWheel.setState(alert)
 	end
 end
 
 function alertDown()
 	if alert >=2 then
-    alert = alert - 1
-	callTag = "Alert"
-	locate()
-	object.setState(alert)
+        alert = alert - 1
+        alertWheel = alertWheel.setState(alert)
 	end
 end
 
 function powerUp()
 	if power >=2  then
-    power = power - 1
-	callTag = "Power"
-	locate()
-	object.setState(power)
+        power = power - 1
+        powerWheel = powerWheel.setState(power)
 	end
 end
 
 function powerDown()
 	if power <=7 then
-    power = power + 1
-	callTag = "Power"
-	locate()
-	object.setState(power)
+        power = power + 1
+        powerWheel = powerWheel.setState(power)
 	end
 end
 
 function hullUp()
 	if health >=2  then
-    health = health - 1
-	callTag = "Health"
-	locate()
-	object.setState(health)
+        health = health - 1 
+        healthWheel = healthWheel.setState(health)
 	end
 end
 
 function hullDown()
 	if health <=8 then
-    health = health + 1
-	callTag = "Health"
-	locate()
-	object.setState(health)
+        health = health + 1
+        healthWheel = healthWheel.setState(health)
 	end
 end
 
 function crewUp()
 	if crew >=2 then
-    crew = crew - 1
-	callTag = "Crew"
-	locate()
-	object.setState(crew)
+        crew = crew - 1
+        crewWheel = crewWheel.setState(crew)
 	end
 end
 
 function crewDown()
 	if crew <=6 then
-    crew = crew + 1
-	callTag = "Crew"
-	locate()
-	object.setState(crew)
+        crew = crew + 1
+        crewWheel = crewWheel.setState(crew)
 	end
 end
 
@@ -431,24 +455,6 @@ function calculateDistance(pos1, pos2)
     local dz = pos2.z - pos1.z
     return math.sqrt(dx * dx + dy * dy + dz * dz)
 end
-	
-function locate()
-    local allObjects = getAllObjects()  
-    local minDistance = math.huge  
-
-    for _, obj in ipairs(allObjects) do
-        if obj.hasTag(callTag) then
-            local pos1 = obj.getPosition()
-            local pos2 = self.getPosition()
-            local distance = calculateDistance(pos1, pos2)
-
-            if distance < minDistance then
-                minDistance = distance
-                object = obj
-            end
-        end
-    end
-end
 
 function placeWarpTemplate()
     pos = myShip.getPosition()
@@ -520,24 +526,6 @@ end
 -- Assumes all objects are scale = 1 and their dimensions returned by getBounds() are in inches.
 
 arc_drawn = false
-
-function locate()
-    local allObjects = getAllObjects()  
-    local minDistance = math.huge  
-
-    for _, obj in ipairs(allObjects) do
-        if obj.hasTag(callTag) then
-            local pos1 = obj.getPosition()
-            local pos2 = self.getPosition()
-            local distance = calculateDistance(pos1, pos2)
-
-            if distance < minDistance then
-                minDistance = distance
-                object = obj
-            end
-        end
-    end
-end
 
 beamArc = {    
 {
@@ -650,13 +638,11 @@ function firePhaser()
 end
 
 function scanCheck()
-	callTag = "Alert"
-	locate()
-	
-	if object.getStateId() == 1 or object.getStateId() == 3 then _range = 2 end
-	if object.getStateId() == 2 then _range = 3 end
-	if object.getStateId() == 4 or object.getStateId() == 5 then _range = 1 end
-	if object.getStateId() == 6 then _range = 0 end
+
+	if alertWheel.getStateId() == 1 or alertWheel.getStateId() == 3 then _range = 2 end
+	if alertWheel.getStateId() == 2 then _range = 3 end
+	if alertWheel.getStateId() == 4 or alertWheel.getStateId() == 5 then _range = 1 end
+	if alertWheel.getStateId() == 6 then _range = 0 end
 	
     if arc_drawn then
         clearArc()
@@ -703,13 +689,11 @@ function scanCheck()
 end
 
 function hailCheck()
-	callTag = "Alert"
-	locate()
 	
-	if object.getStateId() == 1 or object.getStateId() == 3 then _range = 2 end
-	if object.getStateId() == 2 then _range = 3 end
-	if object.getStateId() == 4 or object.getStateId() == 5 then _range = 1 end
-	if object.getStateId() == 6 then _range = 0 end
+	if alertWheel.getStateId() == 1 or alertWheel.getStateId() == 3 then _range = 2 end
+	if alertWheel.getStateId() == 2 then _range = 3 end
+	if alertWheel.getStateId() == 4 or alertWheel.getStateId() == 5 then _range = 1 end
+	if alertWheel.getStateId() == 6 then _range = 0 end
 	
     if arc_drawn then
         clearArc()
