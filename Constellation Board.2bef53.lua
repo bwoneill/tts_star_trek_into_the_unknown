@@ -3,8 +3,6 @@ shipSize = Global.getTable("shipSize").medium
 checkedArc = nil
 checkedArc = nil
 
-templateGUID = "c52346" -- Replace with your template's GUID
-
 function onLoad()
 
   local myscale = self.getScale()
@@ -193,9 +191,8 @@ function impulseMoveLeft() myShip.clearButtons() placeToolToShipLeft() end
 function impulseMoveRight() myShip.clearButtons() placeToolToShipRight() end
 
 function placeToolToShipFront()
-shipDirection = "Front"
+    shipDirection = "Front"
     myShip.setLock(true)
-    local tool = getObjectFromGUID("c52346")
 
     -- Negative transformRight() = left direction
     local leftVector = myShip.getTransformRight()
@@ -203,105 +200,98 @@ shipDirection = "Front"
     local spawnPos   = myShip.getPosition() + (leftVector * distance)
     local spawnRot   = myShip.getRotation()
 
-    	template = tool.clone({
-        position = ({spawnPos.x, spawnPos.y+.05, spawnPos.z}),
-        rotation = ({spawnRot.x, spawnRot.y+0, spawnRot.z})
-    })
+    template = Global.call("spawnTurningTool")
+    template.setPosition({spawnPos.x, spawnPos.y+.05, spawnPos.z})
+    template.setRotation({spawnRot.x, spawnRot.y+0, spawnRot.z})
 
-    	template.jointTo(myShip, {
-    ["type"]        = "Hinge",
-    ["collision"]   = false,
-    ["break_force"]  = 300.0,
-    ["axis"]        = {0,1,0},
-    ["anchor"]      = {0,0,0}
-})
-    	template.createButton({ click_function = "positionRulerLeft", function_owner = self, label= "Left", position= {0, .3, -0.3},rotation= {0, 90, 0},width= 300,height= 200,font_size= 95,color= {1,1,1},font_color= {0,0,0}, tooltip= "Place Ruler aliened with template",})
-    	template.createButton({ click_function = "positionRulerRight", function_owner = self, label= "Right", position= {0, .3, 0.3},rotation= {0, 90, 0},width= 300,height= 200,font_size= 95,color= {1,1,1},font_color= {0,0,0}, tooltip= "Place Ruler aliened with template",})
+    template.jointTo(myShip, {
+        ["type"]        = "Hinge",
+        ["collision"]   = false,
+        ["break_force"]  = 300.0,
+        ["axis"]        = {0,1,0},
+        ["anchor"]      = {0,0,0}
+    })
+    template.createButton({ click_function = "positionRulerLeft", function_owner = self, label= "Left", position= {0, .3, -0.3},rotation= {0, 90, 0},width= 300,height= 200,font_size= 95,color= {1,1,1},font_color= {0,0,0}, tooltip= "Place Ruler aliened with template",})
+    template.createButton({ click_function = "positionRulerRight", function_owner = self, label= "Right", position= {0, .3, 0.3},rotation= {0, 90, 0},width= 300,height= 200,font_size= 95,color= {1,1,1},font_color= {0,0,0}, tooltip= "Place Ruler aliened with template",})
 
 end
 
 
 function placeToolToShipBack()
-shipDirection = "Back"
+    shipDirection = "Back"
     myShip.setLock(true)
-    local tool = getObjectFromGUID("c52346")
 
     -- Negative transformRight() = left direction
     local leftVector = myShip.getTransformRight()
     local distance   = shipSize.length
     local spawnPos   = myShip.getPosition() + (leftVector * distance)
     local spawnRot   = myShip.getRotation()
+    
+    template = Global.call("spawnTurningTool")
+    template.setPosition({spawnPos.x, spawnPos.y+.05, spawnPos.z})
+    template.setRotation({spawnRot.x, spawnRot.y+180, spawnRot.z})
 
-    	template = tool.clone({
-        position = ({spawnPos.x, spawnPos.y+.05, spawnPos.z}),
-        rotation = ({spawnRot.x, spawnRot.y+180, spawnRot.z})
+    template.jointTo(myShip, {
+        ["type"]        = "Hinge",
+        ["collision"]   = false,
+        ["break_force"]  = 300.0,
+        ["axis"]        = {0,1,0},
+        ["anchor"]      = {0,0,0}
     })
-
-    	template.jointTo(myShip, {
-    ["type"]        = "Hinge",
-    ["collision"]   = false,
-    ["break_force"]  = 300.0,
-    ["axis"]        = {0,1,0},
-    ["anchor"]      = {0,0,0}
-})
-    	template.createButton({ click_function = "positionRulerLeft", function_owner = self, label= "Left", position= {0, .3, -0.3},rotation= {0, 90, 0},width= 300,height= 200,font_size= 95,color= {1,1,1},font_color= {0,0,0}, tooltip= "Place Ruler aliened with template",})
-    	template.createButton({ click_function = "positionRulerRight", function_owner = self, label= "Right", position= {0, .3, 0.3},rotation= {0, 90, 0},width= 300,height= 200,font_size= 95,color= {1,1,1},font_color= {0,0,0}, tooltip= "Place Ruler aliened with template",})
+    template.createButton({ click_function = "positionRulerLeft", function_owner = self, label= "Left", position= {0, .3, -0.3},rotation= {0, 90, 0},width= 300,height= 200,font_size= 95,color= {1,1,1},font_color= {0,0,0}, tooltip= "Place Ruler aliened with template",})
+    template.createButton({ click_function = "positionRulerRight", function_owner = self, label= "Right", position= {0, .3, 0.3},rotation= {0, 90, 0},width= 300,height= 200,font_size= 95,color= {1,1,1},font_color= {0,0,0}, tooltip= "Place Ruler aliened with template",})
 
 end
 
 function placeToolToShipLeft()
-shipDirection = "Left"
+    shipDirection = "Left"
     myShip.setLock(true)
-    local tool = getObjectFromGUID("c52346")
-
+    
     -- Negative transformRight() = left direction
     local leftVector = myShip.getTransformForward()
     local distance   = -shipSize.width
     local spawnPos   = myShip.getPosition() + (leftVector * distance)
     local spawnRot   = myShip.getRotation()
+    
+    template = Global.call("spawnTurningTool")
+    template.setPosition({spawnPos.x, spawnPos.y+.05, spawnPos.z})
+    template.setRotation({spawnRot.x, spawnRot.y-90, spawnRot.z})
 
-    	template = tool.clone({
-        position = ({spawnPos.x, spawnPos.y+.05, spawnPos.z}),
-        rotation = ({spawnRot.x, spawnRot.y-90, spawnRot.z})
+    template.jointTo(myShip, {
+        ["type"]        = "Hinge",
+        ["collision"]   = false,
+        ["break_force"]  = 300.0,
+        ["axis"]        = {0,1,0},
+        ["anchor"]      = {0,0,0}
     })
-
-    	template.jointTo(myShip, {
-    ["type"]        = "Hinge",
-    ["collision"]   = false,
-    ["break_force"]  = 300.0,
-    ["axis"]        = {0,1,0},
-    ["anchor"]      = {0,0,0}
-})
-    	template.createButton({ click_function = "positionRulerLeft", function_owner = self, label= "Left", position= {0, .3, -0.3},rotation= {0, 90, 0},width= 300,height= 200,font_size= 95,color= {1,1,1},font_color= {0,0,0}, tooltip= "Place Ruler aliened with template",})
-    	template.createButton({ click_function = "positionRulerRight", function_owner = self, label= "Right", position= {0, .3, 0.3},rotation= {0, 90, 0},width= 300,height= 200,font_size= 95,color= {1,1,1},font_color= {0,0,0}, tooltip= "Place Ruler aliened with template",})
+    template.createButton({ click_function = "positionRulerLeft", function_owner = self, label= "Left", position= {0, .3, -0.3},rotation= {0, 90, 0},width= 300,height= 200,font_size= 95,color= {1,1,1},font_color= {0,0,0}, tooltip= "Place Ruler aliened with template",})
+    template.createButton({ click_function = "positionRulerRight", function_owner = self, label= "Right", position= {0, .3, 0.3},rotation= {0, 90, 0},width= 300,height= 200,font_size= 95,color= {1,1,1},font_color= {0,0,0}, tooltip= "Place Ruler aliened with template",})
 
 end
 
 function placeToolToShipRight()
-shipDirection = "Right"
+    shipDirection = "Right"
     myShip.setLock(true)
-    local tool = getObjectFromGUID("c52346")
-
+    
     -- Negative transformRight() = left direction
     local leftVector = myShip.getTransformForward()
     local distance   = shipSize.width
     local spawnPos   = myShip.getPosition() + (leftVector * distance)
     local spawnRot   = myShip.getRotation()
+    
+    template = Global.call("spawnTurningTool")
+    template.setPosition({spawnPos.x, spawnPos.y+.05, spawnPos.z})
+    template.setRotation({spawnRot.x, spawnRot.y+90, spawnRot.z})
 
-    	template = tool.clone({
-        position = ({spawnPos.x, spawnPos.y+.05, spawnPos.z}),
-        rotation = ({spawnRot.x, spawnRot.y+90, spawnRot.z})
+    template.	jointTo(myShip, {
+        ["type"]        = "Hinge",
+        ["collision"]   = false,
+        ["break_force"]  = 300.0,
+        ["axis"]        = {0,1,0},
+        ["anchor"]      = {0,0,0}
     })
-
-    	template.	jointTo(myShip, {
-    ["type"]        = "Hinge",
-    ["collision"]   = false,
-    ["break_force"]  = 300.0,
-    ["axis"]        = {0,1,0},
-    ["anchor"]      = {0,0,0}
-})
-    	template.createButton({ click_function = "positionRulerLeft", function_owner = self, label= "Left", position= {0, .3, -0.3},rotation= {0, 90, 0},width= 300,height= 200,font_size= 95,color= {1,1,1},font_color= {0,0,0}, tooltip= "Place Ruler aliened with template",})
-    	template.createButton({ click_function = "positionRulerRight", function_owner = self, label= "Right", position= {0, .3, 0.3},rotation= {0, 90, 0},width= 300,height= 200,font_size= 95,color= {1,1,1},font_color= {0,0,0}, tooltip= "Place Ruler aliened with template",})
+    template.createButton({ click_function = "positionRulerLeft", function_owner = self, label= "Left", position= {0, .3, -0.3},rotation= {0, 90, 0},width= 300,height= 200,font_size= 95,color= {1,1,1},font_color= {0,0,0}, tooltip= "Place Ruler aliened with template",})
+    template.createButton({ click_function = "positionRulerRight", function_owner = self, label= "Right", position= {0, .3, 0.3},rotation= {0, 90, 0},width= 300,height= 200,font_size= 95,color= {1,1,1},font_color= {0,0,0}, tooltip= "Place Ruler aliened with template",})
 
 end
 
@@ -495,7 +485,7 @@ function fireTorpedoAft() fireTorpedo("aft") end
 
 function fireTorpedo(direction)
 	 myShip.Lock()
-     template = getObjectFromGUID(templateGUID).clone()
+     template = Global.call("spawnTurningTool")
      shipPosition = myShip.getPosition()
      shipRotation = myShip.getRotation()
 
