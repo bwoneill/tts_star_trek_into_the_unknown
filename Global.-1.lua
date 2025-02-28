@@ -10,6 +10,8 @@ function onUpdate()
     --[[ print('onUpdate loop!') --]]
 end
 
+require("vscode/console")
+
 -- Constants
 
 shipSize = {
@@ -36,6 +38,7 @@ rulerScale = 12/18.330303
 
 -- Assets
 
+ASSET_ROOT = "https://github.com/bwoneill/tts_star_trek_into_the_unknown/blob/60812eb9f5fb33a44275bdd17105492a20e0f629/assets/"
 ASSETS = {
     ruler_12in = {
         object = {type = "Custom_Token", scale = {12/18.330303, 1, 12/18.330303}},
@@ -51,8 +54,8 @@ ASSETS = {
     },
     constellation = {
         alert_dial = {
-            object = {type = "Custom_Token"},
-            custom = {}
+            object = {type = "Custom_Token", scale = {1.25, 1, 1.25}},
+            custom = {image = ASSET_ROOT .. "constellation_class/alert_dial.png?raw=true", thickness = 0.1}
         }
     }
 }

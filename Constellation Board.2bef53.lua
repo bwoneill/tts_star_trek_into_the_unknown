@@ -89,10 +89,14 @@ function setUp()
 
     -- Alert Wheel
     if not alertWheel then
-        local alertPos = calculateWorldPosition(3, -0.2)
-        alertWheel = shipBag.takeObject({ guid = alertToken })
+        local alertPos = calculateWorldPosition(2.7, -0.2)
+        local obj = Global.getTable("ASSETS").constellation.alert_dial
+        alertWheel = spawnObject(obj.object)
+        alertWheel.setCustomObject(obj.custom)
         alertWheel.setPosition({alertPos.x, alertPos.y, alertPos.z})
         alertWheel.setRotation(rot)
+        local temp = shipBag.takeObject({ guid = alertToken })
+        temp.destroy()
     end
     alertWheel.jointTo(self, {["type"] = "Fixed"})
 
@@ -144,14 +148,26 @@ end
 function alertUp()
 	if alert <=5 then
         alert = alert + 1
-        alertWheel = alertWheel.setState(alert)
+        local rotation = self.getRotation()
+        rotation.y = rotation.y - (alert - 1) * 40
+        alertWheel.jointTo()
+        alertWheel.setRotation(rotation)
+        alertWheel.jointTo(self, {["type"] = "Fixed"})
+        --alertWheel.rotate({0 ,40 , 0})
+        --alertWheel = alertWheel.setState(alert)
 	end
 end
 
 function alertDown()
 	if alert >=2 then
         alert = alert - 1
-        alertWheel = alertWheel.setState(alert)
+        local rotation = self.getRotation()
+        rotation.y = rotation.y - (alert - 1) * 40
+        alertWheel.jointTo()
+        alertWheel.setRotation(rotation)
+        alertWheel.jointTo(self, {["type"] = "Fixed"})
+        --alertWheel.rotate({0 ,40 , 0})
+        --alertWheel = alertWheel.setState(alert)
 	end
 end
 
