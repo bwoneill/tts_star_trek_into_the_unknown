@@ -84,7 +84,8 @@ ASSETS = {
                 mesh = "https://steamusercontent-a.akamaihd.net/ugc/2494520554830218443/6B037F5D0D41284BA00A8660016D803C6626F14C/",
                 diffuse = "https://steamusercontent-a.akamaihd.net/ugc/2494520554821411536/6186F9132EF7FD4AC45FB72EFB59B223F6B16D45/",
             }
-        }
+        },
+        instruments = {2, 3, 2, 1, 1, 0}
     }
 }
 

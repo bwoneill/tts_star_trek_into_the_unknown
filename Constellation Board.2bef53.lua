@@ -641,11 +641,8 @@ function firePhaser()
 end
 
 function scanCheck()
-
-	if alertWheel.getStateId() == 1 or alertWheel.getStateId() == 3 then _range = 2 end
-	if alertWheel.getStateId() == 2 then _range = 3 end
-	if alertWheel.getStateId() == 4 or alertWheel.getStateId() == 5 then _range = 1 end
-	if alertWheel.getStateId() == 6 then _range = 0 end
+	
+    _range = shipData.instruments[alert]
 	
     if arc_drawn then
         clearArc()
@@ -693,10 +690,7 @@ end
 
 function hailCheck()
 	
-	if alertWheel.getStateId() == 1 or alertWheel.getStateId() == 3 then _range = 2 end
-	if alertWheel.getStateId() == 2 then _range = 3 end
-	if alertWheel.getStateId() == 4 or alertWheel.getStateId() == 5 then _range = 1 end
-	if alertWheel.getStateId() == 6 then _range = 0 end
+    _range = shipData.instruments[alert]
 	
     if arc_drawn then
         clearArc()
