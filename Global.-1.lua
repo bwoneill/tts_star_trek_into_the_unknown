@@ -86,6 +86,74 @@ ASSETS = {
             }
         },
         instruments = {2, 3, 2, 1, 1, 0}
+    },
+    defiant = {
+        size = shipSize.small,
+        alert_dial = {
+            object = {type = "Custom_Token", scale = {1.25, 1, 1.25}},
+            custom = {image = ASSET_ROOT .. "defiant_class/alert_dial.png", thickness = 0.1}
+        },
+        power_dial = {
+            object = {type = "Custom_Token", scale = {0.63, 1, 0.63}},
+            custom = {image = ASSET_ROOT .. "defiant_class/power_dial.png", thickness = 0.1}
+        },
+        crew_dial = {
+            object = {type = "Custom_Token", scale = {0.85, 1, 0.85}},
+            custom = {image = ASSET_ROOT .. "defiant_class/crew_dial.png", thickness = 0.1}
+        },
+        hull_dial = {
+            object = {type = "Custom_Token", scale = {0.62, 1, 0.62}},
+            custom = {image = ASSET_ROOT .. "defiant_class/hull_dial.png", thickness = 0.1}
+        },
+        base = {
+            object = {type = "Custom_Model"},
+            custom = {
+                mesh = "https://steamusercontent-a.akamaihd.net/ugc/53576717526168410/1D30F105B400ED2488C1815A197CDB74DD0B003D/",
+            },
+            color = {r = 0.6666667, g = 0.6666667, b = 0.6666667}
+        },
+        model = {
+            object = {type = "Custom_Model", scale = {1.3, 1.3, 1.3}},
+            custom = {
+                mesh = "https://steamusercontent-a.akamaihd.net/ugc/2494520554830561221/92A4C7D84320E3002E5F41EED58C3F1D8A310DF1/",
+                diffuse = "https://steamusercontent-a.akamaihd.net/ugc/2494520554830361122/0D155F737B97557FAC954E588EBB5D83C5DEA1E9/",
+            }
+        },
+        instruments = {2, 2, 1, 1, 0}
+    },
+    galaxy = {
+        size = shipSize.large,
+        alert_dial = {
+            object = {type = "Custom_Token", scale = {1.25, 1, 1.25}},
+            custom = {image = ASSET_ROOT .. "defiant_class/alert_dial.png", thickness = 0.1}
+        },
+        power_dial = {
+            object = {type = "Custom_Token", scale = {0.63, 1, 0.63}},
+            custom = {image = ASSET_ROOT .. "defiant_class/power_dial.png", thickness = 0.1}
+        },
+        crew_dial = {
+            object = {type = "Custom_Token", scale = {0.85, 1, 0.85}},
+            custom = {image = ASSET_ROOT .. "defiant_class/crew_dial.png", thickness = 0.1}
+        },
+        hull_dial = {
+            object = {type = "Custom_Token", scale = {0.62, 1, 0.62}},
+            custom = {image = ASSET_ROOT .. "defiant_class/hull_dial.png", thickness = 0.1}
+        },
+        base = {
+            object = {type = "Custom_Model"},
+            custom = {
+                mesh = "https://steamusercontent-a.akamaihd.net/ugc/53576717526201424/05511C65238C1083F43AA10418A752B9A8F7AA6C/",
+            },
+            color = {r = 0.6666667, g = 0.6666667, b = 0.6666667}
+        },
+        model = {
+            object = {type = "Custom_Model", scale = {1.4, 1.4, 1.4}},
+            custom = {
+                mesh = "https://steamusercontent-a.akamaihd.net/ugc/2494520554830060931/7542060AA53D11BA98D698C22DA05B311CDF643C/",
+                diffuse = "https://steamusercontent-a.akamaihd.net/ugc/2098172801144611875/56E14416EBAFD15A8AD905B26C5A61B5801F570E/",
+            }
+        },
+        instruments = {3, 3, 2, 2, 1, 1, 0}
     }
 }
 
@@ -99,6 +167,13 @@ function spawnAsset(param)
         obj.setColorTint(param.color)
     end
     return obj
+end
+
+function spawnModel(param)
+    local base = spawnAsset(param.base)
+    local model = spawnAsset(param.model)
+    base.addAttachment(model)
+    return base
 end
 
 function spawnRuler() return spawnAsset(ASSETS.ruler_12in) end

@@ -122,9 +122,7 @@ function setUp()
     -- Ship
     if not myShip then
         local shipPos = calculateWorldPosition(-5, 5)
-        myShip = Global.call("spawnAsset", shipData.base)
-        local model = Global.call("spawnAsset", shipData.model)
-        myShip.addAttachment(model)
+        myShip = Global.call("spawnModel", shipData)
         myShip.setPosition({shipPos.x, shipPos.y+1, shipPos.z})
         myShip.setRotation(rot)
         myShip.setVar("myShipBase", "Small")
