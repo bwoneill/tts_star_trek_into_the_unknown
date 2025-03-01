@@ -1,5 +1,4 @@
 --Federation Constellation Class
-shipSize = Global.getTable("shipSize").medium
 checkedArc = nil
 checkedArc = nil
 
@@ -8,6 +7,8 @@ power = 1
 health = 1
 crew = 3
 object = nil
+shipData = Global.getTable("ASSETS").constellation
+shipSize = shipData.size
 
 function onLoad(script_state)
     local state = JSON.decode(script_state)
@@ -32,6 +33,7 @@ end
 
 function onSave()
     local state = {
+        shipClass = shipClass,
         myShip_GUID = myShip and myShip.getGUID() or nil,
         alert_value = alert,
         alert_GUID = alertWheel and alertWheel.getGUID() or nil,
@@ -45,17 +47,8 @@ function onSave()
     return JSON.encode(state)
 end
 
-local shipClass = getObjectFromGUID("82f75d")
-local alertToken = getObjectFromGUID("f280fd")
-local powerToken = getObjectFromGUID("eb8315")
-local healthToken = getObjectFromGUID("ba1adb")
-local crewToken = getObjectFromGUID("52660c")
-
-
 function setUp()
 
-
-    local shipBag = getObjectFromGUID("81d1f1").clone()
     self.UI.setAttribute("setUpBtn", "active", "false")
     
     self.UI.setAttribute("alertUpBtn", "active", "true")
@@ -86,42 +79,41 @@ function setUp()
         local worldZ = pos.z + localX * math.sin(angle) + localZ * math.cos(angle)
         return {x = worldX, y = pos.y - .1, z = worldZ} -- Adjust Y position
     end
-
+    
     -- Alert Wheel
     if not alertWheel then
         local alertPos = calculateWorldPosition(2.7, -0.2)
-        local obj = Global.getTable("ASSETS").constellation.alert_dial
-        alertWheel = spawnObject(obj.object)
-        alertWheel.setCustomObject(obj.custom)
+        alertWheel = Global.call("spawnAsset",shipData.alert_dial)
         alertWheel.setPosition({alertPos.x, alertPos.y, alertPos.z})
         alertWheel.setRotation(rot)
-        local temp = shipBag.takeObject({ guid = alertToken })
-        temp.destroy()
+        alertWheel.interactable = false
     end
     alertWheel.jointTo(self, {["type"] = "Fixed"})
 
     -- Power Wheel
     if not powerWheel then
-        local powerPos = calculateWorldPosition(-0.6, 3.6)
-        powerWheel = shipBag.takeObject({ guid = powerToken })
+        local powerPos = calculateWorldPosition(-0.6, 2.9)
+        powerWheel = Global.call("spawnAsset",shipData.power_dial)
         powerWheel.setPosition({powerPos.x, powerPos.y, powerPos.z})
         powerWheel.setRotation(rot)
+        powerWheel.interactable = false
     end
     powerWheel.jointTo(self, {["type"] = "Fixed"})
 
     -- Crew Wheel
     if not crewWheel then
-        local crewPos = calculateWorldPosition(-4.5, -0.2)
-        crewWheel = shipBag.takeObject({ guid = crewToken })
+        local crewPos = calculateWorldPosition(-3.4, -0.2)
+        crewWheel = Global.call("spawnAsset",shipData.crew_dial)
         crewWheel.setPosition({crewPos.x, crewPos.y, crewPos.z})
         crewWheel.setRotation(rot)
+        crewWheel.interactable = false
     end
     crewWheel.jointTo(self, {["type"] = "Fixed"})
 
     -- Health Wheel
     if not healthWheel then
-        local healthPos = calculateWorldPosition(-4.6, 2.6)
-        healthWheel = shipBag.takeObject({ guid = healthToken })
+        local healthPos = calculateWorldPosition(-3.8, 2.6)
+        healthWheel = Global.call("spawnAsset", shipData.hull_dial)
         healthWheel.setPosition({healthPos.x, healthPos.y, healthPos.z})
         healthWheel.setRotation(rot)
     end
@@ -130,86 +122,81 @@ function setUp()
     -- Ship
     if not myShip then
         local shipPos = calculateWorldPosition(-5, 5)
-        myShip = shipBag.takeObject({ guid = shipClass })
+        myShip = Global.call("spawnAsset", shipData.base)
+        local model = Global.call("spawnAsset", shipData.model)
+        myShip.addAttachment(model)
         myShip.setPosition({shipPos.x, shipPos.y+1, shipPos.z})
         myShip.setRotation(rot)
         myShip.setVar("myShipBase", "Small")
         myShip.addContextMenuItem('Impulse', function() impulseMoveStart() end, false)
         myShip.addContextMenuItem('Warp Speed', function() placeWarpTemplate() end, false)
 	end
-	shipBag.destroy()
 end
 
 
 
 
-
+function rotateDial(dial, rot)
+    local rotation = self.getRotation()
+    rotation.y = rotation.y + rot
+    dial.jointTo()
+    dial.setRotation(rotation)
+    dial.jointTo(self, {["type"] = "Fixed"})
+end
 
 function alertUp()
 	if alert <=5 then
         alert = alert + 1
-        local rotation = self.getRotation()
-        rotation.y = rotation.y - (alert - 1) * 40
-        alertWheel.jointTo()
-        alertWheel.setRotation(rotation)
-        alertWheel.jointTo(self, {["type"] = "Fixed"})
-        --alertWheel.rotate({0 ,40 , 0})
-        --alertWheel = alertWheel.setState(alert)
+        rotateDial(alertWheel, (1 - alert) * 40)
 	end
 end
 
 function alertDown()
 	if alert >=2 then
         alert = alert - 1
-        local rotation = self.getRotation()
-        rotation.y = rotation.y - (alert - 1) * 40
-        alertWheel.jointTo()
-        alertWheel.setRotation(rotation)
-        alertWheel.jointTo(self, {["type"] = "Fixed"})
-        --alertWheel.rotate({0 ,40 , 0})
-        --alertWheel = alertWheel.setState(alert)
+        rotateDial(alertWheel, (1 - alert) * 40)
 	end
 end
 
 function powerUp()
 	if power >=2  then
         power = power - 1
-        powerWheel = powerWheel.setState(power)
+        rotateDial(powerWheel, (power - 1) * 40)
 	end
 end
 
 function powerDown()
 	if power <=7 then
         power = power + 1
-        powerWheel = powerWheel.setState(power)
+        rotateDial(powerWheel, (power - 1) * 40)
 	end
 end
 
 function hullUp()
 	if health >=2  then
         health = health - 1 
-        healthWheel = healthWheel.setState(health)
+        rotateDial(healthWheel, (health - 1) * 36)
 	end
 end
 
 function hullDown()
 	if health <=8 then
         health = health + 1
-        healthWheel = healthWheel.setState(health)
+        rotateDial(healthWheel, (health -1) * 36)
 	end
 end
 
 function crewUp()
 	if crew >=2 then
         crew = crew - 1
-        crewWheel = crewWheel.setState(crew)
+        rotateDial(crewWheel, (crew - 3) * 40)
 	end
 end
 
 function crewDown()
 	if crew <=6 then
         crew = crew + 1
-        crewWheel = crewWheel.setState(crew)
+        rotateDial(crewWheel, (crew - 3) * 40)
 	end
 end
 
