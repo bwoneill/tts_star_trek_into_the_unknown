@@ -25,7 +25,6 @@ function onLoad(script_state)
     end
     local myscale = self.getScale()
     arc_scale = myscale.x --get x scale
-    log (arc_scale)
     if myShip and alertWheel and crewWheel and healthWheel then
         setUp()
     end
@@ -67,6 +66,9 @@ function setUp()
     self.UI.setAttribute("moveBtnRight", "active", "true")
     self.UI.setAttribute("scanBtn", "active", "true")
     self.UI.setAttribute("commsBtn", "active", "true")
+    self.UI.setAttribute("clear", "active", "true")
+    self.UI.setAttribute("scanJammed", "active", "true")
+    self.UI.setAttribute("commsJammed", "active", "true")
 
     -- Get the board's current position and rotation
     local pos = self.getPosition()
@@ -129,10 +131,10 @@ function setUp()
         myShip.addContextMenuItem('Impulse', function() impulseMoveStart() end, false)
         myShip.addContextMenuItem('Warp Speed', function() placeWarpTemplate() end, false)
 	end
+    baseSize = myShip.getBoundsNormalized().size
 end
 
-
-
+-- Dials
 
 function rotateDial(dial, rot)
     local rotation = self.getRotation()
@@ -198,22 +200,21 @@ function crewDown()
 	end
 end
 
-
-
-
---<><>--<><>--
+-- Impulse
 
 function impulseMoveStart()
-myShip.createButton({function_owner = self, click_function = "impulseMoveFront",label = "Lateral", position = {1.5,.2,0}, rotation = {0, 90, 0}, width = 350, height = 150 })
-myShip.createButton({function_owner = self, click_function = "impulseMoveBack",label = "Reverse", position = {-1.5,.2,0}, rotation = {0, 90, 0}, width = 350, height = 150 })
-myShip.createButton({function_owner = self, click_function = "impulseMoveLeft",label = "Left", position = {-0.1,.2,-1.2}, rotation = {0, 90, 0}, width = 350, height = 150})
-myShip.createButton({function_owner = self, click_function = "impulseMoveRight",label = "Right", position = {-0.1,.2,1.2}, rotation = {0, 90, 0}, width = 350, height = 150})
+    myShip.createButton({function_owner = self, click_function = "impulseMoveFront",label = "Lateral", position = {1.5,.2,0}, rotation = {0, 90, 0}, width = 350, height = 150 })
+    myShip.createButton({function_owner = self, click_function = "impulseMoveBack",label = "Reverse", position = {-1.5,.2,0}, rotation = {0, 90, 0}, width = 350, height = 150 })
+    myShip.createButton({function_owner = self, click_function = "impulseMoveLeft",label = "Left", position = {-0.1,.2,-1.2}, rotation = {0, 90, 0}, width = 350, height = 150})
+    myShip.createButton({function_owner = self, click_function = "impulseMoveRight",label = "Right", position = {-0.1,.2,1.2}, rotation = {0, 90, 0}, width = 350, height = 150})
 end
 
 function impulseMoveFront() myShip.clearButtons() placeToolToShipFront() end
 function impulseMoveBack() myShip.clearButtons() placeToolToShipBack() end
 function impulseMoveLeft() myShip.clearButtons() placeToolToShipLeft() end
 function impulseMoveRight() myShip.clearButtons() placeToolToShipRight() end
+
+-- Turning tool
 
 function placeToolToShipFront()
     shipDirection = "Front"
@@ -240,7 +241,6 @@ function placeToolToShipFront()
     template.createButton({ click_function = "positionRulerRight", function_owner = self, label= "Right", position= {0, .3, 0.3},rotation= {0, 90, 0},width= 300,height= 200,font_size= 95,color= {1,1,1},font_color= {0,0,0}, tooltip= "Place Ruler aliened with template",})
 
 end
-
 
 function placeToolToShipBack()
     shipDirection = "Back"
@@ -376,8 +376,6 @@ end
 
 -- Step 3: Position Ship to the Template and Remove Ruler
 function positionShip()
-
-
     if shipDirection == "Left" then
 
     local leftVector = template.getTransformRight()
@@ -416,35 +414,34 @@ function positionShip()
     myShip.setRotation({spawnRot.x, spawnRot.y-180, spawnRot.z})
     end
 
-
     -- Add context menu for the ruler
 	template.clearButtons()
 	template.createButton({ click_function = "clearTemplates",function_owner = self,label= "Clear", position= {.8, .2, 0},rotation= {0, 180, 0},width= 300,height= 200,font_size= 95,color= {1,1,1},font_color= {0,0,0}, tooltip= "Place Ruler aliened with template",})
-		print("OPTIONAL: Adjust the Template Rotatation, then place it again.")
+    print("OPTIONAL: Adjust the Template Rotatation, then place it again.")
 	template.jointTo(myShip, {
-    ["type"]        = "Hinge",
-    ["collision"]   = false,
-    ["axis"]        = {0,1,0},
-    ["anchor"]      = {0,0,0}
-})
+        ["type"]        = "Hinge",
+        ["collision"]   = false,
+        ["axis"]        = {0,1,0},
+        ["anchor"]      = {0,0,0}
+    })
 	template.lock()
 	myShip.setLock(false)
 	ruler.destroy()
-
 end
 
 function clearTemplates()
-myShip.clearButtons()
-myShip.lock()
-template.destroy()
+    myShip.clearButtons()
+    myShip.lock()
+    template.destroy()
+end
 
-end
 function clearTemplatesA()
-template.destroy()
+    template.destroy()
 end
+
 function clearWarp() 
-rulerA.destroy() 
-rulerB.destroy() 
+    rulerA.destroy() 
+    rulerB.destroy() 
 end
 
 
@@ -482,9 +479,7 @@ function placeWarpTemplate()
     -- Lock the ruler in place
     rulerB.lock()
 	rulerA.createButton({ click_function = "clearWarp",function_owner = self,label= "Clear", position= {-8, .2, 0},rotation= {0, 90, 0},width= 300,height= 200,font_size= 95,color= {1,1,1},font_color= {0,0,0}, tooltip= "Clear Rulers",})
-	
 end
-
 
 function fireTorpedoFore() fireTorpedo("fore") end
 
@@ -591,147 +586,107 @@ scanArc = {
         thic   = 0.05
     }
 }
-function firePhaser()
 
-    if arc_drawn then
-        clearArc()
-    else
-        _rangeCir = 6
-		_range = 0
-		_range = _range + _rangeCir
-        arc_def = beamArc
-        arc_defB = beamArcAft
-
-        bounds = myShip.getBounds()
-        front_edge_distance = bounds.size.z / 2
-        
-        local desired_arc_distance_cir = front_edge_distance + _rangeCir - 0.4
-        local desired_arc_distance_front = front_edge_distance + _range - 0.4
-
-        local all_lines = {}
-
-        -- Draw arcs from arc_def
-        for i, single_arc_def in ipairs(arc_def) do
-            single_arc_def.range = {desired_arc_distance_cir, desired_arc_distance_cir}
-            local outer_points = computeArcPoints(single_arc_def)
-            table.insert(all_lines, {
-                points = outer_points,
-                color = single_arc_def.clr1,
-                thickness = single_arc_def.thic
-            })
+function calculateIntersect(size, m, origin)
+    local distances = {
+        size.x/m.x/2 - origin.x,
+        -size.x/m.x/2 - origin.x,
+        size.z/m.z/2 - origin.z,
+        -size.z/m.z/2 - origin.z
+    }
+    local min = 10000
+    for i, d in ipairs(distances) do
+        if d > 0 and d < min then
+            min = d
         end
-
-        -- Draw arcs from arc_defB
-        for i, single_arc_def in ipairs(arc_defB) do
-            single_arc_def.range = {desired_arc_distance_front, desired_arc_distance_front}
-            local outer_points = computeArcPoints(single_arc_def)
-            table.insert(all_lines, {
-                points = outer_points,
-                color = single_arc_def.clr1,
-                thickness = single_arc_def.thic
-            })
-        end
-
-        -- Now set them all at once
-        myShip.setVectorLines(all_lines)
-        arc_drawn = true
     end
+    return m * min + origin
+end
+
+function drawArc(system, jammed) -- system is "sensors", "comms", "weapons"
+    local arcs = shipData[system]
+    local ARCS = Global.getVar("ARCS")
+    local clr = myShip.getColorTint()
+    local size = myShip.getBoundsNormalized().size
+    local lines = {}
+    --[[ Axis overlay
+        local v = Vector(1,1,0)
+        v:rotateOver("y", 45)
+        local lines = {
+            {points = {{0,1,0}, {5,1,0}},color = {1,0,0}},
+            {points = {{0,1,0}, {0,6,0}},color = {0,1,0}},
+            {points = {{0,1,0}, {0,1,5}},color = {0,0,1}}
+        } 
+        --]]
+    for arc, range in pairs(arcs) do
+        local origin = shipData.size.offsets[arc] or Vector(0, 0, 0)
+        if ARCS[arc] then
+            -- Calculate range
+            if jammed and system ~= "weapons" then
+                range = 2
+            elseif arcs.instruments and arcs.instruments[arc] then
+                range = range + shipData.instruments[alert]
+            end
+            -- Calculate vectors
+            local start_angle = ARCS[arc][1]
+            local end_angle = ARCS[arc][2]
+            local points = {}
+            local theta = start_angle
+            local m = Vector(range, 0, 0)
+            m:rotateOver("y", start_angle)
+            local focal_point = calculateIntersect(size, m, origin)
+            log(arc)
+            if arc ~= "all" then
+                table.insert(points, focal_point:copy())
+            end
+            while theta < 360 and theta < end_angle do
+                table.insert(points, focal_point + m)
+                if theta == -90 or theta == 270 then
+                    focal_point.x = size.x/2
+                elseif theta == 0 then
+                    focal_point.z = -size.z/2
+                elseif theta == 90 then
+                    focal_point.x = -size.x/2
+                elseif theta == 180 then
+                    focal_point.z = size.z/2
+                end
+                if theta % 90 == 0 then
+                    table.insert(points, focal_point + m)
+                end
+                theta = theta + 1
+                m:rotateOver("y", 1)
+            end
+            table.insert(points, focal_point + m)
+            focal_point = calculateIntersect(size, m, origin)
+            table.insert(points, focal_point + m)
+            if arc ~= "all" then
+                table.insert(points, focal_point:copy())
+            end
+            table.insert(lines, {points = points, color = clr})
+        end
+        -- do something
+    end
+    myShip.setVectorLines(lines)
+end
+
+function firePhaser()
+    drawArc("weapons")
 end
 
 function scanCheck()
-	
-    _range = shipData.instruments[alert]
-	
-    if arc_drawn then
-        clearArc()
-    else
-        _rangeCir = 4
-		_range = _range + _rangeCir
-        arc_def = scanArc
-        arc_defB = scanArcFront
+    drawArc("sensors")
+end
 
-        bounds = myShip.getBounds()
-        front_edge_distance = bounds.size.z / 2
-        
-        local desired_arc_distance_cir = front_edge_distance + _rangeCir - 0.4
-        local desired_arc_distance_front = front_edge_distance + _range - 0.4
-
-        local all_lines = {}
-
-        -- Draw arcs from arc_def
-        for i, single_arc_def in ipairs(arc_def) do
-            single_arc_def.range = {desired_arc_distance_cir, desired_arc_distance_cir}
-            local outer_points = computeArcPoints(single_arc_def)
-            table.insert(all_lines, {
-                points = outer_points,
-                color = single_arc_def.clr1,
-                thickness = single_arc_def.thic
-            })
-        end
-
-        -- Draw arcs from arc_defB
-        for i, single_arc_def in ipairs(arc_defB) do
-            single_arc_def.range = {desired_arc_distance_front, desired_arc_distance_front}
-            local outer_points = computeArcPoints(single_arc_def)
-            table.insert(all_lines, {
-                points = outer_points,
-                color = single_arc_def.clr1,
-                thickness = single_arc_def.thic
-            })
-        end
-
-        -- Now set them all at once
-        myShip.setVectorLines(all_lines)
-        arc_drawn = true
-    end
+function sensorsJammed()
+    drawArc("sensors", true)
 end
 
 function hailCheck()
-	
-    _range = shipData.instruments[alert]
-	
-    if arc_drawn then
-        clearArc()
-    else
-        _rangeCir = 6
-		_range = _range + _rangeCir
-        arc_def = scanArc
-        arc_defB = scanArcFront
+    drawArc("comms")
+end
 
-        bounds = myShip.getBounds()
-        front_edge_distance = bounds.size.z / 2
-        
-        local desired_arc_distance_cir = front_edge_distance + _rangeCir - 0.4
-        local desired_arc_distance_front = front_edge_distance + _range - 0.4
-
-        local all_lines = {}
-
-        -- Draw arcs from arc_def
-        for i, single_arc_def in ipairs(arc_def) do
-            single_arc_def.range = {desired_arc_distance_cir, desired_arc_distance_cir}
-            local outer_points = computeArcPoints(single_arc_def)
-            table.insert(all_lines, {
-                points = outer_points,
-                color = single_arc_def.clr1,
-                thickness = single_arc_def.thic
-            })
-        end
-
-        -- Draw arcs from arc_defB
-        for i, single_arc_def in ipairs(arc_defB) do
-            single_arc_def.range = {desired_arc_distance_front, desired_arc_distance_front}
-            local outer_points = computeArcPoints(single_arc_def)
-            table.insert(all_lines, {
-                points = outer_points,
-                color = single_arc_def.clr1,
-                thickness = single_arc_def.thic
-            })
-        end
-
-        -- Now set them all at once
-        myShip.setVectorLines(all_lines)
-        arc_drawn = true
-    end
+function commsJammed()
+    drawArc("comms", true)
 end
 
 function clearArc(_rangeCir, _range)

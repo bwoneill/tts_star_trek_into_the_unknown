@@ -12,7 +12,7 @@ end
 
 require("vscode/console")
 
--- Constants
+-- Constants: DO NOT MODIFY
 
 shipSize = {
     small = {
@@ -25,7 +25,11 @@ shipSize = {
         width = 1.25,
         length = 2,
         forwardOffset = -1.29,
-        sideOffset = 5.6
+        sideOffset = 5.6,
+        offsets = {
+            bow = Vector({-0.8, 0, 0}),
+            stern = Vector({0.8, 0, 0})
+        }
     },
     large = {
         width = 1.5,
@@ -34,6 +38,21 @@ shipSize = {
         sideOffset = 5.6
     }
 }
+
+ARCS = { -- aft = 0, left handed coords
+    fore = {90, 270},
+    aft = {-90, 90},
+    starboard = {180, 360},
+    port = {0, 180},
+    all = {0, 360},
+    bow = {135, 225},
+    stern = {-45, 45},
+    fore_starboard = {180, 270},
+    aft_starboard = {270, 360},
+    fore_port = {90, 180},
+    aft_port = {0, 90}
+}
+
 rulerScale = 12/18.330303
 
 -- Assets
@@ -85,7 +104,10 @@ ASSETS = {
                 diffuse = "https://steamusercontent-a.akamaihd.net/ugc/2494520554821411536/6186F9132EF7FD4AC45FB72EFB59B223F6B16D45/",
             }
         },
-        instruments = {2, 3, 2, 1, 1, 0}
+        instruments = {2, 3, 2, 1, 1, 0},
+        sensors = {all = 4, bow = 4, instruments = {bow = true}},
+        comms = {all = 6, bow = 6, instruments = {bow = true}},
+        weapons = {fore_port = 6, fore_starboard = 6, stern = 6}
     },
     defiant = {
         size = shipSize.small,
@@ -163,7 +185,6 @@ function spawnAsset(param)
     local obj = spawnObject(param.object)
     obj.setCustomObject(param.custom)
     if param.color then
-        log(param.color)
         obj.setColorTint(param.color)
     end
     return obj
