@@ -1,0 +1,71 @@
+<Button 
+    id="setUpBtn" 
+    onClick="setUp" 
+    fontSize="20" 
+    color="#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)" 
+    width="100" 
+    height="50" 
+    rectAlignment="UpperLeft" 
+    position="0 -80 -30"
+    rotation="0 0 180">
+    Deploy
+</Button>
+
+
+<Button  
+    active="false"
+    id="phaserBtn" 
+    onClick="firePhaser" 
+    fontSize="12" 
+    color="#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)" 
+    width="40" 
+    height="20" 
+    rectAlignment="UpperLeft" 
+    position="0 120 -30"
+    rotation="0 0 180">
+    Fire
+</Button>
+
+
+<Button  
+    active="false"
+    id="warpBtn" 
+    onClick="placeWarpTemplate" 
+    fontSize="12" 
+    color="#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)" 
+    width="40" 
+    height="20" 
+    rectAlignment="UpperLeft" 
+    position="100 100 -30"
+    rotation="0 0 180">
+    Warp
+</Button>
+
+<Button  
+    active="false"
+    id="impulsBtn" 
+    onClick="impulseMoveStart" 
+    fontSize="12" 
+    color="#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)" 
+    width="50" 
+    height="20" 
+    rectAlignment="UpperLeft" 
+    position="0 -110 -30"
+    rotation="0 0 180">
+    Impulse
+</Button>
+
+
+<Button  
+    active="false"
+    id="scanBtn" 
+    onClick="scanCheck" 
+    fontSize="10" 
+    color="#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)" 
+    width="50" 
+    height="20" 
+    rectAlignment="UpperLeft" 
+    position="-40 120 -30"
+    rotation="0 0 180">
+    Scan
+</Button>

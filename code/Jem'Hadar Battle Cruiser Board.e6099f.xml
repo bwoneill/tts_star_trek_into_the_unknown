@@ -1,0 +1,210 @@
+<Button 
+    id="setUpBtn" 
+    onClick="setUp" 
+    fontSize="20" 
+    color="#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)" 
+    width="200" 
+    height="50" 
+    rectAlignment="UpperLeft" 
+    position="350 0 -2"
+    rotation="0 0 180">
+    Deploy
+</Button>
+
+<Button 
+    active="false"
+    id="alertUpBtn" 
+    onClick="alertUp" 
+    fontSize="12" 
+    color="#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)" 
+    width="100" 
+    height="30" 
+    rectAlignment="UpperLeft" 
+    position="-480 -50 -2"
+    rotation="0 0 180">
+    Raise Alert
+</Button>
+<Button  
+    active="false"
+    id="alertDownBtn" 
+    onClick="alertDown" 
+    fontSize="12" 
+    color="#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)" 
+    width="100" 
+    height="30" 
+    rectAlignment="UpperLeft" 
+    position="-480 40 -2"
+    rotation="0 0 180">
+    Lower Alert
+</Button>
+
+<Button  
+    active="false"
+    id="powerUpBtn" 
+    onClick="powerUp" 
+    fontSize="12" 
+    color="#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)" 
+    width="100" 
+    height="30" 
+    rectAlignment="UpperLeft" 
+    position="10 -400 -2"
+    rotation="0 0 180">
+    Add Power
+</Button>
+<Button  
+    active="false"
+    id="powerDownBtn" 
+    onClick="powerDown" 
+    fontSize="12" 
+    color="#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)" 
+    width="100" 
+    height="30" 
+    rectAlignment="UpperLeft" 
+    position="10 -370 -2"
+    rotation="0 0 180">
+    Spend Power
+</Button>
+
+<Button  
+    active="false"
+    id="healthUpBtn" 
+    onClick="hullUp" 
+    fontSize="12" 
+    color="#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)" 
+    width="100" 
+    height="30" 
+    rectAlignment="UpperLeft" 
+    position="500 -320 -2"
+    rotation="0 0 180">
+    Repair
+</Button>
+ 
+<Button  
+    active="false"
+    id="healthDownBtn" 
+    onClick="hullDown" 
+    fontSize="12" 
+    color="#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)" 
+    width="100" 
+    height="30" 
+    rectAlignment="UpperLeft" 
+    position="500 -200 -2"
+    rotation="0 0 180">
+    Damage
+</Button>
+
+<Button  
+    active="false"
+    id="crewUpBtn" 
+    onClick="crewUp" 
+    fontSize="12" 
+    color="#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)" 
+    width="100" 
+    height="30" 
+    rectAlignment="UpperLeft" 
+    position="500 -90 -2"
+    rotation="0 0 180">
+    Boost Moral
+</Button>
+
+<Button  
+    active="false"
+    id="crewDownBtn" 
+    onClick="crewDown" 
+    fontSize="12" 
+    color="#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)" 
+    width="100" 
+    height="30" 
+    rectAlignment="UpperLeft" 
+    position="500 55 -2"
+    rotation="0 0 180">
+    Lose Moral
+</Button>
+
+
+<Button  
+    active="false"
+    id="beamBtn" 
+    onClick="fireBeams" 
+    fontSize="12" 
+    color="#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)" 
+    width="40" 
+    height="20" 
+    rectAlignment="UpperLeft" 
+    position="205 150 -2"
+    rotation="0 0 180">
+    Fire
+</Button>
+
+<Button  
+    active="false"
+    id="torpedoBtnF" 
+    onClick="fireTorpedoFore" 
+    fontSize="12" 
+    color="#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)" 
+    width="40" 
+    height="20" 
+    rectAlignment="UpperLeft" 
+    position="205 245 -2"
+    rotation="0 0 180">
+    Fore
+</Button>
+
+
+
+<Button  
+    active="false"
+    id="warpBtn" 
+    onClick="placeWarpTemplate" 
+    fontSize="12" 
+    color="#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)" 
+    width="40" 
+    height="20" 
+    rectAlignment="UpperLeft" 
+    position="-110 -315 -2"
+    rotation="0 0 180">
+    Warp
+</Button>
+
+<Button  
+    active="false"
+    id="impulseMove" 
+    onClick="impulseMoveStart" 
+    fontSize="12" 
+    color="#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)" 
+    width="80" 
+    height="20" 
+    rectAlignment="UpperLeft" 
+    position="-110 -185 -2"
+    rotation="0 0 180">
+    Impulse
+</Button>
+
+
+<Button  
+    active="false"
+    id="scanBtn" 
+    onClick="scanCheck" 
+    fontSize="10" 
+    color="#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)" 
+    width="50" 
+    height="20" 
+    rectAlignment="UpperLeft" 
+    position="-120 205 -2"
+    rotation="0 0 180">
+    Sensors
+</Button>
+
+<Button  
+    active="false"
+    id="commsBtn" 
+    onClick="hailCheck" 
+    fontSize="10" 
+    color="#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)" 
+    width="50" 
+    height="20" 
+    rectAlignment="UpperLeft" 
+    position="-120 245 -2"
+    rotation="0 0 180">
+    Comms
+</Button>
