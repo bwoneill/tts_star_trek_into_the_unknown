@@ -101,21 +101,27 @@ ASSETS = {
             script = SHIP_BOARD_SCRIPT,
             xml = SHIP_BOARD_XML
         },
-        alert_dial = {
-            object = {type = "Custom_Token", scale = {1.25, 1, 1.25}},
-            custom = {image = ASSET_ROOT .. "constellation_class/alert_dial.png", thickness = 0.1}
-        },
-        power_dial = {
-            object = {type = "Custom_Token", scale = {0.63, 1, 0.63}},
-            custom = {image = ASSET_ROOT .. "constellation_class/power_dial.png", thickness = 0.1}
-        },
-        crew_dial = {
-            object = {type = "Custom_Token", scale = {0.85, 1, 0.85}},
-            custom = {image = ASSET_ROOT .. "constellation_class/crew_dial.png", thickness = 0.1}
-        },
-        hull_dial = {
-            object = {type = "Custom_Token", scale = {0.62, 1, 0.62}},
-            custom = {image = ASSET_ROOT .. "constellation_class/hull_dial.png", thickness = 0.1}
+        dials = {
+            alert = {
+                object = {type = "Custom_Token", scale = {1.25, 1, 1.25}},
+                custom = {image = ASSET_ROOT .. "constellation_class/alert_dial.png", thickness = 0.1},
+                min = 0, max = 5, rot = -40, pos = Vector(-2.7, -0.1, 0.2)
+            },
+            power = {
+                object = {type = "Custom_Token", scale = {0.63, 1, 0.63}},
+                custom = {image = ASSET_ROOT .. "constellation_class/power_dial.png", thickness = 0.1},
+                min = 0, max = 7, rot = 40, pos = Vector(0.6, -0.1, -2.9)
+            },
+            crew = {
+                object = {type = "Custom_Token", scale = {0.85, 1, 0.85}},
+                custom = {image = ASSET_ROOT .. "constellation_class/crew_dial.png", thickness = 0.1},
+                min = -2, max = 4, rot = 40, pos = Vector(3.4, -0.1, 0.2)
+            },
+            hull = {
+                object = {type = "Custom_Token", scale = {0.62, 1, 0.62}},
+                custom = {image = ASSET_ROOT .. "constellation_class/hull_dial.png", thickness = 0.1},
+                min = 0, max = 8, rot = 36, pos = Vector(3.8, -0.1, -2.6)
+            }
         },
         base = {
             object = {type = "Custom_Model"},

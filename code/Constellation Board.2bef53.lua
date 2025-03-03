@@ -1,46 +1,18 @@
 --Federation Constellation Class
 
-alert = 1
-power = 1
-health = 1
-crew = 3
-object = nil
 shipData = Global.getTable("ASSETS").constellation
-shipSize = shipData.size
 
 function onLoad(script_state)
     local state = JSON.decode(script_state)
     if state then
-        myShip = getObjectFromGUID(state.myShip_GUID)
-        alert = state.alert_value
-        alertWheel = getObjectFromGUID(state.alert_GUID)
-        power = state.power_value
-        powerWheel = getObjectFromGUID(state.power_GUID)
-        crew = state.crew_value
-        crewWheel = getObjectFromGUID(state.crew_GUID)
-        health = state.health_value
-        healthWheel = getObjectFromGUID(state.health_GUID)
-    end
-    local myscale = self.getScale()
-    arc_scale = myscale.x --get x scale
-    if myShip and alertWheel and crewWheel and healthWheel and powerWheel then
-        setUp()
+        shipData = state
+    else
+        shipData = Global.getTable("ASSETS").constellation
     end
 end
 
 function onSave()
-    local state = {
-        myShip_GUID = myShip and myShip.getGUID() or nil,
-        alert_value = alert,
-        alert_GUID = alertWheel and alertWheel.getGUID() or nil,
-        power_value = power,
-        power_GUID = powerWheel and powerWheel.getGUID() or nil,
-        crew_value = crew,
-        crew_GUID = crewWheel and crewWheel.getGUID() or nil,
-        health_value = health,
-        health_GUID = healthWheel and healthWheel.getGUID() or nil
-    }
-    return JSON.encode(state)
+    return JSON.encode(shipData)
 end
 
 function setUp()
@@ -71,41 +43,17 @@ function setUp()
     local pos = self.getPosition()
     local rot = self.getRotation()
     
-    -- Alert Wheel
-    if not alertWheel then
-        alertWheel = Global.call("spawnAsset",shipData.alert_dial)
-        alertWheel.setPosition(pos + Vector(-2.7, -0.1, 0.2):rotateOver("y", rot.y))
-        alertWheel.setRotation(rot)
-        alertWheel.interactable = false
+    for name, dial in pairs(shipData.dials) do
+        if not dial.GUID then
+            local object = Global.call("spawnAsset", dial)
+            dial.GUID = object.getGUID()
+            dial.value = 0
+            object.setPosition(pos +  Vector(dial.pos):rotateOver("y", rot.y))
+            object.setRotation(rot)
+            object.interactable = false
+            object.jointTo(self, {type = "Fixed"})
+        end
     end
-    alertWheel.jointTo(self, {type = "Fixed"})
-
-    -- Power Wheel
-    if not powerWheel then
-        powerWheel = Global.call("spawnAsset",shipData.power_dial)
-        powerWheel.setPosition(pos + Vector(0.6, -0.1, -2.9):rotateOver("y", rot.y))
-        powerWheel.setRotation(rot)
-        powerWheel.interactable = false
-    end
-    powerWheel.jointTo(self, {type = "Fixed"})
-
-    -- Crew Wheel
-    if not crewWheel then
-        crewWheel = Global.call("spawnAsset",shipData.crew_dial)
-        crewWheel.setPosition(pos + Vector(3.4, -0.1, 0.2):rotateOver("y", rot.y))
-        crewWheel.setRotation(rot)
-        crewWheel.interactable = false
-    end
-    crewWheel.jointTo(self, {type = "Fixed"})
-
-    -- Health Wheel
-    if not healthWheel then
-        healthWheel = Global.call("spawnAsset", shipData.hull_dial)
-        healthWheel.setPosition(pos + Vector(3.8, -0.1, -2.6):rotateOver("y", rot.y))
-        healthWheel.setRotation(rot)
-        healthWheel.interactable = false
-    end
-    healthWheel.jointTo(self, {type = "Fixed"})
 
     -- Ship
     if not myShip then
@@ -115,75 +63,46 @@ function setUp()
         myShip.setVar("myShipBase", "Small")
         myShip.addContextMenuItem('Impulse', function() impulseMoveStart() end, false)
         myShip.addContextMenuItem('Warp Speed', function() placeWarpTemplate() end, false)
+        shipData.shipGUID = myShip.getGUID()
 	end
-    baseSize = myShip.getBoundsNormalized().size
+end
+
+function constrainValue(value, min, max)
+    value = value <= max and value or max
+    value = value >= min and value or min
+    return value
 end
 
 -- Dials
 
-function rotateDial(dial, rot)
-    local rotation = self.getRotation()
-    rotation.y = rotation.y + rot
-    dial.jointTo()
-    dial.setRotation(rotation)
-    dial.jointTo(self, {type = "Fixed"})
+function rotateDial(dialData, difference)
+    local rot = self.getRotation()
+    local dial = getObjectFromGUID(dialData.GUID)
+    local value = constrainValue(dialData.value + difference, dialData.min, dialData.max)
+    if value ~= dialData.value then
+        dialData.value = value
+        rot.y = rot.y + dialData.rot * dialData.value
+        dial.jointTo()
+        dial.setRotation(rot)
+        dial.jointTo(self, {type = "Fixed"})
+    end
 end
 
-function alertUp()
-	if alert <=5 then
-        alert = alert + 1
-        rotateDial(alertWheel, (1 - alert) * 40)
-	end
-end
+function alertUp() rotateDial(shipData.dials["alert"], 1) end
 
-function alertDown()
-	if alert >=2 then
-        alert = alert - 1
-        rotateDial(alertWheel, (1 - alert) * 40)
-	end
-end
+function alertDown() rotateDial(shipData.dials["alert"], -1) end
 
-function powerUp()
-	if power >=2  then
-        power = power - 1
-        rotateDial(powerWheel, (power - 1) * 40)
-	end
-end
+function powerUp() rotateDial(shipData.dials["power"], -1) end
 
-function powerDown()
-	if power <=7 then
-        power = power + 1
-        rotateDial(powerWheel, (power - 1) * 40)
-	end
-end
+function powerDown() rotateDial(shipData.dials["power"], 1) end
 
-function hullUp()
-	if health >=2  then
-        health = health - 1 
-        rotateDial(healthWheel, (health - 1) * 36)
-	end
-end
+function hullUp() rotateDial(shipData.dials["hull"], -1) end
 
-function hullDown()
-	if health <=8 then
-        health = health + 1
-        rotateDial(healthWheel, (health -1) * 36)
-	end
-end
+function hullDown() rotateDial(shipData.dials["hull"], 1) end
 
-function crewUp()
-	if crew >=2 then
-        crew = crew - 1
-        rotateDial(crewWheel, (crew - 3) * 40)
-	end
-end
+function crewUp() rotateDial(shipData.dials["crew"], -1) end
 
-function crewDown()
-	if crew <=6 then
-        crew = crew + 1
-        rotateDial(crewWheel, (crew - 3) * 40)
-	end
-end
+function crewDown() rotateDial(shipData.dials["crew"], 1) end
 
 -- Impulse
 
@@ -206,13 +125,10 @@ function placeTurningTool(side)
     myShip.lock()
     shipDirection = side
     local attachment = shipData.size.toolAttachment[side]
-    local rel_pos = attachment.pos:copy()
     local pos = myShip.getPosition()
-    local rot = myShip.getRotation().y
-    rel_pos:rotateOver("y", rot)
-    rot = rot + attachment.rot
+    local rot = myShip.getRotation().y + attachment.rot
     template = Global.call("spawnTurningTool")
-    template.setPosition(pos + rel_pos)
+    template.setPosition(pos + Vector(attachment.pos):rotateOver("y", rot))
     template.setRotation({0, rot, 0})
     template.jointTo(myShip, {type = "Hinge", collision = false, break_force = 1000.0, axis = {0,1,0}, anchor = {0,0,0}})
 end
@@ -275,7 +191,7 @@ function positionShip()
     local attachment = shipData.size.toolAttachment[shipDirection]
     local leftVector = template.getTransformRight()
     spawnRot.y = spawnRot.y - attachment.rot
-    spawnPos = spawnPos + (leftVector * attachment.pos:magnitude())
+    spawnPos = spawnPos + (leftVector * Vector(attachment.pos):magnitude())
     myShip.setRotation(spawnRot)
     myShip.setPosition(spawnPos)
 
@@ -352,7 +268,10 @@ function calculateIntersect(size, m, origin)
             min = d
         end
     end
-    return m * min + origin
+    local value = m * min + origin
+    value.x = constrainValue(value.x, -size.x/2, size.x/2)
+    value.z = constrainValue(value.z, -size.z/2, size.z/2)
+    return value
 end
 
 function drawArc(system, jammed) -- system is "sensors", "comms", "weapons"
@@ -377,7 +296,7 @@ function drawArc(system, jammed) -- system is "sensors", "comms", "weapons"
             if jammed and system ~= "weapons" then
                 range = 2
             elseif arcs.instruments and arcs.instruments[arc] then
-                range = range + shipData.instruments[alert]
+                range = range + shipData.instruments[shipData.dials.alert.value + 1]
             end
             -- Calculate vectors
             local start_angle = ARCS[arc][1]
@@ -387,7 +306,6 @@ function drawArc(system, jammed) -- system is "sensors", "comms", "weapons"
             local m = Vector(range, 0, 0)
             m:rotateOver("y", start_angle)
             local focal_point = calculateIntersect(size, m, origin)
-            log(arc)
             if arc ~= "all" then
                 table.insert(points, focal_point:copy())
             end
