@@ -199,6 +199,7 @@ ASSETS = {
             custom = {
                 mesh = "https://steamusercontent-a.akamaihd.net/ugc/2494520554830561221/92A4C7D84320E3002E5F41EED58C3F1D8A310DF1/",
                 diffuse = "https://steamusercontent-a.akamaihd.net/ugc/2494520554830361122/0D155F737B97557FAC954E588EBB5D83C5DEA1E9/",
+                material = 3
             }
         },
         instruments = {2, 2, 1, 1, 0},
@@ -235,6 +236,7 @@ ASSETS = {
             custom = {
                 mesh = "https://steamusercontent-a.akamaihd.net/ugc/2494520554830060931/7542060AA53D11BA98D698C22DA05B311CDF643C/",
                 diffuse = "https://steamusercontent-a.akamaihd.net/ugc/2098172801144611875/56E14416EBAFD15A8AD905B26C5A61B5801F570E/",
+                material = 3
             }
         },
         instruments = {3, 3, 2, 2, 1, 1, 0},
@@ -246,7 +248,8 @@ ASSETS = {
             model = {type = "Custom_Model", scale = {1.3, 1.3, 1.3}},
             custom = {
                 mesh = "https://steamusercontent-a.akamaihd.net/ugc/2494520554830159870/13CCD3CD564237EBFC610A34D84A548C81B60DCF/",
-                diffuse = "https://steamusercontent-a.akamaihd.net/ugc/2098172801144611875/56E14416EBAFD15A8AD905B26C5A61B5801F570E/"
+                diffuse = "https://steamusercontent-a.akamaihd.net/ugc/2098172801144611875/56E14416EBAFD15A8AD905B26C5A61B5801F570E/",
+                material = 3
             },
             sensors = {all = 2, bow = 4, instruments = {bow = true}},
             comms = {all = 2, bow = 4, instruments = {bow = true}}
@@ -256,7 +259,8 @@ ASSETS = {
             model = {type = "Custom_Model", scale = {1.3, 1.3, 1.3}},
             custom = {
                 mesh = "https://steamusercontent-a.akamaihd.net/ugc/2494520554830188072/006E5758D4D2FE12D925278A4B827420882B85EA/",
-                diffuse = "https://steamusercontent-a.akamaihd.net/ugc/2098172801144611875/56E14416EBAFD15A8AD905B26C5A61B5801F570E/"
+                diffuse = "https://steamusercontent-a.akamaihd.net/ugc/2098172801144611875/56E14416EBAFD15A8AD905B26C5A61B5801F570E/",
+                material = 3
             },
             sensors = {all = 4, bow = 6},
             comms = {all = 6, bow = 8},
@@ -292,6 +296,7 @@ ASSETS = {
             custom = {
                 mesh = "https://steamusercontent-a.akamaihd.net/ugc/2494520554832153651/3BBBBF57829D54A40507584F1977D249A9DFF35C/",
                 diffuse = "https://steamusercontent-a.akamaihd.net/ugc/2494520554832154232/39A8AF0518F0ADF46E51E7E8F4552505C0CDEEF5/",
+                material = 3
             }
         },
         instruments = {[0] = 1, 2, 2, 1, 0},
@@ -326,8 +331,9 @@ ASSETS = {
         model = {
             object = {type = "Custom_Model", scale = {1.3, 1.3, 1.3}},
             custom = {
-                mesh = "https://steamusercontent-a.akamaihd.net/ugc/2494520554832153651/3BBBBF57829D54A40507584F1977D249A9DFF35C/",
-                diffuse = "https://steamusercontent-a.akamaihd.net/ugc/2494520554832154232/39A8AF0518F0ADF46E51E7E8F4552505C0CDEEF5/",
+                mesh = "https://steamusercontent-a.akamaihd.net/ugc/2494520554832150950/69C412DC1B298B496AE1A6684A3CFDD0617B84D5/",
+                diffuse = "https://steamusercontent-a.akamaihd.net/ugc/2494520554832146710/47D4CF19DDD2F7F8E87415CFBE1EC428EE69477E/",
+                material = 3
             }
         },
         instruments = {[0] = 1, 2, 2, 1, 0},
