@@ -16,7 +16,7 @@ end
 --     return JSON.encode(shipData)
 -- end
 
-function setUp()
+function setUp(player, value, id)
     
     for _, button in pairs(self.UI.getXmlTable()) do
         self.UI.setAttribute(button.attributes.id, "active", button.attributes.active == "false" and "true" or "false")
@@ -26,7 +26,6 @@ function setUp()
     local pos = self.getPosition()
     local rot = self.getRotation()
     
-    log(shipData)
     if shipData.dials then
         for name, dial in pairs(shipData.dials) do
             if not dial.GUID then
@@ -51,6 +50,7 @@ function setUp()
         myShip.addContextMenuItem('Warp Speed', function() placeWarpTemplate() end, false)
         shipData.shipGUID = myShip.getGUID()
 	end
+    myShip.setColorTint(player.color)
 end
 
 function constrainValue(value, min, max)
