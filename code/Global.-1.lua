@@ -23,7 +23,14 @@ shipSize = {
             port = {pos = Vector(0, 0, -1), rot = 270},
             starboard = {pos = Vector(0, 0, 1), rot = 90}
         },
-        arcOffsets = {bow = Vector(-0.6, 0, 0), stern = Vector(0.6, 0, 0)}
+        base = {
+            object = {type = "Custom_Model"},
+            custom = {
+                mesh = "https://steamusercontent-a.akamaihd.net/ugc/53576717526168410/1D30F105B400ED2488C1815A197CDB74DD0B003D/",
+            },
+            color = {r = 0.6666667, g = 0.6666667, b = 0.6666667}
+        },
+        arcOffsets = {bow = Vector(-0.6, 0, 0), stern = Vector(0.6, 0, 0)}, arcHeight = 0.01
     },
     medium = {
         warpAttachment = Vector(0.45, 0, 1),
@@ -33,7 +40,15 @@ shipSize = {
             port = {pos = Vector(0, 0, -1.25), rot = 270},
             starboard = {pos = Vector(0, 0, 1.25), rot = 90}
         },
-        arcOffsets = {bow = Vector(-0.8, 0, 0), stern = Vector(0.8, 0, 0)}
+        base = {
+            object = {type = "Custom_Model"},
+            custom = {
+                mesh = "https://steamusercontent-a.akamaihd.net/ugc/53576717526127504/10DB471BCAF7B08573B2933027CA095215F12ED8/",
+                diffuse = "https://steamusercontent-a.akamaihd.net/ugc/2178114146519128557/E1C0525B323F2052C54CBF7321D9EFA0F884CF5F/"
+            },
+            color = {r = 0.6666667, g = 0.6666667, b = 0.6666667}
+        },
+        arcOffsets = {bow = Vector(-0.8, 0, 0), stern = Vector(0.8, 0, 0)}, arcHeight = 0
     },
     large = {
         warpAttachment = Vector(0.45, 0, 1.25),
@@ -43,7 +58,14 @@ shipSize = {
             port = {pos = Vector(0, 0, -1.5), rot = 270},
             starboard = {pos = Vector(0, 0, 1.5), rot = 90}
         },
-        arcOffsets = {bow = Vector(-1.25, 0, 0), stern = Vector(1.25, 0, 0)}
+        base = {
+            object = {type = "Custom_Model"},
+            custom = {
+                mesh = "https://steamusercontent-a.akamaihd.net/ugc/53576717526201424/05511C65238C1083F43AA10418A752B9A8F7AA6C/",
+            },
+            color = {r = 0.6666667, g = 0.6666667, b = 0.6666667}
+        },
+        arcOffsets = {bow = Vector(-1.25, 0, 0), stern = Vector(1.25, 0, 0)}, arcHeight = 0
     }
 }
 
@@ -60,6 +82,15 @@ ARCS = { -- aft = 0, left handed coords
     fore_port = {90, 180},
     aft_port = {0, 90}
 }
+
+alertDialPos = Vector(-2.7, -0.1, 0.2)
+alertDialRot = -40
+powerDialPos = Vector(0.6, -0.1, -2.9)
+powerDialRot = 40
+crewDialPos = Vector(3.4, -0.1, 0.2)
+crewDialRot = 40
+hullDialPos = Vector(3.8, -0.1, -2.6)
+hullDialRot = 36
 
 rulerScale = 12/18.330303
 
@@ -105,31 +136,23 @@ ASSETS = {
             alert = {
                 object = {type = "Custom_Token", scale = {1.25, 1, 1.25}},
                 custom = {image = ASSET_ROOT .. "constellation_class/alert_dial.png", thickness = 0.1},
-                min = 0, max = 5, rot = -40, pos = Vector(-2.7, -0.1, 0.2)
+                min = 0, max = 5, rot = alertDialRot, pos = alertDialPos
             },
             power = {
                 object = {type = "Custom_Token", scale = {0.63, 1, 0.63}},
                 custom = {image = ASSET_ROOT .. "constellation_class/power_dial.png", thickness = 0.1},
-                min = 0, max = 7, rot = 40, pos = Vector(0.6, -0.1, -2.9)
+                min = 0, max = 7, rot = powerDialRot, pos = powerDialPos
             },
             crew = {
                 object = {type = "Custom_Token", scale = {0.85, 1, 0.85}},
                 custom = {image = ASSET_ROOT .. "constellation_class/crew_dial.png", thickness = 0.1},
-                min = -2, max = 4, rot = 40, pos = Vector(3.4, -0.1, 0.2)
+                min = -2, max = 4, rot = crewDialRot, pos = crewDialPos
             },
             hull = {
                 object = {type = "Custom_Token", scale = {0.62, 1, 0.62}},
                 custom = {image = ASSET_ROOT .. "constellation_class/hull_dial.png", thickness = 0.1},
-                min = 0, max = 8, rot = 36, pos = Vector(3.8, -0.1, -2.6)
+                min = 0, max = 8, rot = hullDialRot, pos = hullDialPos
             }
-        },
-        base = {
-            object = {type = "Custom_Model"},
-            custom = {
-                mesh = "https://steamusercontent-a.akamaihd.net/ugc/53576717526127504/10DB471BCAF7B08573B2933027CA095215F12ED8/",
-                diffuse = "https://steamusercontent-a.akamaihd.net/ugc/2178114146519128557/E1C0525B323F2052C54CBF7321D9EFA0F884CF5F/"
-            },
-            color = {r = 0.6666667, g = 0.6666667, b = 0.6666667}
         },
         model = {
             object = {type = "Custom_Model", scale = {1.25, 1.25, 1.25}},
@@ -146,28 +169,27 @@ ASSETS = {
     },
     defiant = {
         size = shipSize.small,
-        alert_dial = {
-            object = {type = "Custom_Token", scale = {1.25, 1, 1.25}},
-            custom = {image = ASSET_ROOT .. "defiant_class/alert_dial.png", thickness = 0.1}
-        },
-        power_dial = {
-            object = {type = "Custom_Token", scale = {0.63, 1, 0.63}},
-            custom = {image = ASSET_ROOT .. "defiant_class/power_dial.png", thickness = 0.1}
-        },
-        crew_dial = {
-            object = {type = "Custom_Token", scale = {0.85, 1, 0.85}},
-            custom = {image = ASSET_ROOT .. "defiant_class/crew_dial.png", thickness = 0.1}
-        },
-        hull_dial = {
-            object = {type = "Custom_Token", scale = {0.62, 1, 0.62}},
-            custom = {image = ASSET_ROOT .. "defiant_class/hull_dial.png", thickness = 0.1}
-        },
-        base = {
-            object = {type = "Custom_Model"},
-            custom = {
-                mesh = "https://steamusercontent-a.akamaihd.net/ugc/53576717526168410/1D30F105B400ED2488C1815A197CDB74DD0B003D/",
+        dials = {
+            alert = {
+                object = {type = "Custom_Token", scale = {1.25, 1, 1.25}},
+                custom = {image = ASSET_ROOT .. "defiant_class/alert_dial.png", thickness = 0.1},
+                min = 0, max = 4, rot = alertDialRot, pos = alertDialPos
             },
-            color = {r = 0.6666667, g = 0.6666667, b = 0.6666667}
+            power = {
+                object = {type = "Custom_Token", scale = {0.63, 1, 0.63}},
+                custom = {image = ASSET_ROOT .. "defiant_class/power_dial.png", thickness = 0.1},
+                min = 0, max = 6, rot = powerDialRot, pos = powerDialPos
+            },
+            crew = {
+                object = {type = "Custom_Token", scale = {0.85, 1, 0.85}},
+                custom = {image = ASSET_ROOT .. "defiant_class/crew_dial.png", thickness = 0.1},
+                min = -2, max = 4, rot = crewDialRot, pos = crewDialPos
+            },
+            hull = {
+                object = {type = "Custom_Token", scale = {0.62, 1, 0.62}},
+                custom = {image = ASSET_ROOT .. "defiant_class/hull_dial.png", thickness = 0.1},
+                min = 0, max = 7, rot = hullDialRot, pos = hullDialPos
+            }
         },
         model = {
             object = {type = "Custom_Model", scale = {1.3, 1.3, 1.3}},
@@ -183,28 +205,27 @@ ASSETS = {
     },
     galaxy = {
         size = shipSize.large,
-        alert_dial = {
-            object = {type = "Custom_Token", scale = {1.25, 1, 1.25}},
-            custom = {image = ASSET_ROOT .. "defiant_class/alert_dial.png", thickness = 0.1}
-        },
-        power_dial = {
-            object = {type = "Custom_Token", scale = {0.63, 1, 0.63}},
-            custom = {image = ASSET_ROOT .. "defiant_class/power_dial.png", thickness = 0.1}
-        },
-        crew_dial = {
-            object = {type = "Custom_Token", scale = {0.85, 1, 0.85}},
-            custom = {image = ASSET_ROOT .. "defiant_class/crew_dial.png", thickness = 0.1}
-        },
-        hull_dial = {
-            object = {type = "Custom_Token", scale = {0.62, 1, 0.62}},
-            custom = {image = ASSET_ROOT .. "defiant_class/hull_dial.png", thickness = 0.1}
-        },
-        base = {
-            object = {type = "Custom_Model"},
-            custom = {
-                mesh = "https://steamusercontent-a.akamaihd.net/ugc/53576717526201424/05511C65238C1083F43AA10418A752B9A8F7AA6C/",
+        dials = {
+            alert = {
+                object = {type = "Custom_Token", scale = {1.25, 1, 1.25}},
+                custom = {image = ASSET_ROOT .. "galaxy_class/alert_dial.png", thickness = 0.1},
+                min = 0, max = 6, rot = alertDialRot, pos = alertDialPos
             },
-            color = {r = 0.6666667, g = 0.6666667, b = 0.6666667}
+            power = {
+                object = {type = "Custom_Token", scale = {0.63, 1, 0.63}},
+                custom = {image = ASSET_ROOT .. "galaxy_class/power_dial.png", thickness = 0.1},
+                min = 0, max = 8, rot = powerDialRot, pos = powerDialPos
+            },
+            crew = {
+                object = {type = "Custom_Token", scale = {0.85, 1, 0.85}},
+                custom = {image = ASSET_ROOT .. "galaxy_class/crew_dial.png", thickness = 0.1},
+                min = -2, max = 5, rot = crewDialRot, pos = crewDialPos
+            },
+            hull = {
+                object = {type = "Custom_Token", scale = {0.62, 1, 0.62}},
+                custom = {image = ASSET_ROOT .. "galaxy_class/hull_dial.png", thickness = 0.1},
+                min = 0, max = 9, rot = hullDialRot, pos = hullDialPos
+            }
         },
         model = {
             object = {type = "Custom_Model", scale = {1.4, 1.4, 1.4}},
@@ -237,7 +258,7 @@ function spawnAsset(param)
 end
 
 function spawnModel(param)
-    local base = spawnAsset(param.base)
+    local base = spawnAsset(param.size.base)
     local model = spawnAsset(param.model)
     base.addAttachment(model)
     base.addTag("Ship")
