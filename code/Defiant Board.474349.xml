@@ -233,20 +233,6 @@
     Comms
 </Button>
 
-<Button  
-    active="false"
-    id="moveBtnLeft" 
-    onClick="impulseMoveStart" 
-    fontSize="12" 
-    color="#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)" 
-    width="70" 
-    height="20" 
-    rectAlignment="UpperLeft" 
-    position="-110 -225 -2"
-    rotation="0 0 180">
-    Impulse
-</Button>
-
 <Button
     active="false"
     id="clear"
