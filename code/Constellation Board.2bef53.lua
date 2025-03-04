@@ -1,13 +1,13 @@
 --Federation Constellation Class
 
-shipData = Global.getTable("ASSETS").constellation
+default = Global.getTable("ASSETS").constellation
 
 function onLoad(script_state)
     -- local state = JSON.decode(script_state)
     if state then
         shipData = state
     else
-        shipData = Global.getTable("ASSETS").constellation
+        shipData = default
     end
 end
 
@@ -25,15 +25,17 @@ function setUp()
     local pos = self.getPosition()
     local rot = self.getRotation()
     
-    for name, dial in pairs(shipData.dials) do
-        if not dial.GUID then
-            local object = Global.call("spawnAsset", dial)
-            dial.GUID = object.getGUID()
-            dial.value = 0
-            object.setPosition(pos +  Vector(dial.pos):rotateOver("y", rot.y))
-            object.setRotation(rot)
-            object.interactable = false
-            object.jointTo(self, {type = "Fixed"})
+    if shipData.dials then
+        for name, dial in pairs(shipData.dials) do
+            if not dial.GUID then
+                local object = Global.call("spawnAsset", dial)
+                dial.GUID = object.getGUID()
+                dial.value = 0
+                object.setPosition(pos +  Vector(dial.pos):rotateOver("y", rot.y))
+                object.setRotation(rot)
+                object.interactable = false
+                object.jointTo(self, {type = "Fixed"})
+            end
         end
     end
 
