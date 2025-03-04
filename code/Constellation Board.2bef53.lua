@@ -3,7 +3,7 @@
 shipData = Global.getTable("ASSETS").constellation
 
 function onLoad(script_state)
-    local state = JSON.decode(script_state)
+    -- local state = JSON.decode(script_state)
     if state then
         shipData = state
     else
@@ -121,15 +121,19 @@ function impulseMoveRight() placeToolToShipRight() end
 -- Turning tool
 
 function placeTurningTool(side)
+    if template then
+        template.destroy()
+    end
     myShip.clearButtons()
     myShip.lock()
     shipDirection = side
+    log(side)
     local attachment = shipData.size.toolAttachment[side]
     local pos = myShip.getPosition()
-    local rot = myShip.getRotation().y + attachment.rot
+    local rot = myShip.getRotation().y
     template = Global.call("spawnTurningTool")
     template.setPosition(pos + Vector(attachment.pos):rotateOver("y", rot))
-    template.setRotation({0, rot, 0})
+    template.setRotation({0, rot + attachment.rot, 0})
     template.jointTo(myShip, {type = "Hinge", collision = false, break_force = 1000.0, axis = {0,1,0}, anchor = {0,0,0}})
 end
 
@@ -171,7 +175,7 @@ function positionRuler(direction)
     template.clearButtons()
 	template.createButton({ click_function = "positionShip",function_owner = self,label= "Place", position= {.2, .2, 0},rotation= {0, 90, 0},width= 300,height= 200,font_size= 95,color= {1,1,1},font_color= {0,0,0}, tooltip= "Place Ruler aliened with template",})
     template.jointTo()
-    template.jointTo(myShip, {type = "Hinge", collision = false, break_force = 100.0, axis = {0,1,0}, anchor = {0,0,0}})
+    template.jointTo(myShip, {type = "Hinge", collision = false, break_force = 200.0, axis = {0,1,0}, anchor = {0,0,0}})
 	print("Adjust template along the ruler before placing ship")
 end
 
@@ -221,6 +225,7 @@ function clearWarp()
 end
 
 function placeWarpTemplate()
+    myShip.unlock()
     local pos = myShip.getPosition()
     local angle = myShip.getRotation().y
     local offset = shipData.size.warpAttachment:copy():rotateOver("y", angle)
@@ -290,7 +295,8 @@ function drawArc(system, jammed) -- system is "sensors", "comms", "weapons"
         } 
         --]]
     for arc, range in pairs(arcs) do
-        local origin = shipData.size.arcOffsets[arc] or Vector(0, 0, 0)
+        local origin = Vector(shipData.size.arcOffsets[arc]) or Vector(0, 0, 0)
+        origin.y = origin.y + shipData.size.arcHeight
         if ARCS[arc] then
             -- Calculate range
             if jammed and system ~= "weapons" then
