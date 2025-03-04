@@ -15,6 +15,23 @@ require("vscode/console")
 -- Constants: DO NOT MODIFY
 
 shipSize = {
+    shuttle = {
+        bounds = Vector(1.5, 0, 0.75), arcHeight = 0.01,
+        warpAttachment = Vector(0.26, 0, 0.26),
+        toolAttachment = {
+            fore = {pos = Vector(-1.125, 0 , 0), rot = 0},
+            aft = {pos = Vector(1.125, 0, 0), rot = 180},
+            port = {pos = Vector(0, 0, -0.75), rot = 270},
+            starboard = {pos = Vector(0, 0, 0.75), rot = 90}
+        },
+        base = {
+            object = {type = "Custom_Model"},
+            custom = {
+                mesh = "https://steamusercontent-a.akamaihd.net/ugc/53576717526307309/9D1EED059774E729E68F7FD44622D28361B4B800/"
+            },
+            color = {r = 0.6666667, g = 0.6666667, b = 0.6666667}
+        }
+    },
     small = {
         warpAttachment = Vector(0.4, 0, 0.75),
         toolAttachment = {
@@ -26,7 +43,7 @@ shipSize = {
         base = {
             object = {type = "Custom_Model"},
             custom = {
-                mesh = "https://steamusercontent-a.akamaihd.net/ugc/53576717526168410/1D30F105B400ED2488C1815A197CDB74DD0B003D/",
+                mesh = "https://steamusercontent-a.akamaihd.net/ugc/53576717526168410/1D30F105B400ED2488C1815A197CDB74DD0B003D/"
             },
             color = {r = 0.6666667, g = 0.6666667, b = 0.6666667}
         },
@@ -63,7 +80,7 @@ shipSize = {
         base = {
             object = {type = "Custom_Model"},
             custom = {
-                mesh = "https://steamusercontent-a.akamaihd.net/ugc/53576717526201424/05511C65238C1083F43AA10418A752B9A8F7AA6C/",
+                mesh = "https://steamusercontent-a.akamaihd.net/ugc/53576717526201424/05511C65238C1083F43AA10418A752B9A8F7AA6C/"
             },
             color = {r = 0.6666667, g = 0.6666667, b = 0.6666667}
         },
@@ -340,6 +357,54 @@ ASSETS = {
         sensors = {all = 4, fore = 4, instruments = {fore = true}},
         comms = {all = 4, fore = 4, instruments = {fore = true}},
         weapons = {fore = 6, aft = 6}
+    },
+    raider = {
+        size = shipSize.medium,
+        model = {
+            object = {type = "Custom_Model", scale = {0.325, 0.325, 0.325}, rotation = Vector(0, 270, 0), position = Vector(0, 0.6, 0)},
+            custom = {
+                mesh = "https://steamusercontent-a.akamaihd.net/ugc/53577344279444585/E56B677AB6878EC0D3BD2ADED937605A8905F4C3/",
+                diffuse = "https://steamusercontent-a.akamaihd.net/ugc/53577344279442944/BE82D9B7034C40CCADF25A7A7F417529E61EADA4/",
+                material = 3
+            }
+        },
+        sensors = {all = 3}, comms = {all = 3}, weapons = {all = 4, fore = 4}
+    },
+    tinman = {
+        size = shipSize.medium,
+        model = {
+            object = {type = "Custom_Model", position = Vector(0, 0.9, 0)},
+            custom = {
+                mesh = "https://steamusercontent-a.akamaihd.net/ugc/53576717526329081/C729B852A790FCE7F01B760E7CD7FB17ED7B97F8/",
+                diffuse = "https://steamusercontent-a.akamaihd.net/ugc/53576717526329354/A2DD2DF77F339B7333BB592FD91994828CBC5414/",
+                material = 3
+            }
+        },
+        sensors = {all = 3}, comms = {all = 3}, weapons = {all = 4, fore = 4}
+    },
+    type6 = {
+        size = shipSize.shuttle,
+        model = {
+            object = {type = "Custom_Model", position = Vector(0, 0.5, 0)},
+            custom = {
+                mesh = "https://steamusercontent-a.akamaihd.net/ugc/53576717526297170/7FC0CE312347706553961DDFCF6C09715F79B166/",
+                diffuse = "https://steamusercontent-a.akamaihd.net/ugc/266097180323590983/EA286E18C1A7A2CD610F1A3B7902851A4241E4FA/",
+                material = 3
+            }
+        },
+        sensors = {all = 3}, comms = {all = 3}, weapons = {all = 4}
+    },
+    runabout = {
+        size = shipSize.shuttle,
+        model = {
+            object = {type = "Custom_Model", position = Vector(0, 0.25, 0), rotation = Vector(0, 90, 0), scale = Vector(0.25, 0.25, 0.25)},
+            custom = {
+                mesh = "https://steamusercontent-a.akamaihd.net/ugc/53576717526304134/DB1ADB191E99797F900FD3A1228B151D239D5D4C/",
+                diffuse = "https://steamusercontent-a.akamaihd.net/ugc/53576717520828632/E49B298BE4BC446C9EFA549A40C6383E5EE6F80F/",
+                material = 3
+            }
+        },
+        sensors = {all = 3}, comms = {all = 3}, weapons = {all = 4}
     }
 }
 
@@ -364,6 +429,9 @@ end
 
 function spawnModel(param)
     local base = spawnAsset(param.size.base)
+    if param.model.object.position then
+        param.model.object.position = base.getPosition() + param.model.object.position
+    end
     local model = spawnAsset(param.model)
     base.addAttachment(model)
     base.addTag("Ship")
