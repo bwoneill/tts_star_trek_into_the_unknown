@@ -16,7 +16,7 @@
     active="false"
     id="phaserBtn" 
     onClick="firePhaser" 
-    fontSize="12" 
+    fontSize="10" 
     color="#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)" 
     width="40" 
     height="20" 
@@ -31,7 +31,7 @@
     active="false"
     id="warpBtn" 
     onClick="placeWarpTemplate" 
-    fontSize="12" 
+    fontSize="10" 
     color="#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)" 
     width="40" 
     height="20" 
@@ -45,7 +45,7 @@
     active="false"
     id="impulsBtn" 
     onClick="impulseMoveStart" 
-    fontSize="12" 
+    fontSize="10" 
     color="#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)" 
     width="50" 
     height="20" 
@@ -68,4 +68,18 @@
     position="-40 120 -30"
     rotation="0 0 180">
     Scan
+</Button>
+
+<Button
+    active="false"
+    id="clear"
+    onClick="clearArc"
+    fontSize="10" 
+    color="#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)" 
+    width="40" 
+    height="20" 
+    rectAlignment="UpperLeft" 
+    position="40 120 -30"
+    rotation="0 0 180">
+    Clear
 </Button>
