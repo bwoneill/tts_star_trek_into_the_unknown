@@ -16,28 +16,10 @@ function onSave()
 end
 
 function setUp()
-
-    self.UI.setAttribute("setUpBtn", "active", "false")
     
-    self.UI.setAttribute("alertUpBtn", "active", "true")
-    self.UI.setAttribute("alertDownBtn", "active", "true")
-    self.UI.setAttribute("powerUpBtn", "active", "true")
-    self.UI.setAttribute("powerDownBtn", "active", "true")
-    self.UI.setAttribute("healthUpBtn", "active", "true")
-    self.UI.setAttribute("healthDownBtn", "active", "true")
-    self.UI.setAttribute("crewUpBtn", "active", "true")
-    self.UI.setAttribute("crewDownBtn", "active", "true")
-    self.UI.setAttribute("phaserBtn", "active", "true")
-    self.UI.setAttribute("torpedoBtnF", "active", "true")
-    self.UI.setAttribute("torpedoBtnA", "active", "true")
-    self.UI.setAttribute("warpBtn", "active", "true")
-    self.UI.setAttribute("moveBtnLeft", "active", "true")
-    self.UI.setAttribute("moveBtnRight", "active", "true")
-    self.UI.setAttribute("scanBtn", "active", "true")
-    self.UI.setAttribute("commsBtn", "active", "true")
-    self.UI.setAttribute("clear", "active", "true")
-    self.UI.setAttribute("scanJammed", "active", "true")
-    self.UI.setAttribute("commsJammed", "active", "true")
+    for _, button in pairs(self.UI.getXmlTable()) do
+        self.UI.setAttribute(button.attributes.id, "active", button.attributes.active == "false" and "true" or "false")
+    end
 
     -- Get the board's current position and rotation
     local pos = self.getPosition()
@@ -121,9 +103,6 @@ function impulseMoveRight() placeToolToShipRight() end
 -- Turning tool
 
 function placeTurningTool(side)
-    if template then
-        template.destroy()
-    end
     myShip.clearButtons()
     myShip.lock()
     shipDirection = side
@@ -215,10 +194,6 @@ function clearTemplates()
     template.destroy()
 end
 
-function clearTemplatesA()
-    template.destroy()
-end
-
 function clearWarp() 
     rulerA.destroy() 
     rulerB.destroy() 
@@ -254,7 +229,7 @@ function fireTorpedoAft() fireTorpedo("aft") end
 
 function fireTorpedo(direction)
     placeTurningTool(direction)
-	template.createButton({ click_function = "clearTemplatesA",function_owner = self,label= "Clear", position= {.8, .2, 0},rotation= {0, 180, 0},width= 300,height= 200,font_size= 95,color= {1,1,1},font_color= {0,0,0}, tooltip= "Place Ruler aliened with template",})
+	template.createButton({ click_function = "clearTemplates",function_owner = self,label= "Clear", position= {.8, .2, 0},rotation= {0, 180, 0},width= 300,height= 200,font_size= 95,color= {1,1,1},font_color= {0,0,0}, tooltip= "Place Ruler aliened with template",})
 end
 
 -- Single Primary Arc Drawing Code (Solid Outer Arc Only, 6" from the object's front edge)
@@ -283,7 +258,7 @@ function drawArc(system, jammed) -- system is "sensors", "comms", "weapons"
     local arcs = shipData[system]
     local ARCS = Global.getVar("ARCS")
     local clr = myShip.getColorTint()
-    local size = myShip.getBoundsNormalized().size
+    local size = shipData.size.bounds
     local lines = {}
     --[[ Axis overlay
         local v = Vector(1,1,0)
