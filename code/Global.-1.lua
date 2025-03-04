@@ -262,6 +262,78 @@ ASSETS = {
             comms = {all = 6, bow = 8},
             weapons = {fore = 6}
         }
+    },
+    jh_fighter = {
+        size = shipSize.small,
+        dials = {
+            alert = {
+                object = {type = "Custom_Token", scale = {1.25, 1, 1.25}},
+                custom = {image = ASSET_ROOT .. "jh_fighter/alert_dial.png", thickness = 0.1},
+                min = 0, max = 4, rot = alertDialRot, pos = alertDialPos
+            },
+            power = {
+                object = {type = "Custom_Token", scale = {0.63, 1, 0.63}},
+                custom = {image = ASSET_ROOT .. "jh_fighter/power_dial.png", thickness = 0.1},
+                min = 0, max = 6, rot = powerDialRot, pos = powerDialPos
+            },
+            crew = {
+                object = {type = "Custom_Token", scale = {0.85, 1, 0.85}},
+                custom = {image = ASSET_ROOT .. "jh_fighter/crew_dial.png", thickness = 0.1},
+                min = -2, max = 4, rot = crewDialRot, pos = crewDialPos
+            },
+            hull = {
+                object = {type = "Custom_Token", scale = {0.62, 1, 0.62}},
+                custom = {image = ASSET_ROOT .. "jh_fighter/hull_dial.png", thickness = 0.1},
+                min = 0, max = 6, rot = hullDialRot, pos = hullDialPos
+            }
+        },
+        model = {
+            object = {type = "Custom_Model", scale = {1.3, 1.3, 1.3}},
+            custom = {
+                mesh = "https://steamusercontent-a.akamaihd.net/ugc/2494520554832153651/3BBBBF57829D54A40507584F1977D249A9DFF35C/",
+                diffuse = "https://steamusercontent-a.akamaihd.net/ugc/2494520554832154232/39A8AF0518F0ADF46E51E7E8F4552505C0CDEEF5/",
+            }
+        },
+        instruments = {[0] = 1, 2, 2, 1, 0},
+        sensors = {all = 4, fore = 4, instruments = {fore = true}},
+        comms = {all = 4, fore = 4, instruments = {fore = true}},
+        weapons = {fore = 6, aft = 6}
+    },
+    jh_battlecruiser = {
+        size = shipSize.large,
+        dials = {
+            alert = {
+                object = {type = "Custom_Token", scale = {1.25, 1, 1.25}},
+                custom = {image = ASSET_ROOT .. "jh_battlecruiser/alert_dial.png", thickness = 0.1},
+                min = 0, max = 4, rot = alertDialRot, pos = alertDialPos
+            },
+            power = {
+                object = {type = "Custom_Token", scale = {0.63, 1, 0.63}},
+                custom = {image = ASSET_ROOT .. "jh_battlecruiser/power_dial.png", thickness = 0.1},
+                min = 0, max = 6, rot = powerDialRot, pos = powerDialPos
+            },
+            crew = {
+                object = {type = "Custom_Token", scale = {0.85, 1, 0.85}},
+                custom = {image = ASSET_ROOT .. "jh_battlecruiser/crew_dial.png", thickness = 0.1},
+                min = -2, max = 4, rot = crewDialRot, pos = crewDialPos
+            },
+            hull = {
+                object = {type = "Custom_Token", scale = {0.62, 1, 0.62}},
+                custom = {image = ASSET_ROOT .. "jh_battlecruiser/hull_dial.png", thickness = 0.1},
+                min = 0, max = 6, rot = hullDialRot, pos = hullDialPos
+            }
+        },
+        model = {
+            object = {type = "Custom_Model", scale = {1.3, 1.3, 1.3}},
+            custom = {
+                mesh = "https://steamusercontent-a.akamaihd.net/ugc/2494520554832153651/3BBBBF57829D54A40507584F1977D249A9DFF35C/",
+                diffuse = "https://steamusercontent-a.akamaihd.net/ugc/2494520554832154232/39A8AF0518F0ADF46E51E7E8F4552505C0CDEEF5/",
+            }
+        },
+        instruments = {[0] = 1, 2, 2, 1, 0},
+        sensors = {all = 4, fore = 4, instruments = {fore = true}},
+        comms = {all = 4, fore = 4, instruments = {fore = true}},
+        weapons = {fore = 6, aft = 6}
     }
 }
 
