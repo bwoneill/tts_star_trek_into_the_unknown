@@ -30,7 +30,8 @@ shipSize = {
             },
             color = {r = 0.6666667, g = 0.6666667, b = 0.6666667}
         },
-        arcOffsets = {bow = Vector(-0.6, 0, 0), stern = Vector(0.6, 0, 0)}, arcHeight = 0.01
+        arcOffsets = {bow = Vector(-0.6, 0, 0), stern = Vector(0.6, 0, 0)}, arcHeight = 0.01,
+        bounds = Vector(2.125, 0, 1.5)
     },
     medium = {
         warpAttachment = Vector(0.45, 0, 1),
@@ -48,7 +49,8 @@ shipSize = {
             },
             color = {r = 0.6666667, g = 0.6666667, b = 0.6666667}
         },
-        arcOffsets = {bow = Vector(-0.8, 0, 0), stern = Vector(0.8, 0, 0)}, arcHeight = 0
+        arcOffsets = {bow = Vector(-0.8, 0, 0), stern = Vector(0.8, 0, 0)}, arcHeight = 0,
+        bounds = Vector(3.5, 0, 2)
     },
     large = {
         warpAttachment = Vector(0.45, 0, 1.25),
@@ -65,7 +67,8 @@ shipSize = {
             },
             color = {r = 0.6666667, g = 0.6666667, b = 0.6666667}
         },
-        arcOffsets = {bow = Vector(-1.25, 0, 0), stern = Vector(1.25, 0, 0)}, arcHeight = 0
+        arcOffsets = {bow = Vector(-1.25, 0, 0), stern = Vector(1.25, 0, 0)}, arcHeight = 0.01,
+        bounds = Vector(5, 0, 2.5)
     }
 }
 
@@ -234,7 +237,31 @@ ASSETS = {
                 diffuse = "https://steamusercontent-a.akamaihd.net/ugc/2098172801144611875/56E14416EBAFD15A8AD905B26C5A61B5801F570E/",
             }
         },
-        instruments = {3, 3, 2, 2, 1, 1, 0}
+        instruments = {3, 3, 2, 2, 1, 1, 0},
+        sensors = {all = 4, bow = 4, instruments = {bow = true}},
+        comms = {all = 6, bow = 6, instruments = {bow = true}},
+        weapons = {fore = 6, aft = 6},
+        alternate = {
+            dials = {alert = {min = 1, max = 5}, crew = {min = 1, max = 5}},
+            model = {type = "Custom_Model", scale = {1.3, 1.3, 1.3}},
+            custom = {
+                mesh = "https://steamusercontent-a.akamaihd.net/ugc/2494520554830159870/13CCD3CD564237EBFC610A34D84A548C81B60DCF/",
+                diffuse = "https://steamusercontent-a.akamaihd.net/ugc/2098172801144611875/56E14416EBAFD15A8AD905B26C5A61B5801F570E/"
+            },
+            sensors = {all = 2, bow = 4, instruments = {bow = true}},
+            comms = {all = 2, bow = 4, instruments = {bow = true}}
+        },
+        auxiliary = {
+            size = shipSize.medium,
+            model = {type = "Custom_Model", scale = {1.3, 1.3, 1.3}},
+            custom = {
+                mesh = "https://steamusercontent-a.akamaihd.net/ugc/2494520554830188072/006E5758D4D2FE12D925278A4B827420882B85EA/",
+                diffuse = "https://steamusercontent-a.akamaihd.net/ugc/2098172801144611875/56E14416EBAFD15A8AD905B26C5A61B5801F570E/"
+            },
+            sensors = {all = 4, bow = 6},
+            comms = {all = 6, bow = 8},
+            weapons = {fore = 6}
+        }
     }
 }
 
