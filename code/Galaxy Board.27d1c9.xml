@@ -195,8 +195,8 @@
 
 <Button  
     active="false"
-    id="detachBtn" 
-    onClick="detachSaucer" 
+    id="saucerSeparation" 
+    onClick="detach" 
     fontSize="12" 
     color="#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)" 
     width="60" 
@@ -204,7 +204,7 @@
     rectAlignment="UpperLeft" 
     position="-110 -135 -2"
     rotation="0 0 180">
-    Detach (WIP)
+    Detach
 </Button>
 
 
