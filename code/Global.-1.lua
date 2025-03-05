@@ -114,13 +114,104 @@ hullDialRot = 36
 
 rulerScale = 12/18.330303
 
--- Ship scripts
+saucerXml = [[<Button 
+    id="setUpBtn" 
+    onClick="auxiliarySetup" 
+    fontSize="20" 
+    color="#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)" 
+    width="100" 
+    height="50" 
+    rectAlignment="UpperLeft" 
+    position="0 -80 -30"
+    rotation="0 0 180">
+    Deploy
+</Button>
 
-SHIP_BOARD_SCRIPT = "-- test"
 
--- Ship UI
+<Button  
+    active="false"
+    id="phaserBtn" 
+    onClick="firePhaser" 
+    fontSize="10" 
+    color="#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)" 
+    width="50" 
+    height="20" 
+    rectAlignment="UpperLeft" 
+    position="20 66 -30"
+    rotation="0 0 180">
+    Fire
+</Button>
 
-SHIP_BOARD_XML = "<Button \n id=\"setUpBtn\" \n onClick=\"setUp\" \n fontSize=\"20\" \n color=\"#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)\" \n width=\"200\" \n height=\"50\" \n rectAlignment=\"UpperLeft\" \n position=\"350 0 -2\"\n rotation=\"0 0 180\">\n Deploy\n</Button>\n\n<Button \n active=\"false\"\n id=\"alertUpBtn\" \n onClick=\"alertUp\" \n fontSize=\"12\" \n color=\"#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)\" \n width=\"100\" \n height=\"30\" \n rectAlignment=\"UpperLeft\" \n position=\"-480 -50 -2\"\n rotation=\"0 0 180\">\n Raise Alert\n</Button>\n<Button \n active=\"false\"\n id=\"alertDownBtn\" \n onClick=\"alertDown\" \n fontSize=\"12\" \n color=\"#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)\" \n width=\"100\" \n height=\"30\" \n rectAlignment=\"UpperLeft\" \n position=\"-480 40 -2\"\n rotation=\"0 0 180\">\n Lower Alert\n</Button>\n\n<Button \n active=\"false\"\n id=\"powerUpBtn\" \n onClick=\"powerUp\" \n fontSize=\"12\" \n color=\"#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)\" \n width=\"100\" \n height=\"30\" \n rectAlignment=\"UpperLeft\" \n position=\"10 -400 -2\"\n rotation=\"0 0 180\">\n Add Power\n</Button>\n<Button \n active=\"false\"\n id=\"powerDownBtn\" \n onClick=\"powerDown\" \n fontSize=\"12\" \n color=\"#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)\" \n width=\"100\" \n height=\"30\" \n rectAlignment=\"UpperLeft\" \n position=\"10 -370 -2\"\n rotation=\"0 0 180\">\n Spend Power\n</Button>\n\n<Button \n active=\"false\"\n id=\"healthUpBtn\" \n onClick=\"hullUp\" \n fontSize=\"12\" \n color=\"#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)\" \n width=\"100\" \n height=\"30\" \n rectAlignment=\"UpperLeft\" \n position=\"500 -320 -2\"\n rotation=\"0 0 180\">\n Repair\n</Button>\n \n<Button \n active=\"false\"\n id=\"healthDownBtn\" \n onClick=\"hullDown\" \n fontSize=\"12\" \n color=\"#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)\" \n width=\"100\" \n height=\"30\" \n rectAlignment=\"UpperLeft\" \n position=\"500 -200 -2\"\n rotation=\"0 0 180\">\n Damage\n</Button>\n\n<Button \n active=\"false\"\n id=\"crewUpBtn\" \n onClick=\"crewUp\" \n fontSize=\"12\" \n color=\"#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)\" \n width=\"100\" \n height=\"30\" \n rectAlignment=\"UpperLeft\" \n position=\"500 -90 -2\"\n rotation=\"0 0 180\">\n Boost Moral\n</Button>\n\n<Button \n active=\"false\"\n id=\"crewDownBtn\" \n onClick=\"crewDown\" \n fontSize=\"12\" \n color=\"#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)\" \n width=\"100\" \n height=\"30\" \n rectAlignment=\"UpperLeft\" \n position=\"500 55 -2\"\n rotation=\"0 0 180\">\n Lose Moral\n</Button>\n\n\n\n<Button \n active=\"false\"\n id=\"phaserBtn\" \n onClick=\"firePhaser\" \n fontSize=\"12\" \n color=\"#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)\" \n width=\"40\" \n height=\"20\" \n rectAlignment=\"UpperLeft\" \n position=\"205 195 -2\"\n rotation=\"0 0 180\">\n Fire\n</Button>\n<Button \n active=\"false\"\n id=\"torpedoBtnF\" \n onClick=\"fireTorpedoFore\" \n fontSize=\"12\" \n color=\"#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)\" \n width=\"40\" \n height=\"20\" \n rectAlignment=\"UpperLeft\" \n position=\"205 245 -2\"\n rotation=\"0 0 180\">\n Fore\n</Button>\n\n<Button \n active=\"false\"\n id=\"torpedoBtnA\" \n onClick=\"fireTorpedoAft\" \n fontSize=\"12\" \n color=\"#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)\" \n width=\"40\" \n height=\"20\" \n rectAlignment=\"UpperLeft\" \n position=\"205 270 -2\"\n rotation=\"0 0 180\">\n Aft\n</Button>\n\n<Button \n active=\"false\"\n id=\"warpBtn\" \n onClick=\"placeWarpTemplate\" \n fontSize=\"12\" \n color=\"#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)\" \n width=\"40\" \n height=\"20\" \n rectAlignment=\"UpperLeft\" \n position=\"-25 -300 -2\"\n rotation=\"0 0 180\">\n Warp\n</Button>\n\n\n<Button \n active=\"false\"\n id=\"moveBtnLeft\" \n onClick=\"impulseMoveStart\" \n fontSize=\"12\" \n color=\"#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)\" \n width=\"70\" \n height=\"20\" \n rectAlignment=\"UpperLeft\" \n position=\"-110 -225 -2\"\n rotation=\"0 0 180\">\n Impulse\n</Button>\n\n\n<Button \n active=\"false\"\n id=\"scanBtn\" \n onClick=\"scanCheck\" \n fontSize=\"10\" \n color=\"#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)\" \n width=\"50\" \n height=\"20\" \n rectAlignment=\"UpperLeft\" \n position=\"-120 155 -2\"\n rotation=\"0 0 180\">\n Sensors\n</Button>\n\n<Button \n active=\"false\"\n id=\"commsBtn\" \n onClick=\"hailCheck\" \n fontSize=\"10\" \n color=\"#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)\" \n width=\"50\" \n height=\"20\" \n rectAlignment=\"UpperLeft\" \n position=\"-120 185 -2\"\n rotation=\"0 0 180\">\n Comms\n</Button>\n\n<Button\n active=\"false\"\n id=\"clear\"\n onClick=\"clearArc\"\n fontSize=\"10\" \n color=\"#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)\" \n width=\"50\" \n height=\"20\" \n rectAlignment=\"UpperLeft\" \n position=\"-120 125 -2\"\n rotation=\"0 0 180\">\n Clear\n</Button>\n\n<Button \n active=\"false\"\n id=\"scanJammed\" \n onClick=\"sensorsJammed\" \n fontSize=\"10\" \n color=\"#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)\" \n width=\"100\" \n height=\"20\" \n rectAlignment=\"UpperLeft\" \n position=\"-370 155 -2\"\n rotation=\"0 0 180\">\n Senosrs Jammed\n</Button>\n\n<Button \n active=\"false\"\n id=\"commsJammed\" \n onClick=\"commsJammed\" \n fontSize=\"10\" \n color=\"#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)\" \n width=\"100\" \n height=\"20\" \n rectAlignment=\"UpperLeft\" \n position=\"-370 185 -2\"\n rotation=\"0 0 180\">\n Comms Jammed\n</Button>"
+
+<Button  
+    active="false"
+    id="warpBtn" 
+    onClick="placeWarpTemplate" 
+    fontSize="10" 
+    color="#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)" 
+    width="40" 
+    height="20" 
+    rectAlignment="UpperLeft" 
+    position="-20 -70 -30"
+    rotation="0 0 180">
+    Warp
+</Button>
+
+<Button  
+    active="false"
+    id="impulsBtn" 
+    onClick="impulseMoveStart" 
+    fontSize="10" 
+    color="#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)" 
+    width="50" 
+    height="20" 
+    rectAlignment="UpperLeft" 
+    position="-20 -90 -30"
+    rotation="0 0 180">
+    Impulse
+</Button>
+
+<Button  
+    active="false"
+    id="scanBtn" 
+    onClick="scanCheck" 
+    fontSize="10" 
+    color="#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)" 
+    width="50" 
+    height="20" 
+    rectAlignment="UpperLeft" 
+    position="20 20 -30"
+    rotation="0 0 180">
+    Sensors
+</Button>
+
+<Button  
+    active="false"
+    id="commsBtn" 
+    onClick="hailCheck" 
+    fontSize="10" 
+    color="#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)" 
+    width="50" 
+    height="20" 
+    rectAlignment="UpperLeft" 
+    position="20 43 -30"
+    rotation="0 0 180">
+    Comms
+</Button>
+
+<Button
+    active="false"
+    id="clear"
+    onClick="clearArc"
+    fontSize="10" 
+    color="#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)" 
+    width="40" 
+    height="20" 
+    rectAlignment="UpperLeft" 
+    position="20 120 -30"
+    rotation="0 0 180">
+    Clear
+</Button>]]
 
 -- Assets
 
@@ -261,27 +352,47 @@ ASSETS = {
         comms = {all = 6, bow = 6, instruments = {bow = true}},
         weapons = {fore = 6, aft = 6},
         alternate = {
-            dials = {alert = {min = 1, max = 5}, crew = {min = 1, max = 5}},
-            model = {type = "Custom_Model", scale = {1.3, 1.3, 1.3}},
-            custom = {
-                mesh = "https://steamusercontent-a.akamaihd.net/ugc/2494520554830159870/13CCD3CD564237EBFC610A34D84A548C81B60DCF/",
-                diffuse = "https://steamusercontent-a.akamaihd.net/ugc/2098172801144611875/56E14416EBAFD15A8AD905B26C5A61B5801F570E/",
-                material = 3
+            dials = {alert = {min = 1, max = 5}, crew = {min = 2, max = 5}},
+            model = {
+                custom = {
+                    mesh = "https://steamusercontent-a.akamaihd.net/ugc/2494520554830159870/13CCD3CD564237EBFC610A34D84A548C81B60DCF/",
+                    diffuse = "https://steamusercontent-a.akamaihd.net/ugc/2098172801144611875/56E14416EBAFD15A8AD905B26C5A61B5801F570E/",
+                    material = 3
+                }
             },
             sensors = {all = 2, bow = 4, instruments = {bow = true}},
             comms = {all = 2, bow = 4, instruments = {bow = true}}
         },
+        alt_card = {
+            object = {type = "CardCustom", scale = {1.4, 0, 1.4}},
+            custom = {
+                type = 0, sideways = true,
+                face = "https://steamusercontent-a.akamaihd.net/ugc/53575902106857057/D2C95DA140FA61C59D2DCD00F1B4E7B9425BB85F/",
+                back = "https://steamusercontent-a.akamaihd.net/ugc/53575902106857266/33AF0CFA558C411F3B1A36435D245447704D1E36/"
+            }
+        },
         auxiliary = {
             size = shipSize.medium,
-            model = {type = "Custom_Model", scale = {1.3, 1.3, 1.3}},
-            custom = {
-                mesh = "https://steamusercontent-a.akamaihd.net/ugc/2494520554830188072/006E5758D4D2FE12D925278A4B827420882B85EA/",
-                diffuse = "https://steamusercontent-a.akamaihd.net/ugc/2098172801144611875/56E14416EBAFD15A8AD905B26C5A61B5801F570E/",
-                material = 3
+            model = {
+                object = {type = "Custom_Model", scale = {1.4, 1.4, 1.4}},
+                custom = {
+                    mesh = "https://steamusercontent-a.akamaihd.net/ugc/2494520554830188072/006E5758D4D2FE12D925278A4B827420882B85EA/",
+                    diffuse = "https://steamusercontent-a.akamaihd.net/ugc/2098172801144611875/56E14416EBAFD15A8AD905B26C5A61B5801F570E/",
+                    material = 3
+                }
             },
             sensors = {all = 4, bow = 6},
             comms = {all = 6, bow = 8},
             weapons = {fore = 6}
+        },
+        aux_card = {
+            object = {type = "CardCustom", scale = {1.4, 0, 1.4}},
+            custom = {
+                type = 0, sideways = true,
+                face = "https://steamusercontent-a.akamaihd.net/ugc/53575902106856618/1495F8282200AD1EA5BE70DE49C75DDF4AEB54F1/",
+                back = "https://steamusercontent-a.akamaihd.net/ugc/53575902106856804/D79E78023113838A1EFC4960E56833C88523850A/"
+            },
+            xml = saucerXml
         }
     },
     jh_fighter = {
