@@ -4,7 +4,7 @@
 -- require("ship")
 
 function onLoad(script_state)
-    -- local state = JSON.decode(script_state)
+    local state = JSON.decode(script_state)
     if state then
         shipData = state
     else
@@ -12,9 +12,9 @@ function onLoad(script_state)
     end
 end
 
--- function onSave()
---     return JSON.encode(shipData)
--- end
+function onSave()
+    return JSON.encode(shipData)
+end
 
 function setUp(player, value, id)
     
