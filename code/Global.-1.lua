@@ -105,12 +105,16 @@ ARCS = { -- aft = 0, left handed coords
 
 alertDialPos = Vector(-2.7, -0.1, 0.2)
 alertDialRot = -40
+alertDialScale = {1.25, 1, 1.25}
 powerDialPos = Vector(0.6, -0.1, -2.9)
 powerDialRot = 40
+powerDialScale = {0.63, 1, 0.63}
 crewDialPos = Vector(3.4, -0.1, 0.2)
 crewDialRot = 40
+crewDialScale = {0.85, 1, 0.85}
 hullDialPos = Vector(3.8, -0.1, -2.6)
 hullDialRot = 36
+hullDialScale = {0.62, 1, 0.62}
 
 rulerScale = 12/18.330303
 
@@ -245,22 +249,22 @@ ASSETS = {
         },
         dials = {
             alert = {
-                object = {type = "Custom_Token", scale = {1.25, 1, 1.25}},
+                object = {type = "Custom_Token", scale = alertDialScale},
                 custom = {image = ASSET_ROOT .. "constellation_class/alert_dial.png", thickness = 0.1},
                 min = 0, max = 5, rot = alertDialRot, pos = alertDialPos
             },
             power = {
-                object = {type = "Custom_Token", scale = {0.63, 1, 0.63}},
+                object = {type = "Custom_Token", scale = powerDialScale},
                 custom = {image = ASSET_ROOT .. "constellation_class/power_dial.png", thickness = 0.1},
                 min = 0, max = 7, rot = powerDialRot, pos = powerDialPos
             },
             crew = {
-                object = {type = "Custom_Token", scale = {0.85, 1, 0.85}},
+                object = {type = "Custom_Token", scale = crewDialScale},
                 custom = {image = ASSET_ROOT .. "constellation_class/crew_dial.png", thickness = 0.1},
                 min = -2, max = 4, rot = crewDialRot, pos = crewDialPos
             },
             hull = {
-                object = {type = "Custom_Token", scale = {0.62, 1, 0.62}},
+                object = {type = "Custom_Token", scale = hullDialScale},
                 custom = {image = ASSET_ROOT .. "constellation_class/hull_dial.png", thickness = 0.1},
                 min = 0, max = 8, rot = hullDialRot, pos = hullDialPos
             }
@@ -282,22 +286,22 @@ ASSETS = {
         size = shipSize.small,
         dials = {
             alert = {
-                object = {type = "Custom_Token", scale = {1.25, 1, 1.25}},
+                object = {type = "Custom_Token", scale = alertDialScale},
                 custom = {image = ASSET_ROOT .. "defiant_class/alert_dial.png", thickness = 0.1},
                 min = 0, max = 4, rot = alertDialRot, pos = alertDialPos
             },
             power = {
-                object = {type = "Custom_Token", scale = {0.63, 1, 0.63}},
+                object = {type = "Custom_Token", scale = powerDialScale},
                 custom = {image = ASSET_ROOT .. "defiant_class/power_dial.png", thickness = 0.1},
                 min = 0, max = 6, rot = powerDialRot, pos = powerDialPos
             },
             crew = {
-                object = {type = "Custom_Token", scale = {0.85, 1, 0.85}},
+                object = {type = "Custom_Token", scale = crewDialScale},
                 custom = {image = ASSET_ROOT .. "defiant_class/crew_dial.png", thickness = 0.1},
                 min = -2, max = 4, rot = crewDialRot, pos = crewDialPos
             },
             hull = {
-                object = {type = "Custom_Token", scale = {0.62, 1, 0.62}},
+                object = {type = "Custom_Token", scale = hullDialScale},
                 custom = {image = ASSET_ROOT .. "defiant_class/hull_dial.png", thickness = 0.1},
                 min = 0, max = 7, rot = hullDialRot, pos = hullDialPos
             }
@@ -319,22 +323,22 @@ ASSETS = {
         size = shipSize.large,
         dials = {
             alert = {
-                object = {type = "Custom_Token", scale = {1.25, 1, 1.25}},
+                object = {type = "Custom_Token", scale = alertDialScale},
                 custom = {image = ASSET_ROOT .. "galaxy_class/alert_dial.png", thickness = 0.1},
                 min = 0, max = 6, rot = alertDialRot, pos = alertDialPos
             },
             power = {
-                object = {type = "Custom_Token", scale = {0.63, 1, 0.63}},
+                object = {type = "Custom_Token", scale = powerDialScale},
                 custom = {image = ASSET_ROOT .. "galaxy_class/power_dial.png", thickness = 0.1},
                 min = 0, max = 8, rot = powerDialRot, pos = powerDialPos
             },
             crew = {
-                object = {type = "Custom_Token", scale = {0.85, 1, 0.85}},
+                object = {type = "Custom_Token", scale = crewDialScale},
                 custom = {image = ASSET_ROOT .. "galaxy_class/crew_dial.png", thickness = 0.1},
                 min = -2, max = 5, rot = crewDialRot, pos = crewDialPos
             },
             hull = {
-                object = {type = "Custom_Token", scale = {0.62, 1, 0.62}},
+                object = {type = "Custom_Token", scale = hullDialScale},
                 custom = {image = ASSET_ROOT .. "galaxy_class/hull_dial.png", thickness = 0.1},
                 min = 0, max = 9, rot = hullDialRot, pos = hullDialPos
             }
@@ -399,22 +403,22 @@ ASSETS = {
         size = shipSize.small,
         dials = {
             alert = {
-                object = {type = "Custom_Token", scale = {1.25, 1, 1.25}},
+                object = {type = "Custom_Token", scale = alertDialScale},
                 custom = {image = ASSET_ROOT .. "jh_fighter/alert_dial.png", thickness = 0.1},
                 min = 0, max = 4, rot = alertDialRot, pos = alertDialPos
             },
             power = {
-                object = {type = "Custom_Token", scale = {0.63, 1, 0.63}},
+                object = {type = "Custom_Token", scale = powerDialScale},
                 custom = {image = ASSET_ROOT .. "jh_fighter/power_dial.png", thickness = 0.1},
                 min = 0, max = 6, rot = powerDialRot, pos = powerDialPos
             },
             crew = {
-                object = {type = "Custom_Token", scale = {0.85, 1, 0.85}},
+                object = {type = "Custom_Token", scale = crewDialScale},
                 custom = {image = ASSET_ROOT .. "jh_fighter/crew_dial.png", thickness = 0.1},
                 min = -2, max = 4, rot = crewDialRot, pos = crewDialPos
             },
             hull = {
-                object = {type = "Custom_Token", scale = {0.62, 1, 0.62}},
+                object = {type = "Custom_Token", scale = hullDialScale},
                 custom = {image = ASSET_ROOT .. "jh_fighter/hull_dial.png", thickness = 0.1},
                 min = 0, max = 6, rot = hullDialRot, pos = hullDialPos
             }
@@ -427,7 +431,7 @@ ASSETS = {
                 material = 3
             }
         },
-        instruments = {[0] = 1, 2, 2, 1, 0},
+        instruments = {1, 2, 2, 1, 0},
         sensors = {all = 4, fore = 4, instruments = {fore = true}},
         comms = {all = 4, fore = 4, instruments = {fore = true}},
         weapons = {fore = 6, aft = 6}
@@ -436,22 +440,22 @@ ASSETS = {
         size = shipSize.large,
         dials = {
             alert = {
-                object = {type = "Custom_Token", scale = {1.25, 1, 1.25}},
+                object = {type = "Custom_Token", scale = alertDialScale},
                 custom = {image = ASSET_ROOT .. "jh_battlecruiser/alert_dial.png", thickness = 0.1},
                 min = 0, max = 4, rot = alertDialRot, pos = alertDialPos
             },
             power = {
-                object = {type = "Custom_Token", scale = {0.63, 1, 0.63}},
+                object = {type = "Custom_Token", scale = powerDialScale},
                 custom = {image = ASSET_ROOT .. "jh_battlecruiser/power_dial.png", thickness = 0.1},
                 min = 0, max = 6, rot = powerDialRot, pos = powerDialPos
             },
             crew = {
-                object = {type = "Custom_Token", scale = {0.85, 1, 0.85}},
+                object = {type = "Custom_Token", scale = crewDialScale},
                 custom = {image = ASSET_ROOT .. "jh_battlecruiser/crew_dial.png", thickness = 0.1},
                 min = -2, max = 4, rot = crewDialRot, pos = crewDialPos
             },
             hull = {
-                object = {type = "Custom_Token", scale = {0.62, 1, 0.62}},
+                object = {type = "Custom_Token", scale = hullDialScale},
                 custom = {image = ASSET_ROOT .. "jh_battlecruiser/hull_dial.png", thickness = 0.1},
                 min = 0, max = 6, rot = hullDialRot, pos = hullDialPos
             }
@@ -464,9 +468,9 @@ ASSETS = {
                 material = 3
             }
         },
-        instruments = {[0] = 1, 2, 2, 1, 0},
+        instruments = {2, 3, 2, 2, 1, 0},
         sensors = {all = 4, fore = 4, instruments = {fore = true}},
-        comms = {all = 4, fore = 4, instruments = {fore = true}},
+        comms = {all = 6, fore = 6, instruments = {fore = true}},
         weapons = {fore = 6, aft = 6}
     },
     raider = {
