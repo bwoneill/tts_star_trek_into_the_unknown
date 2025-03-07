@@ -61,8 +61,7 @@ shipSize = {
         base = {
             object = {type = "Custom_Model"},
             custom = {
-                mesh = "https://steamusercontent-a.akamaihd.net/ugc/53576717526127504/10DB471BCAF7B08573B2933027CA095215F12ED8/",
-                diffuse = "https://steamusercontent-a.akamaihd.net/ugc/2178114146519128557/E1C0525B323F2052C54CBF7321D9EFA0F884CF5F/"
+                mesh = "https://steamusercontent-a.akamaihd.net/ugc/53576717526127504/10DB471BCAF7B08573B2933027CA095215F12ED8/"
             },
             color = {r = 0.6666667, g = 0.6666667, b = 0.6666667}
         },
@@ -236,6 +235,7 @@ ASSETS = {
         script = [[-- empty, for now]]
     },
     constellation = {
+        class = "constellation",
         size = shipSize.medium,
         ship_board = {
             object = {type = "Custom_Model"},
@@ -274,6 +274,7 @@ ASSETS = {
             custom = {
                 mesh = "https://steamusercontent-a.akamaihd.net/ugc/2494520554830218443/6B037F5D0D41284BA00A8660016D803C6626F14C/",
                 diffuse = "https://steamusercontent-a.akamaihd.net/ugc/2494520554821411536/6186F9132EF7FD4AC45FB72EFB59B223F6B16D45/",
+                collider = ASSET_ROOT .. "no_collide.obj",
                 material = 3
             }
         },
@@ -283,6 +284,7 @@ ASSETS = {
         weapons = {fore_port = 6, fore_starboard = 6, stern = 6}
     },
     defiant = {
+        class = "defiant",
         size = shipSize.small,
         dials = {
             alert = {
@@ -311,6 +313,7 @@ ASSETS = {
             custom = {
                 mesh = "https://steamusercontent-a.akamaihd.net/ugc/2494520554830561221/92A4C7D84320E3002E5F41EED58C3F1D8A310DF1/",
                 diffuse = "https://steamusercontent-a.akamaihd.net/ugc/2494520554830361122/0D155F737B97557FAC954E588EBB5D83C5DEA1E9/",
+                collider = ASSET_ROOT .. "no_collide.obj",
                 material = 3
             }
         },
@@ -320,6 +323,7 @@ ASSETS = {
         weapons = {all = 6, fore = 6, fore_port = 6, fore_starboard = 6, aft = 6}
     },
     galaxy = {
+        class = "galaxy",
         size = shipSize.large,
         dials = {
             alert = {
@@ -348,6 +352,7 @@ ASSETS = {
             custom = {
                 mesh = "https://steamusercontent-a.akamaihd.net/ugc/2494520554830060931/7542060AA53D11BA98D698C22DA05B311CDF643C/",
                 diffuse = "https://steamusercontent-a.akamaihd.net/ugc/2098172801144611875/56E14416EBAFD15A8AD905B26C5A61B5801F570E/",
+                collider = ASSET_ROOT .. "no_collide.obj",
                 material = 3
             }
         },
@@ -361,6 +366,7 @@ ASSETS = {
                 custom = {
                     mesh = "https://steamusercontent-a.akamaihd.net/ugc/2494520554830159870/13CCD3CD564237EBFC610A34D84A548C81B60DCF/",
                     diffuse = "https://steamusercontent-a.akamaihd.net/ugc/2098172801144611875/56E14416EBAFD15A8AD905B26C5A61B5801F570E/",
+                    collider = ASSET_ROOT .. "no_collide.obj",
                     material = 3
                 }
             },
@@ -382,6 +388,7 @@ ASSETS = {
                 custom = {
                     mesh = "https://steamusercontent-a.akamaihd.net/ugc/2494520554830188072/006E5758D4D2FE12D925278A4B827420882B85EA/",
                     diffuse = "https://steamusercontent-a.akamaihd.net/ugc/2098172801144611875/56E14416EBAFD15A8AD905B26C5A61B5801F570E/",
+                    collider = ASSET_ROOT .. "no_collide.obj",
                     material = 3
                 }
             },
@@ -400,6 +407,7 @@ ASSETS = {
         }
     },
     jh_fighter = {
+        class = "jh_fighter",
         size = shipSize.small,
         dials = {
             alert = {
@@ -428,6 +436,7 @@ ASSETS = {
             custom = {
                 mesh = "https://steamusercontent-a.akamaihd.net/ugc/2494520554832153651/3BBBBF57829D54A40507584F1977D249A9DFF35C/",
                 diffuse = "https://steamusercontent-a.akamaihd.net/ugc/2494520554832154232/39A8AF0518F0ADF46E51E7E8F4552505C0CDEEF5/",
+                collider = ASSET_ROOT .. "no_collide.obj",
                 material = 3
             }
         },
@@ -437,6 +446,7 @@ ASSETS = {
         weapons = {fore = 6, aft = 6}
     },
     jh_battlecruiser = {
+        class = "jh_battlecruiser",
         size = shipSize.large,
         dials = {
             alert = {
@@ -465,6 +475,7 @@ ASSETS = {
             custom = {
                 mesh = "https://steamusercontent-a.akamaihd.net/ugc/2494520554832150950/69C412DC1B298B496AE1A6684A3CFDD0617B84D5/",
                 diffuse = "https://steamusercontent-a.akamaihd.net/ugc/2494520554832146710/47D4CF19DDD2F7F8E87415CFBE1EC428EE69477E/",
+                collider = ASSET_ROOT .. "no_collide.obj",
                 material = 3
             }
         },
@@ -474,30 +485,35 @@ ASSETS = {
         weapons = {fore = 6, aft = 6}
     },
     raider = {
+        class = "raider",
         size = shipSize.medium,
         model = {
             object = {type = "Custom_Model", scale = {0.325, 0.325, 0.325}, rotation = Vector(0, 270, 0), position = Vector(0, 0.6, 0)},
             custom = {
                 mesh = "https://steamusercontent-a.akamaihd.net/ugc/53577344279444585/E56B677AB6878EC0D3BD2ADED937605A8905F4C3/",
                 diffuse = "https://steamusercontent-a.akamaihd.net/ugc/53577344279442944/BE82D9B7034C40CCADF25A7A7F417529E61EADA4/",
+                collider = ASSET_ROOT .. "no_collide.obj",
                 material = 3
             }
         },
         sensors = {all = 3}, comms = {all = 3}, weapons = {all = 4, fore = 4}
     },
     tinman = {
+        class = "tinman",
         size = shipSize.medium,
         model = {
             object = {type = "Custom_Model", position = Vector(0, 0.9, 0)},
             custom = {
                 mesh = "https://steamusercontent-a.akamaihd.net/ugc/53576717526329081/C729B852A790FCE7F01B760E7CD7FB17ED7B97F8/",
                 diffuse = "https://steamusercontent-a.akamaihd.net/ugc/53576717526329354/A2DD2DF77F339B7333BB592FD91994828CBC5414/",
+                collider = ASSET_ROOT .. "no_collide.obj",
                 material = 3
             }
         },
         sensors = {all = 3}, comms = {all = 3}, weapons = {all = 4, fore = 4}
     },
     type6 = {
+        class = "type6",
         size = shipSize.shuttle,
         model = {
             object = {type = "Custom_Model", position = Vector(0, 0.5, 0)},
@@ -510,6 +526,7 @@ ASSETS = {
         sensors = {all = 3}, comms = {all = 3}, weapons = {all = 4}
     },
     runabout = {
+        class = "runabout",
         size = shipSize.shuttle,
         model = {
             object = {type = "Custom_Model", position = Vector(0, 0.25, 0), rotation = Vector(0, 90, 0), scale = Vector(0.25, 0.25, 0.25)},
@@ -548,6 +565,7 @@ function spawnModel(param)
         param.model.object.position = base.getPosition() + param.model.object.position
     end
     local model = spawnAsset(param.model)
+    model.addTag("Ship")
     base.addAttachment(model)
     base.addTag("Ship")
     return base
