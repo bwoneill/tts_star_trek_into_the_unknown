@@ -3,9 +3,11 @@
 -- default = Global.getTable("ASSETS").<ship_class>
 -- require("ship")
 
+ignore_save = false -- set to true for updates on data in Global
+
 function onLoad(script_state)
     local state = JSON.decode(script_state)
-    if state then
+    if state and not ignore_save then
         shipData = state
         if shipData.detached then
             self.UI.setAttributes("saucerSeparation", {onClick = "reattach", text = "Reattach"})
@@ -14,6 +16,7 @@ function onLoad(script_state)
             self.UI.setXml(shipData.xml)
         end
     else
+        log("loading default data")
         shipData = default
     end
 end
