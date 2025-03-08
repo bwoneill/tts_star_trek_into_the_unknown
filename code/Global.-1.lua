@@ -452,22 +452,22 @@ ASSETS = {
             alert = {
                 object = {type = "Custom_Token", scale = alertDialScale},
                 custom = {image = ASSET_ROOT .. "jh_battlecruiser/alert_dial.png", thickness = 0.1},
-                min = 0, max = 4, rot = alertDialRot, pos = alertDialPos
+                min = 0, max = 5, rot = alertDialRot, pos = alertDialPos
             },
             power = {
                 object = {type = "Custom_Token", scale = powerDialScale},
                 custom = {image = ASSET_ROOT .. "jh_battlecruiser/power_dial.png", thickness = 0.1},
-                min = 0, max = 6, rot = powerDialRot, pos = powerDialPos
+                min = 0, max = 8, rot = powerDialRot, pos = powerDialPos
             },
             crew = {
                 object = {type = "Custom_Token", scale = crewDialScale},
                 custom = {image = ASSET_ROOT .. "jh_battlecruiser/crew_dial.png", thickness = 0.1},
-                min = -2, max = 4, rot = crewDialRot, pos = crewDialPos
+                min = -2, max = 5, rot = crewDialRot, pos = crewDialPos
             },
             hull = {
                 object = {type = "Custom_Token", scale = hullDialScale},
                 custom = {image = ASSET_ROOT .. "jh_battlecruiser/hull_dial.png", thickness = 0.1},
-                min = 0, max = 6, rot = hullDialRot, pos = hullDialPos
+                min = 0, max = 9, rot = hullDialRot, pos = hullDialPos
             }
         },
         model = {
