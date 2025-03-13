@@ -218,7 +218,7 @@ saucerXml = [[<Button
 
 -- Assets
 
-ASSET_ROOT = "https://raw.githubusercontent.com/bwoneill/tts_star_trek_into_the_unknown/main/assets/"
+ASSET_ROOT = "https://raw.githubusercontent.com/bwoneill/tts_star_trek_into_the_unknown/v0.14_purple_data/assets/"
 ASSETS = {
     ruler_12in = {
         object = {type = "Custom_Token", scale = {12/18.330303, 1, 12/18.330303}},
