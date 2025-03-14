@@ -2,7 +2,7 @@ local ABoard = nil
 local TheBoard = nil
 local TheBoardGUID = nil
 mapURL = {
-	'https://i.imgur.com/1pm11yJ.png',
+	'https://raw.githubusercontent.com/bwoneill/tts_star_trek_into_the_unknown/v0.14_purple_data/assets/maps/A_Touch_of_Pink.png',
  }
 function onload ()
 

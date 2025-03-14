@@ -2,7 +2,7 @@ local ABoard = nil
 local TheBoard = nil
 local TheBoardGUID = nil
 mapURL = {
-	'https://steamusercontent-a.akamaihd.net/ugc/53577969682123631/1BEA3C0827B927852E016E02C5EFEE5DE13029DD/',
+	'https://raw.githubusercontent.com/bwoneill/tts_star_trek_into_the_unknown/v0.14_purple_data/assets/maps/grid_helix.png',
  }
 function onload ()
 
