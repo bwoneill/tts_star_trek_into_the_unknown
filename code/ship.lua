@@ -3,7 +3,7 @@
 -- default = Global.getTable("ASSETS").<ship_class>
 -- require("ship")
 
-ignore_save = false -- set to true for updates on data in Global
+ignore_save = true -- set to true for updates on data in Global
 
 function onLoad(script_state)
     local state = JSON.decode(script_state)
@@ -206,7 +206,7 @@ function positionShip()
     -- Add context menu for the ruler
 	template.clearButtons()
 	template.createButton({ click_function = "clearTemplates",function_owner = self,label= "Clear", position= {.8, .2, 0},rotation= {0, 180, 0},width= 300,height= 200,font_size= 95,color= {1,1,1},font_color= {0,0,0}, tooltip= "Place Ruler aliened with template",})
-    print("OPTIONAL: Adjust the Template Rotatation, then place it again.")
+    print("OPTIONAL: Adjust the Template Rotation, then place it again.")
 	template.jointTo(myShip, {type = "Hinge", collision = false, axis = {0,1,0}, anchor = {0,0,0}})
 	template.lock()
 	myShip.setLock(false)
@@ -381,13 +381,21 @@ function launch(direction)
     template.createButton({ click_function = "clearTemplates",function_owner = self,label= "Clear", position= {.8, .2, 0},rotation= {0, 180, 0},width= 300,height= 200,font_size= 95,color= {1,1,1},font_color= {0,0,0}, tooltip= "Place Ruler aliened with template",})
 end
 
-function launchAuxiliary()
+function launchAuxiliary(direction)
     local myShip = getObjectFromGUID(shipData.shipGUID)
-    myShip.createButton({function_owner = self, click_function = "launchFore",label = "Fore", position = {1.5,.2,0}, rotation = {0, 90, 0}, width = 350, height = 150 })
-    myShip.createButton({function_owner = self, click_function = "launchAft",label = "Aft", position = {-1.5,.2,0}, rotation = {0, 90, 0}, width = 350, height = 150 })
+    if direction == "fore" then
+        myShip.createButton({function_owner = self, click_function = "launchFore",label = "Fore", position = {1.5,.2,0}, rotation = {0, 90, 0}, width = 350, height = 150 })
+    elseif direction == "aft" then
+        myShip.createButton({function_owner = self, click_function = "launchAft",label = "Aft", position = {-1.5,.2,0}, rotation = {0, 90, 0}, width = 350, height = 150 })
+    else
+        return
+    end
     myShip.createButton({function_owner = self, click_function = "launchPort",label = "Port", position = {-0.1,.2,-1.2}, rotation = {0, 90, 0}, width = 350, height = 150})
     myShip.createButton({function_owner = self, click_function = "launchStarboard",label = "Starboard", position = {-0.1,.2,1.2}, rotation = {0, 90, 0}, width = 550, height = 150})
 end
+
+function launchAuxFore() launchAuxiliary("fore") end
+function launchAuxAft() launchAuxiliary("aft") end
 
 function detach(player, value, id)
     if shipData.auxiliary and not shipData.detached then
@@ -413,7 +421,7 @@ function detach(player, value, id)
         end
         -- change detach button to reattach
         self.UI.setAttributes("saucerSeparation", {onClick = "reattach", text = "Reattach"})
-        launchAuxiliary()
+        launchAuxiliary(shipData.auxiliary.direction)
         shipData.detached = true
     end
 end
