@@ -14,6 +14,8 @@ require("vscode/console")
 
 -- Constants: DO NOT MODIFY
 
+ASSET_ROOT = "https://raw.githubusercontent.com/bwoneill/tts_star_trek_into_the_unknown/v0.14_purple_data/assets/"
+
 shipSize = {
     shuttle = {
         bounds = Vector(1.5, 0, 0.75), arcHeight = 0.01,
@@ -27,7 +29,7 @@ shipSize = {
         base = {
             object = {type = "Custom_Model"},
             custom = {
-                mesh = "https://steamusercontent-a.akamaihd.net/ugc/53576717526307309/9D1EED059774E729E68F7FD44622D28361B4B800/"
+                mesh = ASSET_ROOT .. "ships/bases/shuttle_base.obj"
             },
             color = {r = 0.6666667, g = 0.6666667, b = 0.6666667}
         }
@@ -43,7 +45,7 @@ shipSize = {
         base = {
             object = {type = "Custom_Model"},
             custom = {
-                mesh = "https://steamusercontent-a.akamaihd.net/ugc/53576717526168410/1D30F105B400ED2488C1815A197CDB74DD0B003D/"
+                mesh = ASSET_ROOT .. "ships/bases/small_base.obj"
             },
             color = {r = 0.6666667, g = 0.6666667, b = 0.6666667}
         },
@@ -61,7 +63,7 @@ shipSize = {
         base = {
             object = {type = "Custom_Model"},
             custom = {
-                mesh = "https://steamusercontent-a.akamaihd.net/ugc/53576717526127504/10DB471BCAF7B08573B2933027CA095215F12ED8/"
+                mesh = ASSET_ROOT .. "ships/bases/medium_base.obj"
             },
             color = {r = 0.6666667, g = 0.6666667, b = 0.6666667}
         },
@@ -79,7 +81,7 @@ shipSize = {
         base = {
             object = {type = "Custom_Model"},
             custom = {
-                mesh = "https://steamusercontent-a.akamaihd.net/ugc/53576717526201424/05511C65238C1083F43AA10418A752B9A8F7AA6C/"
+                mesh = ASSET_ROOT .. "ships/bases/large_base.obj"
             },
             color = {r = 0.6666667, g = 0.6666667, b = 0.6666667}
         },
@@ -218,7 +220,6 @@ saucerXml = [[<Button
 
 -- Assets
 
-ASSET_ROOT = "https://raw.githubusercontent.com/bwoneill/tts_star_trek_into_the_unknown/v0.14_purple_data/assets/"
 ASSETS = {
     ruler_12in = {
         object = {type = "Custom_Token", scale = {12/18.330303, 1, 12/18.330303}},
@@ -240,7 +241,7 @@ ASSETS = {
         ship_board = {
             object = {type = "Custom_Model"},
             custom = {
-                mesh = "https://steamusercontent-a.akamaihd.net/ugc/2262559176062618179/35F33C0A721FAB6A0779303FE6636B8412016B20/",
+                mesh = ASSET_ROOT .. "ships/shig_board.obj",
                 diffuse = ASSET_ROOT .. "ships/constellation_class/ship_board.png",
                 material = 3
             },
@@ -272,8 +273,8 @@ ASSETS = {
         model = {
             object = {type = "Custom_Model", scale = {1.25, 1.25, 1.25}},
             custom = {
-                mesh = "https://steamusercontent-a.akamaihd.net/ugc/2494520554830218443/6B037F5D0D41284BA00A8660016D803C6626F14C/",
-                diffuse = "https://steamusercontent-a.akamaihd.net/ugc/2494520554821411536/6186F9132EF7FD4AC45FB72EFB59B223F6B16D45/",
+                mesh = ASSET_ROOT .. "ships/constellation_class/constellation_mesh.obj",
+                diffuse = ASSET_ROOT .. "ships/constellation_class/constellation_skin.png",
                 collider = ASSET_ROOT .. "no_collide.obj",
                 material = 3
             }
@@ -311,8 +312,8 @@ ASSETS = {
         model = {
             object = {type = "Custom_Model", scale = {1.3, 1.3, 1.3}},
             custom = {
-                mesh = "https://steamusercontent-a.akamaihd.net/ugc/2494520554830561221/92A4C7D84320E3002E5F41EED58C3F1D8A310DF1/",
-                diffuse = "https://steamusercontent-a.akamaihd.net/ugc/2494520554830361122/0D155F737B97557FAC954E588EBB5D83C5DEA1E9/",
+                mesh = ASSET_ROOT .. "ships/defiant_class/defiant_mesh.obj",
+                diffuse = ASSET_ROOT .. "ships/defiant_class/defiant_skin.png",
                 collider = ASSET_ROOT .. "no_collide.obj",
                 material = 3
             }
@@ -320,7 +321,7 @@ ASSETS = {
         instruments = {2, 2, 1, 1, 0},
         sensors = {all = 2, bow = 4, instruments = {bow = true}},
         comms = {all = 2, bow = 6, instruments = {bow = true}},
-        weapons = {all = 6, fore = 6, fore_port = 6, fore_starboard = 6, aft = 6}
+        weapons = {all = 6, fore = 6, fore_port = 4, fore_starboard = 4, aft = 6}
     },
     galaxy = {
         class = "galaxy",
@@ -350,8 +351,8 @@ ASSETS = {
         model = {
             object = {type = "Custom_Model", scale = {1.4, 1.4, 1.4}},
             custom = {
-                mesh = "https://steamusercontent-a.akamaihd.net/ugc/2494520554830060931/7542060AA53D11BA98D698C22DA05B311CDF643C/",
-                diffuse = "https://steamusercontent-a.akamaihd.net/ugc/2098172801144611875/56E14416EBAFD15A8AD905B26C5A61B5801F570E/",
+                mesh = ASSET_ROOT .. "ships/galaxy_class/galaxy_mesh.obj",
+                diffuse = ASSET_ROOT .. "ships/galaxy_class/galaxy_skin.png",
                 collider = ASSET_ROOT .. "no_collide.obj",
                 material = 3
             }
@@ -364,8 +365,8 @@ ASSETS = {
             dials = {alert = {min = 1, max = 5}, crew = {min = 2, max = 5}},
             model = {
                 custom = {
-                    mesh = "https://steamusercontent-a.akamaihd.net/ugc/2494520554830159870/13CCD3CD564237EBFC610A34D84A548C81B60DCF/",
-                    diffuse = "https://steamusercontent-a.akamaihd.net/ugc/2098172801144611875/56E14416EBAFD15A8AD905B26C5A61B5801F570E/",
+                    mesh = ASSET_ROOT .. "ships/galaxy_class/stardrive_mesh.obj",
+                    diffuse = ASSET_ROOT .. "ships/galaxy_class/galaxy_skin.png",
                     collider = ASSET_ROOT .. "no_collide.obj",
                     material = 3
                 }
@@ -377,8 +378,8 @@ ASSETS = {
             object = {type = "CardCustom", scale = {1.4, 0, 1.4}},
             custom = {
                 type = 0, sideways = true,
-                face = "https://steamusercontent-a.akamaihd.net/ugc/53575902106857057/D2C95DA140FA61C59D2DCD00F1B4E7B9425BB85F/",
-                back = "https://steamusercontent-a.akamaihd.net/ugc/53575902106857266/33AF0CFA558C411F3B1A36435D245447704D1E36/"
+                face = ASSET_ROOT .. "ships/galaxy_class/stardrive_card.png",
+                back = ASSET_ROOT .. "ships/galaxy_class/stardrive_card_back.png"
             }
         },
         auxiliary = {
@@ -386,22 +387,23 @@ ASSETS = {
             model = {
                 object = {type = "Custom_Model", scale = {1.4, 1.4, 1.4}},
                 custom = {
-                    mesh = "https://steamusercontent-a.akamaihd.net/ugc/2494520554830188072/006E5758D4D2FE12D925278A4B827420882B85EA/",
-                    diffuse = "https://steamusercontent-a.akamaihd.net/ugc/2098172801144611875/56E14416EBAFD15A8AD905B26C5A61B5801F570E/",
+                    mesh = ASSET_ROOT .. "ships/galaxy_class/saucer_mesh.obj",
+                    diffuse = ASSET_ROOT .. "ships/galaxy_class/galaxy_skin.png",
                     collider = ASSET_ROOT .. "no_collide.obj",
                     material = 3
                 }
             },
             sensors = {all = 4, bow = 6},
             comms = {all = 6, bow = 8},
-            weapons = {fore = 6}
+            weapons = {fore = 6},
+            direction = "fore"
         },
         aux_card = {
             object = {type = "CardCustom", scale = {1.4, 0, 1.4}},
             custom = {
                 type = 0, sideways = true,
-                face = "https://steamusercontent-a.akamaihd.net/ugc/53575902106856618/1495F8282200AD1EA5BE70DE49C75DDF4AEB54F1/",
-                back = "https://steamusercontent-a.akamaihd.net/ugc/53575902106856804/D79E78023113838A1EFC4960E56833C88523850A/"
+                face = ASSET_ROOT .. "ships/galaxy_class/saucer_card.png",
+                back = ASSET_ROOT .. "ships/galaxy_class/saucer_card_back.png"
             },
             xml = saucerXml
         }
@@ -434,8 +436,8 @@ ASSETS = {
         model = {
             object = {type = "Custom_Model", scale = {1.3, 1.3, 1.3}},
             custom = {
-                mesh = "https://steamusercontent-a.akamaihd.net/ugc/2494520554832153651/3BBBBF57829D54A40507584F1977D249A9DFF35C/",
-                diffuse = "https://steamusercontent-a.akamaihd.net/ugc/2494520554832154232/39A8AF0518F0ADF46E51E7E8F4552505C0CDEEF5/",
+                mesh = ASSET_ROOT .. "ships/jh_fighter/fighter_mesh.obj",
+                diffuse = ASSET_ROOT .. "ships/jh_fighter/fighter_skin.png",
                 collider = ASSET_ROOT .. "no_collide.obj",
                 material = 3
             }
@@ -473,8 +475,8 @@ ASSETS = {
         model = {
             object = {type = "Custom_Model", scale = {1.3, 1.3, 1.3}},
             custom = {
-                mesh = "https://steamusercontent-a.akamaihd.net/ugc/2494520554832150950/69C412DC1B298B496AE1A6684A3CFDD0617B84D5/",
-                diffuse = "https://steamusercontent-a.akamaihd.net/ugc/2494520554832146710/47D4CF19DDD2F7F8E87415CFBE1EC428EE69477E/",
+                mesh = ASSET_ROOT .. "ships/jh_battlecruiser/battlecruiser_mesh.obj",
+                diffuse = ASSET_ROOT .. "ships/jh_battlecruiser/battlecruiser_skin.png",
                 collider = ASSET_ROOT .. "no_collide.obj",
                 material = 3
             }
@@ -490,8 +492,8 @@ ASSETS = {
         model = {
             object = {type = "Custom_Model", scale = {0.325, 0.325, 0.325}, rotation = Vector(0, 270, 0), position = Vector(0, 0.6, 0)},
             custom = {
-                mesh = "https://steamusercontent-a.akamaihd.net/ugc/53577344279444585/E56B677AB6878EC0D3BD2ADED937605A8905F4C3/",
-                diffuse = "https://steamusercontent-a.akamaihd.net/ugc/53577344279442944/BE82D9B7034C40CCADF25A7A7F417529E61EADA4/",
+                mesh = ASSET_ROOT .. "ships/raider/raider_mesh.obj",
+                diffuse = ASSET_ROOT .. "ships/raider/raider_skin.png",
                 collider = ASSET_ROOT .. "no_collide.obj",
                 material = 3
             }
@@ -504,8 +506,8 @@ ASSETS = {
         model = {
             object = {type = "Custom_Model", position = Vector(0, 0.9, 0)},
             custom = {
-                mesh = "https://steamusercontent-a.akamaihd.net/ugc/53576717526329081/C729B852A790FCE7F01B760E7CD7FB17ED7B97F8/",
-                diffuse = "https://steamusercontent-a.akamaihd.net/ugc/53576717526329354/A2DD2DF77F339B7333BB592FD91994828CBC5414/",
+                mesh = ASSET_ROOT .. "ships/tinman/tinman_mesh.obj",
+                diffuse = ASSET_ROOT .. "ships/tinman/tinman_skin.png",
                 collider = ASSET_ROOT .. "no_collide.obj",
                 material = 3
             }
@@ -518,8 +520,8 @@ ASSETS = {
         model = {
             object = {type = "Custom_Model", position = Vector(0, 0.5, 0)},
             custom = {
-                mesh = "https://steamusercontent-a.akamaihd.net/ugc/53576717526297170/7FC0CE312347706553961DDFCF6C09715F79B166/",
-                diffuse = "https://steamusercontent-a.akamaihd.net/ugc/266097180323590983/EA286E18C1A7A2CD610F1A3B7902851A4241E4FA/",
+                mesh = ASSET_ROOT .. "ships/type6/type6_mesh.obj",
+                diffuse = ASSET_ROOT .. "ships/type6/type6_skin.png",
                 material = 3
             }
         },
@@ -531,8 +533,8 @@ ASSETS = {
         model = {
             object = {type = "Custom_Model", position = Vector(0, 0.25, 0), rotation = Vector(0, 90, 0), scale = Vector(0.25, 0.25, 0.25)},
             custom = {
-                mesh = "https://steamusercontent-a.akamaihd.net/ugc/53576717526304134/DB1ADB191E99797F900FD3A1228B151D239D5D4C/",
-                diffuse = "https://steamusercontent-a.akamaihd.net/ugc/53576717520828632/E49B298BE4BC446C9EFA549A40C6383E5EE6F80F/",
+                mesh = ASSET_ROOT .. "ships/runabout/runabout_mesh.obj",
+                diffuse = ASSET_ROOT .. "ships/runabout/runabout_skin.png",
                 material = 3
             }
         },
