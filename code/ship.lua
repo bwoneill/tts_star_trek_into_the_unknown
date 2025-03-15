@@ -3,27 +3,30 @@
 -- default = Global.getTable("ASSETS").<ship_class>
 -- require("ship")
 
-ignore_save = true -- set to true for updates on data in Global
+ignore_save = false -- set to true for updates on data in Global
+
+saveData = {}
 
 function onLoad(script_state)
+    shipData = default
     local state = JSON.decode(script_state)
     if state and not ignore_save then
-        shipData = state
-        if shipData.detached then
+        saveData = state
+        if saveData.detached then
             self.UI.setAttributes("saucerSeparation", {onClick = "reattach", text = "Reattach"})
+            swapElements(shipData, shipData.alternate)
         end
-        if shipData.xml then
-            self.UI.setXml(shipData.xml)
+        if saveData.xml then
+            self.UI.setXml(saveData.xml)
         end
     else
         log("loading default data")
-        shipData = default
     end
 end
 
 function onSave()
-    shipData.xml = self.UI.getXml()
-    return JSON.encode(shipData)
+    saveData.xml = self.UI.getXml()
+    return JSON.encode(saveData)
 end
 
 function setUp(player, value, id)
@@ -35,11 +38,17 @@ function setUp(player, value, id)
     local rot = self.getRotation()
     
     if shipData.dials then
+        if not saveData.dials then
+            saveData.dials = {}
+        end
         for name, dial in pairs(shipData.dials) do
-            if not dial.GUID then
+            if not saveData.dials[name] then
+                saveData.dials[name] = {}
+            end
+            if not saveData.dials[name].GUID then
                 local object = Global.call("spawnAsset", dial)
-                dial.GUID = object.getGUID()
-                dial.value = 0
+                saveData.dials[name].GUID = object.getGUID()
+                saveData.dials[name].value = 0
                 object.setPosition(pos +  Vector(dial.pos):rotateOver("y", rot.y))
                 object.setRotation(rot)
                 object.interactable = false
@@ -49,9 +58,9 @@ function setUp(player, value, id)
     end
 
     -- Ship
-    if not shipData.shipGUID then
+    if not saveData.shipGUID then
         local myShip = spawnShip(shipData, pos + Vector(5.25, 0, -5.25):rotateOver("y", rot.y), rot, player.color)
-        shipData.shipGUID = myShip.getGUID()
+        saveData.shipGUID = myShip.getGUID()
     end
 end
 
@@ -79,39 +88,41 @@ end
 
 -- Dials
 
-function rotateDial(dialData, difference)
+function rotateDial(name, difference)
+    local dialData = shipData.dials[name]
+    local dialValues = saveData.dials[name]
     local rot = self.getRotation()
-    local dial = getObjectFromGUID(dialData.GUID)
-    local value = constrainValue(dialData.value + difference, dialData.min, dialData.max)
-    if value ~= dialData.value then
-        dialData.value = value
-        rot.y = rot.y + dialData.rot * dialData.value
+    local dial = getObjectFromGUID(dialValues.GUID)
+    local value = constrainValue(dialValues.value + difference, dialData.min, dialData.max)
+    if value ~= dialValues.value then
+        dialValues.value = value
+        rot.y = rot.y + dialData.rot * dialValues.value
         dial.jointTo()
         dial.setRotation(rot)
         dial.jointTo(self, {type = "Fixed"})
     end
 end
 
-function alertUp() rotateDial(shipData.dials["alert"], 1) end
+function alertUp() rotateDial("alert", 1) end
 
-function alertDown() rotateDial(shipData.dials["alert"], -1) end
+function alertDown() rotateDial("alert", -1) end
 
-function powerUp() rotateDial(shipData.dials["power"], -1) end
+function powerUp() rotateDial("power", -1) end
 
-function powerDown() rotateDial(shipData.dials["power"], 1) end
+function powerDown() rotateDial("power", 1) end
 
-function hullUp() rotateDial(shipData.dials["hull"], -1) end
+function hullUp() rotateDial("hull", -1) end
 
-function hullDown() rotateDial(shipData.dials["hull"], 1) end
+function hullDown() rotateDial("hull", 1) end
 
-function crewUp() rotateDial(shipData.dials["crew"], -1) end
+function crewUp() rotateDial("crew", -1) end
 
-function crewDown() rotateDial(shipData.dials["crew"], 1) end
+function crewDown() rotateDial("crew", 1) end
 
 -- Impulse
 
 function impulseMoveStart()
-    local myShip = getObjectFromGUID(shipData.shipGUID)
+    local myShip = getObjectFromGUID(saveData.shipGUID)
     myShip.createButton({function_owner = self, click_function = "impulseMoveFront",label = "Fore", position = {1.5,.2,0}, rotation = {0, 90, 0}, width = 350, height = 150 })
     myShip.createButton({function_owner = self, click_function = "impulseMoveBack",label = "Aft", position = {-1.5,.2,0}, rotation = {0, 90, 0}, width = 350, height = 150 })
     myShip.createButton({function_owner = self, click_function = "impulseMoveLeft",label = "Port", position = {-0.1,.2,-1.2}, rotation = {0, 90, 0}, width = 350, height = 150})
@@ -126,7 +137,7 @@ function impulseMoveRight() placeToolToShipRight() end
 -- Turning tool
 
 function placeTurningTool(side)
-    local myShip = getObjectFromGUID(shipData.shipGUID)
+    local myShip = getObjectFromGUID(saveData.shipGUID)
     myShip.clearButtons()
     myShip.lock()
     shipDirection = side
@@ -165,7 +176,7 @@ end
 
 -- Step 2: Position the Ruler
 function positionRuler(direction)
-    local myShip = getObjectFromGUID(shipData.shipGUID)
+    local myShip = getObjectFromGUID(saveData.shipGUID)
     ruler = Global.call("spawnRuler")
     local sign = direction == "right" and 1 or -1
     local pos = template.getPosition()
@@ -193,7 +204,7 @@ end
 
 -- Step 3: Position Ship to the Template and Remove Ruler
 function positionShip()
-    local myShip = getObjectFromGUID(shipData.shipGUID)
+    local myShip = getObjectFromGUID(saveData.shipGUID)
     local spawnPos = template.getPosition()
     local spawnRot = template.getRotation()
     local attachment = shipData.size.toolAttachment[shipDirection]
@@ -214,7 +225,7 @@ function positionShip()
 end
 
 function clearTemplates()
-    local myShip = getObjectFromGUID(shipData.shipGUID)
+    local myShip = getObjectFromGUID(saveData.shipGUID)
     myShip.clearButtons()
     myShip.lock()
     template.destroy()
@@ -226,7 +237,7 @@ function clearWarp()
 end
 
 function placeWarpTemplate()
-    local myShip = getObjectFromGUID(shipData.shipGUID)
+    local myShip = getObjectFromGUID(saveData.shipGUID)
     myShip.unlock()
     local pos = myShip.getPosition()
     local angle = myShip.getRotation().y
@@ -280,7 +291,7 @@ function calculateIntersect(size, m, origin)
 end
 
 function drawArc(system, jammed) -- system is "sensors", "comms", "weapons"
-    local myShip = getObjectFromGUID(shipData.shipGUID)
+    local myShip = getObjectFromGUID(saveData.shipGUID)
     local arcs = shipData[system]
     local ARCS = Global.getVar("ARCS")
     local clr = myShip.getColorTint()
@@ -303,7 +314,7 @@ function drawArc(system, jammed) -- system is "sensors", "comms", "weapons"
             if jammed and system ~= "weapons" then
                 range = 2
             elseif arcs.instruments and arcs.instruments[arc] then
-                range = range + shipData.instruments[shipData.dials.alert.value + 1]
+                range = range + shipData.instruments[saveData.dials.alert.value + 1]
             end
             -- Calculate vectors
             local start_angle = ARCS[arc][1]
@@ -367,7 +378,7 @@ function commsJammed()
 end
 
 function clearArc(_rangeCir, _range)
-    local myShip = getObjectFromGUID(shipData.shipGUID)
+    local myShip = getObjectFromGUID(saveData.shipGUID)
     myShip.setVectorLines({})
 end
 
@@ -382,7 +393,7 @@ function launch(direction)
 end
 
 function launchAuxiliary(direction)
-    local myShip = getObjectFromGUID(shipData.shipGUID)
+    local myShip = getObjectFromGUID(saveData.shipGUID)
     if direction == "fore" then
         myShip.createButton({function_owner = self, click_function = "launchFore",label = "Fore", position = {1.5,.2,0}, rotation = {0, 90, 0}, width = 350, height = 150 })
     elseif direction == "aft" then
@@ -398,61 +409,67 @@ function launchAuxFore() launchAuxiliary("fore") end
 function launchAuxAft() launchAuxiliary("aft") end
 
 function detach(player, value, id)
-    if shipData.auxiliary and not shipData.detached then
+    if shipData.auxiliary and not saveData.detached then
         local rot = self.getRotation()
         local pos = self.getPosition()
         -- create cards
         shipData.aux_card.script = self.getLuaScript()
         altCard = Global.call("spawnAsset", shipData.alt_card)
-        shipData.alt_card.GUID = altCard.getGUID()
+        if not saveData.alt_card then
+            saveData.alt_card = {}
+        end
+        saveData.alt_card.GUID = altCard.getGUID()
         altCard.setPosition(pos + Vector(-3.5, 0, -6):rotateOver("y", rot.y))
         altCard.setRotation(rot)
         altCard.jointTo(self, {type = "Fixed"})
         altCard.interactable = false
         auxCard = Global.call("spawnAsset", shipData.aux_card)
-        shipData.aux_card.GUID = auxCard.getGUID()
+        if not saveData.aux_card then
+            saveData.aux_card = {}
+        end
+        saveData.aux_card.GUID = auxCard.getGUID()
         auxCard.setPosition(pos + Vector(5.25, 0, -5.25):rotateOver("y", rot.y))
         auxCard.setRotation(rot)
         -- swap ship models
         swapShip()
         -- check dial ranges
-        for _, dial in pairs(shipData.dials) do
-            rotateDial(dial, 0)
+        for name, data in pairs(saveData.dials) do
+            rotateDial(name, 0)
         end
         -- change detach button to reattach
         self.UI.setAttributes("saucerSeparation", {onClick = "reattach", text = "Reattach"})
         launchAuxiliary(shipData.auxiliary.direction)
-        shipData.detached = true
+        saveData.detached = true
     end
 end
 
 function reattach(player, value, id)
-    if shipData.auxiliary and shipData.detached then
+    if shipData.auxiliary and saveData.detached then
         swapShip()
         if shipData.alt_card then
-            local altCard =  getObjectFromGUID(shipData.alt_card.GUID)
+            local altCard =  getObjectFromGUID(saveData.alt_card.GUID)
             if altCard then altCard.destroy() end
-            shipData.alt_card.GUID = nil
+            saveData.alt_card.GUID = nil
         end
         if shipData.aux_card then
-            local auxCard = getObjectFromGUID(shipData.aux_card.GUID)
+            local auxCard = getObjectFromGUID(saveData.aux_card.GUID)
             if auxCard then
-                local auxData = auxCard.getTable("shipData")
+                local auxData = auxCard.getTable("saveData")
                 local auxShip = getObjectFromGUID(auxData.shipGUID)
                 if auxShip then auxShip.destroy() end
                 auxCard.destroy()
-                shipData.aux_card.GUID = nil
+                saveData.aux_card.GUID = nil
             end
         end
-        rotateDial(shipData.dials.crew, -2)
+        rotateDial("crew", -2)
         -- change reattach button to detach
         self.UI.setAttributes("saucerSeparation", {onClick = "detach", text = "Detach"})
-        shipData.detached = false
+        saveData.detached = false
     end
 end
 
 function swapShip()
-    local myShip = getObjectFromGUID(shipData.shipGUID)
+    local myShip = getObjectFromGUID(saveData.shipGUID)
     if shipData.auxiliary then
         local color = myShip.getColorTint()
         local pos = myShip.getPosition()
@@ -460,7 +477,7 @@ function swapShip()
         myShip.destroy()
         swapElements(shipData, shipData.alternate)
         myShip = spawnShip(shipData, pos, rot, color)
-        shipData.shipGUID = myShip.getGUID()
+        saveData.shipGUID = myShip.getGUID()
     end
 end
 
