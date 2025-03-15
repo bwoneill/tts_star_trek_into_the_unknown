@@ -38,13 +38,9 @@ function setUp(player, value, id)
     local rot = self.getRotation()
     
     if shipData.dials then
-        if not saveData.dials then
-            saveData.dials = {}
-        end
+        saveData.dials = saveData.dials or {}
         for name, dial in pairs(shipData.dials) do
-            if not saveData.dials[name] then
-                saveData.dials[name] = {}
-            end
+            saveData.dials[name] = saveData.dials[name] or {}
             if not saveData.dials[name].GUID then
                 local object = Global.call("spawnAsset", dial)
                 saveData.dials[name].GUID = object.getGUID()
@@ -415,18 +411,14 @@ function detach(player, value, id)
         -- create cards
         shipData.aux_card.script = self.getLuaScript()
         altCard = Global.call("spawnAsset", shipData.alt_card)
-        if not saveData.alt_card then
-            saveData.alt_card = {}
-        end
+        saveData.alt_card = saveData.alt_card or {}
         saveData.alt_card.GUID = altCard.getGUID()
         altCard.setPosition(pos + Vector(-3.5, 0, -6):rotateOver("y", rot.y))
         altCard.setRotation(rot)
         altCard.jointTo(self, {type = "Fixed"})
         altCard.interactable = false
         auxCard = Global.call("spawnAsset", shipData.aux_card)
-        if not saveData.aux_card then
-            saveData.aux_card = {}
-        end
+        saveData.aux_card = saveData.aux_card or {}
         saveData.aux_card.GUID = auxCard.getGUID()
         auxCard.setPosition(pos + Vector(5.25, 0, -5.25):rotateOver("y", rot.y))
         auxCard.setRotation(rot)
