@@ -125,14 +125,12 @@ saucerXml = [[<Button
     fontSize="20" 
     color="#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)" 
     width="100" 
-    height="50" 
+    height="32" 
     rectAlignment="UpperLeft" 
-    position="0 -80 -30"
+    position="0 -51 -19"
     rotation="0 0 180">
     Deploy
 </Button>
-
-
 <Button  
     active="false"
     id="phaserBtn" 
@@ -140,14 +138,12 @@ saucerXml = [[<Button
     fontSize="10" 
     color="#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)" 
     width="50" 
-    height="20" 
+    height="13" 
     rectAlignment="UpperLeft" 
-    position="20 66 -30"
+    position="13 42 -19"
     rotation="0 0 180">
     Fire
 </Button>
-
-
 <Button  
     active="false"
     id="warpBtn" 
@@ -155,13 +151,12 @@ saucerXml = [[<Button
     fontSize="10" 
     color="#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)" 
     width="40" 
-    height="20" 
+    height="13" 
     rectAlignment="UpperLeft" 
-    position="-20 -70 -30"
+    position="-26 -45 -19"
     rotation="0 0 180">
     Warp
 </Button>
-
 <Button  
     active="false"
     id="impulsBtn" 
@@ -169,13 +164,12 @@ saucerXml = [[<Button
     fontSize="10" 
     color="#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)" 
     width="50" 
-    height="20" 
+    height="13" 
     rectAlignment="UpperLeft" 
-    position="-20 -90 -30"
+    position="-26 -57 -19"
     rotation="0 0 180">
     Impulse
 </Button>
-
 <Button  
     active="false"
     id="scanBtn" 
@@ -183,13 +177,12 @@ saucerXml = [[<Button
     fontSize="10" 
     color="#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)" 
     width="50" 
-    height="20" 
+    height="13" 
     rectAlignment="UpperLeft" 
-    position="20 20 -30"
+    position="13 13 -19"
     rotation="0 0 180">
     Sensors
 </Button>
-
 <Button  
     active="false"
     id="commsBtn" 
@@ -197,13 +190,12 @@ saucerXml = [[<Button
     fontSize="10" 
     color="#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)" 
     width="50" 
-    height="20" 
+    height="13" 
     rectAlignment="UpperLeft" 
-    position="20 43 -30"
+    position="13 27 -19"
     rotation="0 0 180">
     Comms
 </Button>
-
 <Button
     active="false"
     id="clear"
@@ -211,9 +203,9 @@ saucerXml = [[<Button
     fontSize="10" 
     color="#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)" 
     width="40" 
-    height="20" 
+    height="13" 
     rectAlignment="UpperLeft" 
-    position="20 120 -30"
+    position="13 76 -19"
     rotation="0 0 180">
     Clear
 </Button>]]
@@ -399,13 +391,16 @@ ASSETS = {
             direction = "fore"
         },
         aux_card = {
-            object = {type = "CardCustom", scale = {1.4, 0, 1.4}},
-            custom = {
-                type = 0, sideways = true,
-                face = ASSET_ROOT .. "ships/galaxy_class/saucer_card.png",
-                back = ASSET_ROOT .. "ships/galaxy_class/saucer_card_back.png"
+            data = {
+                Name = "Custom_Tile",
+                XmlUI = saucerXml,
+                CustomImage = {
+                    ImageURL = ASSET_ROOT .. "ships/galaxy_class/saucer_card.png",
+                    ImageSecondaryURL = ASSET_ROOT .. "ships/galaxy_class/saucer_card_back.png",
+                    CustomTile = {Type = 3, Stretch = true, Thickness = 0.1}
+                }
             },
-            xml = saucerXml
+            scale = {2.2, 1, 2.2}
         }
     },
     jh_fighter = {
@@ -545,10 +540,11 @@ ASSETS = {
 -- Spawn functions
 
 function spawnAsset(param)
-    local obj = spawnObject(param.object)
-    if param.xml then
-        obj.UI.setXml(param.xml)
+    if param.data then
+        param.data.Transform = {posX = 0, posY = 1, posZ = 0, rotX = 0, rotY = 0, rotZ = 0, scaleX = 1, scaleY = 1, scaleZ = 1}
+        return spawnObjectData(param)
     end
+    local obj = spawnObject(param.object)
     if param.script then
         obj.setLuaScript(param.script)
     end
