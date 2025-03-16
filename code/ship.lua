@@ -16,8 +16,12 @@ function onLoad(script_state)
             self.UI.setAttributes("saucerSeparation", {onClick = "reattach", text = "Reattach"})
             swapElements(shipData, shipData.alternate)
         end
-        if saveData.xml then
-            self.UI.setXml(saveData.xml)
+        if saveData.UI_state then
+            local xml = self.UI.getXmlTable()
+            for name, active in pairs(saveData.UI_state) do
+                xml[name].attributes.active = active
+            end
+            self.UI.setXmlTable(xml)
         end
     else
         log("loading default data")
@@ -25,7 +29,12 @@ function onLoad(script_state)
 end
 
 function onSave()
-    saveData.xml = self.UI.getXml()
+    saveData.UI_state = {}
+    for name, element in pairs(self.UI.getXmlTable()) do
+        if element.tag == "Button" then
+            saveData.UI_state[name] = element.attributes.active
+        end
+    end
     return JSON.encode(saveData)
 end
 
@@ -409,7 +418,7 @@ function detach(player, value, id)
         local rot = self.getRotation()
         local pos = self.getPosition()
         -- create cards
-        shipData.aux_card.script = self.getLuaScript()
+        shipData.aux_card.data.LuaScript = self.getLuaScript()
         altCard = Global.call("spawnAsset", shipData.alt_card)
         saveData.alt_card = saveData.alt_card or {}
         saveData.alt_card.GUID = altCard.getGUID()
