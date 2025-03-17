@@ -367,12 +367,15 @@ ASSETS = {
             comms = {all = 2, bow = 4, instruments = {bow = true}}
         },
         alt_card = {
-            object = {type = "CardCustom", scale = {1.4, 0, 1.4}},
-            custom = {
-                type = 0, sideways = true,
-                face = ASSET_ROOT .. "ships/galaxy_class/stardrive_card.png",
-                back = ASSET_ROOT .. "ships/galaxy_class/stardrive_card_back.png"
-            }
+            data = {
+                Name = "Custom_Tile",
+                CustomImage = {
+                    ImageURL = ASSET_ROOT .. "ships/galaxy_class/stardrive_card.png",
+                    ImageSecondaryURL = ASSET_ROOT .. "ships/galaxy_class/stardrive_card_back.png",
+                    CustomTile = {Type = 3, Stretch = true, Thickness = 0.01}
+                }
+            },
+            scale = {2.1, 1, 2.1}
         },
         auxiliary = {
             size = shipSize.medium,
@@ -397,10 +400,10 @@ ASSETS = {
                 CustomImage = {
                     ImageURL = ASSET_ROOT .. "ships/galaxy_class/saucer_card.png",
                     ImageSecondaryURL = ASSET_ROOT .. "ships/galaxy_class/saucer_card_back.png",
-                    CustomTile = {Type = 3, Stretch = true, Thickness = 0.1}
+                    CustomTile = {Type = 3, Stretch = true, Thickness = 0.01}
                 }
             },
-            scale = {2.2, 1, 2.2}
+            scale = {2.1, 1, 2.1}
         }
     },
     jh_fighter = {
@@ -541,7 +544,7 @@ ASSETS = {
 
 function spawnAsset(param)
     if param.data then
-        param.data.Transform = {posX = 0, posY = 1, posZ = 0, rotX = 0, rotY = 0, rotZ = 0, scaleX = 1, scaleY = 1, scaleZ = 1}
+        param.data.Transform = {scaleX = 1, scaleY = 1, scaleZ = 1}
         return spawnObjectData(param)
     end
     local obj = spawnObject(param.object)
