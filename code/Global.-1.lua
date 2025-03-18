@@ -575,3 +575,47 @@ end
 function spawnRuler() return spawnAsset(ASSETS.ruler_12in) end
 
 function spawnTurningTool() return spawnAsset(ASSETS.turning_tool) end
+
+feature_scale = 0.6219861
+
+function drawFeatureRange()
+    local features = getObjectsWithTag("Feature")
+    for _, feature in pairs(features) do
+        local pos = feature.getPosition()
+        if pos.x <= 18 and pos.x >= -18 and pos.z <= 18 and pos.z >= -18 then
+            local lines = {}
+            local p2, p4, p6 = {}, {}, {}
+            local v = Vector(1, 0, 0)
+            local scale = feature.getScale().x
+            for theta = 0, 360 do
+                table.insert(p2, v * (2.625 / scale))
+                table.insert(p4, v * (4.625 / scale))
+                table.insert(p6, v * (6.625 / scale))
+                v:rotateOver("y", 1)    
+            end
+            table.insert(lines, {points = p2, color = "Red", thickness = 0.05})
+            table.insert(lines, {points = p4, color = "Yellow", thickness = 0.05})
+            table.insert(lines, {points = p6, color = "Green", thickness = 0.05})
+            feature.setVectorLines(lines)
+        end
+    end
+end
+
+function clearFeatureRange()
+    local features = getObjectsWithTag("Feature")
+    for _, feature in pairs(features) do
+        feature.setVectorLines({})
+    end
+end
+
+function scaleFeatures()
+    local features = getObjectsWithTag("Feature")
+    for _, feature in pairs(features) do
+        local size = feature.getBounds().size.x
+        local scale = feature.getScale()
+        scale:scale(1.25 / size)
+        scale.y = 1
+        feature.setScale(scale)
+    end
+end
+

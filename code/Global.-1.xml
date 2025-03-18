@@ -1,1 +1,16 @@
 <!-- Xml UI. See documentation: https://api.tabletopsimulator.com/ui/introUI/ -->
+
+<Button 
+    onClick = "drawFeatureRange"
+    width = "100"
+    height = "25"
+    position = "-50 475 0">
+    Draw Ranges
+</Button>
+
+<Button onClick = "clearFeatureRange"
+    width = "100"
+    height = "25"
+    position = "50 475 0">
+    Clear
+</Button>
