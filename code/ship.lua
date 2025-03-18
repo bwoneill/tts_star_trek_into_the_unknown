@@ -16,15 +16,22 @@ function onLoad(script_state)
             self.UI.setAttributes("saucerSeparation", {onClick = "reattach", text = "Reattach"})
             swapElements(shipData, shipData.alternate)
         end
-        if saveData.UI_state then
-            local xml = self.UI.getXmlTable()
+        local xml = self.UI.getXmlTable()
+        if saveData.UI_state and xml then
             for name, active in pairs(saveData.UI_state) do
-                xml[name].attributes.active = active
+                if xml[name] and xml[name].attributes then
+                    xml[name].attributes.active = active
+                end
             end
-            self.UI.setXmlTable(xml)
+            if #xml > 0 then
+                self.UI.setXmlTable(xml)
+            end
         end
-    else
-        log("loading default data")
+        local ship = getObjectFromGUID(saveData.shipGUID)
+        if ship then
+            ship.addContextMenuItem('Impulse', function() impulseMoveStart() end, false)
+            ship.addContextMenuItem('Warp Speed', function() placeWarpTemplate() end, false)
+        end
     end
 end
 
@@ -54,7 +61,7 @@ function setUp(player, value, id)
                 local object = Global.call("spawnAsset", dial)
                 saveData.dials[name].GUID = object.getGUID()
                 saveData.dials[name].value = 0
-                object.setPosition(pos +  Vector(dial.pos):rotateOver("y", rot.y))
+                object.setPosition(pos +  Vector(dial.pos):rotateOver("z", rot.z):rotateOver("x", rot.x):rotateOver("y", rot.y))
                 object.setRotation(rot)
                 object.interactable = false
                 object.jointTo(self, {type = "Fixed"})
@@ -103,6 +110,9 @@ function rotateDial(name, difference)
         dialValues.value = value
         rot.y = rot.y + dialData.rot * dialValues.value
         dial.jointTo()
+        -- local result = calculateRotation(-dialData.rot * dialValues.value, self.getRotation())
+        -- log(result)
+        -- dial.setRotation(result)
         dial.setRotation(rot)
         dial.jointTo(self, {type = "Fixed"})
     end
@@ -123,6 +133,19 @@ function hullDown() rotateDial("hull", 1) end
 function crewUp() rotateDial("crew", -1) end
 
 function crewDown() rotateDial("crew", 1) end
+
+function calculateRotation(alpha, rotation)
+    local X, Y, Z = Vector(1, 0, 0), Vector(0, 1, 0), Vector(0, 0, 1)
+    local result = Vector()
+    X:rotateOver("y", alpha):rotateOver("z", rotation.z):rotateOver("x", rotation.x):rotateOver("y", rotation.y)
+    Y:rotateOver("y", alpha):rotateOver("z", rotation.z):rotateOver("x", rotation.x):rotateOver("y", rotation.y)
+    Z:rotateOver("y", alpha):rotateOver("z", rotation.z):rotateOver("x", rotation.x):rotateOver("y", rotation.y)
+    result.x = math.deg(math.asin(Z.y))
+    local cx = math.cos(math.rad(result.x))
+    result.y = math.deg(math.atan2(-Z.x / cx, Z.z / cx))
+    result.z = math.deg(math.atan2(X.y / cx, Y.y / cx))
+    return result
+end
 
 -- Impulse
 
