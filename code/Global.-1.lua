@@ -214,9 +214,14 @@ saucerXml = [[<Button
 
 ASSETS = {
     ruler_12in = {
-        object = {type = "Custom_Token", scale = {12/18.330303, 1, 12/18.330303}},
-        custom = {image = ASSET_ROOT .. "tools/ruler/ruler_12.png", thickness = 0.1},
-        tag = "ruler",
+        data = {
+            Name = "Custom_Token",
+            Transform = {scaleX = 12/18.330303, scaleY = 1, scaleZ = 12/18.330303},
+            CustomImage = {
+                ImageURL = ASSET_ROOT .. "tools/ruler/ruler_12.png",
+                CustomToken = {Thickness = 0.1}
+            }
+        }
     },
     turning_tool = {
         object = {type = "Custom_Model"},
@@ -231,7 +236,7 @@ ASSETS = {
         data = {
             Name = "Custom_Tile",
             Transform = {scaleX = 1.009268, scaleY = 1, scaleZ = 1.009268},
-            ColorDiffuse = {r = 1, g = 1, b = 1, a = 0.4},
+            ColorDiffuse = {r = 1, g = 1, b = 1, a = 0.7},
             CustomImage = {
                 ImageURL = ASSET_ROOT .. "markers/system_marker_1.png",
                 CustomTile = {Type = 2, Stretch = false, Thickness = 0.01}
@@ -240,7 +245,7 @@ ASSETS = {
                 ["2"] = {
                     Name = "Custom_Tile",
                     Transform = {scaleX = 1.009268, scaleY = 1, scaleZ = 1.009268},
-                    ColorDiffuse = {r = 1, g = 1, b = 1, a = 0.4},
+                    ColorDiffuse = {r = 1, g = 1, b = 1, a = 0.7},
                     CustomImage = {
                         ImageURL = ASSET_ROOT .. "markers/system_marker_2.png",
                         CustomTile = {Type = 2, Stretch = false, Thickness = 0.01}
@@ -249,7 +254,7 @@ ASSETS = {
                 ["3"] = {
                     Name = "Custom_Tile",
                     Transform = {scaleX = 1.009268, scaleY = 1, scaleZ = 1.009268},
-                    ColorDiffuse = {r = 1, g = 1, b = 1, a = 0.4},
+                    ColorDiffuse = {r = 1, g = 1, b = 1, a = 0.7},
                     CustomImage = {
                         ImageURL = ASSET_ROOT .. "markers/system_marker_3.png",
                         CustomTile = {Type = 2, Stretch = false, Thickness = 0.01}
@@ -259,10 +264,10 @@ ASSETS = {
         }
     },
     system_border = {
-        date = {
+        data = {
             Name = "Custom_Token",
             Transform = {scaleX = 0.4790743, scaleY = 1, scaleZ = 0.4790743},
-            ColorDiffuse = {r = 1, g = 1, b = 1, a = 0.4},
+            ColorDiffuse = {r = 1, g = 1, b = 1, a = 0.7},
             CustomImage = {
                 ImageURL = ASSET_ROOT .. "markers/system_border.png",
                 CustomToken = {Thickness = 0.01}
