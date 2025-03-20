@@ -121,6 +121,19 @@
     Lose Moral
 </Button>
 
+<Button  
+    active="false"
+    id="launchAux" 
+    onClick="launchAuxAft" 
+    fontSize="12" 
+    color="#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)" 
+    width="75"
+    height="30" 
+    rectAlignment="UpperLeft" 
+    position="500 150 -2"
+    rotation="0 0 180">
+    Launch
+</Button>
 
 <Button  
     active="false"
@@ -138,7 +151,7 @@
 <Button  
     active="false"
     id="cannonBtn" 
-    onClick="fireCannon" 
+    onClick="firePhaser" 
     fontSize="12" 
     color="#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)" 
     width="40" 

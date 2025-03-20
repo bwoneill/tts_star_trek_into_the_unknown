@@ -14,6 +14,8 @@ require("vscode/console")
 
 -- Constants: DO NOT MODIFY
 
+ASSET_ROOT = "https://raw.githubusercontent.com/bwoneill/tts_star_trek_into_the_unknown/v0.14_purple_data/assets/"
+
 shipSize = {
     shuttle = {
         bounds = Vector(1.5, 0, 0.75), arcHeight = 0.01,
@@ -27,7 +29,7 @@ shipSize = {
         base = {
             object = {type = "Custom_Model"},
             custom = {
-                mesh = "https://steamusercontent-a.akamaihd.net/ugc/53576717526307309/9D1EED059774E729E68F7FD44622D28361B4B800/"
+                mesh = ASSET_ROOT .. "ships/bases/shuttle_base.obj"
             },
             color = {r = 0.6666667, g = 0.6666667, b = 0.6666667}
         }
@@ -43,7 +45,7 @@ shipSize = {
         base = {
             object = {type = "Custom_Model"},
             custom = {
-                mesh = "https://steamusercontent-a.akamaihd.net/ugc/53576717526168410/1D30F105B400ED2488C1815A197CDB74DD0B003D/"
+                mesh = ASSET_ROOT .. "ships/bases/small_base.obj"
             },
             color = {r = 0.6666667, g = 0.6666667, b = 0.6666667}
         },
@@ -61,7 +63,7 @@ shipSize = {
         base = {
             object = {type = "Custom_Model"},
             custom = {
-                mesh = "https://steamusercontent-a.akamaihd.net/ugc/53576717526127504/10DB471BCAF7B08573B2933027CA095215F12ED8/"
+                mesh = ASSET_ROOT .. "ships/bases/medium_base.obj"
             },
             color = {r = 0.6666667, g = 0.6666667, b = 0.6666667}
         },
@@ -79,7 +81,7 @@ shipSize = {
         base = {
             object = {type = "Custom_Model"},
             custom = {
-                mesh = "https://steamusercontent-a.akamaihd.net/ugc/53576717526201424/05511C65238C1083F43AA10418A752B9A8F7AA6C/"
+                mesh = ASSET_ROOT .. "ships/bases/large_base.obj"
             },
             color = {r = 0.6666667, g = 0.6666667, b = 0.6666667}
         },
@@ -123,14 +125,12 @@ saucerXml = [[<Button
     fontSize="20" 
     color="#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)" 
     width="100" 
-    height="50" 
+    height="32" 
     rectAlignment="UpperLeft" 
-    position="0 -80 -30"
+    position="0 -51 -19"
     rotation="0 0 180">
     Deploy
 </Button>
-
-
 <Button  
     active="false"
     id="phaserBtn" 
@@ -138,14 +138,12 @@ saucerXml = [[<Button
     fontSize="10" 
     color="#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)" 
     width="50" 
-    height="20" 
+    height="13" 
     rectAlignment="UpperLeft" 
-    position="20 66 -30"
+    position="13 42 -19"
     rotation="0 0 180">
     Fire
 </Button>
-
-
 <Button  
     active="false"
     id="warpBtn" 
@@ -153,13 +151,12 @@ saucerXml = [[<Button
     fontSize="10" 
     color="#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)" 
     width="40" 
-    height="20" 
+    height="13" 
     rectAlignment="UpperLeft" 
-    position="-20 -70 -30"
+    position="-26 -45 -19"
     rotation="0 0 180">
     Warp
 </Button>
-
 <Button  
     active="false"
     id="impulsBtn" 
@@ -167,13 +164,12 @@ saucerXml = [[<Button
     fontSize="10" 
     color="#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)" 
     width="50" 
-    height="20" 
+    height="13" 
     rectAlignment="UpperLeft" 
-    position="-20 -90 -30"
+    position="-26 -57 -19"
     rotation="0 0 180">
     Impulse
 </Button>
-
 <Button  
     active="false"
     id="scanBtn" 
@@ -181,13 +177,12 @@ saucerXml = [[<Button
     fontSize="10" 
     color="#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)" 
     width="50" 
-    height="20" 
+    height="13" 
     rectAlignment="UpperLeft" 
-    position="20 20 -30"
+    position="13 13 -19"
     rotation="0 0 180">
     Sensors
 </Button>
-
 <Button  
     active="false"
     id="commsBtn" 
@@ -195,13 +190,12 @@ saucerXml = [[<Button
     fontSize="10" 
     color="#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)" 
     width="50" 
-    height="20" 
+    height="13" 
     rectAlignment="UpperLeft" 
-    position="20 43 -30"
+    position="13 27 -19"
     rotation="0 0 180">
     Comms
 </Button>
-
 <Button
     active="false"
     id="clear"
@@ -209,30 +203,76 @@ saucerXml = [[<Button
     fontSize="10" 
     color="#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)" 
     width="40" 
-    height="20" 
+    height="13" 
     rectAlignment="UpperLeft" 
-    position="20 120 -30"
+    position="13 76 -19"
     rotation="0 0 180">
     Clear
 </Button>]]
 
 -- Assets
 
-ASSET_ROOT = "https://raw.githubusercontent.com/bwoneill/tts_star_trek_into_the_unknown/main/assets/"
 ASSETS = {
     ruler_12in = {
-        object = {type = "Custom_Token", scale = {12/18.330303, 1, 12/18.330303}},
-        custom = {image = "https://steamusercontent-a.akamaihd.net/ugc/2178114146521158142/F80ED8E2A7D73712BDCF91587EA249D1B2E5B164/", thickness = 0.1},
-        tag = "ruler",
+        data = {
+            Name = "Custom_Token",
+            Transform = {scaleX = 12/18.330303, scaleY = 1, scaleZ = 12/18.330303},
+            CustomImage = {
+                ImageURL = ASSET_ROOT .. "tools/ruler/ruler_12.png",
+                CustomToken = {Thickness = 0.1}
+            }
+        }
     },
     turning_tool = {
         object = {type = "Custom_Model"},
         custom = {
-            mesh = "https://steamusercontent-a.akamaihd.net/ugc/53576717526034505/A88863F87EC4E8E6A3B66EC813FC3E459700BBFD/",
-            diffuse = "https://steamusercontent-a.akamaihd.net/ugc/2325615279340409003/08D9A7248BAC7E73E539F58552FCF7B7F7B86ED5/",
-            collider = "https://steamusercontent-a.akamaihd.net/ugc/53580341274765070/1C959D9EA91D01CE2228CBE23C78E55F68F8F48F/"
+            mesh = ASSET_ROOT .. "tools/turning_tool/turning_tool_mesh.obj",
+            diffuse = ASSET_ROOT .. "tools/turning_tool/turning_tool_diffuse.png",
+            collider = ASSET_ROOT .. "tools/turning_tool/turning_tool_collider.obj"
         },
         script = [[-- empty, for now]]
+    },
+    system_marker = {
+        data = {
+            Name = "Custom_Tile",
+            Transform = {scaleX = 1.009268, scaleY = 1, scaleZ = 1.009268},
+            ColorDiffuse = {r = 1, g = 1, b = 1, a = 0.7},
+            CustomImage = {
+                ImageURL = ASSET_ROOT .. "markers/system_marker_1.png",
+                CustomTile = {Type = 2, Stretch = false, Thickness = 0.01}
+            },
+            States = {
+                ["2"] = {
+                    Name = "Custom_Tile",
+                    Transform = {scaleX = 1.009268, scaleY = 1, scaleZ = 1.009268},
+                    ColorDiffuse = {r = 1, g = 1, b = 1, a = 0.7},
+                    CustomImage = {
+                        ImageURL = ASSET_ROOT .. "markers/system_marker_2.png",
+                        CustomTile = {Type = 2, Stretch = false, Thickness = 0.01}
+                    }
+                },
+                ["3"] = {
+                    Name = "Custom_Tile",
+                    Transform = {scaleX = 1.009268, scaleY = 1, scaleZ = 1.009268},
+                    ColorDiffuse = {r = 1, g = 1, b = 1, a = 0.7},
+                    CustomImage = {
+                        ImageURL = ASSET_ROOT .. "markers/system_marker_3.png",
+                        CustomTile = {Type = 2, Stretch = false, Thickness = 0.01}
+                    }
+                }
+            }
+        }
+    },
+    system_border = {
+        data = {
+            Name = "Custom_Token",
+            Transform = {scaleX = 0.4790743, scaleY = 1, scaleZ = 0.4790743},
+            ColorDiffuse = {r = 1, g = 1, b = 1, a = 0.7},
+            CustomImage = {
+                ImageURL = ASSET_ROOT .. "markers/system_border.png",
+                CustomToken = {Thickness = 0.01}
+            }
+        }
     },
     constellation = {
         class = "constellation",
@@ -240,8 +280,8 @@ ASSETS = {
         ship_board = {
             object = {type = "Custom_Model"},
             custom = {
-                mesh = "https://steamusercontent-a.akamaihd.net/ugc/2262559176062618179/35F33C0A721FAB6A0779303FE6636B8412016B20/",
-                diffuse = ASSET_ROOT .. "constellation_class/ship_board.png",
+                mesh = ASSET_ROOT .. "ships/shig_board.obj",
+                diffuse = ASSET_ROOT .. "ships/constellation_class/ship_board.png",
                 material = 3
             },
             script = SHIP_BOARD_SCRIPT,
@@ -250,30 +290,30 @@ ASSETS = {
         dials = {
             alert = {
                 object = {type = "Custom_Token", scale = alertDialScale},
-                custom = {image = ASSET_ROOT .. "constellation_class/alert_dial.png", thickness = 0.1},
+                custom = {image = ASSET_ROOT .. "ships/constellation_class/alert_dial.png", thickness = 0.1},
                 min = 0, max = 5, rot = alertDialRot, pos = alertDialPos
             },
             power = {
                 object = {type = "Custom_Token", scale = powerDialScale},
-                custom = {image = ASSET_ROOT .. "constellation_class/power_dial.png", thickness = 0.1},
+                custom = {image = ASSET_ROOT .. "ships/constellation_class/power_dial.png", thickness = 0.1},
                 min = 0, max = 7, rot = powerDialRot, pos = powerDialPos
             },
             crew = {
                 object = {type = "Custom_Token", scale = crewDialScale},
-                custom = {image = ASSET_ROOT .. "constellation_class/crew_dial.png", thickness = 0.1},
+                custom = {image = ASSET_ROOT .. "ships/constellation_class/crew_dial.png", thickness = 0.1},
                 min = -2, max = 4, rot = crewDialRot, pos = crewDialPos
             },
             hull = {
                 object = {type = "Custom_Token", scale = hullDialScale},
-                custom = {image = ASSET_ROOT .. "constellation_class/hull_dial.png", thickness = 0.1},
+                custom = {image = ASSET_ROOT .. "ships/constellation_class/hull_dial.png", thickness = 0.1},
                 min = 0, max = 8, rot = hullDialRot, pos = hullDialPos
             }
         },
         model = {
             object = {type = "Custom_Model", scale = {1.25, 1.25, 1.25}},
             custom = {
-                mesh = "https://steamusercontent-a.akamaihd.net/ugc/2494520554830218443/6B037F5D0D41284BA00A8660016D803C6626F14C/",
-                diffuse = "https://steamusercontent-a.akamaihd.net/ugc/2494520554821411536/6186F9132EF7FD4AC45FB72EFB59B223F6B16D45/",
+                mesh = ASSET_ROOT .. "ships/constellation_class/constellation_mesh.obj",
+                diffuse = ASSET_ROOT .. "ships/constellation_class/constellation_skin.png",
                 collider = ASSET_ROOT .. "no_collide.obj",
                 material = 3
             }
@@ -289,30 +329,30 @@ ASSETS = {
         dials = {
             alert = {
                 object = {type = "Custom_Token", scale = alertDialScale},
-                custom = {image = ASSET_ROOT .. "defiant_class/alert_dial.png", thickness = 0.1},
+                custom = {image = ASSET_ROOT .. "ships/defiant_class/alert_dial.png", thickness = 0.1},
                 min = 0, max = 4, rot = alertDialRot, pos = alertDialPos
             },
             power = {
                 object = {type = "Custom_Token", scale = powerDialScale},
-                custom = {image = ASSET_ROOT .. "defiant_class/power_dial.png", thickness = 0.1},
+                custom = {image = ASSET_ROOT .. "ships/defiant_class/power_dial.png", thickness = 0.1},
                 min = 0, max = 6, rot = powerDialRot, pos = powerDialPos
             },
             crew = {
                 object = {type = "Custom_Token", scale = crewDialScale},
-                custom = {image = ASSET_ROOT .. "defiant_class/crew_dial.png", thickness = 0.1},
+                custom = {image = ASSET_ROOT .. "ships/defiant_class/crew_dial.png", thickness = 0.1},
                 min = -2, max = 4, rot = crewDialRot, pos = crewDialPos
             },
             hull = {
                 object = {type = "Custom_Token", scale = hullDialScale},
-                custom = {image = ASSET_ROOT .. "defiant_class/hull_dial.png", thickness = 0.1},
+                custom = {image = ASSET_ROOT .. "ships/defiant_class/hull_dial.png", thickness = 0.1},
                 min = 0, max = 7, rot = hullDialRot, pos = hullDialPos
             }
         },
         model = {
             object = {type = "Custom_Model", scale = {1.3, 1.3, 1.3}},
             custom = {
-                mesh = "https://steamusercontent-a.akamaihd.net/ugc/2494520554830561221/92A4C7D84320E3002E5F41EED58C3F1D8A310DF1/",
-                diffuse = "https://steamusercontent-a.akamaihd.net/ugc/2494520554830361122/0D155F737B97557FAC954E588EBB5D83C5DEA1E9/",
+                mesh = ASSET_ROOT .. "ships/defiant_class/defiant_mesh.obj",
+                diffuse = ASSET_ROOT .. "ships/defiant_class/defiant_skin.png",
                 collider = ASSET_ROOT .. "no_collide.obj",
                 material = 3
             }
@@ -320,7 +360,7 @@ ASSETS = {
         instruments = {2, 2, 1, 1, 0},
         sensors = {all = 2, bow = 4, instruments = {bow = true}},
         comms = {all = 2, bow = 6, instruments = {bow = true}},
-        weapons = {all = 6, fore = 6, fore_port = 6, fore_starboard = 6, aft = 6}
+        weapons = {all = 6, fore = 6, fore_port = 4, fore_starboard = 4, aft = 6}
     },
     galaxy = {
         class = "galaxy",
@@ -328,30 +368,30 @@ ASSETS = {
         dials = {
             alert = {
                 object = {type = "Custom_Token", scale = alertDialScale},
-                custom = {image = ASSET_ROOT .. "galaxy_class/alert_dial.png", thickness = 0.1},
+                custom = {image = ASSET_ROOT .. "ships/galaxy_class/alert_dial.png", thickness = 0.1},
                 min = 0, max = 6, rot = alertDialRot, pos = alertDialPos
             },
             power = {
                 object = {type = "Custom_Token", scale = powerDialScale},
-                custom = {image = ASSET_ROOT .. "galaxy_class/power_dial.png", thickness = 0.1},
+                custom = {image = ASSET_ROOT .. "ships/galaxy_class/power_dial.png", thickness = 0.1},
                 min = 0, max = 8, rot = powerDialRot, pos = powerDialPos
             },
             crew = {
                 object = {type = "Custom_Token", scale = crewDialScale},
-                custom = {image = ASSET_ROOT .. "galaxy_class/crew_dial.png", thickness = 0.1},
+                custom = {image = ASSET_ROOT .. "ships/galaxy_class/crew_dial.png", thickness = 0.1},
                 min = -2, max = 5, rot = crewDialRot, pos = crewDialPos
             },
             hull = {
                 object = {type = "Custom_Token", scale = hullDialScale},
-                custom = {image = ASSET_ROOT .. "galaxy_class/hull_dial.png", thickness = 0.1},
+                custom = {image = ASSET_ROOT .. "ships/galaxy_class/hull_dial.png", thickness = 0.1},
                 min = 0, max = 9, rot = hullDialRot, pos = hullDialPos
             }
         },
         model = {
             object = {type = "Custom_Model", scale = {1.4, 1.4, 1.4}},
             custom = {
-                mesh = "https://steamusercontent-a.akamaihd.net/ugc/2494520554830060931/7542060AA53D11BA98D698C22DA05B311CDF643C/",
-                diffuse = "https://steamusercontent-a.akamaihd.net/ugc/2098172801144611875/56E14416EBAFD15A8AD905B26C5A61B5801F570E/",
+                mesh = ASSET_ROOT .. "ships/galaxy_class/galaxy_mesh.obj",
+                diffuse = ASSET_ROOT .. "ships/galaxy_class/galaxy_skin.png",
                 collider = ASSET_ROOT .. "no_collide.obj",
                 material = 3
             }
@@ -364,8 +404,8 @@ ASSETS = {
             dials = {alert = {min = 1, max = 5}, crew = {min = 2, max = 5}},
             model = {
                 custom = {
-                    mesh = "https://steamusercontent-a.akamaihd.net/ugc/2494520554830159870/13CCD3CD564237EBFC610A34D84A548C81B60DCF/",
-                    diffuse = "https://steamusercontent-a.akamaihd.net/ugc/2098172801144611875/56E14416EBAFD15A8AD905B26C5A61B5801F570E/",
+                    mesh = ASSET_ROOT .. "ships/galaxy_class/stardrive_mesh.obj",
+                    diffuse = ASSET_ROOT .. "ships/galaxy_class/galaxy_skin.png",
                     collider = ASSET_ROOT .. "no_collide.obj",
                     material = 3
                 }
@@ -374,36 +414,43 @@ ASSETS = {
             comms = {all = 2, bow = 4, instruments = {bow = true}}
         },
         alt_card = {
-            object = {type = "CardCustom", scale = {1.4, 0, 1.4}},
-            custom = {
-                type = 0, sideways = true,
-                face = "https://steamusercontent-a.akamaihd.net/ugc/53575902106857057/D2C95DA140FA61C59D2DCD00F1B4E7B9425BB85F/",
-                back = "https://steamusercontent-a.akamaihd.net/ugc/53575902106857266/33AF0CFA558C411F3B1A36435D245447704D1E36/"
-            }
+            data = {
+                Name = "Custom_Tile",
+                CustomImage = {
+                    ImageURL = ASSET_ROOT .. "ships/galaxy_class/stardrive_card.png",
+                    ImageSecondaryURL = ASSET_ROOT .. "ships/galaxy_class/stardrive_card_back.png",
+                    CustomTile = {Type = 3, Stretch = true, Thickness = 0.01}
+                }
+            },
+            scale = {2.1, 1, 2.1}
         },
         auxiliary = {
             size = shipSize.medium,
             model = {
                 object = {type = "Custom_Model", scale = {1.4, 1.4, 1.4}},
                 custom = {
-                    mesh = "https://steamusercontent-a.akamaihd.net/ugc/2494520554830188072/006E5758D4D2FE12D925278A4B827420882B85EA/",
-                    diffuse = "https://steamusercontent-a.akamaihd.net/ugc/2098172801144611875/56E14416EBAFD15A8AD905B26C5A61B5801F570E/",
+                    mesh = ASSET_ROOT .. "ships/galaxy_class/saucer_mesh.obj",
+                    diffuse = ASSET_ROOT .. "ships/galaxy_class/galaxy_skin.png",
                     collider = ASSET_ROOT .. "no_collide.obj",
                     material = 3
                 }
             },
             sensors = {all = 4, bow = 6},
             comms = {all = 6, bow = 8},
-            weapons = {fore = 6}
+            weapons = {fore = 6},
+            direction = "fore"
         },
         aux_card = {
-            object = {type = "CardCustom", scale = {1.4, 0, 1.4}},
-            custom = {
-                type = 0, sideways = true,
-                face = "https://steamusercontent-a.akamaihd.net/ugc/53575902106856618/1495F8282200AD1EA5BE70DE49C75DDF4AEB54F1/",
-                back = "https://steamusercontent-a.akamaihd.net/ugc/53575902106856804/D79E78023113838A1EFC4960E56833C88523850A/"
+            data = {
+                Name = "Custom_Tile",
+                XmlUI = saucerXml,
+                CustomImage = {
+                    ImageURL = ASSET_ROOT .. "ships/galaxy_class/saucer_card.png",
+                    ImageSecondaryURL = ASSET_ROOT .. "ships/galaxy_class/saucer_card_back.png",
+                    CustomTile = {Type = 3, Stretch = true, Thickness = 0.01}
+                }
             },
-            xml = saucerXml
+            scale = {2.1, 1, 2.1}
         }
     },
     jh_fighter = {
@@ -412,30 +459,30 @@ ASSETS = {
         dials = {
             alert = {
                 object = {type = "Custom_Token", scale = alertDialScale},
-                custom = {image = ASSET_ROOT .. "jh_fighter/alert_dial.png", thickness = 0.1},
+                custom = {image = ASSET_ROOT .. "ships/jh_fighter/alert_dial.png", thickness = 0.1},
                 min = 0, max = 4, rot = alertDialRot, pos = alertDialPos
             },
             power = {
                 object = {type = "Custom_Token", scale = powerDialScale},
-                custom = {image = ASSET_ROOT .. "jh_fighter/power_dial.png", thickness = 0.1},
+                custom = {image = ASSET_ROOT .. "ships/jh_fighter/power_dial.png", thickness = 0.1},
                 min = 0, max = 6, rot = powerDialRot, pos = powerDialPos
             },
             crew = {
                 object = {type = "Custom_Token", scale = crewDialScale},
-                custom = {image = ASSET_ROOT .. "jh_fighter/crew_dial.png", thickness = 0.1},
+                custom = {image = ASSET_ROOT .. "ships/jh_fighter/crew_dial.png", thickness = 0.1},
                 min = -2, max = 4, rot = crewDialRot, pos = crewDialPos
             },
             hull = {
                 object = {type = "Custom_Token", scale = hullDialScale},
-                custom = {image = ASSET_ROOT .. "jh_fighter/hull_dial.png", thickness = 0.1},
+                custom = {image = ASSET_ROOT .. "ships/jh_fighter/hull_dial.png", thickness = 0.1},
                 min = 0, max = 6, rot = hullDialRot, pos = hullDialPos
             }
         },
         model = {
             object = {type = "Custom_Model", scale = {1.3, 1.3, 1.3}},
             custom = {
-                mesh = "https://steamusercontent-a.akamaihd.net/ugc/2494520554832153651/3BBBBF57829D54A40507584F1977D249A9DFF35C/",
-                diffuse = "https://steamusercontent-a.akamaihd.net/ugc/2494520554832154232/39A8AF0518F0ADF46E51E7E8F4552505C0CDEEF5/",
+                mesh = ASSET_ROOT .. "ships/jh_fighter/fighter_mesh.obj",
+                diffuse = ASSET_ROOT .. "ships/jh_fighter/fighter_skin.png",
                 collider = ASSET_ROOT .. "no_collide.obj",
                 material = 3
             }
@@ -451,30 +498,30 @@ ASSETS = {
         dials = {
             alert = {
                 object = {type = "Custom_Token", scale = alertDialScale},
-                custom = {image = ASSET_ROOT .. "jh_battlecruiser/alert_dial.png", thickness = 0.1},
+                custom = {image = ASSET_ROOT .. "ships/jh_battlecruiser/alert_dial.png", thickness = 0.1},
                 min = 0, max = 5, rot = alertDialRot, pos = alertDialPos
             },
             power = {
                 object = {type = "Custom_Token", scale = powerDialScale},
-                custom = {image = ASSET_ROOT .. "jh_battlecruiser/power_dial.png", thickness = 0.1},
+                custom = {image = ASSET_ROOT .. "ships/jh_battlecruiser/power_dial.png", thickness = 0.1},
                 min = 0, max = 8, rot = powerDialRot, pos = powerDialPos
             },
             crew = {
                 object = {type = "Custom_Token", scale = crewDialScale},
-                custom = {image = ASSET_ROOT .. "jh_battlecruiser/crew_dial.png", thickness = 0.1},
+                custom = {image = ASSET_ROOT .. "ships/jh_battlecruiser/crew_dial.png", thickness = 0.1},
                 min = -2, max = 5, rot = crewDialRot, pos = crewDialPos
             },
             hull = {
                 object = {type = "Custom_Token", scale = hullDialScale},
-                custom = {image = ASSET_ROOT .. "jh_battlecruiser/hull_dial.png", thickness = 0.1},
+                custom = {image = ASSET_ROOT .. "ships/jh_battlecruiser/hull_dial.png", thickness = 0.1},
                 min = 0, max = 9, rot = hullDialRot, pos = hullDialPos
             }
         },
         model = {
             object = {type = "Custom_Model", scale = {1.3, 1.3, 1.3}},
             custom = {
-                mesh = "https://steamusercontent-a.akamaihd.net/ugc/2494520554832150950/69C412DC1B298B496AE1A6684A3CFDD0617B84D5/",
-                diffuse = "https://steamusercontent-a.akamaihd.net/ugc/2494520554832146710/47D4CF19DDD2F7F8E87415CFBE1EC428EE69477E/",
+                mesh = ASSET_ROOT .. "ships/jh_battlecruiser/battlecruiser_mesh.obj",
+                diffuse = ASSET_ROOT .. "ships/jh_battlecruiser/battlecruiser_skin.png",
                 collider = ASSET_ROOT .. "no_collide.obj",
                 material = 3
             }
@@ -490,8 +537,8 @@ ASSETS = {
         model = {
             object = {type = "Custom_Model", scale = {0.325, 0.325, 0.325}, rotation = Vector(0, 270, 0), position = Vector(0, 0.6, 0)},
             custom = {
-                mesh = "https://steamusercontent-a.akamaihd.net/ugc/53577344279444585/E56B677AB6878EC0D3BD2ADED937605A8905F4C3/",
-                diffuse = "https://steamusercontent-a.akamaihd.net/ugc/53577344279442944/BE82D9B7034C40CCADF25A7A7F417529E61EADA4/",
+                mesh = ASSET_ROOT .. "ships/raider/raider_mesh.obj",
+                diffuse = ASSET_ROOT .. "ships/raider/raider_skin.png",
                 collider = ASSET_ROOT .. "no_collide.obj",
                 material = 3
             }
@@ -504,8 +551,8 @@ ASSETS = {
         model = {
             object = {type = "Custom_Model", position = Vector(0, 0.9, 0)},
             custom = {
-                mesh = "https://steamusercontent-a.akamaihd.net/ugc/53576717526329081/C729B852A790FCE7F01B760E7CD7FB17ED7B97F8/",
-                diffuse = "https://steamusercontent-a.akamaihd.net/ugc/53576717526329354/A2DD2DF77F339B7333BB592FD91994828CBC5414/",
+                mesh = ASSET_ROOT .. "ships/tinman/tinman_mesh.obj",
+                diffuse = ASSET_ROOT .. "ships/tinman/tinman_skin.png",
                 collider = ASSET_ROOT .. "no_collide.obj",
                 material = 3
             }
@@ -518,8 +565,8 @@ ASSETS = {
         model = {
             object = {type = "Custom_Model", position = Vector(0, 0.5, 0)},
             custom = {
-                mesh = "https://steamusercontent-a.akamaihd.net/ugc/53576717526297170/7FC0CE312347706553961DDFCF6C09715F79B166/",
-                diffuse = "https://steamusercontent-a.akamaihd.net/ugc/266097180323590983/EA286E18C1A7A2CD610F1A3B7902851A4241E4FA/",
+                mesh = ASSET_ROOT .. "ships/type6/type6_mesh.obj",
+                diffuse = ASSET_ROOT .. "ships/type6/type6_skin.png",
                 material = 3
             }
         },
@@ -531,8 +578,8 @@ ASSETS = {
         model = {
             object = {type = "Custom_Model", position = Vector(0, 0.25, 0), rotation = Vector(0, 90, 0), scale = Vector(0.25, 0.25, 0.25)},
             custom = {
-                mesh = "https://steamusercontent-a.akamaihd.net/ugc/53576717526304134/DB1ADB191E99797F900FD3A1228B151D239D5D4C/",
-                diffuse = "https://steamusercontent-a.akamaihd.net/ugc/53576717520828632/E49B298BE4BC446C9EFA549A40C6383E5EE6F80F/",
+                mesh = ASSET_ROOT .. "ships/runabout/runabout_mesh.obj",
+                diffuse = ASSET_ROOT .. "ships/runabout/runabout_skin.png",
                 material = 3
             }
         },
@@ -543,10 +590,13 @@ ASSETS = {
 -- Spawn functions
 
 function spawnAsset(param)
-    local obj = spawnObject(param.object)
-    if param.xml then
-        obj.UI.setXml(param.xml)
+    if param.data then
+        if not param.data.Transform then
+            param.data.Transform = {scaleX = 1, scaleY = 1, scaleZ = 1}
+        end
+        return spawnObjectData(param)
     end
+    local obj = spawnObject(param.object)
     if param.script then
         obj.setLuaScript(param.script)
     end
@@ -574,3 +624,47 @@ end
 function spawnRuler() return spawnAsset(ASSETS.ruler_12in) end
 
 function spawnTurningTool() return spawnAsset(ASSETS.turning_tool) end
+
+feature_scale = 0.6219861
+
+function drawFeatureRange()
+    local features = getObjectsWithTag("Feature")
+    for _, feature in pairs(features) do
+        local pos = feature.getPosition()
+        if pos.x <= 18 and pos.x >= -18 and pos.z <= 18 and pos.z >= -18 then
+            local lines = {}
+            local p2, p4, p6 = {}, {}, {}
+            local v = Vector(1, 0, 0)
+            local scale = feature.getScale().x
+            for theta = 0, 360 do
+                table.insert(p2, v * (2.625 / scale))
+                table.insert(p4, v * (4.625 / scale))
+                table.insert(p6, v * (6.625 / scale))
+                v:rotateOver("y", 1)    
+            end
+            table.insert(lines, {points = p2, color = "Red", thickness = 0.05})
+            table.insert(lines, {points = p4, color = "Yellow", thickness = 0.05})
+            table.insert(lines, {points = p6, color = "Green", thickness = 0.05})
+            feature.setVectorLines(lines)
+        end
+    end
+end
+
+function clearFeatureRange()
+    local features = getObjectsWithTag("Feature")
+    for _, feature in pairs(features) do
+        feature.setVectorLines({})
+    end
+end
+
+function scaleFeatures()
+    local features = getObjectsWithTag("Feature")
+    for _, feature in pairs(features) do
+        local size = feature.getBounds().size.x
+        local scale = feature.getScale()
+        scale:scale(1.25 / size)
+        scale.y = 1
+        feature.setScale(scale)
+    end
+end
+
