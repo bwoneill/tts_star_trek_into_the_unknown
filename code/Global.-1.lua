@@ -227,6 +227,48 @@ ASSETS = {
         },
         script = [[-- empty, for now]]
     },
+    system_marker = {
+        data = {
+            Name = "Custom_Tile",
+            Transform = {scaleX = 1.009268, scaleY = 1, scaleZ = 1.009268},
+            ColorDiffuse = {r = 1, g = 1, b = 1, a = 0.4},
+            CustomImage = {
+                ImageURL = ASSET_ROOT .. "markers/system_marker_1.png",
+                CustomTile = {Type = 2, Stretch = false, Thickness = 0.01}
+            },
+            States = {
+                ["2"] = {
+                    Name = "Custom_Tile",
+                    Transform = {scaleX = 1.009268, scaleY = 1, scaleZ = 1.009268},
+                    ColorDiffuse = {r = 1, g = 1, b = 1, a = 0.4},
+                    CustomImage = {
+                        ImageURL = ASSET_ROOT .. "markers/system_marker_2.png",
+                        CustomTile = {Type = 2, Stretch = false, Thickness = 0.01}
+                    }
+                },
+                ["3"] = {
+                    Name = "Custom_Tile",
+                    Transform = {scaleX = 1.009268, scaleY = 1, scaleZ = 1.009268},
+                    ColorDiffuse = {r = 1, g = 1, b = 1, a = 0.4},
+                    CustomImage = {
+                        ImageURL = ASSET_ROOT .. "markers/system_marker_3.png",
+                        CustomTile = {Type = 2, Stretch = false, Thickness = 0.01}
+                    }
+                }
+            }
+        }
+    },
+    system_border = {
+        date = {
+            Name = "Custom_Token",
+            Transform = {scaleX = 0.4790743, scaleY = 1, scaleZ = 0.4790743},
+            ColorDiffuse = {r = 1, g = 1, b = 1, a = 0.4},
+            CustomImage = {
+                ImageURL = ASSET_ROOT .. "markers/system_border.png",
+                CustomToken = {Thickness = 0.01}
+            }
+        }
+    },
     constellation = {
         class = "constellation",
         size = shipSize.medium,
@@ -544,7 +586,9 @@ ASSETS = {
 
 function spawnAsset(param)
     if param.data then
-        param.data.Transform = {scaleX = 1, scaleY = 1, scaleZ = 1}
+        if not param.data.Transform then
+            param.data.Transform = {scaleX = 1, scaleY = 1, scaleZ = 1}
+        end
         return spawnObjectData(param)
     end
     local obj = spawnObject(param.object)
