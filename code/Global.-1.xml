@@ -4,7 +4,9 @@
     onClick = "drawFeatureRange"
     width = "100"
     height = "25"
-    position = "-50 475 0">
+    position = "-50 475 0"
+    tooltip = "Draw system borders and 2&quot;, 4&quot;, and 6&quot; range on features on the board"
+    tooltipPosition = "Below">
     Draw Ranges
 </Button>
 
