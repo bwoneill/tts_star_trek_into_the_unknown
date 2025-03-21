@@ -232,32 +232,49 @@ ASSETS = {
         },
         script = [[-- empty, for now]]
     },
+    systems = {
+        solitary = {
+            centers = {Vector(0, 0, 0)},
+            borders = {{0, 45, 90, 135, 180, 225, 270, 315}},
+            radius = {13}
+        },
+        helix = {
+            centers = {Vector(17, 0, 5), Vector(-17, 0, -5)},
+            borders = {{15, 65, 115, 165}, {195, 245, 295, 345}},
+            radius = {13, 13}
+        },
+        trinary = {
+            centers = {Vector(-17, 0, 17), Vector(-17, 0, -17), Vector(16, 0, 0)},
+            borders = {{290, 340}, {200, 250}, {0, 60, 120, 180}},
+            radius = {13, 13, 13}
+        }
+    },
     system_marker = {
         data = {
-            Name = "Custom_Tile",
+            Name = "Custom_Tile", Tags = {"Marker", "System"},
             Transform = {scaleX = 1.009268, scaleY = 1, scaleZ = 1.009268},
             ColorDiffuse = {r = 1, g = 1, b = 1, a = 0.7},
             CustomImage = {
                 ImageURL = ASSET_ROOT .. "markers/system_marker_1.png",
-                CustomTile = {Type = 2, Stretch = false, Thickness = 0.01}
+                CustomTile = {Type = 2, Stretch = false, Thickness = 0.1}
             },
             States = {
                 ["2"] = {
-                    Name = "Custom_Tile",
+                    Name = "Custom_Tile", Tags = {"Marker", "System"},
                     Transform = {scaleX = 1.009268, scaleY = 1, scaleZ = 1.009268},
                     ColorDiffuse = {r = 1, g = 1, b = 1, a = 0.7},
                     CustomImage = {
                         ImageURL = ASSET_ROOT .. "markers/system_marker_2.png",
-                        CustomTile = {Type = 2, Stretch = false, Thickness = 0.01}
+                        CustomTile = {Type = 2, Stretch = false, Thickness = 0.1}
                     }
                 },
                 ["3"] = {
-                    Name = "Custom_Tile",
+                    Name = "Custom_Tile", Tags = {"Marker", "System"},
                     Transform = {scaleX = 1.009268, scaleY = 1, scaleZ = 1.009268},
                     ColorDiffuse = {r = 1, g = 1, b = 1, a = 0.7},
                     CustomImage = {
                         ImageURL = ASSET_ROOT .. "markers/system_marker_3.png",
-                        CustomTile = {Type = 2, Stretch = false, Thickness = 0.01}
+                        CustomTile = {Type = 2, Stretch = false, Thickness = 0.1}
                     }
                 }
             }
@@ -265,12 +282,12 @@ ASSETS = {
     },
     system_border = {
         data = {
-            Name = "Custom_Token",
+            Name = "Custom_Token", Tags = {"Marker"},
             Transform = {scaleX = 0.4790743, scaleY = 1, scaleZ = 0.4790743},
             ColorDiffuse = {r = 1, g = 1, b = 1, a = 0.7},
             CustomImage = {
                 ImageURL = ASSET_ROOT .. "markers/system_border.png",
-                CustomToken = {Thickness = 0.01}
+                CustomToken = {Thickness = 0.1}
             }
         }
     },
@@ -631,7 +648,7 @@ function drawFeatureRange()
     local features = getObjectsWithTag("Feature")
     for _, feature in pairs(features) do
         local pos = feature.getPosition()
-        if pos.x <= 18 and pos.x >= -18 and pos.z <= 18 and pos.z >= -18 then
+        if onBoard(pos) then
             local lines = {}
             local p2, p4, p6 = {}, {}, {}
             local v = Vector(1, 0, 0)
@@ -648,10 +665,27 @@ function drawFeatureRange()
             feature.setVectorLines(lines)
         end
     end
+    local systems = getObjectsWithTag("System")
+    for _, s in pairs(systems) do
+        local pos = s.getPosition()
+        if onBoard(pos) then
+            local lines = {}
+            local points = {}
+            local v = Vector(13, 0.1, 0)
+            for theta = 0, 360 do
+                p = clampToBoard(pos + v) - pos
+                table.insert(points, p:scale(Vector(1 / s.getScale().x, 1, 1/s.getScale().z)))
+                v:rotateOver("y", 1)
+            end
+            table.insert(lines, {points = points, color = "White", thickness = 0.04})
+            table.insert(lines, {points = points, color = "Black", thickness = 0.02})
+            s.setVectorLines(lines)
+        end
+    end
 end
 
 function clearFeatureRange()
-    local features = getObjectsWithTag("Feature")
+    local features = getObjectsWithAnyTags({"Feature", "System"})
     for _, feature in pairs(features) do
         feature.setVectorLines({})
     end
@@ -668,3 +702,68 @@ function scaleFeatures()
     end
 end
 
+function onBoard(pos)
+    local board = getBoard()
+    local result = false
+    if board then
+        local diff = pos - board.getPosition()
+        result = math.abs(diff.x) <= 18 and math.abs(diff.z) <= 18
+    end
+    return result
+end
+
+function clampToBoard(pos)
+    local board = getBoard()
+    local result = nil
+    if board then
+        local diff = pos - board.getPosition()
+        for i, d in pairs(diff) do
+            diff[i] = d >= 18 and 18 or d <= -18 and -18 or d
+        end
+        result = diff + board.getPosition()
+    end
+    return result
+end
+
+function getBoard()
+    local boards = getObjectsWithTag("Board")
+    if #boards == 1 then
+        return boards[1]
+    else
+        log("Wrong number of boards")
+    end
+end
+
+function spawnSystemMarkers(name)
+    local system = ASSETS.systems[name]
+    local board = getBoard()
+    local markers = getObjectsWithTag("Marker")
+    for _, marker in pairs(markers) do
+        local pos = marker.getPosition()
+        if onBoard(pos) then
+            marker.destroy()
+        end
+    end
+    if board then
+        if system then
+            local pos = board.getPosition() + Vector(0, 0.01, 0)
+            for i, center in ipairs(system.centers) do
+                local marker = spawnAsset(ASSETS.system_marker)
+                marker.setPosition(pos + center)
+                if i ~= marker.getStateId() then
+                    marker = marker.setState(i)
+                end
+                marker.lock()
+                for _, angle in pairs(system.borders[i]) do
+                    local offset = Vector(0, 0.05, 0.37142565 - system.radius[i]):rotateOver("y", angle) -- radius - half width of border marker
+                    local border = spawnAsset(ASSETS.system_border)
+                    border.setPosition(pos + center + offset)
+                    border.setRotation(Vector(0, angle, 0))
+                    border.lock()
+                end
+            end
+        end
+    else
+        log("Wrong number of boards")
+    end
+end
