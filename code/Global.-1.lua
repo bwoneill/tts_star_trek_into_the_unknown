@@ -217,8 +217,20 @@ ASSETS = {
         data = {
             Name = "Custom_Token",
             Transform = {scaleX = 12/18.330303, scaleY = 1, scaleZ = 12/18.330303},
+            ColorDiffuse = {r = 1, g = 1, b = 1, a = 0.586},
             CustomImage = {
                 ImageURL = ASSET_ROOT .. "tools/ruler/ruler_12.png",
+                CustomToken = {Thickness = 0.1}
+            }
+        }
+    },
+    ruler_6in = {
+        data = {
+            Name = "Custom_Token",
+            Transform = {scaleX = 0.4625709, scaleY = 1, scaleZ = 0.4625709},
+            ColorDiffuse = {r = 1, g = 1, b = 1, a = 0.586},
+            CustomImage = {
+                ImageURL = ASSET_ROOT .. "tools/ruler/ruler_06.png",
                 CustomToken = {Thickness = 0.1}
             }
         }
