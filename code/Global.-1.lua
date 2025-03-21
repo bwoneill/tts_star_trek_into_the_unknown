@@ -700,7 +700,43 @@ function spawnRuler() return spawnAsset(ASSETS.ruler_12in) end
 
 function spawnTurningTool() return spawnAsset(ASSETS.turning_tool) end
 
-feature_scale = 0.6219861
+function spawnSystemMarkers(name)
+    local system = ASSETS.systems[name]
+    local board = getBoard()
+    local markers = getObjectsWithTag("Marker")
+    for _, marker in pairs(markers) do
+        local pos = marker.getPosition()
+        if onBoard(pos) then
+            marker.destroy()
+        end
+    end
+    if board then
+        if system then
+            local pos = board.getPosition() + Vector(0, 0.01, 0)
+            for i, center in ipairs(system.centers) do
+                local marker = spawnAsset(ASSETS.system_marker)
+                marker.setPosition(pos + center)
+                if i ~= marker.getStateId() then
+                    marker = marker.setState(i)
+                end
+                marker.lock()
+                for _, angle in pairs(system.borders[i]) do
+                    local offset = Vector(0, 0.05, 0.37142565 - system.radius[i]):rotateOver("y", angle) -- radius - half width of border marker
+                    local border = spawnAsset(ASSETS.system_border)
+                    border.setPosition(pos + center + offset)
+                    border.setRotation(Vector(0, angle, 0))
+                    border.lock()
+                end
+            end
+        end
+    else
+        log("Wrong number of boards")
+    end
+end
+
+function spawnSolitary() spawnSystemMarkers("solitary") end
+function spawnHelix() spawnSystemMarkers("helix") end
+function spawnTrinary() spawnSystemMarkers("trinary") end
 
 function drawFeatureRange()
     local features = getObjectsWithTag("Feature")
@@ -723,6 +759,9 @@ function drawFeatureRange()
             feature.setVectorLines(lines)
         end
     end
+end
+
+function drawSystemBorders()
     local systems = getObjectsWithTag("System")
     for _, s in pairs(systems) do
         local pos = s.getPosition()
@@ -739,6 +778,13 @@ function drawFeatureRange()
             table.insert(lines, {points = points, color = "Black", thickness = 0.02})
             s.setVectorLines(lines)
         end
+    end
+end
+
+function clearSystemBorders()
+    local systems = getObjectsWithTag("System")
+    for _, s in pairs(systems) do
+        s.setVectorLines({})
     end
 end
 
@@ -787,40 +833,6 @@ function getBoard()
     local boards = getObjectsWithTag("Board")
     if #boards == 1 then
         return boards[1]
-    else
-        log("Wrong number of boards")
-    end
-end
-
-function spawnSystemMarkers(name)
-    local system = ASSETS.systems[name]
-    local board = getBoard()
-    local markers = getObjectsWithTag("Marker")
-    for _, marker in pairs(markers) do
-        local pos = marker.getPosition()
-        if onBoard(pos) then
-            marker.destroy()
-        end
-    end
-    if board then
-        if system then
-            local pos = board.getPosition() + Vector(0, 0.01, 0)
-            for i, center in ipairs(system.centers) do
-                local marker = spawnAsset(ASSETS.system_marker)
-                marker.setPosition(pos + center)
-                if i ~= marker.getStateId() then
-                    marker = marker.setState(i)
-                end
-                marker.lock()
-                for _, angle in pairs(system.borders[i]) do
-                    local offset = Vector(0, 0.05, 0.37142565 - system.radius[i]):rotateOver("y", angle) -- radius - half width of border marker
-                    local border = spawnAsset(ASSETS.system_border)
-                    border.setPosition(pos + center + offset)
-                    border.setRotation(Vector(0, angle, 0))
-                    border.lock()
-                end
-            end
-        end
     else
         log("Wrong number of boards")
     end
