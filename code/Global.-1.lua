@@ -342,8 +342,8 @@ ASSETS = {
                 Name = "Custom_Tile", Tags = {"Projectile"},
                 Transform = {scaleX = 0.4329358, scaleY = 1, scaleZ = 0.4329358, rotY = 90},
                 CustomImage = {
-                    ImageURL = ASSET_ROOT .. "tokens/proj_escape_blue.png",
-                    ImageSecondaryURL = ASSET_ROOT .. "tokens/proj_escape_orange.png",
+                    ImageURL = ASSET_ROOT .. "tokens/proj_escape_pod_blue_tile.png",
+                    ImageSecondaryURL = ASSET_ROOT .. "tokens/proj_escape_pod_orange_tile.png",
                     CustomTile = {Type = 1, Stretch = false, Thickness = 0.1}
                 }
             }
