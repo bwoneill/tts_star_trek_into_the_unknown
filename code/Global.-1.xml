@@ -16,3 +16,33 @@
     position = "50 475 0">
     Clear
 </Button>
+<VerticalLayout
+    position = "1200 300 0"
+    width = "64"
+    height = "320">
+    <Button onClick = "drawSystemBorders"
+        width = "64"
+        height = "64"
+        icon = "https://raw.githubusercontent.com/bwoneill/tts_star_trek_into_the_unknown/v0.14_purple_data/assets/ui/draw_system_borders.png">
+    </Button>
+    <Button onClick = "clearSystemBorders"
+        width = "64"
+        height = "64"
+        icon = "https://raw.githubusercontent.com/bwoneill/tts_star_trek_into_the_unknown/v0.14_purple_data/assets/ui/clear_system_borders.png">
+    </Button>
+    <Button onClick = "spawnSolitary"
+        width = "64"
+        height = "64"
+        icon = "https://raw.githubusercontent.com/bwoneill/tts_star_trek_into_the_unknown/v0.14_purple_data/assets/ui/solitary.png">
+    </Button>
+    <Button onClick = "spawnHelix"
+        width = "64"
+        height = "64"
+        icon = "https://raw.githubusercontent.com/bwoneill/tts_star_trek_into_the_unknown/v0.14_purple_data/assets/ui/helix.png">
+    </Button>
+    <Button onClick = "spawnTrinary"
+        width = "64"
+        height = "64"
+        icon = "https://raw.githubusercontent.com/bwoneill/tts_star_trek_into_the_unknown/v0.14_purple_data/assets/ui/trinary.png">
+    </Button>
+</VerticalLayout>
