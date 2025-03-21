@@ -251,13 +251,13 @@ ASSETS = {
             radius = {13}
         },
         helix = {
-            centers = {Vector(17, 0, 5), Vector(-17, 0, -5)},
-            borders = {{15, 65, 115, 165}, {195, 245, 295, 345}},
+            centers = {Vector(5, 0, 17), Vector(-5, 0, -17)},
+            borders = {{25, 75, 285, 335}, {105, 155, 205, 255} },
             radius = {13, 13}
         },
         trinary = {
-            centers = {Vector(-17, 0, 17), Vector(-17, 0, -17), Vector(16, 0, 0)},
-            borders = {{290, 340}, {200, 250}, {0, 60, 120, 180}},
+            centers = {Vector(17, 0, -17), Vector(-17, 0, -17), Vector(0, 0, 16)},
+            borders = {{110, 160}, {200, 250}, {30, 90, 270, 330}},
             radius = {13, 13, 13}
         }
     },
