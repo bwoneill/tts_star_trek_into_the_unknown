@@ -303,6 +303,52 @@ ASSETS = {
             }
         }
     },
+    projectile ={
+        class1 = {
+            data = {
+                Name = "Custom_Tile", Tags = {"Projectile"},
+                Transform = {scaleX = 0.4329358, scaleY = 1, scaleZ = 0.4329358, rotY = 90},
+                CustomImage = {
+                    ImageURL = ASSET_ROOT .. "tokens/proj_probe_blue_tile.png",
+                    ImageSecondaryURL = ASSET_ROOT .. "tokens/proj_probe_orange_tile.png",
+                    CustomTile = {Type = 1, Stretch = false, Thickness = 0.1}
+                }
+            }
+        },
+        photon = {
+            data = {
+                Name = "Custom_Tile", Tags = {"Projectile"},
+                Transform = {scaleX = 0.4329358, scaleY = 1, scaleZ = 0.4329358, rotY = 90},
+                CustomImage = {
+                    ImageURL = ASSET_ROOT .. "tokens/proj_photon_blue_tile.png",
+                    ImageSecondaryURL = ASSET_ROOT .. "tokens/proj_photon_orange_tile.png",
+                    CustomTile = {Type = 1, Stretch = false, Thickness = 0.1}
+                }
+            }
+        },
+        quantum = {
+            data = {
+                Name = "Custom_Tile", Tags = {"Projectile"},
+                Transform = {scaleX = 0.4329358, scaleY = 1, scaleZ = 0.4329358, rotY = 90},
+                CustomImage = {
+                    ImageURL = ASSET_ROOT .. "tokens/proj_quantum_blue_tile.png",
+                    ImageSecondaryURL = ASSET_ROOT .. "tokens/proj_quantum_orange_tile.png",
+                    CustomTile = {Type = 1, Stretch = false, Thickness = 0.1}
+                }
+            }
+        },
+        escape = {
+            data = {
+                Name = "Custom_Tile", Tags = {"Projectile"},
+                Transform = {scaleX = 0.4329358, scaleY = 1, scaleZ = 0.4329358, rotY = 90},
+                CustomImage = {
+                    ImageURL = ASSET_ROOT .. "tokens/proj_escape_blue.png",
+                    ImageSecondaryURL = ASSET_ROOT .. "tokens/proj_escape_orange.png",
+                    CustomTile = {Type = 1, Stretch = false, Thickness = 0.1}
+                }
+            }
+        }
+    },
     constellation = {
         class = "constellation",
         size = shipSize.medium,
