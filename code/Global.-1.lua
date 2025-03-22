@@ -215,7 +215,7 @@ saucerXml = [[<Button
 ASSETS = {
     ruler_12in = {
         data = {
-            Name = "Custom_Token",
+            Name = "Custom_Token", Tags = {"Ruler"},
             Transform = {scaleX = 12/18.330303, scaleY = 1, scaleZ = 12/18.330303},
             ColorDiffuse = {r = 1, g = 1, b = 1, a = 0.586},
             CustomImage = {
@@ -226,7 +226,7 @@ ASSETS = {
     },
     ruler_6in = {
         data = {
-            Name = "Custom_Token",
+            Name = "Custom_Token", Tags = {"Ruler"},
             Transform = {scaleX = 0.4625709, scaleY = 1, scaleZ = 0.4625709},
             ColorDiffuse = {r = 1, g = 1, b = 1, a = 0.586},
             CustomImage = {
@@ -246,19 +246,48 @@ ASSETS = {
     },
     systems = {
         solitary = {
-            centers = {Vector(0, 0, 0)},
+            centers = {Vector(0, 0, 0)}, radius = {13},
             borders = {{0, 45, 90, 135, 180, 225, 270, 315}},
-            radius = {13}
+            deployment = {
+                ruler_12in = {
+                    {pos = Vector(-11.75, 1, -12), rot = Vector(0, 270, 0)},
+                    {pos = Vector(11.75, 1, 12), rot = Vector(0, 90, 0)}
+                },
+                ruler_6in = {
+                    {pos = Vector(-15, 1, -5.75), rot = Vector(0, 180, 0)},
+                    {pos = Vector(15, 1, 5.75), rot = Vector(0, 0, 0)}
+                }
+            }
         },
         helix = {
-            centers = {Vector(5, 0, 17), Vector(-5, 0, -17)},
-            borders = {{25, 75, 285, 335}, {105, 155, 205, 255} },
-            radius = {13, 13}
+            centers = {Vector(-5, 0, 17), Vector(5, 0, -17)}, radius = {13, 13},
+            borders = {{25, 75, 285, 335}, {105, 155, 205, 255}},
+            deployment = {
+                ruler_12in = {
+                    {pos = Vector(-11.75, 1, -12), rot = Vector(0, 270, 0)},
+                    {pos = Vector(11.75, 1, 12), rot = Vector(0, 90, 0)}
+                },
+                ruler_6in = {
+                    {pos = Vector(-15, 1, -5.75), rot = Vector(0, 180, 0)},
+                    {pos = Vector(15, 1, 5.75), rot = Vector(0, 0, 0)}
+                }
+            }
         },
         trinary = {
-            centers = {Vector(17, 0, -17), Vector(-17, 0, -17), Vector(0, 0, 16)},
-            borders = {{110, 160}, {200, 250}, {30, 90, 270, 330}},
-            radius = {13, 13, 13}
+            centers = {Vector(-17, 0, -17), Vector(17, 0, -17), Vector(0, 0, 14)},radius = {13, 13, 13},
+            borders = {{200, 250}, {110, 160}, {30, 90, 270, 330}},
+            deployment = {
+                ruler_12in = {
+                    {pos = Vector(-11.75, 1, 3), rot = Vector(0, 270, 0)},
+                    {pos = Vector(11.75, 1, 3), rot = Vector(0, 90, 0)}
+                },
+                ruler_6in = {
+                    {pos = Vector(-15, 1, -3.25), rot = Vector(0, 180, 0)},
+                    {pos = Vector(15, 1, 9.25), rot = Vector(0, 0, 0)},
+                    {pos = Vector(-15, 1, 9.25), rot = Vector(0, 180, 0)},
+                    {pos = Vector(15, 1, -3.25), rot = Vector(0, 0, 0)}
+                }
+            }
         }
     },
     system_marker = {
@@ -703,7 +732,7 @@ function spawnTurningTool() return spawnAsset(ASSETS.turning_tool) end
 function spawnSystemMarkers(name)
     local system = ASSETS.systems[name]
     local board = getBoard()
-    local markers = getObjectsWithTag("Marker")
+    local markers = getObjectsWithAnyTags({"Marker", "Ruler"})
     for _, marker in pairs(markers) do
         local pos = marker.getPosition()
         if onBoard(pos) then
@@ -726,6 +755,14 @@ function spawnSystemMarkers(name)
                     border.setPosition(pos + center + offset)
                     border.setRotation(Vector(0, angle, 0))
                     border.lock()
+                end
+            end
+            for type, list in pairs(system.deployment) do
+                for _, entry in pairs(list) do
+                    ruler = spawnAsset(ASSETS[type])
+                    ruler.setPosition(entry.pos)
+                    ruler.setRotation(entry.rot)
+                    ruler.lock()
                 end
             end
         end
