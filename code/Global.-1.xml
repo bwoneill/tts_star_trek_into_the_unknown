@@ -1,21 +1,17 @@
 <!-- Xml UI. See documentation: https://api.tabletopsimulator.com/ui/introUI/ -->
 
-<Button 
-    onClick = "drawFeatureRange"
-    width = "100"
-    height = "25"
-    position = "-50 475 0"
-    tooltip = "Draw system borders and 2&quot;, 4&quot;, and 6&quot; range on features on the board"
-    tooltipPosition = "Below">
-    Draw Ranges
-</Button>
+<HorizontalLayout width = "200" height = "25" rectAlignment = "UpperCenter" offsetXY = "0 -50">
+    <Button 
+        onClick = "drawFeatureRange"
+        tooltip = "Draw 2&quot;, 4&quot;, and 6&quot; range on features on the board"
+        tooltipPosition = "Below">
+        Draw Ranges
+    </Button>
+    <Button onClick = "clearFeatureRange">
+        Clear
+    </Button>
+</HorizontalLayout>
 
-<Button onClick = "clearFeatureRange"
-    width = "100"
-    height = "25"
-    position = "50 475 0">
-    Clear
-</Button>
 <VerticalLayout width = "48" height = "240" rectAlignment = "MiddleRight">
     <Button onClick = "drawSystemBorders"
         image = "https://raw.githubusercontent.com/bwoneill/tts_star_trek_into_the_unknown/v0.14_purple_data/assets/ui/draw_system_borders.png"
