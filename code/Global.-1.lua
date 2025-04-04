@@ -213,167 +213,182 @@ saucerXml = [[<Button
 -- Assets
 
 ASSETS = {
-    ruler_12in = {
-        data = {
-            Name = "Custom_Token", Tags = {"Ruler"},
-            Transform = {scaleX = 12/18.330303, scaleY = 1, scaleZ = 12/18.330303},
-            ColorDiffuse = {r = 1, g = 1, b = 1, a = 0.586},
-            CustomImage = {
-                ImageURL = ASSET_ROOT .. "tools/ruler/ruler_12.png",
-                CustomToken = {Thickness = 0.1}
-            }
-        }
-    },
-    ruler_6in = {
-        data = {
-            Name = "Custom_Token", Tags = {"Ruler"},
-            Transform = {scaleX = 0.4625709, scaleY = 1, scaleZ = 0.4625709},
-            ColorDiffuse = {r = 1, g = 1, b = 1, a = 0.586},
-            CustomImage = {
-                ImageURL = ASSET_ROOT .. "tools/ruler/ruler_06.png",
-                CustomToken = {Thickness = 0.1}
-            }
-        }
-    },
-    turning_tool = {
-        object = {type = "Custom_Model"},
-        custom = {
-            mesh = ASSET_ROOT .. "tools/turning_tool/turning_tool_mesh.obj",
-            diffuse = ASSET_ROOT .. "tools/turning_tool/turning_tool_diffuse.png",
-            collider = ASSET_ROOT .. "tools/turning_tool/turning_tool_collider.obj"
-        },
-        script = [[-- empty, for now]]
-    },
-    systems = {
-        solitary = {
-            centers = {Vector(0, 0, 0)}, radius = {13},
-            borders = {{0, 45, 90, 135, 180, 225, 270, 315}},
-            deployment = {
-                ruler_12in = {
-                    {pos = Vector(-11.75, 1, -12), rot = Vector(0, 270, 0)},
-                    {pos = Vector(11.75, 1, 12), rot = Vector(0, 90, 0)}
-                },
-                ruler_6in = {
-                    {pos = Vector(-15, 1, -5.75), rot = Vector(0, 180, 0)},
-                    {pos = Vector(15, 1, 5.75), rot = Vector(0, 0, 0)}
+    tokens = {
+        tracker = {
+            data = {
+                Name = "Custom_Token", Transform = {0.191223115, 1, 0.191223115},
+                CustomImage = {
+                    ImageURL = ASSET_ROOT .. "tools/tracker.png",
+                    CustomToken = {Thickness = 0.1}
                 }
             }
         },
-        helix = {
-            centers = {Vector(-5, 0, 17), Vector(5, 0, -17)}, radius = {13, 13},
-            borders = {{25, 75, 285, 335}, {105, 155, 205, 255}},
-            deployment = {
-                ruler_12in = {
-                    {pos = Vector(-11.75, 1, -12), rot = Vector(0, 270, 0)},
-                    {pos = Vector(11.75, 1, 12), rot = Vector(0, 90, 0)}
-                },
-                ruler_6in = {
-                    {pos = Vector(-15, 1, -5.75), rot = Vector(0, 180, 0)},
-                    {pos = Vector(15, 1, 5.75), rot = Vector(0, 0, 0)}
+        projectile ={
+            class1 = {
+                data = {
+                    Name = "Custom_Tile", Tags = {"Projectile"},
+                    Transform = {scaleX = 0.4329358, scaleY = 1, scaleZ = 0.4329358, rotY = 90},
+                    CustomImage = {
+                        ImageURL = ASSET_ROOT .. "tokens/proj_probe_blue_tile.png",
+                        ImageSecondaryURL = ASSET_ROOT .. "tokens/proj_probe_orange_tile.png",
+                        CustomTile = {Type = 1, Stretch = false, Thickness = 0.1}
+                    }
                 }
-            }
-        },
-        trinary = {
-            centers = {Vector(-17, 0, -17), Vector(17, 0, -17), Vector(0, 0, 14)},radius = {13, 13, 13},
-            borders = {{200, 250}, {110, 160}, {30, 90, 270, 330}},
-            deployment = {
-                ruler_12in = {
-                    {pos = Vector(-11.75, 1, 3), rot = Vector(0, 270, 0)},
-                    {pos = Vector(11.75, 1, 3), rot = Vector(0, 90, 0)}
-                },
-                ruler_6in = {
-                    {pos = Vector(-15, 1, -3.25), rot = Vector(0, 180, 0)},
-                    {pos = Vector(15, 1, 9.25), rot = Vector(0, 0, 0)},
-                    {pos = Vector(-15, 1, 9.25), rot = Vector(0, 180, 0)},
-                    {pos = Vector(15, 1, -3.25), rot = Vector(0, 0, 0)}
-                }
-            }
-        }
-    },
-    system_marker = {
-        data = {
-            Name = "Custom_Tile", Tags = {"Marker", "System"},
-            Transform = {scaleX = 1.009268, scaleY = 1, scaleZ = 1.009268},
-            ColorDiffuse = {r = 1, g = 1, b = 1, a = 0.7},
-            CustomImage = {
-                ImageURL = ASSET_ROOT .. "markers/system_marker_1.png",
-                CustomTile = {Type = 2, Stretch = false, Thickness = 0.1}
             },
-            States = {
-                ["2"] = {
-                    Name = "Custom_Tile", Tags = {"Marker", "System"},
-                    Transform = {scaleX = 1.009268, scaleY = 1, scaleZ = 1.009268},
-                    ColorDiffuse = {r = 1, g = 1, b = 1, a = 0.7},
+            photon = {
+                data = {
+                    Name = "Custom_Tile", Tags = {"Projectile"},
+                    Transform = {scaleX = 0.4329358, scaleY = 1, scaleZ = 0.4329358, rotY = 90},
                     CustomImage = {
-                        ImageURL = ASSET_ROOT .. "markers/system_marker_2.png",
-                        CustomTile = {Type = 2, Stretch = false, Thickness = 0.1}
+                        ImageURL = ASSET_ROOT .. "tokens/proj_photon_blue_tile.png",
+                        ImageSecondaryURL = ASSET_ROOT .. "tokens/proj_photon_orange_tile.png",
+                        CustomTile = {Type = 1, Stretch = false, Thickness = 0.1}
                     }
+                }
+            },
+            quantum = {
+                data = {
+                    Name = "Custom_Tile", Tags = {"Projectile"},
+                    Transform = {scaleX = 0.4329358, scaleY = 1, scaleZ = 0.4329358, rotY = 90},
+                    CustomImage = {
+                        ImageURL = ASSET_ROOT .. "tokens/proj_quantum_blue_tile.png",
+                        ImageSecondaryURL = ASSET_ROOT .. "tokens/proj_quantum_orange_tile.png",
+                        CustomTile = {Type = 1, Stretch = false, Thickness = 0.1}
+                    }
+                }
+            },
+            escape = {
+                data = {
+                    Name = "Custom_Tile", Tags = {"Projectile"},
+                    Transform = {scaleX = 0.4329358, scaleY = 1, scaleZ = 0.4329358, rotY = 90},
+                    CustomImage = {
+                        ImageURL = ASSET_ROOT .. "tokens/proj_escape_pod_blue_tile.png",
+                        ImageSecondaryURL = ASSET_ROOT .. "tokens/proj_escape_pod_orange_tile.png",
+                        CustomTile = {Type = 1, Stretch = false, Thickness = 0.1}
+                    }
+                }
+            }
+        }
+    },
+    tools = {
+        ruler_12in = {
+            data = {
+                Name = "Custom_Token", Tags = {"Ruler"},
+                Transform = {scaleX = 12/18.330303, scaleY = 1, scaleZ = 12/18.330303},
+                ColorDiffuse = {r = 1, g = 1, b = 1, a = 0.586},
+                CustomImage = {
+                    ImageURL = ASSET_ROOT .. "tools/ruler/ruler_12.png",
+                    CustomToken = {Thickness = 0.1}
+                }
+            }
+        },
+        ruler_6in = {
+            data = {
+                Name = "Custom_Token", Tags = {"Ruler"},
+                Transform = {scaleX = 0.4625709, scaleY = 1, scaleZ = 0.4625709},
+                ColorDiffuse = {r = 1, g = 1, b = 1, a = 0.586},
+                CustomImage = {
+                    ImageURL = ASSET_ROOT .. "tools/ruler/ruler_06.png",
+                    CustomToken = {Thickness = 0.1}
+                }
+            }
+        },
+        turning_tool = {
+            object = {type = "Custom_Model"},
+            custom = {
+                mesh = ASSET_ROOT .. "tools/turning_tool/turning_tool_mesh.obj",
+                diffuse = ASSET_ROOT .. "tools/turning_tool/turning_tool_diffuse.png",
+                collider = ASSET_ROOT .. "tools/turning_tool/turning_tool_collider.obj"
+            },
+            script = [[-- empty, for now]]
+        }
+    },
+    setup = {
+        systems = {
+            solitary = {
+                centers = {Vector(0, 0, 0)}, radius = {13},
+                borders = {{0, 45, 90, 135, 180, 225, 270, 315}},
+                deployment = {
+                    ruler_12in = {
+                        {pos = Vector(-11.75, 1, -12), rot = Vector(0, 270, 0)},
+                        {pos = Vector(11.75, 1, 12), rot = Vector(0, 90, 0)}
+                    },
+                    ruler_6in = {
+                        {pos = Vector(-15, 1, -5.75), rot = Vector(0, 180, 0)},
+                        {pos = Vector(15, 1, 5.75), rot = Vector(0, 0, 0)}
+                    }
+                }
+            },
+            helix = {
+                centers = {Vector(-5, 0, 17), Vector(5, 0, -17)}, radius = {13, 13},
+                borders = {{25, 75, 285, 335}, {105, 155, 205, 255}},
+                deployment = {
+                    ruler_12in = {
+                        {pos = Vector(-11.75, 1, -12), rot = Vector(0, 270, 0)},
+                        {pos = Vector(11.75, 1, 12), rot = Vector(0, 90, 0)}
+                    },
+                    ruler_6in = {
+                        {pos = Vector(-15, 1, -5.75), rot = Vector(0, 180, 0)},
+                        {pos = Vector(15, 1, 5.75), rot = Vector(0, 0, 0)}
+                    }
+                }
+            },
+            trinary = {
+                centers = {Vector(-17, 0, -17), Vector(17, 0, -17), Vector(0, 0, 14)},radius = {13, 13, 13},
+                borders = {{200, 250}, {110, 160}, {30, 90, 270, 330}},
+                deployment = {
+                    ruler_12in = {
+                        {pos = Vector(-11.75, 1, 3), rot = Vector(0, 270, 0)},
+                        {pos = Vector(11.75, 1, 3), rot = Vector(0, 90, 0)}
+                    },
+                    ruler_6in = {
+                        {pos = Vector(-15, 1, -3.25), rot = Vector(0, 180, 0)},
+                        {pos = Vector(15, 1, 9.25), rot = Vector(0, 0, 0)},
+                        {pos = Vector(-15, 1, 9.25), rot = Vector(0, 180, 0)},
+                        {pos = Vector(15, 1, -3.25), rot = Vector(0, 0, 0)}
+                    }
+                }
+            }
+        },
+        system_marker = {
+            data = {
+                Name = "Custom_Tile", Tags = {"Marker", "System"},
+                Transform = {scaleX = 1.009268, scaleY = 1, scaleZ = 1.009268},
+                ColorDiffuse = {r = 1, g = 1, b = 1, a = 0.7},
+                CustomImage = {
+                    ImageURL = ASSET_ROOT .. "markers/system_marker_1.png",
+                    CustomTile = {Type = 2, Stretch = false, Thickness = 0.1}
                 },
-                ["3"] = {
-                    Name = "Custom_Tile", Tags = {"Marker", "System"},
-                    Transform = {scaleX = 1.009268, scaleY = 1, scaleZ = 1.009268},
-                    ColorDiffuse = {r = 1, g = 1, b = 1, a = 0.7},
-                    CustomImage = {
-                        ImageURL = ASSET_ROOT .. "markers/system_marker_3.png",
-                        CustomTile = {Type = 2, Stretch = false, Thickness = 0.1}
+                States = {
+                    ["2"] = {
+                        Name = "Custom_Tile", Tags = {"Marker", "System"},
+                        Transform = {scaleX = 1.009268, scaleY = 1, scaleZ = 1.009268},
+                        ColorDiffuse = {r = 1, g = 1, b = 1, a = 0.7},
+                        CustomImage = {
+                            ImageURL = ASSET_ROOT .. "markers/system_marker_2.png",
+                            CustomTile = {Type = 2, Stretch = false, Thickness = 0.1}
+                        }
+                    },
+                    ["3"] = {
+                        Name = "Custom_Tile", Tags = {"Marker", "System"},
+                        Transform = {scaleX = 1.009268, scaleY = 1, scaleZ = 1.009268},
+                        ColorDiffuse = {r = 1, g = 1, b = 1, a = 0.7},
+                        CustomImage = {
+                            ImageURL = ASSET_ROOT .. "markers/system_marker_3.png",
+                            CustomTile = {Type = 2, Stretch = false, Thickness = 0.1}
+                        }
                     }
                 }
             }
-        }
-    },
-    system_border = {
-        data = {
-            Name = "Custom_Token", Tags = {"Marker"},
-            Transform = {scaleX = 0.4790743, scaleY = 1, scaleZ = 0.4790743},
-            ColorDiffuse = {r = 1, g = 1, b = 1, a = 0.7},
-            CustomImage = {
-                ImageURL = ASSET_ROOT .. "markers/system_border.png",
-                CustomToken = {Thickness = 0.1}
-            }
-        }
-    },
-    projectile ={
-        class1 = {
-            data = {
-                Name = "Custom_Tile", Tags = {"Projectile"},
-                Transform = {scaleX = 0.4329358, scaleY = 1, scaleZ = 0.4329358, rotY = 90},
-                CustomImage = {
-                    ImageURL = ASSET_ROOT .. "tokens/proj_probe_blue_tile.png",
-                    ImageSecondaryURL = ASSET_ROOT .. "tokens/proj_probe_orange_tile.png",
-                    CustomTile = {Type = 1, Stretch = false, Thickness = 0.1}
-                }
-            }
         },
-        photon = {
+        system_border = {
             data = {
-                Name = "Custom_Tile", Tags = {"Projectile"},
-                Transform = {scaleX = 0.4329358, scaleY = 1, scaleZ = 0.4329358, rotY = 90},
+                Name = "Custom_Token", Tags = {"Marker"},
+                Transform = {scaleX = 0.4790743, scaleY = 1, scaleZ = 0.4790743},
+                ColorDiffuse = {r = 1, g = 1, b = 1, a = 0.7},
                 CustomImage = {
-                    ImageURL = ASSET_ROOT .. "tokens/proj_photon_blue_tile.png",
-                    ImageSecondaryURL = ASSET_ROOT .. "tokens/proj_photon_orange_tile.png",
-                    CustomTile = {Type = 1, Stretch = false, Thickness = 0.1}
-                }
-            }
-        },
-        quantum = {
-            data = {
-                Name = "Custom_Tile", Tags = {"Projectile"},
-                Transform = {scaleX = 0.4329358, scaleY = 1, scaleZ = 0.4329358, rotY = 90},
-                CustomImage = {
-                    ImageURL = ASSET_ROOT .. "tokens/proj_quantum_blue_tile.png",
-                    ImageSecondaryURL = ASSET_ROOT .. "tokens/proj_quantum_orange_tile.png",
-                    CustomTile = {Type = 1, Stretch = false, Thickness = 0.1}
-                }
-            }
-        },
-        escape = {
-            data = {
-                Name = "Custom_Tile", Tags = {"Projectile"},
-                Transform = {scaleX = 0.4329358, scaleY = 1, scaleZ = 0.4329358, rotY = 90},
-                CustomImage = {
-                    ImageURL = ASSET_ROOT .. "tokens/proj_escape_pod_blue_tile.png",
-                    ImageSecondaryURL = ASSET_ROOT .. "tokens/proj_escape_pod_orange_tile.png",
-                    CustomTile = {Type = 1, Stretch = false, Thickness = 0.1}
+                    ImageURL = ASSET_ROOT .. "markers/system_border.png",
+                    CustomToken = {Thickness = 0.1}
                 }
             }
         }
@@ -725,12 +740,12 @@ function spawnModel(param)
     return base
 end
 
-function spawnRuler() return spawnAsset(ASSETS.ruler_12in) end
+function spawnRuler() return spawnAsset(ASSETS.tools.ruler_12in) end
 
-function spawnTurningTool() return spawnAsset(ASSETS.turning_tool) end
+function spawnTurningTool() return spawnAsset(ASSETS.tools.turning_tool) end
 
 function spawnSystemMarkers(name)
-    local system = ASSETS.systems[name]
+    local system = ASSETS.setup.systems[name]
     local board = getBoard()
     local markers = getObjectsWithAnyTags({"Marker", "Ruler"})
     for _, marker in pairs(markers) do
@@ -741,9 +756,9 @@ function spawnSystemMarkers(name)
     end
     if board then
         if system then
-            local pos = board.getPosition() + Vector(0, 0.01, 0)
+            local pos = board.getPosition() + Vector(0, 0.001, 0)
             for i, center in ipairs(system.centers) do
-                local marker = spawnAsset(ASSETS.system_marker)
+                local marker = spawnAsset(ASSETS.setup.system_marker)
                 marker.setPosition(pos + center)
                 if i ~= marker.getStateId() then
                     marker = marker.setState(i)
@@ -751,7 +766,7 @@ function spawnSystemMarkers(name)
                 marker.lock()
                 for _, angle in pairs(system.borders[i]) do
                     local offset = Vector(0, 0.05, 0.37142565 - system.radius[i]):rotateOver("y", angle) -- radius - half width of border marker
-                    local border = spawnAsset(ASSETS.system_border)
+                    local border = spawnAsset(ASSETS.setup.system_border)
                     border.setPosition(pos + center + offset)
                     border.setRotation(Vector(0, angle, 0))
                     border.lock()
@@ -759,7 +774,7 @@ function spawnSystemMarkers(name)
             end
             for type, list in pairs(system.deployment) do
                 for _, entry in pairs(list) do
-                    ruler = spawnAsset(ASSETS[type])
+                    ruler = spawnAsset(ASSETS.tools[type])
                     ruler.setPosition(entry.pos)
                     ruler.setRotation(entry.rot)
                     ruler.lock()
