@@ -214,15 +214,6 @@ saucerXml = [[<Button
 
 ASSETS = {
     tokens = {
-        tracker = {
-            data = {
-                Name = "Custom_Token", Transform = {0.191223115, 1, 0.191223115},
-                CustomImage = {
-                    ImageURL = ASSET_ROOT .. "tools/tracker.png",
-                    CustomToken = {Thickness = 0.1}
-                }
-            }
-        },
         projectile ={
             class1 = {
                 data = {
@@ -271,6 +262,15 @@ ASSETS = {
         }
     },
     tools = {
+        tracker = {
+            data = {
+                Name = "Custom_Token", Transform = {scaleX = 0.191223115, scaleY = 1, scaleZ = 0.191223115},
+                CustomImage = {
+                    ImageURL = ASSET_ROOT .. "tokens/tracker.png",
+                    CustomToken = {Thickness = 0.1}
+                }
+            }
+        },
         ruler_12in = {
             data = {
                 Name = "Custom_Token", Tags = {"Ruler"},
