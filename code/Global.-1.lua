@@ -802,12 +802,13 @@ function drawFeatureRange()
         if onBoard(pos) then
             local lines = {}
             local p2, p4, p6 = {}, {}, {}
-            local v = Vector(1, 0, 0)
+            local v = Vector(1, 0.01, 0) - feature.getBoundsNormalized().offset
             local scale = feature.getScale().x
+            local scale2, scale4, scale6 = 2.625 / scale, 4.625 / scale, 6.625 / scale
             for theta = 0, 360 do
-                table.insert(p2, v * (2.625 / scale))
-                table.insert(p4, v * (4.625 / scale))
-                table.insert(p6, v * (6.625 / scale))
+                table.insert(p2, v:copy():scale(Vector(scale2, 1, scale2)))
+                table.insert(p4, v:copy():scale(Vector(scale4, 1, scale4)))
+                table.insert(p6, v:copy():scale(Vector(scale6, 1, scale6)))
                 v:rotateOver("y", 1)    
             end
             table.insert(lines, {points = p2, color = "Red", thickness = 0.05})
