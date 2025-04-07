@@ -156,9 +156,9 @@ function placeTracker(side)
     oldPos = myShip.getPosition()
     oldRot = myShip.getRotation()
     tracker = Global.call("spawnAsset", Global.getTable("ASSETS").tools.tracker)
-    tracker.setPosition(oldPos + (Vector(attachment.pos) + Vector(0, 0.05, 0)):rotateOver("y", oldRot.y))
-    tracker.setRotation({0, oldRot.y + attachment.rot - 90, 0})
-    tracker.createButton({function_owner = self, click_function = "cancelMove", label = "Cancel", position = {0, 0.2, 0}, rotation = {0, 0, 0}, scale = {4, 1, 4}, width = 500, height = 200})
+    tracker.setPosition(oldPos + (Vector(attachment.pos) + Vector(side == "aft" and -0.25 or 0.25, 0.05, 0)):rotateOver("y", oldRot.y))
+    tracker.setRotation({0, oldRot.y + attachment.rot + 90, 0})
+    tracker.createButton({function_owner = self, click_function = "cancelMove", label = "Cancel", position = {0, 0.2, 0}, rotation = {0, 180, 0}, width = 400, height = 180})
     tracker.lock()
 end
 
@@ -176,7 +176,7 @@ function cancelMove()
     end
     if rulerA then
         rulerA.destroy()
-        rulerB = nil
+        rulerA = nil
         rulerB.destroy()
         rulerB = nil
     end
@@ -342,6 +342,7 @@ function placeWarpTemplate()
     -- Lock the ruler in place
     rulerB.lock()
     rulerA.createButton({ click_function = "clearWarp",function_owner = self,label= "Clear", position= {-8, .2, 0},rotation= {0, 90, 0},width= 300,height= 200,font_size= 95,color= {1,1,1},font_color= {0,0,0}, tooltip= "Clear Rulers",})
+    placeTracker("aft")
 end
 
 function fireTorpedoFore() fireTorpedo("fore") end
