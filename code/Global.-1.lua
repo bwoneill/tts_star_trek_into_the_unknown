@@ -264,10 +264,11 @@ ASSETS = {
     tools = {
         tracker = {
             data = {
-                Name = "Custom_Token", Transform = {scaleX = 0.191223115, scaleY = 1, scaleZ = 0.191223115},
-                CustomImage = {
-                    ImageURL = ASSET_ROOT .. "tokens/tracker.png",
-                    CustomToken = {Thickness = 0.1}
+                Name = "Custom_Model", Transform = {scaleX = 1, scaleY = 1, scaleZ = 1},
+                CustomMesh = {
+                    MeshURL = ASSET_ROOT .. "tokens/tracker.obj",
+                    DiffuseURL = ASSET_ROOT .. "tokens/tracker.png",
+                    ColliderURL = ASSET_ROOT .. "no_colide.obj"
                 }
             }
         },
