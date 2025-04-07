@@ -268,7 +268,7 @@ ASSETS = {
                 CustomMesh = {
                     MeshURL = ASSET_ROOT .. "tokens/tracker.obj",
                     DiffuseURL = ASSET_ROOT .. "tokens/tracker.png",
-                    ColliderURL = ASSET_ROOT .. "no_colide.obj"
+                    ColliderURL = ASSET_ROOT .. "no_collide.obj"
                 }
             }
         },
