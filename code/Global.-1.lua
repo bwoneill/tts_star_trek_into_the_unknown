@@ -29,7 +29,8 @@ shipSize = {
         base = {
             object = {type = "Custom_Model"},
             custom = {
-                mesh = ASSET_ROOT .. "ships/bases/shuttle_base.obj"
+                mesh = ASSET_ROOT .. "ships/bases/shuttle_base.obj",
+                collider = ASSET_ROOT .. "ships/bases/shuttle_base.obj"
             },
             color = {r = 0.6666667, g = 0.6666667, b = 0.6666667}
         }
@@ -45,7 +46,8 @@ shipSize = {
         base = {
             object = {type = "Custom_Model"},
             custom = {
-                mesh = ASSET_ROOT .. "ships/bases/small_base.obj"
+                mesh = ASSET_ROOT .. "ships/bases/small_base.obj",
+                collider = ASSET_ROOT .. "ships/bases/small_base.obj"
             },
             color = {r = 0.6666667, g = 0.6666667, b = 0.6666667}
         },
@@ -63,7 +65,8 @@ shipSize = {
         base = {
             object = {type = "Custom_Model"},
             custom = {
-                mesh = ASSET_ROOT .. "ships/bases/medium_base.obj"
+                mesh = ASSET_ROOT .. "ships/bases/medium_base.obj",
+                collider = ASSET_ROOT .. "ships/bases/medium_base.obj"
             },
             color = {r = 0.6666667, g = 0.6666667, b = 0.6666667}
         },
@@ -81,7 +84,8 @@ shipSize = {
         base = {
             object = {type = "Custom_Model"},
             custom = {
-                mesh = ASSET_ROOT .. "ships/bases/large_base.obj"
+                mesh = ASSET_ROOT .. "ships/bases/large_base.obj",
+                collider = ASSET_ROOT .. "ships/bases/large_base.obj"
             },
             color = {r = 0.6666667, g = 0.6666667, b = 0.6666667}
         },
