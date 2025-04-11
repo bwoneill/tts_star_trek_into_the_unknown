@@ -147,6 +147,46 @@ function calculateRotation(alpha, rotation)
     return result
 end
 
+function placeTracker(side)
+    if tracker then
+        tracker.destroy()
+    end
+    local myShip = getObjectFromGUID(saveData.shipGUID)
+    local attachment = shipData.size.toolAttachment[side]
+    oldPos = myShip.getPosition()
+    oldRot = myShip.getRotation()
+    tracker = Global.call("spawnAsset", Global.getTable("ASSETS").tools.tracker)
+    tracker.setPosition(oldPos + (Vector(attachment.pos) + Vector(side == "aft" and -0.25 or 0.25, 0.05, 0)):rotateOver("y", oldRot.y))
+    tracker.setRotation({0, oldRot.y + attachment.rot + 90, 0})
+    tracker.createButton({function_owner = self, click_function = "cancelMove", label = "Cancel", position = {0, 0.2, 0}, rotation = {0, 180, 0}, width = 400, height = 180})
+    tracker.lock()
+end
+
+function placeTrackerFore() placeTracker("fore") end
+function placeTrackerAft() placeTracker("aft") end
+
+function cancelMove()
+    if template then
+        template.destroy()
+        template = nil
+    end
+    if ruler then
+        ruler.destroy()
+        ruler = nil
+    end
+    if rulerA then
+        rulerA.destroy()
+        rulerA = nil
+        rulerB.destroy()
+        rulerB = nil
+    end
+    local myShip = getObjectFromGUID(saveData.shipGUID)
+    myShip.setPosition(oldPos)
+    myShip.setRotation(oldRot)
+    tracker.destroy()
+    tracker = nil
+end
+
 -- Impulse
 
 function impulseMoveStart()
@@ -169,6 +209,11 @@ function placeTurningTool(side)
     myShip.clearButtons()
     myShip.lock()
     shipDirection = side
+    if side == "aft" then
+        placeTrackerFore()
+    else
+        placeTrackerAft()
+    end
     local attachment = shipData.size.toolAttachment[side]
     local pos = myShip.getPosition()
     local rot = myShip.getRotation().y
@@ -250,6 +295,7 @@ function positionShip()
 	template.lock()
 	myShip.setLock(false)
 	ruler.destroy()
+    ruler = nil
 end
 
 function clearTemplates()
@@ -257,11 +303,22 @@ function clearTemplates()
     myShip.clearButtons()
     myShip.lock()
     template.destroy()
+    template = nil
+    if tracker then
+        tracker.destroy()
+        tracker = nil
+    end
 end
 
 function clearWarp() 
-    rulerA.destroy() 
-    rulerB.destroy() 
+    rulerA.destroy()
+    rulerA = nil
+    rulerB.destroy()
+    rulerB = nil
+    if tracker then
+        tracker.destroy()
+        tracker = nil
+    end
 end
 
 function placeWarpTemplate()
@@ -285,6 +342,7 @@ function placeWarpTemplate()
     -- Lock the ruler in place
     rulerB.lock()
     rulerA.createButton({ click_function = "clearWarp",function_owner = self,label= "Clear", position= {-8, .2, 0},rotation= {0, 90, 0},width= 300,height= 200,font_size= 95,color= {1,1,1},font_color= {0,0,0}, tooltip= "Clear Rulers",})
+    placeTracker("aft")
 end
 
 function fireTorpedoFore() fireTorpedo("fore") end
