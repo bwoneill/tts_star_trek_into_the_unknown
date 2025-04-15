@@ -51,6 +51,7 @@ end
 
 function getComplications(list)
     local objs = getObjectsWithTag("complication")
+    local i = 0
     for _, obj in pairs(objs) do
         if obj.type == "Deck" then
             local deck = obj.getObjects()
@@ -61,12 +62,14 @@ function getComplications(list)
                 end
             end
             table.sort(indices, function(a, b) return a > b end)
-            for i, index in pairs(indices) do
+            for _, index in pairs(indices) do
                 local card_obj = obj.takeObject({position = {i, 2 + 0.01 * i, -i}, index = index, flip = true})
+                i = i + 1
             end
         else
             if isType(obj, list) then
-                obj.setPosition({0, 2, 0})
+                obj.setPosition({i, 2 + 0.01 * i, -i})
+                i = i + 1
             end
         end
     end
