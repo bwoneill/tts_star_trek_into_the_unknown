@@ -89,7 +89,7 @@ require("vscode/console")
 
 -- Constants: DO NOT MODIFY
 
-zoneGUIDS = {overture = "2c4b12", situation = "904211", complication = "2148f7"}
+zoneGUIDS = {overture = "737129", situation = "da2ad6", complication = "5860dd"}
 
 complication_types = {"battle", "intrigue", "mystery", "politics", "study", "threat"}
 
