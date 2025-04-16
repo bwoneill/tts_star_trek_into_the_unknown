@@ -10,9 +10,88 @@ function onUpdate()
     --[[ print('onUpdate loop!') --]]
 end
 
+function onObjectDrop(player_color, dropped_object)
+    local type = isType(dropped_object, {"overture", "situation", "complication"})
+    if type then
+        local zone = getObjectFromGUID(zoneGUIDS[type]) -- get corresponding zone
+        if zone then
+            local objs = zone.getObjects()  -- get all objects in that zone
+            if #objs == 1 then
+                local obj = objs[1]
+                if obj == dropped_object then
+                    log(type .. " placed in " .. type .. " zone")
+                    if type == "overture" then
+                        local setup = isType(dropped_object, {"solitary", "helix", "trinary"})
+                        if setup then
+                            spawnSystemMarkers(setup)
+                        end
+                    end
+                    local sit_zone = getObjectFromGUID(zoneGUIDS.situation)
+                    local ovr_zone = getObjectFromGUID(zoneGUIDS.overture)
+                    local situations, overtures = sit_zone.getObjects(), ovr_zone.getObjects()
+                    if #situations == 1 and #overtures == 1 and (dropped_object == situations[1] or dropped_object == overtures[1]) then
+                        local types = {isType(situations[1], complication_types), isType(overtures[1], complication_types)}
+                        getComplications(types)
+                    end
+                end
+            elseif #objs > 2 then
+                log("too many " .. type .. "s in zone")
+            end
+        end
+    end
+end
+
+function isType(obj, list)
+    local value = false
+    for _, type in pairs(list) do
+        value = value or (obj.hasTag(type) and type)
+    end
+    return value
+end
+
+function getComplications(list)
+    local objs = getObjectsWithTag("complication")
+    local i = 0
+    for _, obj in pairs(objs) do
+        if obj.type == "Deck" then
+            local deck = obj.getObjects()
+            local indices = {}
+            for i, card in pairs(deck) do
+                if overlap(list, card.tags) then
+                    table.insert(indices, card.index)
+                end
+            end
+            table.sort(indices, function(a, b) return a > b end)
+            for _, index in pairs(indices) do
+                local card_obj = obj.takeObject({position = {i, 2 + 0.01 * i, -i}, index = index, flip = true})
+                i = i + 1
+            end
+        else
+            if isType(obj, list) then
+                obj.setPosition({i, 2 + 0.01 * i, -i})
+                i = i + 1
+            end
+        end
+    end
+end
+
+function overlap(l1, l2)
+    local result = false
+    for _, o1 in pairs(l1) do
+        for _, o2 in pairs(l2) do
+            result = result or (string.lower(o1) == string.lower(o2))
+        end
+    end
+    return result
+end
+
 require("vscode/console")
 
 -- Constants: DO NOT MODIFY
+
+zoneGUIDS = {overture = "737129", situation = "da2ad6", complication = "5860dd"}
+
+complication_types = {"battle", "intrigue", "mystery", "politics", "study", "threat"}
 
 ASSET_ROOT = "https://raw.githubusercontent.com/bwoneill/tts_star_trek_into_the_unknown/v0.14_purple_data/assets/"
 
