@@ -97,7 +97,7 @@ ASSET_ROOT = "https://raw.githubusercontent.com/bwoneill/tts_star_trek_into_the_
 
 shipSize = {
     shuttle = {
-        bounds = Vector(1.5, 0, 0.75), arcHeight = 0.01,
+        bounds = Vector(1.5, 0, 0.75), arcHeight = 0.05,
         warpAttachment = Vector(0.26, 0, 0.26),
         toolAttachment = {
             fore = {pos = Vector(-1.125, 0 , 0), rot = 0},
@@ -114,7 +114,7 @@ shipSize = {
             port = {pos = Vector(0, 0, -1), rot = 270},
             starboard = {pos = Vector(0, 0, 1), rot = 90}
         },
-        arcOffsets = {bow = Vector(-0.6, 0, 0), stern = Vector(0.6, 0, 0)}, arcHeight = 0.01,
+        arcOffsets = {bow = Vector(-0.6, 0, 0), stern = Vector(0.6, 0, 0)}, arcHeight = 0.05,
         bounds = Vector(2.125, 0, 1.5)
     },
     medium = {
@@ -125,7 +125,7 @@ shipSize = {
             port = {pos = Vector(0, 0, -1.25), rot = 270},
             starboard = {pos = Vector(0, 0, 1.25), rot = 90}
         },
-        arcOffsets = {bow = Vector(-0.8, 0, 0), stern = Vector(0.8, 0, 0)}, arcHeight = 0.01,
+        arcOffsets = {bow = Vector(-0.8, 0, 0), stern = Vector(0.8, 0, 0)}, arcHeight = 0.05,
         bounds = Vector(3.5, 0, 2)
     },
     large = {
@@ -136,7 +136,7 @@ shipSize = {
             port = {pos = Vector(0, 0, -1.5), rot = 270},
             starboard = {pos = Vector(0, 0, 1.5), rot = 90}
         },
-        arcOffsets = {bow = Vector(-1.25, 0, 0), stern = Vector(1.25, 0, 0)}, arcHeight = 0.01,
+        arcOffsets = {bow = Vector(-1.25, 0, 0), stern = Vector(1.25, 0, 0)}, arcHeight = 0.05,
         bounds = Vector(5, 0, 2.5)
     }
 }
@@ -155,20 +155,12 @@ ARCS = { -- aft = 0, left handed coords
     aft_port = {0, 90}
 }
 
-alertDialPos = Vector(-2.7, -0.1, 0.2)
-alertDialRot = -40
-alertDialScale = {1.25, 1, 1.25}
-powerDialPos = Vector(0.6, -0.1, -2.9)
-powerDialRot = 40
-powerDialScale = {0.63, 1, 0.63}
-crewDialPos = Vector(3.4, -0.1, 0.2)
-crewDialRot = 40
-crewDialScale = {0.85, 1, 0.85}
-hullDialPos = Vector(3.8, -0.1, -2.6)
-hullDialRot = 36
-hullDialScale = {0.62, 1, 0.62}
-
-rulerScale = 12/18.330303
+DIAL_CONST = {
+    alert = {pos = Vector(-2.7, -0.1, 0.2), rot = -40, scale = {1.25, 1, 1.25}},
+    crew = {pos = Vector(3.4, -0.1, 0.2), rot = 40, scale = {0.85, 1, 0.85}},
+    hull = {pos = Vector(3.8, -0.1, -2.6), rot = 36, scale = {0.62, 1, 0.62}},
+    power = {pos = Vector(0.6, -0.1, -2.9), rot = 40, scale = {0.63, 1, 0.63}}
+}
 
 saucerXml = [[<Button 
     id="setUpBtn" 
@@ -326,7 +318,7 @@ ASSETS = {
         ruler_12in = {
             data = {
                 Name = "Custom_Token", Tags = {"Ruler"},
-                Transform = {scaleX = 12/18.330303, scaleY = 1, scaleZ = 12/18.330303},
+                Transform = {scaleX = 0.654653668, scaleY = 1, scaleZ = 0.654653668},
                 ColorDiffuse = {r = 1, g = 1, b = 1, a = 0.586},
                 CustomImage = {
                     ImageURL = ASSET_ROOT .. "tools/ruler/ruler_12.png",
@@ -758,13 +750,10 @@ ASSETS = {
     }
 }
 
-dialScales = {alert = alertDialScale, power = powerDialScale, crew = crewDialScale, hull = hullDialScale}
-
 function generateDialData(faction, ship_class, dial_type)
-    local scale = dialScales[dial_type]
-    local result = {}
-    if scales[dial_type] then
-        result = {
+    if DIAL_CONST[dial_type] then
+        local scale = DIAL_CONST[dial_type].scale
+        local result = {
             Name = "Custom_Token", Transform = {scaleX = scale, scaleY = 1, scaleZ = scale},
             CustomImage = {
                 ImageUrl = ASSET_ROOT .. faction ..  "/ships/" .. ship_class .. "/" .. dial_type .. "_dial.png",
@@ -775,7 +764,15 @@ function generateDialData(faction, ship_class, dial_type)
     return result
 end
 
-function generateShipModelData(faction, ship_class, size, scale)
+function generateShipModelData(ship_data)
+    local faction = ship_data.faction
+    local folder = ship_data.folder
+    local type = ship_data.type
+    local size = ship_data.size
+    transform = ship_data.model_transform or {scaleX = 1}
+    transform.scaleX = transform.scaleX or 1
+    transform.scaleY = transform.scaleY or transform.scaleX
+    transform.scaleZ = transform.scaleZ or transform.scaleX
     local data = {
         Name = "Custom_Model", Transform = {scaleX = 1, scaleY = 1, scaleZ = 1}, Tags = {"Ship"},
         CustomMesh = {
@@ -785,10 +782,10 @@ function generateShipModelData(faction, ship_class, size, scale)
         },
         ChildObjects = {
             {
-                Name = "Custom_Model", Transform = {scaleX = scale, scaleY = scale, scaleZ = scale},
+                Name = "Custom_Model", Transform = transform,
                 CustomMesh = {
-                    MeshURL = ASSET_ROOT .. faction ..  "/ships/" .. ship_class .. "/" .. ship_class .. "_mesh.obj",
-                    DiffuseURL = ASSET_ROOT .. faction ..  "/ships/" .. ship_class .. "/" .. ship_class .. "_skin.png",
+                    MeshURL = ASSET_ROOT .. "factions/" .. faction .. "/" .. folder .. "/" .. type .. "/" .. type .. "_mesh.obj",
+                    DiffuseURL = ASSET_ROOT .. "factions/" .. faction .. "/" .. folder .. "/" .. type .. "/" .. type .. "_skin.png",
                     ColliderURL = ASSET_ROOT .. "misc/no_collide.obj", MaterialIndex = 3
                 }
             }
@@ -797,10 +794,14 @@ function generateShipModelData(faction, ship_class, size, scale)
     return data
 end
 
+function generateOfficerCard(faction, officer_data)
+    return generateCard(faction, "officers", officer_data.name, officer_data.subtitle)
+end
+
 function generateCard(faction, card_type, name, subtitle)
     name = subtitle and name .. "_" .. subtitle or name
     name = string.gsub(name, " ", "_")
-    local path = ASSET_ROOT .. faction .. "/" .. card_type .. "/" .. name
+    local path = ASSET_ROOT .. "factions/" .. faction .. "/" .. card_type .. "/" .. name
     local card = spawnObject({type = "CardCustom"})
     card.setCustomObject({face = path .. ".png", back = path .. "_back.png"})
     return card
@@ -822,7 +823,7 @@ end
 
 factions = {
     dominion = {
-        displayName = "Dominion",
+        displayName = "Dominion", playable = true,
         officers = {
             {name = "Eris", subtitle = "Manipulative Agent", unique = true, roles = {command = true, ops = true}, cp = 8, fp = 4},
             {name = "Founder", roles = {command = true, ops = true, science = true}, cp = 9, fp = 6},
@@ -838,13 +839,39 @@ factions = {
             {name = "Weyoun 4", subtitle = "Unctuous Envoy", unique = true, roles = {command = true}, cp = 9, fp = 3}
         },
         ships = {
-            battle_cruiser = {},
-            fighter = {}
+            battlecruiser = {
+                name = "Jem'Hadar Battle Cruiser", role = "capital", size = "large", crit_deck_size = 6,
+                faction = "dominion", folder = "ships", type = "battlecruiser",
+                dials = {alert = {min = 0, max = 5}, power = {min = 0, max = 8}, crew = {min = -2, max = 5}, hull = {min = 0, max = 9}},
+                model_transform = {scaleX = 1.3}, instruments = {2, 3, 2, 2, 1, 0},
+                sensors = {all = 4, fore = 4, instruments = {fore = true}},
+                comms = {all = 6, fore = 6, instruments = {fore = true}},
+                weapons = {fore = 6, aft = 6}
+            },
+            fighter = {
+                class = "Jem'Hadar Fighter", role = "scout", size = "small", crit_deck_size = 4,
+                faction = "dominion", folder = "ships", type = "fighter",
+                dials = {alert = {min = 0, max = 4}, power = {min = 0, max = 6}, crew = {min = -2, max = 4}, hull = {min = 0, max = 6}},
+                model_transform = {scaleX = 1.3}, instruments = {1, 2, 2, 1, 0},
+                sensors = {all = 4, fore = 4, instruments = {fore = true}},
+                comms = {all = 4, fore = 4, instruments = {fore = true}},
+                weapons = {fore = 6, aft = 6}
+            }
         },
-        directives = {}
+        directives = {
+            combat = {{front = "Tactful Approach", back = "Make an Example"}},
+            diplomacy = {{front = "Spread the Founders Influence", back = "Seed Doubt"}},
+            exploration = {
+                {front = "Test Local Powers", back = "Seize Control", teams = {
+                    alpha = {front = "diplomatic_a", back = "assault_a"},
+                    beta = {front = "diplomatic_b", back = "assault_b"},
+                    gamma = {front = "damage_c", back = "assault_c"}
+                }}
+            }
+        }
     },
     federation = {
-        displayName = "United Federation of Planets",
+        displayName = "United Federation of Planets", playable = true,
         officers = {
             {name = "Benjamin Sisko", subtitle = "Reluctant Emissary",  sway = {"bajoran"}, unique = true, roles = {command = true, ops = true}, cp = 11, fp = 4},
             {name = "Daring First Officer",  roles = {command = true, ops = true}, cp = 6, fp = 3},
@@ -864,40 +891,28 @@ factions = {
         },
         ships = {
             constellation = {
-                name = "Constellation Class", icon = "", size = "medium", crit_deck_size = 5,
-                dials = {
-                    alert = {min = 0, max = 5, rot = alertDialRot, pos = alertDialPos},
-                    power = {min = 0, max = 7, rot = powerDialRot, pos = powerDialPos},
-                    crew = {min = -2, max = 4, rot = crewDialRot, pos = crewDialPos},
-                    hull = {min = 0, max = 8, rot = hullDialRot, pos = hullDialPos}
-                },
-                instruments = {2, 3, 2, 1, 1, 0}, model_scale = 1.25,
+                name = "Constellation-Class Starship", role = "support", size = "medium", crit_deck_size = 5,
+                faction = "federation", folder = "ships", type = "constellation",
+                dials = {alert = {min = 0, max = 5}, power = {min = 0, max = 7}, crew = {min = -2, max = 4}, hull = {min = 0, max = 8}},
+                model_transform = {scaleX = 1.25}, instruments = {2, 3, 2, 1, 1, 0},
                 sensors = {all = 4, bow = 4, instruments = {bow = true}},
                 comms = {all = 6, bow = 6, instruments = {bow = true}},
                 weapons = {fore_port = 6, fore_starboard = 6, stern = 6}
             },
             defiant = {
-                name = "Defiant Class", icon = "", size = "small", crit_deck_size = 5,
-                dials = {
-                    alert = {min = 0, max = 4, rot = alertDialRot, pos = alertDialPos},
-                    power = {min = 0, max = 6, rot = powerDialRot, pos = powerDialPos},
-                    crew = {min = -2, max = 4, rot = crewDialRot, pos = crewDialPos},
-                    hull = {min = 0, max = 7, rot = hullDialRot, pos = hullDialPos}
-                },
-                instruments = {2, 2, 1, 1, 0}, model_scale = 1.3,
+                name = "Defiant-Class Escort", role = "scout", size = "small", crit_deck_size = 5,
+                faction = "federation", folder = "ships", type = "defiant",
+                dials = {alert = {min = 0, max = 4}, power = {min = 0, max = 6}, crew = {min = -2, max = 4}, hull = {min = 0, max = 7}},
+                model_transform = {scaleX = 1.3}, instruments = {2, 2, 1, 1, 0},
                 sensors = {all = 2, bow = 4, instruments = {bow = true}},
                 comms = {all = 2, bow = 6, instruments = {bow = true}},
                 weapons = {all = 6, fore = 6, fore_port = 4, fore_starboard = 4, aft = 6}
             },
             galaxy = {
-                name = "Galaxy Class", icon = "", size = "large", crit_deck_size = 6,
-                dials = {
-                    alert = {min = 0, max = 6, rot = alertDialRot, pos = alertDialPos},
-                    power = {min = 0, max = 8, rot = powerDialRot, pos = powerDialPos},
-                    crew = {min = -2, max = 5, rot = crewDialRot, pos = crewDialPos},
-                    hull = {min = 0, max = 9, rot = hullDialRot, pos = hullDialPos}
-                },
-                instruments = {3, 3, 2, 2, 1, 1, 0}, model_scale = 1.4,
+                name = "Galaxy-Class Starship", role = "capital", size = "large", crit_deck_size = 6,
+                faction = "federation", folder = "ships", type = "galaxy",
+                dials = {alert = {min = 0, max = 6}, power = {min = 0, max = 8}, crew = {min = -2, max = 5}, hull = {min = 0, max = 9}},
+                model_transform = {scaleX = 1.4}, instruments = {3, 3, 2, 2, 1, 1, 0},
                 sensors = {all = 4, bow = 4, instruments = {bow = true}},
                 comms = {all = 6, bow = 6, instruments = {bow = true}},
                 weapons = {fore = 6, aft = 6},
@@ -907,66 +922,77 @@ factions = {
                         data = {
                             Name = "Custom_Tile", Transform = {scaleX = 2.1, scaleY = 1, scaleZ = 2.1},
                             CustomImage = {
-                                ImageURL = ASSET_ROOT .. "ships/galaxy/stardrive_card.png",
-                                ImageSecondaryURL = ASSET_ROOT .. "ships/galaxy/stardrive_card_back.png",
+                                ImageURL = ASSET_ROOT .. "factions/federation/ships/galaxy/stardrive_card.png",
+                                ImageSecondaryURL = ASSET_ROOT .. "factions/federation/ships/galaxy/stardrive_card_back.png",
                                 CustomTile = {Type = 3, Stretch = true, Thickness = 0.01}
                             }
                         }
                     },
-                    model = {CustomMesh = {MeshURL = ASSET_ROOT .. "ships/galaxy/stardrive_mesh.obj"}},
+                    data_change = {CustomMesh = {MeshURL = ASSET_ROOT .. "factions/federation/ships/galaxy/stardrive_mesh.obj"}},
                     sensors = {all = 2, bow = 4, instruments = {bow = true}},
                     comms = {all = 2, bow = 4, instruments = {bow = true}}
                 },
                 auxiliary = {
-                    size = "medium",
+                    name = "Galaxy-Class Saucer", role = "auxiliary", size = "medium",
+                    faction = "federation", folder = "ships", type = "galaxy",
                     ship_board = {
                         data = {
                             Name = "Custom_Tile", Transform = {scaleX = 2.1, scaleY = 1, scaleZ = 2.1},
                             XmlUI = saucerXml,
                             CustomImage = {
-                                ImageURL = ASSET_ROOT .. "ships/galaxy/saucer_card.png",
-                                ImageSecondaryURL = ASSET_ROOT .. "ships/galaxy/saucer_card_back.png",
+                                ImageURL = ASSET_ROOT .. "factions/federation/ships/galaxy/saucer_card.png",
+                                ImageSecondaryURL = ASSET_ROOT .. "factions/federation/ships/galaxy/saucer_card_back.png",
                                 CustomTile = {Type = 3, Stretch = true, Thickness = 0.01}
                             }
                         }
                     },
-                    model = {CustomMesh = {MeshURL = ASSET_ROOT .. "ships/galaxy/saucer_mesh.obj"}},
+                    model_transform = {scaleX = 1.4},
+                    model = {CustomMesh = {MeshURL = ASSET_ROOT .. "factions/federation/ships/galaxy/saucer_mesh.obj"}},
                     sensors = {all = 4, bow = 6}, comms = {all = 6, bow = 8}, weapons = {fore = 6},
                     direction = "fore"
                 }
             },
         },
-        auxiliary = { -- Needs updating
+        auxiliary = {
             runabout = {
-                name = "Danube Class Runabout", size = "shuttle",
-                model = {
-                    object = {type = "Custom_Model", position = Vector(0, 0.25, 0), rotation = Vector(0, 90, 0), scale = Vector(0.25, 0.25, 0.25)},
-                    custom = {
-                        mesh = ASSET_ROOT .. "ships/runabout/runabout_mesh.obj",
-                        diffuse = ASSET_ROOT .. "ships/runabout/runabout_skin.png",
-                        material = 3
-                    }
-                },
+                name = "Danube-Class Runabout", size = "shuttle",
+                faction = "federation", folder = "auxiliary", type = "runabout",
+                model_transform = {posY = 0.25, rotY = 90, scaleX = 0.25},
                 sensors = {all = 3}, comms = {all = 3}, weapons = {all = 4}
             },
             type6 = {
-                class = "type6",
-                size = shipSize.shuttle,
-                model = {
-                    object = {type = "Custom_Model", position = Vector(0, 0.5, 0)},
-                    custom = {
-                        mesh = ASSET_ROOT .. "ships/type6/type6_mesh.obj",
-                        diffuse = ASSET_ROOT .. "ships/type6/type6_skin.png",
-                        material = 3
-                    }
-                },
+                name = "Type 6 Shuttle", size = "shuttle",
+                faction = "federation", folder = "auxiliary", type = "type6",
+                model_transform = {posY = 0.5},
                 sensors = {all = 3}, comms = {all = 3}, weapons = {all = 4}
             }
         },
-        directives = { -- Needs updating
-            combat = {{front = "We come in peace", back = "Proportionate Response"}},
-            diplomacy = {{front = "Seek out new life and civilizations", back = "Protect Federation intrests"}},
-            exploration = {{front = "Explore strange new worlds", back = "Right to self-determination", teams = {}}}
+        directives = {
+            combat = {{front = "We Come In Peace", back = "Proportionate Response"}},
+            diplomacy = {{front = "Seek Out New Life and Civilizations", back = "Protect Federation Intrests"}},
+            exploration = {
+                {front = "Explore Strange New worlds", back = "Right to Self-Determination", teams = {
+                    alpha = {front = "survey_a", back = "security_a"},
+                    beta = {front = "survey_b", back = "security_b"},
+                    gamma = {front = "engineering_c", back = "security_c"}
+                }}
+            }
+        }
+    },
+    neutral = {
+        ships = {
+            raider = {
+                name = "Hostile Raider", size = "medium",
+                faction = "neutral", folder = "ships", type = "raider",
+                model_transform = {posY = 0.6, rotY = 270, scaleX = 0.325},
+                sensors = {all = 3}, comms = {all = 3}, weapons = {all = 4, fore = 4}
+            },
+            tinman = {
+                class = "Inscrutable Entity", size = "medium",
+                faction = "neutral", folder = "ships", type = "tinman",
+                model_transform = {posY = 0.9},
+                sensors = {all = 3}, comms = {all = 3}, weapons = {all = 4, fore = 4}
+            },
         }
     }
 }
