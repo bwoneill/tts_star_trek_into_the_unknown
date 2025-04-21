@@ -1,5 +1,5 @@
 --Auxcraft Unit
 
-default = Global.getTable("ASSETS").runabout
+default = Global.getTable("ASSETS").factions.federation.auxiliary.runabout
 
 require("ship")

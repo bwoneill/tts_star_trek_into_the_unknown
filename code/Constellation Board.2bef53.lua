@@ -1,5 +1,5 @@
 --Federation Constellation Class
 
-default = Global.getTable("ASSETS").constellation
+default = Global.getTable("ASSETS").factions.federation.ships.constellation
 
 require("ship")

@@ -1,5 +1,5 @@
 --Federation Defiant Class
 
-default = Global.getTable("ASSETS").defiant
+default = Global.getTable("ASSETS").factions.federation.ships.defiant
 
 require("ship")
