@@ -7,7 +7,7 @@ ignore_save = false -- set to true for updates on data in Global
 
 saveData = {}
 
-ASSET_ROOT = "https://raw.githubusercontent.com/bwoneill/tts_star_trek_into_the_unknown/v1.0_fully_functional/assets/"
+ASSET_ROOT = Global.getVar("ASSET_ROOT")
 
 DIAL_CONST = {
     alert = {pos = Vector(-2.7, -0.1, 0.2), rot = -40, scale = 1.25},
