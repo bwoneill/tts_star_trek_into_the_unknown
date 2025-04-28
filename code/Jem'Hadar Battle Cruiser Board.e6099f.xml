@@ -125,7 +125,7 @@
 <Button  
     active="false"
     id="beamBtn" 
-    onClick="fireBeams" 
+    onClick="firePhaser" 
     fontSize="12" 
     color="#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)" 
     width="40" 
