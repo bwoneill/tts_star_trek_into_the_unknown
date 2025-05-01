@@ -3,8 +3,6 @@ equipment = Global.getTable("ASSETS").equipment
 
 ASSET_ROOT = Global.getVar("ASSET_ROOT")
 
-build = {}
-
 coreOfficers = {"command", "ops", "science", "spec1", "spec2"}
 
 dirTypes = {"combat", "diplomacy", "exploration"}
@@ -36,11 +34,15 @@ defaultImages = {
 
 panelIds = {"fPanel", "stagingPanel", "selectOfficer", "selectDirective", "selectShip", "fleetStaging", "selectEquip"}
 
+function onLoad()
+    start()
+end
+
 -- Faction Selection
 
 function start(player, value, id)
     hideAll()
-    build = {equipment = {}}
+    build = {version = 1, equipment = {}}
     local index = 1
     for name, faction in pairs(factions) do
         if faction.playable then
@@ -438,10 +440,6 @@ function reroll(player, value, id)
 end
 
 function export(player, value, id)
-    local save = {
-        faction = build.faction,
-        command = build.command,
-    }
     local data = {
         Name = "Custom_Token", Description = JSON.encode(build), Transform = {scaleX = 1, scaleY = 1, scaleZ = 1}, Tags = {"Save"},
         CustomImage = {
