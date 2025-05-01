@@ -25,6 +25,8 @@
         rectAlignment = "UpperRight" text = "Next" onClick = "fleetStaging"/>
     <Button class = "remove" color = "Red" textColor = "Black" width = "25" height = "25" rectAlignment = "UpperRight"
         onClick = "remove" text = "X"/>
+    <Button class = "export" color = "Purple" textColor = "White" fontSize = "32" width = "150" height = "50"
+        rectAlignment = "UpperRight" text = "Export" onClick = "export"/>
     <!-- Selectors -->
     <Image class = "offSel" height = "300" width = "200" onClick = "selectOff"/>
     <Panel class = "offSel" height = "300" width = "200" rectAlignment = "UpperLeft" color = "#bbbdbf"/>
@@ -152,6 +154,7 @@
         <Text fontSize = "32" offsetXY = "0 375">Fleet Staging</Text>
         <Text offsetXY = "200 375" width = "150" height = "50" id = "fp" resizeTextForBestFit = "true"/>
         <Button class = "back"/>
+        <Button class = "export"/>
         <VerticalScrollView>
             <Panel height = "1960" width = "1000">
                 <TableLayout>

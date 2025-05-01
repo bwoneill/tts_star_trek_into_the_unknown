@@ -207,14 +207,12 @@ function selectShip(player, value, id)
             }
             self.UI.setAttributes("s" .. count, attributes)
             self.UI.setAttribute("s" .. i, "active", true)
-            -- self.UI.show("s" .. count)
         end
     end
     for i = count + 1, 5 do
         local attributes = {image = "", color = "Black", onClick = ""}
         self.UI.setAttributes("s" .. i, attributes)
         self.UI.setAttribute("s" .. i, "active", false)
-        -- self.UI.hide("s" .. i)
     end
     self.UI.setAttribute("shipScrollPanel", "height", 310 * math.ceil(count / 2) - 10)
     self.UI.show("selectShip")
@@ -272,8 +270,7 @@ function selectEquip(player, value, id)
             self.UI.setAttributes("ef" .. count, attributes)
             attributes.image = images.back
             self.UI.setAttributes("eb" .. count, attributes)
-            self.UI.setAttribute("ep" .. i, "active", true)
-            -- self.UI.show("ep" .. i)
+            self.UI.setAttribute("ep" .. count, "active", true)
         end
     end
     for i = count + 1, 5 do
@@ -391,10 +388,15 @@ function updateImages()
     for i, equip in ipairs(build.equipment) do
         local images = getEquipmentImages(equip)
         self.UI.setAttributes("eq" .. i, {image = images.back, color = "White"})
+        self.UI.setAttributes("ed" .. i, {value = build.equipment[i].n - 1, active = true})
+        self.UI.setAttribute("ex" .. i, "active", true)
         self.UI.setAttribute("e" .. i, "active", true)
     end
-    self.UI.setAttributes("eq" .. #build.equipment + 1, {image = ASSET_ROOT .. "ui/PADD/equipment.png", color = "White"})
-    self.UI.setAttribute("e" .. #build.equipment + 1, "active", true)
+    local index = #build.equipment + 1
+    self.UI.setAttributes("eq" .. index, {image = ASSET_ROOT .. "ui/PADD/equipment.png", color = "White"})
+    self.UI.setAttribute("ed" .. index, "active", false)
+    self.UI.setAttribute("ex" .. index, "active", false)
+    self.UI.setAttribute("e" .. index, "active", true)
     for i = #build.equipment + 2, 5 do
         self.UI.setAttribute("e" .. i, "active", false)
     end
@@ -433,4 +435,26 @@ function reroll(player, value, id)
     build.option1 = build["trans" .. options[1]]
     build.option2 = build["trans" .. options[2]]
     fleetStaging()
+end
+
+function export(player, value, id)
+    local save = {
+        faction = build.faction,
+        command = build.command,
+    }
+    local data = {
+        Name = "Custom_Token", Description = JSON.encode(build), Transform = {scaleX = 1, scaleY = 1, scaleZ = 1}, Tags = {"Save"},
+        CustomImage = {
+            ImageURL = ASSET_ROOT .. "factions/" .. build.faction .. "/save_token.png",
+            CustomToken = {
+                Thickness = 0.1
+            }
+        }
+    }
+    local rot = self.getRotation().y
+    spawnObjectData({
+        data = data,
+        position = self.getPosition() + Vector(-8.75, 0, 2):rotateOver("y", rot),
+        rotation = Vector(0, rot + 180, 0)
+    })
 end
