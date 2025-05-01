@@ -1,0 +1,265 @@
+<!-- Xml UI. See documentation: https://api.tabletopsimulator.com/ui/introUI/ -->
+
+<Defaults>
+    <VerticalScrollView height = "750" width = "1100" flexibleHeight = "50" color = "Black" scrollbarColors = "Blue"
+        scrollbarBackgroundColor = "Orange" rectAlignment = "UpperLeft" scrollSensitivity = "80" offsetXY = "0 -50"/>
+    <Text color = "White" fontSize = "20"/>
+    <Row class = "text" preferredHeight = "40"/>
+    <!-- Faction selection -->
+    <Image class = "fLogo" height = "330" width = "330"/>
+    <Panel class = "fLayout" active = "false" rectAlignment = "UpperLeft" outline = "White" height = "300"/>
+    <!-- Mini card panel -->
+    <Panel class = "miniPanel" height = "300" width = "400" color = "Black"/>
+    <Image class = "miniFront" width = "200" height = "300" fillImageColor = "Black" offsetXY = "-100 0"/>
+    <Image class = "miniBack" width = "200" height = "300" fillImageColor = "Black" offsetXY = "100 0"/>
+    <Image class = "miniPort" height = "300" width = "200" fillImageColor = "Black"/>
+    <!-- Std card panel -->
+    <Panel class = "stdPanel" height = "300" width = "800" rectAlignment = "UpperLeft"/>
+    <Image class = "stdFront" width = "400" height = "300" fillImageColor = "Black" offsetXY = "-200 0"/>
+    <Image class = "stdBack" width = "400" height = "300" fillImageColor = "Black" offsetXY = "200 0"/>
+    <Image class = "stdPort" width = "400" height = "300" fillImageColor = "Black"/>
+    <!-- Buttons -->
+    <Button class = "back" color = "Blue" textColor = "White" fontSize = "32" width = "150" height = "50"
+        rectAlignment = "UpperLeft" text = "Back" onClick = "showStaging"/>
+    <Button class = "next" color = "Orange" textColor = "Black" fontSize = "32" width = "150" height = "50"
+        rectAlignment = "UpperRight" text = "Next" onClick = "fleetStaging"/>
+    <Button class = "remove" color = "Red" textColor = "Black" width = "25" height = "25" rectAlignment = "UpperRight"
+        onClick = "remove" text = "X"/>
+    <!-- Selectors -->
+    <Image class = "offSel" height = "300" width = "200" onClick = "selectOff"/>
+    <Panel class = "offSel" height = "300" width = "200" rectAlignment = "UpperLeft" color = "#bbbdbf"/>
+    <Image class = "dirSel" onClick = "selectDir"/>
+    <Toggle class = "selTrans" offsetXY = "0 -125" onValueChanged = "logTransfer"/>
+    <Panel class = "transfer" width = "250" height = "300" color = "#bbbdbf"/>
+    <Panel class = "equipment" width = "200" height = "300" color = "Black"/>
+    <Dropdown class = "equipment" offsetXY = "0 -125"/>
+    <Image class = "equip" color = "Black" onClick = "selectEquip"/>
+</Defaults>
+
+<Button id = "start" onClick = "start" width = "100" height = "50" color = "Blue"
+    textColor = "White" rotation = "0 0 90" position = "550 -300 -12"> Start </Button>
+
+<Panel width = "1100" height = "800" position = "-135 0 -12" color = "Black">
+    <!-- Faction Selection Panel -->
+    <Panel id = "fPanel" active = "false">
+        <VerticalLayout childForceExpandHeight = "false">
+            <Text fontSize = "48">Choose a Faction</Text>
+            <VerticalScrollView>
+                <GridLayout cellSize = "330 330" spacing = "10 10">
+                    <Panel class = "fLayout" id = "faction1">
+                        <Image id = "fLogo1" class = "fLogo"/>
+                    </Panel>
+                    <Panel class = "fLayout" id = "faction2">
+                        <Image id = "fLogo2" class = "fLogo"/>
+                    </Panel>
+                    <Panel class = "fLayout" id = "faction3">
+                        <Image id = "fLogo3" class = "fLogo"/>
+                    </Panel>
+                    <Panel class = "fLayout" id = "faction4">
+                        <Image id = "fLogo4" class = "fLogo"/>
+                    </Panel>
+                </GridLayout>
+            </VerticalScrollView>
+        </VerticalLayout>
+    </Panel>
+    <!-- Task Force Creation -->
+    <Panel id = "stagingPanel" active = "false">
+        <Text fontSize = "32" offsetXY = "0 375">Task Force Creation</Text>
+        <Button class = "back" onClick = "start"/>
+        <Button class = "next"/>
+        <VerticalScrollView>
+            <Panel height = "1560" width = "1000">
+                <TableLayout>
+                    <Row class = "text"><Cell columnSpan = "3"><Text>Core Officers</Text></Cell></Row>
+                    <Row preferredHeight = "300">
+                        <Cell><Panel class = "offSel" color = "#6f1a26"><Image class = "offSel" id = "command"/></Panel></Cell>
+                        <Cell><Panel class = "offSel" color = "#b8983c"><Image class = "offSel" id = "ops"/></Panel></Cell>
+                        <Cell><Panel class = "offSel" color = "#286999"><Image class = "offSel" id = "science"/></Panel></Cell>
+                    </Row>
+                    <Row preferredHeight = "300">
+                        <Cell><Panel class = "offSel"><Image class = "offSel" id = "spec1"/></Panel></Cell>
+                        <Cell><Panel class = "offSel"><Image class = "offSel" id = "spec2"/></Panel></Cell>
+                        <Cell><Text id = "cp" resizeTextForBestFit = "true"/></Cell>
+                    </Row>
+                    <Row class = "text"><Cell columnSpan = "3"><Text>Transfer Officers</Text></Cell></Row>
+                    <Row preferredHeight = "300">
+                        <Cell><Panel class = "offSel"><Image class = "offSel" id = "trans1"/></Panel></Cell>
+                        <Cell><Panel class = "offSel"><Image class = "offSel" id = "trans2"/></Panel></Cell>
+                        <Cell><Panel class = "offSel"><Image class = "offSel" id = "trans3"/></Panel></Cell>
+                    </Row>
+                    <Row preferredHeight = "300">
+                        <Cell><Panel class = "offSel"><Image class = "offSel" id = "trans4"/></Panel></Cell>
+                        <Cell><Panel class = "offSel"><Image class = "offSel" id = "trans5"/></Panel></Cell>
+                        <Cell><Panel class = "offSel"><Image class = "offSel" id = "trans6"/></Panel></Cell>
+                    </Row>
+                    <Row class = "text"><Cell columnSpan = "3"><Text>Directives</Text></Cell></Row>
+                    <Row preferredHeight = "240">
+                        <Cell><Image class = "dirSel" id = "combat"/></Cell>
+                        <Cell><Image class = "dirSel" id = "diplomacy"/></Cell>
+                        <Cell><Image class = "dirSel" id = "exploration"/></Cell>
+                    </Row>
+                </TableLayout>
+            </Panel>
+        </VerticalScrollView>
+    </Panel>
+    <!-- Officer Selection Panel -->
+    <Panel id = "selectOfficer" active = "false">
+        <Button class = "back"/>
+        <VerticalScrollView>
+            <Panel id = "officerScrollPanel" height = "1960">
+                <GridLayout cellSize = "400 300" spacing = "10 10" colors = "Black">
+                    <Panel class = "miniPanel" id = "off1"><Image class = "miniFront" id = "ob1"/><Image class = "miniBack" id = "o1"/></Panel>
+                    <Panel class = "miniPanel" id = "off2"><Image class = "miniFront" id = "ob2"/><Image class = "miniBack" id = "o2"/></Panel>
+                    <Panel class = "miniPanel" id = "off3"><Image class = "miniFront" id = "ob3"/><Image class = "miniBack" id = "o3"/></Panel>
+                    <Panel class = "miniPanel" id = "off4"><Image class = "miniFront" id = "ob4"/><Image class = "miniBack" id = "o4"/></Panel>
+                    <Panel class = "miniPanel" id = "off5"><Image class = "miniFront" id = "ob5"/><Image class = "miniBack" id = "o5"/></Panel>
+                    <Panel class = "miniPanel" id = "off6"><Image class = "miniFront" id = "ob6"/><Image class = "miniBack" id = "o6"/></Panel>
+                    <Panel class = "miniPanel" id = "off7"><Image class = "miniFront" id = "ob7"/><Image class = "miniBack" id = "o7"/></Panel>
+                    <Panel class = "miniPanel" id = "off8"><Image class = "miniFront" id = "ob8"/><Image class = "miniBack" id = "o8"/></Panel>
+                    <Panel class = "miniPanel" id = "off9"><Image class = "miniFront" id = "ob9"/><Image class = "miniBack" id = "o9"/></Panel>
+                    <Panel class = "miniPanel" id = "off10"><Image class = "miniFront" id = "ob10"/><Image class = "miniBack" id = "o10"/></Panel>
+                    <Panel class = "miniPanel" id = "off11"><Image class = "miniFront" id = "ob11"/><Image class = "miniBack" id = "o11"/></Panel>
+                    <Panel class = "miniPanel" id = "off12"><Image class = "miniFront" id = "ob12"/><Image class = "miniBack" id = "o12"/></Panel>
+                    <Panel class = "miniPanel" id = "off13"><Image class = "miniFront" id = "ob13"/><Image class = "miniBack" id = "o13"/></Panel>
+                    <Panel class = "miniPanel" id = "off14"><Image class = "miniFront" id = "ob14"/><Image class = "miniBack" id = "o14"/></Panel>
+                    <Panel class = "miniPanel" id = "off15"><Image class = "miniFront" id = "ob15"/><Image class = "miniBack" id = "o15"/></Panel>
+                    <Panel class = "miniPanel" id = "off16"><Image class = "miniFront" id = "ob16"/><Image class = "miniBack" id = "o16"/></Panel>
+                    <Panel class = "miniPanel" id = "off17"><Image class = "miniFront" id = "ob17"/><Image class = "miniBack" id = "o17"/></Panel>
+                    <Panel class = "miniPanel" id = "off18"><Image class = "miniFront" id = "ob18"/><Image class = "miniBack" id = "o18"/></Panel>
+                    <Panel class = "miniPanel" id = "off19"><Image class = "miniFront" id = "ob19"/><Image class = "miniBack" id = "o19"/></Panel>
+                    <Panel class = "miniPanel" id = "off20"><Image class = "miniFront" id = "ob20"/><Image class = "miniBack" id = "o20"/></Panel>
+                </GridLayout>
+            </Panel>
+        </VerticalScrollView>
+    </Panel>
+    <!-- Directive Selection Panel -->
+    <Panel id = "selectDirective" active = "false">
+        <Button class = "back"/>
+        <VerticalScrollView>
+            <Panel id = "directiveScrollPanel" height = "1960">
+                <GridLayout cellSize = "800 300" spacing = "5 5" colors = "Black">
+                    <Panel class = "stdPanel" id = "dir1"><Image class = "stdFront" id = "d1"/><Image class = "stdBack" id = "db1"/></Panel>
+                    <Panel class = "stdPanel" id = "dir2"><Image class = "stdFront" id = "d2"/><Image class = "stdBack" id = "db2"/></Panel>
+                    <Panel class = "stdPanel" id = "dir3"><Image class = "stdFront" id = "d3"/><Image class = "stdBack" id = "db3"/></Panel>
+                    <Panel class = "stdPanel" id = "dir4"><Image class = "stdFront" id = "d4"/><Image class = "stdBack" id = "db4"/></Panel>
+                    <Panel class = "stdPanel" id = "dir5"><Image class = "stdFront" id = "d5"/><Image class = "stdBack" id = "db5"/></Panel>
+                </GridLayout>
+            </Panel>
+        </VerticalScrollView>
+    </Panel>
+    <!-- Fleet Staging -->
+    <Panel id = "fleetStaging" active = "false">
+        <Text fontSize = "32" offsetXY = "0 375">Fleet Staging</Text>
+        <Text offsetXY = "200 375" width = "150" height = "50" id = "fp" resizeTextForBestFit = "true"/>
+        <Button class = "back"/>
+        <VerticalScrollView>
+            <Panel height = "1960" width = "1000">
+                <TableLayout>
+                    <Row class = "text"><Cell columnSpan = "3"><Text>Transfer Officers</Text></Cell></Row>
+                    <Row preferredHeight = "300">
+                        <Cell>
+                            <Panel class = "transfer">
+                                <Image height = "300" width = "200" id = "option1"/>
+                                <Toggle class = "selTrans" id = "select1"/>
+                            </Panel>
+                        </Cell>
+                        <Cell>
+                            <Panel class = "transfer">
+                                <Image height = "300" width = "200" id = "option2"/>
+                                <Toggle class = "selTrans" id = "select2"/>
+                            </Panel>
+                        </Cell>
+                        <Cell><Panel height = "300" width = "200"><Button onClick = "reroll" color = "Blue">Roll</Button></Panel></Cell>
+                    </Row>
+                    <Row class = "text"><Cell columnSpan = "3"><Text>Ships</Text></Cell></Row>
+                    <Row preferredHeight = "245">
+                        <Cell><Image class = "shipSel" id = "ship1" onClick = "selectShip(capital)"/></Cell>
+                        <Cell><Image class = "shipSel" id = "ship2" onClick = "selectShip(noncapital)"/></Cell>
+                        <Cell><Image class = "shipSel" id = "ship3" onClick = "selectShip(noncapital)"/></Cell>
+                    </Row>
+                    <Row class = "text"><Cell columnSpan = "3"><Text>Titles</Text></Cell></Row>
+                    <Row class = "text"><Cell columnSpan = "3"><Text>Equipment</Text></Cell></Row>
+                    <Row><Cell columnSpan = "3">
+                        <GridLayout cellSize = "200 300" colors = "Black">
+                            <Panel class = "equipment" id = "e1">
+                                <Image class = "equip" id = "eq1"/>
+                                <Dropdown class = "equipment" id = "equip1">
+                                    <Option selected = "true">1</Option>
+                                    <Option>2</Option>
+                                    <Option>3</Option>
+                                </Dropdown>
+                                <Button class = "remove" id = "ex1"/>
+                            </Panel>
+                            <Panel class = "equipment" id = "e2">
+                                <Image class = "equip" id = "eq2"/>
+                                <Dropdown class = "equipment" id = "equip2">
+                                    <Option selected = "true">1</Option>
+                                    <Option>2</Option>
+                                    <Option>3</Option>
+                                </Dropdown>
+                                <Button class = "remove" id = "ex2"/>
+                            </Panel>
+                            <Panel class = "equipment" id = "e3">
+                                <Image class = "equip" id = "eq3"/>
+                                <Dropdown class = "equipment" id = "equip3">
+                                    <Option selected = "true">1</Option>
+                                    <Option>2</Option>
+                                    <Option>3</Option>
+                                </Dropdown>
+                                <Button class = "remove" id = "ex3"/>
+                            </Panel>
+                            <Panel class = "equipment" id = "e4">
+                                <Image class = "equip" id = "eq4"/>
+                                <Dropdown class = "equipment" id = "equip4">
+                                    <Option selected = "true">1</Option>
+                                    <Option>2</Option>
+                                    <Option>3</Option>
+                                </Dropdown>
+                                <Button class = "remove" id = "ex4"/>
+                            </Panel>
+                            <Panel class = "equipment" id = "e5">
+                                <Image class = "equip" id = "eq5"/>
+                                <Dropdown class = "equipment" id = "equip5">
+                                    <Option selected = "true">1</Option>
+                                    <Option>2</Option>
+                                    <Option>3</Option>
+                                </Dropdown>
+                                <Button class = "remove" id = "ex5"/>
+                            </Panel>
+                        </GridLayout>
+                    </Cell></Row>
+                </TableLayout>
+            </Panel>
+        </VerticalScrollView>
+    </Panel>
+    <!-- Ship Selection Panel -->
+    <Panel id = "selectShip" active = "false">
+        <Button class = "back" onClick = "fleetStaging"/>
+        <VerticalScrollView>
+            <Panel id = "shipScrollPanel" height = "1960">
+                <GridLayout cellSize = "400 300" spacing = "5 5" colors = "Black">
+                    <Image class = "ship" id = "s1"/>
+                    <Image class = "ship" id = "s2"/>
+                    <Image class = "ship" id = "s3"/>
+                    <Image class = "ship" id = "s4"/>
+                    <Image class = "ship" id = "s5"/>
+                </GridLayout>
+            </Panel>
+        </VerticalScrollView>
+    </Panel>
+    <!-- Equpiment Selection Panel -->
+    <Panel id = "selectEquip" active = "false">
+        <Button class = "back" onClick = "fleetStaging"/>
+        <VerticalScrollView>
+            <Panel id = "equipScrollPanel" height = "1960">
+                <GridLayout cellSize = "400 300" spacing = "5 5" colors = "Black">
+                    <Panel class = "miniPanel" id = "ep1"><Image class = "miniFront" id = "ef1"/><Image class = "miniBack" id = "eb1"/></Panel>
+                    <Panel class = "miniPanel" id = "ep2"><Image class = "miniFront" id = "ef2"/><Image class = "miniBack" id = "eb2"/></Panel>
+                    <Panel class = "miniPanel" id = "ep3"><Image class = "miniFront" id = "ef3"/><Image class = "miniBack" id = "eb3"/></Panel>
+                    <Panel class = "miniPanel" id = "ep4"><Image class = "miniFront" id = "ef4"/><Image class = "miniBack" id = "eb4"/></Panel>
+                    <Panel class = "miniPanel" id = "ep5"><Image class = "miniFront" id = "ef5"/><Image class = "miniBack" id = "eb5"/></Panel>
+                </GridLayout>
+            </Panel>
+        </VerticalScrollView>
+    </Panel>
+</Panel>
