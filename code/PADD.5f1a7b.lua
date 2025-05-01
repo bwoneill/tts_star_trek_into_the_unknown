@@ -24,6 +24,9 @@ defaultImages = {
     ship1 = "ui/PADD/capital.png",
     ship2 = "ui/PADD/non-capital.png",
     ship3 = "ui/PADD/non-capital.png",
+    title1 = "",
+    title2 = "",
+    title3 = "",
     combat = "ui/PADD/combat.png",
     diplomacy = "ui/PADD/diplomacy.png",
     exploration = "ui/PADD/exploration.png",
@@ -59,7 +62,6 @@ end
 
 function selectFaction(player, value, id)
     build.faction = value
-    updateEquipment()
     showStaging()
 end
 
@@ -84,7 +86,7 @@ function selectOff(player, value, id)
     local filter = (id == "command" or id == "ops" or id == "science") and id or nil
     local count = 0
     for i, officer in ipairs(factions[build.faction].officers) do
-        local available = (filter and officer.roles[filter]) or not filter
+        local available = not filter or officer.roles[filter]
         available = available and not officer.line_officer
         if officer.unique and not (build[id] and officer.name == build[id].name) then
             for _, staff in pairs(build) do
@@ -144,13 +146,15 @@ function selectDir(player, value, id)
         self.UI.setAttributes("d" .. i, attributes)
         attributes.image = paths.back
         self.UI.setAttributes("db" .. i, attributes)
-        self.UI.show("dir" .. i)
+        self.UI.setAttribute("dir" .. i, "active", true)
+        -- self.UI.show("dir" .. i)
     end
     for i = #directives + 1, 5 do
         local attributes = {image = "", color = "Black", onClick = ""}
         self.UI.setAttributes("d" .. i, attributes)
         self.UI.setAttributes("db" .. i, attributes)
-        self.UI.hide("dir" .. i)
+        self.UI.setAttribute("dir" .. i, "active", false)
+        -- self.UI.hide("dir" .. i)
     end
     self.UI.setAttribute("directiveScrollPanel", "height", #directives * 305 - 5)
     self.UI.show("selectDirective")
@@ -176,7 +180,6 @@ end
 
 function fleetStaging(player, value, id)
     hideAll()
-    updateEquipment()
     updateImages()
     updateFlexPoints()
     local attributes = {text = string.format("%i/%i", fp, 50 - cp), color = fp <= (50 - cp) and "White" or "Red"}
@@ -203,13 +206,15 @@ function selectShip(player, value, id)
                 color = "White"
             }
             self.UI.setAttributes("s" .. count, attributes)
-            self.UI.show("s" .. count)
+            self.UI.setAttribute("s" .. i, "active", true)
+            -- self.UI.show("s" .. count)
         end
     end
     for i = count + 1, 5 do
         local attributes = {image = "", color = "Black", onClick = ""}
         self.UI.setAttributes("s" .. i, attributes)
-        self.UI.hide("s" .. i)
+        self.UI.setAttribute("s" .. i, "active", false)
+        -- self.UI.hide("s" .. i)
     end
     self.UI.setAttribute("shipScrollPanel", "height", 310 * math.ceil(count / 2) - 10)
     self.UI.show("selectShip")
@@ -232,12 +237,13 @@ end
 -- -- -- does not work
 -- 
 
-function updateEquipment()
-    for i, equip in ipairs(equipment) do
-    end
+function updateEquipment(player, value, id)
+    local index = tonumber(string.gmatch(id, "%d+")())
+    build.equipment[index].n = tonumber(value)
+    fleetStaging()
 end
 
-function getEquipmentImage(equip)
+function getEquipmentImages(equip)
     local path = ASSET_ROOT .. "equipment/" .. string.gsub(equip.name, " ", "_")
     local result = {front = path .. ".png", back = path .. "_back.png"}
     return result
@@ -245,13 +251,55 @@ end
 
 function selectEquip(player, value, id)
     hideAll()
-
+    local index = tonumber(string.gmatch(id, "%d+")())
+    local this = build.equipment[index]
+    local count = 0
+    for i, e in ipairs(equipment) do
+        local available = not e.factions or e.factions[build.faction]
+        if not (this and e.name == this.name) then
+            for _, q in ipairs(build.equipment) do
+                available = available and not (e.name == q.name)
+            end
+        end
+        if available then
+            count = count + 1
+            local images = getEquipmentImages(e)
+            local attributes = {
+                onClick = "equipChoice(" .. index .. "=" .. i .. ")",
+                image = images.front,
+                color = "White"
+            }
+            self.UI.setAttributes("ef" .. count, attributes)
+            attributes.image = images.back
+            self.UI.setAttributes("eb" .. count, attributes)
+            self.UI.setAttribute("ep" .. i, "active", true)
+            -- self.UI.show("ep" .. i)
+        end
+    end
+    for i = count + 1, 5 do
+        local attributes = {image = "", color = "Black", onClick = ""}
+        self.UI.setAttributes("ef" .. i, attributes)
+        self.UI.setAttributes("eb" .. i, attributes)
+        self.UI.setAttribute("ep" .. i, "active", false)
+    end
+    self.UI.setAttributes("equipScrollPanel", {height = 310 * math.ceil(count / 2) - 10})
     self.UI.show("selectEquip")
+end
+
+function equipChoice(player, value, id)
+    local values = parseValues(value)
+    for id, i in pairs(values) do
+        local index = tonumber(id)
+        build.equipment[index] = equipment[i]
+        build.equipment[index].n = 1
+    end
+    fleetStaging()
 end
 
 function remove(player, value, id)
     local index = tonumber(string.gmatch(id, "%d+")())
-    log(index)
+    table.remove(build.equipment, index)
+    fleetStaging()
 end
 
 -- Utility funcitons
@@ -340,6 +388,16 @@ function updateImages()
         local image = getImage(type)
         self.UI.setAttribute(type, "image", image)
     end
+    for i, equip in ipairs(build.equipment) do
+        local images = getEquipmentImages(equip)
+        self.UI.setAttributes("eq" .. i, {image = images.back, color = "White"})
+        self.UI.setAttribute("e" .. i, "active", true)
+    end
+    self.UI.setAttributes("eq" .. #build.equipment + 1, {image = ASSET_ROOT .. "ui/PADD/equipment.png", color = "White"})
+    self.UI.setAttribute("e" .. #build.equipment + 1, "active", true)
+    for i = #build.equipment + 2, 5 do
+        self.UI.setAttribute("e" .. i, "active", false)
+    end
 end
 
 function updateFlexPoints()
@@ -356,6 +414,9 @@ function updateFlexPoints()
         if transfer and isSelected == "True" then
             fp = fp + transfer.fp
         end
+    end
+    for _, equip in pairs(build.equipment) do
+        fp = fp + equip.n * equip.fp
     end
 end
 

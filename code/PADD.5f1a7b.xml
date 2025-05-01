@@ -32,7 +32,7 @@
     <Toggle class = "selTrans" offsetXY = "0 -125" onValueChanged = "logTransfer"/>
     <Panel class = "transfer" width = "250" height = "300" color = "#bbbdbf"/>
     <Panel class = "equipment" width = "200" height = "300" color = "Black"/>
-    <Dropdown class = "equipment" offsetXY = "0 -125"/>
+    <Dropdown class = "equipment" width = "100" offsetXY = "0 -125" onValueChanged = "updateEquipment"/>
     <Image class = "equip" color = "Black" onClick = "selectEquip"/>
 </Defaults>
 
@@ -183,7 +183,7 @@
                         <GridLayout cellSize = "200 300" colors = "Black">
                             <Panel class = "equipment" id = "e1">
                                 <Image class = "equip" id = "eq1"/>
-                                <Dropdown class = "equipment" id = "equip1">
+                                <Dropdown class = "equipment" id = "ed1">
                                     <Option selected = "true">1</Option>
                                     <Option>2</Option>
                                     <Option>3</Option>
@@ -192,7 +192,7 @@
                             </Panel>
                             <Panel class = "equipment" id = "e2">
                                 <Image class = "equip" id = "eq2"/>
-                                <Dropdown class = "equipment" id = "equip2">
+                                <Dropdown class = "equipment" id = "ed2">
                                     <Option selected = "true">1</Option>
                                     <Option>2</Option>
                                     <Option>3</Option>
@@ -201,7 +201,7 @@
                             </Panel>
                             <Panel class = "equipment" id = "e3">
                                 <Image class = "equip" id = "eq3"/>
-                                <Dropdown class = "equipment" id = "equip3">
+                                <Dropdown class = "equipment" id = "ed3">
                                     <Option selected = "true">1</Option>
                                     <Option>2</Option>
                                     <Option>3</Option>
@@ -210,7 +210,7 @@
                             </Panel>
                             <Panel class = "equipment" id = "e4">
                                 <Image class = "equip" id = "eq4"/>
-                                <Dropdown class = "equipment" id = "equip4">
+                                <Dropdown class = "equipment" id = "ed4">
                                     <Option selected = "true">1</Option>
                                     <Option>2</Option>
                                     <Option>3</Option>
@@ -219,7 +219,7 @@
                             </Panel>
                             <Panel class = "equipment" id = "e5">
                                 <Image class = "equip" id = "eq5"/>
-                                <Dropdown class = "equipment" id = "equip5">
+                                <Dropdown class = "equipment" id = "ed5">
                                     <Option selected = "true">1</Option>
                                     <Option>2</Option>
                                     <Option>3</Option>
