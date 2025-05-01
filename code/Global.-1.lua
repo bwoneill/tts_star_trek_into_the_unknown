@@ -556,9 +556,9 @@ ASSETS = {
     equipment = {
         {name = "Class 1 Probes", fp = 5, card = "probe_class_1.png"},
         {name = "Escape Pods", fp = 3, card = "pod_escape.png"},
-        {name = "Personnel Transponders", fp = 6, factions = {"dominion"}},
-        {name = "Quantum Torpedoes Reload", fp = 6, factions = {"dominion", "federation"}, card = "torpedo_quantum.png"},
-        {name = "Runabout Berth", fp = 3, factions = {"federation"}}
+        {name = "Personnel Transponders", fp = 6, factions = {dominion = true}},
+        {name = "Quantum Torpedoes Reload", fp = 6, factions = {dominion = true, federation = true}, card = "torpedo_quantum.png"},
+        {name = "Runabout Berth", fp = 3, factions = {federation = true}}
     }
 }
 
