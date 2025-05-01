@@ -428,12 +428,12 @@ ASSETS = {
                 {name = "Geordi LaForge", subtitle = "Inquisitive Engineer",  unique = true, roles = {ops = true, science = true}, cp = 11, fp = 4},
                 {name = "Intrepid Captain",  roles = {command = true}, cp = 7, fp = 4},
                 {name = "Jadzia Dax", subtitle = "Vivacious Host", sway = {"ferengi", "klingon"}, unique = true, roles = {ops = true, science = true}, cp = 10, fp = 4},
-                {name = "Jean-Luc Picard", subtitle = "Principled Captain",  roles = {command = true, ops = true, science = true}, cp = 14, fp = 6},
+                {name = "Jean-Luc Picard", subtitle = "Principled Captain", unique = true,  roles = {command = true, ops = true, science = true}, cp = 14, fp = 6},
                 {name = "Julian Bashir", subtitle = "Inquisitive Doctor",  unique = true, roles = {science = true}, cp = 9, fp = 3},
                 {name = "Kira Nerys", subtitle = "Bajoran Hero", factions = {"bajoran"}, sway = {"bajoran", "bajoran", "federation"}, unique = true, roles = {command = true, ops = true}, cp = 10, fp = 4},
-                {name = "Miles OBrien", subtitle = "Chief of Opertations",  unique = true, roles = {ops = true}, cp = 12, fp = 5},
+                {name = "Miles OBrien", subtitle = "Chief of Operations", unique = true, roles = {ops = true}, cp = 12, fp = 5},
                 {name = "Odo", subtitle = "Stern Constable", factions = {"bajoran"}, sway = {"bajoran", "cardasian"}, unique = true, roles = {ops = true}, cp = 10, fp = 5},
-                {name = "Redboutable Engineer",  roles = {ops = true, science = true}, cp = 6, fp = 3},
+                {name = "Redoubtable Engineer",  roles = {ops = true, science = true}, cp = 6, fp = 3},
                 {name = "Reliable Commander",  line_officer = true, roles = {command = true}, cp = 0, fp = 3},
                 {name = "Scholarly Doctor",  roles = {science = true}, cp = 6, fp = 3},
                 {name = "Vigilant Security Chief",  roles = {ops = true}, cp = 6, fp = 2},
@@ -441,22 +441,24 @@ ASSETS = {
             },
             ships = {
                 constellation = {
-                    name = "Constellation-Class Starship", role = "support", size = "medium", crit_deck_size = 5,
+                    name = "Constellation-Class Starship", role = "support", size = "medium", crit_deck_size = 5, fp = -3,
                     faction = "federation", folder = "ships", type = "constellation",
                     dials = {alert = {min = 0, max = 5}, power = {min = 0, max = 7}, crew = {min = -2, max = 4}, hull = {min = 0, max = 8}},
                     model_transform = {scaleX = 1.25}, instruments = {2, 3, 2, 1, 1, 0},
                     sensors = {all = 4, bow = 4, instruments = {bow = true}},
                     comms = {all = 6, bow = 6, instruments = {bow = true}},
-                    weapons = {fore_port = 6, fore_starboard = 6, stern = 6}
+                    weapons = {fore_port = 6, fore_starboard = 6, stern = 6},
+                    titles = {"Hathaway"}
                 },
                 defiant = {
-                    name = "Defiant-Class Escort", role = "scout", size = "small", crit_deck_size = 5,
+                    name = "Defiant-Class Escort", role = "scout", size = "small", crit_deck_size = 5, fp = 3,
                     faction = "federation", folder = "ships", type = "defiant",
                     dials = {alert = {min = 0, max = 4}, power = {min = 0, max = 6}, crew = {min = -2, max = 4}, hull = {min = 0, max = 7}},
                     model_transform = {scaleX = 1.3}, instruments = {2, 2, 1, 1, 0},
                     sensors = {all = 2, bow = 4, instruments = {bow = true}},
                     comms = {all = 2, bow = 6, instruments = {bow = true}},
-                    weapons = {all = 6, fore = 6, fore_port = 4, fore_starboard = 4, aft = 6}
+                    weapons = {all = 6, fore = 6, fore_port = 4, fore_starboard = 4, aft = 6},
+                    titles = {"Defiant"}
                 },
                 galaxy = {
                     name = "Galaxy-Class Starship", role = "capital", size = "large", crit_deck_size = 6,
@@ -466,6 +468,7 @@ ASSETS = {
                     sensors = {all = 4, bow = 4, instruments = {bow = true}},
                     comms = {all = 6, bow = 6, instruments = {bow = true}},
                     weapons = {fore = 6, aft = 6},
+                    titles = {"Enterprise D"},
                     alternate = {
                         name = "Galaxy-Class Stardrive", role = "capital", size = "large",
                         faction = "federation", folder = "ships", type = "galaxy",
@@ -520,15 +523,18 @@ ASSETS = {
             },
             directives = {
                 combat = {{front = "We Come In Peace", back = "Proportionate Response"}},
-                diplomacy = {{front = "Seek Out New Life and Civilizations", back = "Protect Federation Intrests"}},
+                diplomacy = {{front = "Seek Out New Life and Civilizations", back = "Protect Federation Interests"}},
                 exploration = {
-                    {front = "Explore Strange New worlds", back = "Right to Self-Determination", teams = {
+                    {front = "Explore Strange New Worlds", back = "Right to Self-Determination", teams = {
                         alpha = {front = "survey_a", back = "security_a"},
                         beta = {front = "survey_b", back = "security_b"},
                         gamma = {front = "engineering_c", back = "security_c"}
                     }}
                 }
             }
+        },
+        klingon = {
+            displayName = "Klingon Empire", playable = false
         },
         neutral = {
             ships = {
@@ -546,6 +552,13 @@ ASSETS = {
                 },
             }
         }
+    },
+    equipment = {
+        {name = "Class 1 Probes", fp = 5, card = "probe_class_1.png"},
+        {name = "Escape Pods", fp = 3, card = "pod_escape.png"},
+        {name = "Personnel Transponders", fp = 6, factions = {"dominion"}},
+        {name = "Quantum Torpedoes Reload", fp = 6, factions = {"dominion", "federation"}, card = "torpedo_quantum.png"},
+        {name = "Runabout Berth", fp = 3, factions = {"federation"}}
     }
 }
 
