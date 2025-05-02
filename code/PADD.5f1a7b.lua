@@ -562,7 +562,6 @@ end
 function readLines(s)
     local result = {}
     for m in string.gmatch(s, "([^\n]+)") do
-        log(m)
         table.insert(result, m)
     end
     return result
