@@ -4,6 +4,7 @@ equipment = Global.getTable("ASSETS").equipment
 ASSET_ROOT = Global.getVar("ASSET_ROOT")
 
 coreOfficers = {"command", "ops", "science", "spec1", "spec2"}
+allOfficers = {"command", "ops", "science", "spec1", "spec2", "trans1", "trans2", "trans3", "trans4", "trans5", "trans6"}
 
 dirTypes = {"combat", "diplomacy", "exploration"}
 
@@ -91,8 +92,8 @@ function selectOff(player, value, id)
         local available = not filter or officer.roles[filter]
         available = available and not officer.line_officer
         if officer.unique and not (build[id] and officer.name == build[id].name) then
-            for _, staff in pairs(build) do
-                available = available and not (officer.name == staff.name)
+            for _, role in pairs(allOfficers) do
+                available = available and not (build[role] and officer.name == build[role].name)
             end
         end
         if available then
@@ -106,14 +107,14 @@ function selectOff(player, value, id)
             self.UI.setAttributes("o".. count, attributes)
             attributes.image = images.back
             self.UI.setAttributes("ob".. count, attributes)
-            self.UI.show("off".. count)
+            self.UI.setAttribute("off" .. count, "active", true)
         end
     end
     for i = count + 1, 20 do
         local attributes = {image = "", color = "Black", onClick = ""}
         self.UI.setAttributes("o" .. i, attributes)
         self.UI.setAttributes("ob" .. i, attributes)
-        self.UI.hide("off" .. i)
+        self.UI.setAttribute("off" .. i, "active", false)
     end
     self.UI.setAttributes("officerScrollPanel", {height = 310 * math.ceil(count / 2) - 10})
     self.UI.show("selectOfficer")
@@ -208,7 +209,7 @@ function selectShip(player, value, id)
                 color = "White"
             }
             self.UI.setAttributes("s" .. count, attributes)
-            self.UI.setAttribute("s" .. i, "active", true)
+            self.UI.setAttribute("s" .. count, "active", true)
         end
     end
     for i = count + 1, 5 do
