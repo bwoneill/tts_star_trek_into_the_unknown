@@ -20,20 +20,22 @@ defaultImages = {
     trans4 = "ui/PADD/officer.png",
     trans5 = "ui/PADD/officer.png",
     trans6 = "ui/PADD/officer.png",
-    ship1 = "ui/PADD/capital.png",
-    ship2 = "ui/PADD/non-capital.png",
-    ship3 = "ui/PADD/non-capital.png",
-    title1 = "",
-    title2 = "",
-    title3 = "",
     combat = "ui/PADD/combat.png",
     diplomacy = "ui/PADD/diplomacy.png",
     exploration = "ui/PADD/exploration.png",
     option1 = "ui/PADD/officer.png",
-    option2 = "ui/PADD/officer.png"
+    option2 = "ui/PADD/officer.png",
+    ship1 = "ui/PADD/capital.png",
+    ship2 = "ui/PADD/non-capital.png",
+    ship3 = "ui/PADD/non-capital.png",
+    title1 = "ui/PADD/title.png",
+    title2 = "ui/PADD/title.png",
+    title3 = "ui/PADD/title.png"
 }
 
 panelIds = {"fPanel", "stagingPanel", "selectOfficer", "selectDirective", "selectShip", "fleetStaging", "selectEquip"}
+
+SAVE_VERSION = "1.0"
 
 function onLoad()
     start()
@@ -43,7 +45,7 @@ end
 
 function start(player, value, id)
     hideAll()
-    build = {version = 1, equipment = {}}
+    build = {equipment = {}}
     local index = 1
     for name, faction in pairs(factions) do
         if faction.playable then
@@ -441,8 +443,42 @@ function reroll(player, value, id)
 end
 
 function export(player, value, id)
+    local save_data = "version: " .. SAVE_VERSION .. "\nfaction: " .. build.faction
+    -- Officers
+    for _, role in pairs(allOfficers) do
+        local officer = build[role]
+        if officer.name then
+            save_data = save_data .. "\n" .. role .. ": " .. officer.name
+        end
+        if officer.subtitle then
+            save_data = save_data .. " [" .. officer.subtitle .. "]"
+        end
+    end
+    -- Directives
+    for _, type in pairs({"combat", "diplomacy", "exploration"}) do
+        if build[type] then
+            save_data = save_data .. "\n" .. type .. ": " .. build[type].front
+        end
+    end
+    -- Ships
+    for i = 1, 3 do
+        local ship = "ship" .. i
+        if build[ship] then
+            save_data = save_data .. "\n" .. ship .. ": " .. build[ship].type
+        end
+    end
+    -- Equipment
+    if #build.equipment > 0 then
+        save_data = save_data .. "\nequipment: ["
+        local temp = {}
+        for i, equip in ipairs(build.equipment) do
+            temp[i] = equip.name .. " = " .. equip.n
+        end
+        save_data = save_data .. table.concat(temp, ",") .. "]"
+    end
     local data = {
-        Name = "Custom_Token", Description = JSON.encode(build), Transform = {scaleX = 1, scaleY = 1, scaleZ = 1}, Tags = {"Save"},
+        Name = "Custom_Token", LuaScriptState = save_data, Nickname = "Isolinear Chip",
+        Transform = {scaleX = 1, scaleY = 1, scaleZ = 1}, Tags = {"Save"},
         CustomImage = {
             ImageURL = ASSET_ROOT .. "factions/" .. build.faction .. "/save_token.png",
             CustomToken = {
@@ -456,4 +492,142 @@ function export(player, value, id)
         position = self.getPosition() + Vector(-8.75, 0, 2):rotateOver("y", rot),
         rotation = Vector(0, rot + 180, 0)
     })
+end
+
+function import(player, value, id)
+    local chips = getObjectsWithTag("Save")
+    local distance = 1000
+    local save = nil
+    local pos = self.getPosition()
+    for _, c in pairs(chips) do
+        local d = (pos - c.getPosition()):magnitude()
+        if d < distance then
+            save = c
+            distance = d
+        end
+    end
+    if distance < 12 then
+        local lines = readLines(save.script_state)
+        local data = {}
+        for i, line in ipairs(lines) do
+            local k, v = split(line, ":")
+            data[k] = v
+        end
+        if data.version == SAVE_VERSION then
+            build.version = data.version
+            build.faction = data.faction
+            for _, role in pairs(allOfficers) do
+                if data[role] then
+                    build[role] = findOfficer(build.faction, data[role])
+                end
+            end
+            for _, type in pairs(dirTypes) do
+                if data[type] then
+                    build[type] = findDirective(build.faction, type, data[type])
+                end
+            end
+            for i = 1, 3 do
+                local ship = "ship" .. i
+                if data[ship] then
+                    build[ship] = findShip(build.faction, data[ship])
+                    local title = "title" .. i
+                    build[title] = data[title]
+                end
+            end
+            if data.equipment then
+                local temp = toArray(data.equipment)
+                for i, equip in ipairs(temp) do
+                    local name, n = split(equip, "=")
+                    build.equipment[i] = findEquipment(name)
+                    build.equipment[i].n = tonumber(n)
+                end
+            end
+            showStaging()
+        else
+            broadcastToColor("Unsupported save version", player.color, Color.Red)
+        end
+    else
+        broadcastToColor("No isolinear chips in range", player.color, Color.Red)
+    end
+end
+
+function trim(s)
+    if s then
+        return s:match'^()%s*$' and '' or s:match'^%s*(.*%S)'
+    else
+        return nil
+    end
+end
+
+function readLines(s)
+    local result = {}
+    for m in string.gmatch(s, "([^\n]+)") do
+        log(m)
+        table.insert(result, m)
+    end
+    return result
+end
+
+function split(s, d)
+    local temp = {}
+    for m in string.gmatch(s, "([^" .. d .. "]+)") do
+        table.insert(temp, trim(m))
+    end
+    return temp[1], temp[2]
+end
+
+function toNameSubtitle(s)
+    local name = trim(s:match'([^%[]+)')
+    local subtitle = trim(s:match'%[(.+)%]')
+    return name, subtitle
+end
+
+function findOfficer(faction, value)
+    local name, subtitle = toNameSubtitle(value)
+    local result = nil
+    for _, officer in pairs(factions[faction].officers) do
+        if officer.name == name and officer.subtitle == subtitle then
+            result = officer
+        end
+    end
+    return result
+end
+
+function findShip(faction, type)
+    local result = nil
+    for _, ship in pairs(factions[faction].ships) do
+        if ship.type == type then
+            result = ship
+        end
+    end
+    return result
+end
+
+function findDirective(faction, type, name)
+    local result = nil
+    for _, dir in pairs(factions[faction].directives[type]) do
+        if dir.front == name then
+            result = dir
+        end
+    end
+    return result
+end
+
+function findEquipment(name)
+    local result = nil
+    for _, equip in pairs(equipment) do
+        if equip.name == name then
+            result = equip
+        end
+    end
+    return result
+end
+
+function toArray(value)
+    value = string.gsub(value, "[%[%]]", "")
+    local result = {}
+    for v in string.gmatch(value, "([^,]+)") do
+        table.insert(result, v)
+    end
+    return result
 end

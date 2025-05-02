@@ -26,7 +26,9 @@
     <Button class = "remove" color = "Red" textColor = "Black" width = "25" height = "25" rectAlignment = "UpperRight"
         onClick = "remove" text = "X"/>
     <Button class = "export" color = "Purple" textColor = "White" fontSize = "32" width = "150" height = "50"
-        rectAlignment = "UpperRight" text = "Export" onClick = "export"/>
+        rectAlignment = "UpperRight" text = "Export" onClick = "export" offsetXY = "-150 0"/>
+    <Button class = "import" color = "Yellow" textColor = "Black" fontSize = "32" width = "150" height = "50"
+        rectAlignment = "UpperLeft" text = "Import" onClick = "import" offsetXY = "150 0"/>
     <!-- Selectors -->
     <Image class = "offSel" height = "300" width = "200" onClick = "selectOff"/>
     <Panel class = "offSel" height = "300" width = "200" rectAlignment = "UpperLeft" color = "#bbbdbf"/>
@@ -44,31 +46,32 @@
 <Panel width = "1100" height = "800" position = "-135 0 -12" color = "Black">
     <!-- Faction Selection Panel -->
     <Panel id = "fPanel" active = "false">
-        <VerticalLayout childForceExpandHeight = "false">
-            <Text fontSize = "48">Choose a Faction</Text>
-            <VerticalScrollView>
-                <GridLayout cellSize = "330 330" spacing = "10 10">
-                    <Panel class = "fLayout" id = "faction1">
-                        <Image id = "fLogo1" class = "fLogo"/>
-                    </Panel>
-                    <Panel class = "fLayout" id = "faction2">
-                        <Image id = "fLogo2" class = "fLogo"/>
-                    </Panel>
-                    <Panel class = "fLayout" id = "faction3">
-                        <Image id = "fLogo3" class = "fLogo"/>
-                    </Panel>
-                    <Panel class = "fLayout" id = "faction4">
-                        <Image id = "fLogo4" class = "fLogo"/>
-                    </Panel>
-                </GridLayout>
-            </VerticalScrollView>
-        </VerticalLayout>
+        <Text fontSize = "48" offsetXY = "0 375">Choose a Faction</Text>
+        <Button class = "import"/>
+        <VerticalScrollView>
+            <GridLayout cellSize = "330 330" spacing = "10 10">
+                <Panel class = "fLayout" id = "faction1">
+                    <Image id = "fLogo1" class = "fLogo"/>
+                </Panel>
+                <Panel class = "fLayout" id = "faction2">
+                    <Image id = "fLogo2" class = "fLogo"/>
+                </Panel>
+                <Panel class = "fLayout" id = "faction3">
+                    <Image id = "fLogo3" class = "fLogo"/>
+                </Panel>
+                <Panel class = "fLayout" id = "faction4">
+                    <Image id = "fLogo4" class = "fLogo"/>
+                </Panel>
+            </GridLayout>
+        </VerticalScrollView>
     </Panel>
     <!-- Task Force Creation -->
     <Panel id = "stagingPanel" active = "false">
         <Text fontSize = "32" offsetXY = "0 375">Task Force Creation</Text>
         <Button class = "back" onClick = "start"/>
         <Button class = "next"/>
+        <Button class = "import"/>
+        <Button class = "export"/>
         <VerticalScrollView>
             <Panel height = "1560" width = "1000">
                 <TableLayout>
@@ -155,6 +158,7 @@
         <Text offsetXY = "200 375" width = "150" height = "50" id = "fp" resizeTextForBestFit = "true"/>
         <Button class = "back"/>
         <Button class = "export"/>
+        <Button class = "import"/>
         <VerticalScrollView>
             <Panel height = "1960" width = "1000">
                 <TableLayout>
