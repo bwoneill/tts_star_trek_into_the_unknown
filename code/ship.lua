@@ -113,6 +113,13 @@ function onSave()
     return JSON.encode(saveData)
 end
 
+function onDestroy()
+    for _, dial in pairs(saveData.dials) do
+        local object = getObjectFromGUID(dial.GUID)
+        object.destroy()
+    end
+end
+
 function setUp(player, value, id)
 
     activateButtons()
