@@ -33,8 +33,10 @@
     <Image class = "offSel" height = "300" width = "200" onClick = "selectOff"/>
     <Panel class = "offSel" height = "300" width = "200" rectAlignment = "UpperLeft" color = "#bbbdbf"/>
     <Image class = "dirSel" onClick = "selectDir"/>
+    <Image class = "titleSel" height = "300" width = "200" onClick = "selectTitle"/>
     <Toggle class = "selTrans" offsetXY = "0 -125" onValueChanged = "logTransfer"/>
     <Panel class = "transfer" width = "250" height = "300" color = "#bbbdbf"/>
+    <Panel class = "title" width = "250" height = "300" color = "Black"/>
     <Panel class = "equipment" width = "200" height = "300" color = "Black"/>
     <Dropdown class = "equipment" width = "100" offsetXY = "0 -125" onValueChanged = "updateEquipment"/>
     <Image class = "equip" color = "Black" onClick = "selectEquip"/>
@@ -86,7 +88,7 @@
                         <Cell><Panel class = "offSel"><Image class = "offSel" id = "spec2"/></Panel></Cell>
                         <Cell><Text id = "cp" resizeTextForBestFit = "true"/></Cell>
                     </Row>
-                    <Row class = "text"><Cell columnSpan = "3"><Text>Transfer Officers</Text></Cell></Row>
+                    <Row class = "text"><Cell columnSpan = "3"><Text>Transfer Pool</Text></Cell></Row>
                     <Row preferredHeight = "300">
                         <Cell><Panel class = "offSel"><Image class = "offSel" id = "trans1"/></Panel></Cell>
                         <Cell><Panel class = "offSel"><Image class = "offSel" id = "trans2"/></Panel></Cell>
@@ -160,7 +162,7 @@
         <Button class = "export"/>
         <Button class = "import"/>
         <VerticalScrollView>
-            <Panel height = "1960" width = "1000">
+            <Panel height = "1960" width = "1000" id = "fleetPanel">
                 <TableLayout>
                     <Row class = "text"><Cell columnSpan = "3"><Text>Transfer Officers</Text></Cell></Row>
                     <Row preferredHeight = "300">
@@ -185,6 +187,26 @@
                         <Cell><Image class = "shipSel" id = "ship3" onClick = "selectShip(noncapital)"/></Cell>
                     </Row>
                     <Row class = "text"><Cell columnSpan = "3"><Text>Titles</Text></Cell></Row>
+                    <Row preferredHeight = "300">
+                        <Cell>
+                            <Panel class = "title">
+                                <Image class = "titleSel" id = "title1"/>
+                                <Button class = "remove" active = "false" rectAlignment = "UpperCenter" offsetXY = "85 0" id = "tx1"/>
+                            </Panel>
+                        </Cell>
+                        <Cell>
+                            <Panel class = "title">
+                                <Image class = "titleSel" id = "title2"/>
+                                <Button class = "remove" active = "false" rectAlignment = "UpperCenter" offsetXY = "85 0" id = "tx2"/>
+                            </Panel>
+                        </Cell>
+                        <Cell>
+                            <Panel class = "title">
+                                <Image class = "titleSel" id = "title3"/>
+                                <Button class = "remove" active = "false" rectAlignment = "UpperCenter" offsetXY = "85 0" id = "tx3"/>
+                            </Panel>
+                        </Cell>
+                    </Row>
                     <Row class = "text"><Cell columnSpan = "3"><Text>Equipment</Text></Cell></Row>
                     <Row><Cell columnSpan = "3">
                         <GridLayout cellSize = "200 300" colors = "Black">
@@ -250,6 +272,21 @@
                     <Image class = "ship" id = "s3"/>
                     <Image class = "ship" id = "s4"/>
                     <Image class = "ship" id = "s5"/>
+                </GridLayout>
+            </Panel>
+        </VerticalScrollView>
+    </Panel>
+    <!-- Title Selection Panel -->
+    <Panel id = "selectTitle" active = "false">
+        <Button class = "back" onClick = "fleetStaging"/>
+        <VerticalScrollView>
+            <Panel id = "titleScrollPanel" height = "1960">
+                <GridLayout cellSize = "400 300" spacing = "5 5" colors = "Black">
+                    <Panel class = "miniPanel" id = "tp1"><Image class = "miniFront" id = "tf1"/><Image class = "miniBack" id = "tb1"/></Panel>
+                    <Panel class = "miniPanel" id = "tp2"><Image class = "miniFront" id = "tf2"/><Image class = "miniBack" id = "tb2"/></Panel>
+                    <Panel class = "miniPanel" id = "tp3"><Image class = "miniFront" id = "tf3"/><Image class = "miniBack" id = "tb3"/></Panel>
+                    <Panel class = "miniPanel" id = "tp4"><Image class = "miniFront" id = "tf4"/><Image class = "miniBack" id = "tb4"/></Panel>
+                    <Panel class = "miniPanel" id = "tp5"><Image class = "miniFront" id = "tf5"/><Image class = "miniBack" id = "tb5"/></Panel>
                 </GridLayout>
             </Panel>
         </VerticalScrollView>

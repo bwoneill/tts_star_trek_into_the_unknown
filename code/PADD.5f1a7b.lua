@@ -33,7 +33,7 @@ defaultImages = {
     title3 = "ui/PADD/title.png"
 }
 
-panelIds = {"fPanel", "stagingPanel", "selectOfficer", "selectDirective", "selectShip", "fleetStaging", "selectEquip"}
+panelIds = {"fPanel", "stagingPanel", "selectOfficer", "selectDirective", "selectShip", "fleetStaging", "selectEquip", "selectTitle"}
 
 SAVE_VERSION = "1.0"
 
@@ -189,6 +189,7 @@ function fleetStaging(player, value, id)
     updateFlexPoints()
     local attributes = {text = string.format("%i/%i", fp, 50 - cp), color = fp <= (50 - cp) and "White" or "Red"}
     self.UI.setAttributes("fp", attributes)
+    self.UI.setAttribute("fleetPanel", "height", 1005 + 300 * math.ceil((#build.equipment + 1) / 5))
     self.UI.show("fleetStaging")
 end
 
@@ -225,8 +226,9 @@ end
 
 function shipChoice(player, value, id)
     local values = parseValues(value)
-    for id, i in pairs(values) do
-        build[id] = factions[build.faction].ships[i]
+    for index, i in pairs(values) do
+        build[index] = factions[build.faction].ships[i]
+        build["title" .. index:match"%d+"] = nil
     end
     fleetStaging()
 end
@@ -236,9 +238,6 @@ function getShipImage(ship)
 end
 
 -- Equipment Selection
--- 
--- -- -- does not work
--- 
 
 function updateEquipment(player, value, id)
     local index = tonumber(string.gmatch(id, "%d+")())
@@ -298,9 +297,59 @@ function equipChoice(player, value, id)
     fleetStaging()
 end
 
+-- Title Selection
+
+function selectTitle(player, value, id)
+    hideAll()
+    local index = tonumber(id:match"%d+")
+    local ship = build["ship" .. index]
+    local count = 0
+    if ship and ship.titles then
+        for i, name in ipairs(ship.titles) do
+            count = count + 1
+            local images = getTitleImages(ship, name)
+            local attributes = {
+                onClick = "titleChoice(" .. index .. "=" .. i .. ")",
+                image = images.front,
+                color = "White"
+            }
+            self.UI.setAttributes("tf" .. count, attributes)
+            attributes.image = images.back
+            self.UI.setAttributes("tb" .. count, attributes)
+            self.UI.setAttribute("tp" .. count, "active", true)
+        end
+    end
+    for i = count + 1, 5 do
+        local attributes = {image = "", color = "Black", onClick = ""}
+        self.UI.setAttributes("tf" .. i, attributes)
+        self.UI.setAttributes("tb" .. i, attributes)
+        self.UI.setAttribute("tp" .. i, "active", false)
+    end
+    self.UI.setAttributes("titleScrollPanel", {height = 310 * math.ceil(count / 2) -10})
+    self.UI.show("selectTitle")
+end
+
+function getTitleImages(ship, title)
+    local name = string.gsub(title.name, " ", "_"):lower()
+    local path = ASSET_ROOT .. "factions/" .. build.faction .. "/ships/" .. ship.type .. "/title_" .. name
+    return {front = path .. "_front.png", back = path .. "_back.png"}
+end
+
+function titleChoice(player, value, id)
+    local values = parseValues(value)
+    for index, i in pairs(values) do
+        build["title" .. index] = build["ship" .. index].titles[i]
+    end
+    fleetStaging()
+end
+
 function remove(player, value, id)
-    local index = tonumber(string.gmatch(id, "%d+")())
-    table.remove(build.equipment, index)
+    local index = tonumber(id:match"%d+")
+    if id:sub(1, 1) == "e" then
+        table.remove(build.equipment, index)
+    elseif id:sub(1, 1) == "t" then
+        build["title" .. index] = nil
+    end
     fleetStaging()
 end
 
@@ -325,6 +374,9 @@ function getImage(id)
             result = getOfficerImage(build[id]).back
         elseif isShip(id) then
             result = getShipImage(build[id])
+        elseif isTitle(id) then
+            local ship = "ship" .. id:match"%d+"
+            result = getTitleImages(build[ship], build[id]).back
         elseif isDirective(id) then
             result = getDirectiveImages(build[id]).front
         elseif isEquipment(id) then
@@ -351,11 +403,7 @@ function isOfficer(id)
 end
 
 function isShip(id)
-    local result = false
-    for match in string.gmatch(id, "ship%d") do
-        result = true
-    end
-    return result
+    return id:match"ship%d"
 end
 
 function isDirective(id)
@@ -367,15 +415,11 @@ function isDirective(id)
 end
 
 function isEquipment(id)
-    local result = false
-    for match in string.gmatch(id, "eq%d") do
-        result = true
-    end
-    return result
+    return id:match"ed%d"
 end
 
 function isTitle(id)
-    return false
+    return id:match"title%d"
 end
 
 function hideAll()
@@ -397,6 +441,9 @@ function updateImages()
         self.UI.setAttribute("ex" .. i, "active", true)
         self.UI.setAttribute("e" .. i, "active", true)
     end
+    for i = 1, 3 do
+        self.UI.setAttribute("tx" .. i, "active", build["title" .. i] and true or false)
+    end
     local index = #build.equipment + 1
     self.UI.setAttributes("eq" .. index, {image = ASSET_ROOT .. "ui/PADD/equipment.png", color = "White"})
     self.UI.setAttribute("ed" .. index, "active", false)
@@ -413,6 +460,10 @@ function updateFlexPoints()
         local ship = build["ship" .. i]
         if ship and ship.fp then
             fp = fp + ship.fp
+        end
+        local title = build["title" .. i]
+        if title and title.fp then
+            fp = fp + title.fp
         end
     end
     for i = 1, 2 do
@@ -465,6 +516,10 @@ function export(player, value, id)
         local ship = "ship" .. i
         if build[ship] then
             save_data = save_data .. "\n" .. ship .. ": " .. build[ship].type
+        end
+        local title = "title" .. i
+        if build[title] then
+            save_data = save_data .. "\n" .. title .. ": " .. build[title].name
         end
     end
     -- Equipment
@@ -531,7 +586,9 @@ function import(player, value, id)
                 if data[ship] then
                     build[ship] = findShip(build.faction, data[ship])
                     local title = "title" .. i
-                    build[title] = data[title]
+                    if data[title] then
+                        build[title] = findTitle(build[ship], data[title]) 
+                    end
                 end
             end
             if data.equipment then
@@ -597,6 +654,16 @@ function findShip(faction, type)
     for _, ship in pairs(factions[faction].ships) do
         if ship.type == type then
             result = ship
+        end
+    end
+    return result
+end
+
+function findTitle(ship, name)
+    local result = nil
+    for _, title in pairs(ship.titles) do
+        if title.name == name then
+            result = title
         end
     end
     return result
