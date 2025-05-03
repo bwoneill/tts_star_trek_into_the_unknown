@@ -181,7 +181,7 @@
                                 <Toggle class = "selTrans" id = "select2"/>
                             </Panel>
                         </Cell>
-                        <Cell><Panel height = "300" width = "200"><Button onClick = "reroll" color = "Blue">Roll</Button></Panel></Cell>
+                        <Cell><Panel height = "300" width = "200"><Button onClick = "reroll" color = "Blue" fontSize = "48">Randomize</Button></Panel></Cell>
                     </Row>
                     <Row class = "text"><Cell columnSpan = "3"><Text>Ships</Text></Cell></Row>
                     <Row preferredHeight = "245">
