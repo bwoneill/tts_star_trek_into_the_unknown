@@ -1,7 +1,7 @@
+ASSET_ROOT = Global.getVar("ASSET_ROOT")
+
 factions = Global.getTable("ASSETS").factions
 equipment = Global.getTable("ASSETS").equipment
-
-ASSET_ROOT = Global.getVar("ASSET_ROOT")
 
 coreOfficers = {"command", "ops", "science", "spec1", "spec2"}
 allOfficers = {"command", "ops", "science", "spec1", "spec2", "trans1", "trans2", "trans3", "trans4", "trans5", "trans6"}
@@ -498,11 +498,11 @@ function export(player, value, id)
     -- Officers
     for _, role in pairs(allOfficers) do
         local officer = build[role]
-        if officer.name then
+        if officer and officer.name then
             save_data = save_data .. "\n" .. role .. ": " .. officer.name
-        end
-        if officer.subtitle then
-            save_data = save_data .. " [" .. officer.subtitle .. "]"
+            if officer.subtitle then
+                save_data = save_data .. " [" .. officer.subtitle .. "]"
+            end
         end
     end
     -- Directives
@@ -536,9 +536,7 @@ function export(player, value, id)
         Transform = {scaleX = 1, scaleY = 1, scaleZ = 1}, Tags = {"Save"},
         CustomImage = {
             ImageURL = ASSET_ROOT .. "factions/" .. build.faction .. "/save_token.png",
-            CustomToken = {
-                Thickness = 0.1
-            }
+            CustomToken = {Thickness = 0.1, MergeDistancePixels = 1}
         }
     }
     local rot = self.getRotation().y
