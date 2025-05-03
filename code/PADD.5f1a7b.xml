@@ -29,6 +29,8 @@
         rectAlignment = "UpperRight" text = "Export" onClick = "export" offsetXY = "-150 0"/>
     <Button class = "import" color = "Yellow" textColor = "Black" fontSize = "32" width = "150" height = "50"
         rectAlignment = "UpperLeft" text = "Import" onClick = "import" offsetXY = "150 0"/>
+    <Button class = "spawn" color = "Orange" textColor = "Black" fontSize = "32" width = "150" height = "50"
+        rectAlignment = "UpperRight" text = "Spawn" onClick = "spawn"/>
     <!-- Selectors -->
     <Image class = "offSel" height = "300" width = "200" onClick = "selectOff"/>
     <Panel class = "offSel" height = "300" width = "200" rectAlignment = "UpperLeft" color = "#bbbdbf"/>
@@ -161,6 +163,7 @@
         <Button class = "back"/>
         <Button class = "export"/>
         <Button class = "import"/>
+        <Button class = "spawn"/>
         <VerticalScrollView>
             <Panel height = "1960" width = "1000" id = "fleetPanel">
                 <TableLayout>

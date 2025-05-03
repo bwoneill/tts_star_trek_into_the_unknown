@@ -1,7 +1,9 @@
 ASSET_ROOT = Global.getVar("ASSET_ROOT")
+CODE_ROOT = Global.getVar("CODE_ROOT")
 
 factions = Global.getTable("ASSETS").factions
 equipment = Global.getTable("ASSETS").equipment
+xml_cache = {}
 
 coreOfficers = {"command", "ops", "science", "spec1", "spec2"}
 allOfficers = {"command", "ops", "science", "spec1", "spec2", "trans1", "trans2", "trans3", "trans4", "trans5", "trans6"}
@@ -38,6 +40,16 @@ panelIds = {"fPanel", "stagingPanel", "selectOfficer", "selectDirective", "selec
 SAVE_VERSION = "1.0"
 
 function onLoad()
+    local request = WebRequest.get(
+        CODE_ROOT .. "ship.lua",
+        function(r)
+            if r.is_error then
+                log(r.error)
+            else
+                SHIP_BOARD_SCRIPT = r.text
+            end
+        end
+    )
     start()
 end
 
@@ -694,4 +706,92 @@ function toArray(value)
         table.insert(result, v)
     end
     return result
+end
+
+function spawnCard(images, offset)
+    local delta = Vector(0, 0, 7)
+    if offset then
+        delta = delta + offset
+    end
+    local rot = self.getRotation().y
+    local position = self.getPosition() + delta:rotateOver("y", rot)
+    local card = spawnObject({type = "CardCustom", position = position, rotation = Vector(0, rot + 180, 0)})
+    card.setCustomObject({face = images.front, back = images.back})
+    return card
+end
+
+function spawnShipBoard(ship, n)
+    local obj = getObjectFromGUID("211330")
+    local path = ASSET_ROOT .. "factions/" .. ship.faction .. "/" .. ship.folder .. "/" .. ship.type .. "/"
+    if not xml_cache[ship.type] then
+        local xml_path = path .. ship.type .. ".xml"
+        local request = WebRequest.get(xml_path)
+        repeat
+        until request.is_done
+        if request.is_error or request.text == "404: Not Found" then
+            log("Error downloading " .. ship.type .. ".xml")
+            return
+        else
+            xml_cache[ship.type] = request.text
+        end
+    end
+    local rot = self.getRotation().y
+    local pos = self.getPosition() + Vector(15 * (n - 2), 0, 13):rotateOver("y", rot)
+    local result = {position = pos, rotation = Vector(0, rot + 180, 0)}
+    local script = "default = Global.getTable(\"ASSETS\").factions." .. ship.faction .. ".ships." .. ship.type .. "\n" .. SHIP_BOARD_SCRIPT
+    if ship.folder == "ships" then
+        result.data = {
+            Name = "Custom_Model", Transform = {scaleX = 1, scaleY = 1, scaleZ = 1},
+            CustomMesh = {
+                MeshURL = ASSET_ROOT .. "misc/ship_board.obj",
+                DiffuseURL = path .. "ship_board.png",
+                MaterialIndex = 3, Convex = false
+            },
+            LuaScript = script, XmlUI = xml_cache[ship.type]
+        }
+    elseif ship.folder == "auxiliary" then
+        -- local card = spawnObject({type = "CardCustom"})
+        -- card.setCustomObject({face = path .. "_front.png", back = path .. "_back.png", })
+    end
+    spawnObjectData(result)
+end
+
+function spawn(player, value, id)
+    for _, type in pairs(dirTypes) do
+        if build[type] then
+            spawnCard(getDirectiveImages(build[type]), Vector(-5, 0, 0))
+        end
+    end
+    local line_officer = nil
+    for _, officer in ipairs(factions[build.faction].officers) do
+        if officer.line_officer then
+            line_officer = officer
+        end
+    end
+    for _, role in pairs(coreOfficers) do
+        if build[role] then
+            spawnCard(getOfficerImage(build[role]))
+        end
+    end
+    for i = 1, 2 do
+        local transfer = build["option" .. i]
+        local isSelected = build["select" .. i]
+        if transfer and isSelected then
+            spawnCard(getOfficerImage(transfer))
+        end
+    end
+    for _, equip in pairs(build.equipment) do
+        spawnCard(getEquipmentImages(equip))
+    end
+    for i = 1, 3 do
+        local ship = build["ship" .. i]
+        local title = build["title" .. i]
+        if ship then
+            spawnCard(getOfficerImage(line_officer))
+            if title then
+                spawnCard(getTitleImages(ship, title))
+            end
+            spawnShipBoard(ship, i)
+        end
+    end
 end
