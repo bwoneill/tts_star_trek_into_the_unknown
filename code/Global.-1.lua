@@ -93,7 +93,9 @@ zoneGUIDS = {overture = "737129", situation = "da2ad6", complication = "5860dd"}
 
 complication_types = {"battle", "intrigue", "mystery", "politics", "study", "threat"}
 
-ASSET_ROOT = "https://raw.githubusercontent.com/bwoneill/tts_star_trek_into_the_unknown/v1.0_fully_functional/assets/"
+ROOT = "https://raw.githubusercontent.com/bwoneill/tts_star_trek_into_the_unknown/v1.0_fully_functional/"
+ASSET_ROOT =  ROOT .. "assets/"
+CODE_ROOT = ROOT .. "code/"
 
 
 saucerXml = [[<Button 
@@ -561,33 +563,6 @@ ASSETS = {
         {name = "Runabout Berth", fp = 3, factions = {federation = true}}
     }
 }
-
-function generateOfficerCard(faction, officer_data)
-    return generateCard(faction, "officers", officer_data.name, officer_data.subtitle)
-end
-
-function generateCard(faction, card_type, name, subtitle)
-    name = subtitle and name .. "_" .. subtitle or name
-    name = string.gsub(name, " ", "_")
-    local path = ASSET_ROOT .. "factions/" .. faction .. "/" .. card_type .. "/" .. name
-    local card = spawnObject({type = "CardCustom"})
-    card.setCustomObject({face = path .. ".png", back = path .. "_back.png"})
-    return card
-end
-
-function generateShipBoardData(faction, ship_class, xml)
-    local result =  {
-        data = {
-            Name = "Custom_Model", Transform = {scaleX = 1, scaleY = 1, scaleZ = 1},
-            CustomMesh = {
-                MeshURL = ASSET_ROOT .. "misc/ship_board.obj",
-                DiffuseURL = ASSET_ROOT .. faction .. "/ships/" .. ship_class .. "/ship_board.png",
-                MaterialIndex = 3, Convex = false
-            },
-            LuaScript = SHIP_BOARD_SCRIPT, XmlUI = xml
-        }
-    }
-end
 
 
 -- Spawn functions
