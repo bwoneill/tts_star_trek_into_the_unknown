@@ -116,7 +116,7 @@ end
 function onDestroy()
     if saveData.dials then
         for _, dial in pairs(saveData.dials) do
-            destroyObject(dial.GUID)
+            destroyObject(getObjectFromGUID(dial.GUID))
         end
     end
 end
