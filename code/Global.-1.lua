@@ -448,7 +448,7 @@ ASSETS = {
                     sensors = {all = 4, bow = 4, instruments = {bow = true}},
                     comms = {all = 6, bow = 6, instruments = {bow = true}},
                     weapons = {fore_port = 6, fore_starboard = 6, stern = 6},
-                    titles = {"Hathaway"}
+                    titles = {{name = "Hathaway", fp = 3}}
                 },
                 defiant = {
                     name = "Defiant-Class Escort", role = "scout", size = "small", crit_deck_size = 5, fp = 3,
@@ -458,7 +458,7 @@ ASSETS = {
                     sensors = {all = 2, bow = 4, instruments = {bow = true}},
                     comms = {all = 2, bow = 6, instruments = {bow = true}},
                     weapons = {all = 6, fore = 6, fore_port = 4, fore_starboard = 4, aft = 6},
-                    titles = {"Defiant"}
+                    titles = {{name = "Defiant", fp = 3}}
                 },
                 galaxy = {
                     name = "Galaxy-Class Starship", role = "capital", size = "large", crit_deck_size = 6,
@@ -468,7 +468,7 @@ ASSETS = {
                     sensors = {all = 4, bow = 4, instruments = {bow = true}},
                     comms = {all = 6, bow = 6, instruments = {bow = true}},
                     weapons = {fore = 6, aft = 6},
-                    titles = {"Enterprise D"},
+                    titles = {{name = "Enterprise D", fp = 2}},
                     alternate = {
                         name = "Galaxy-Class Stardrive", role = "capital", size = "large",
                         faction = "federation", folder = "ships", type = "galaxy",
