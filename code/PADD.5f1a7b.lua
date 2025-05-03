@@ -721,7 +721,6 @@ function spawnCard(images, offset)
 end
 
 function spawnShipBoard(ship, n)
-    local obj = getObjectFromGUID("211330")
     local path = ASSET_ROOT .. "factions/" .. ship.faction .. "/" .. ship.folder .. "/" .. ship.type .. "/"
     if not xml_cache[ship.type] then
         local xml_path = path .. ship.type .. ".xml"
