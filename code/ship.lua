@@ -9,6 +9,8 @@ saveData = {}
 
 ASSET_ROOT = Global.getVar("ASSET_ROOT")
 
+TOOLS = Global.getTable("ASSETS").tools
+
 DIAL_CONST = {
     alert = {pos = Vector(-2.7, -0.1, 0.2), rot = -40, scale = 1.25},
     crew = {pos = Vector(3.4, -0.1, 0.2), rot = 40, scale = 0.85},
@@ -294,7 +296,7 @@ function placeTracker(side)
     local attachment = BASE_CONST[shipData.size].toolAttachment[side]
     oldPos = myShip.getPosition()
     oldRot = myShip.getRotation()
-    tracker = Global.call("spawnAsset", Global.getTable("ASSETS").tools.tracker)
+    tracker = spawnObjectData(TOOLS.tracker)
     tracker.setPosition(oldPos + (Vector(attachment.pos) + Vector(side == "aft" and -0.25 or 0.25, 0.05, 0)):rotateOver("y", oldRot.y))
     tracker.setRotation({0, oldRot.y + attachment.rot + 90, 0})
     tracker.createButton({function_owner = self, click_function = "cancelMove", label = "Cancel", position = {0, 0.2, 0}, rotation = {0, 180, 0}, width = 400, height = 180})
@@ -356,7 +358,7 @@ function placeTurningTool(side, tracker)
     local attachment = BASE_CONST[shipData.size].toolAttachment[side]
     local pos = myShip.getPosition()
     local rot = myShip.getRotation().y
-    template = Global.call("spawnTurningTool")
+    template = spanwObjectData()
     template.setPosition(pos + Vector(attachment.pos):rotateOver("y", rot))
     template.setRotation({0, rot + attachment.rot, 0})
     template.jointTo(myShip, {type = "Hinge", collision = false, break_force = 1000.0, axis = {0,1,0}, anchor = {0,0,0}})
@@ -389,7 +391,7 @@ end
 -- Step 2: Position the Ruler
 function positionRuler(direction)
     local myShip = getObjectFromGUID(saveData.shipGUID)
-    ruler = Global.call("spawnRuler")
+    ruler = spawnObject(TOOLS.ruler_12in)
     local sign = direction == "right" and 1 or -1
     local pos = template.getPosition()
     local rot = template.getRotation()
@@ -468,13 +470,13 @@ function placeWarpTemplate()
     local offset = Vector(BASE_CONST[shipData.size].warpAttachment):rotateOver("y", angle)
     local offsetA = offset + Vector(-6, 0.05, 0.3):rotateOver("y", angle)
     local offsetB = offset + Vector(-18, 0.05, 0.3):rotateOver("y", angle)
-    rulerA = Global.call("spawnRuler")
+    rulerA = spawnObjectData(TOOLS.ruler_12in)
     rulerA.setPosition(pos + offsetA)
     rulerA.setRotation({0, angle , 0})
     -- Lock the ruler in place
     rulerA.lock()
 	
-    rulerB = Global.call("spawnRuler")
+    rulerB = spawnObjectData(TOOLS.ruler_12in)
     rulerB.setPosition(pos + offsetB)
     rulerB.setRotation({0, angle , 0})
 
