@@ -8,16 +8,16 @@
     <!-- Faction selection -->
     <Image class = "fLogo" height = "330" width = "330"/>
     <Panel class = "fLayout" active = "false" rectAlignment = "UpperLeft" outline = "White" height = "300"/>
-    <!-- Mini card panel -->
-    <Panel class = "miniPanel" height = "300" width = "400" color = "Black"/>
-    <Image class = "miniFront" width = "200" height = "300" fillImageColor = "Black" offsetXY = "-100 0"/>
-    <Image class = "miniBack" width = "200" height = "300" fillImageColor = "Black" offsetXY = "100 0"/>
-    <Image class = "miniPort" height = "300" width = "200" fillImageColor = "Black"/>
-    <!-- Std card panel -->
-    <Panel class = "stdPanel" height = "300" width = "800" rectAlignment = "UpperLeft"/>
-    <Image class = "stdFront" width = "400" height = "300" fillImageColor = "Black" offsetXY = "-200 0"/>
-    <Image class = "stdBack" width = "400" height = "300" fillImageColor = "Black" offsetXY = "200 0"/>
-    <Image class = "stdPort" width = "400" height = "300" fillImageColor = "Black"/>
+    <!-- Vertical card panel -->
+    <Panel class = "vertPanel" height = "300" width = "400" color = "Black"/>
+    <Image class = "vertFront" width = "200" height = "300" fillImageColor = "Black" offsetXY = "-100 0"/>
+    <Image class = "vertBack" width = "200" height = "300" fillImageColor = "Black" offsetXY = "100 0"/>
+    <Image class = "vertPort" height = "300" width = "200" fillImageColor = "Black"/>
+    <!-- Horizontal card panel -->
+    <Panel class = "horPanel" height = "300" width = "800" rectAlignment = "UpperLeft"/>
+    <Image class = "horFront" width = "400" height = "300" fillImageColor = "Black" offsetXY = "-200 0"/>
+    <Image class = "horBack" width = "400" height = "300" fillImageColor = "Black" offsetXY = "200 0"/>
+    <Image class = "horPort" width = "400" height = "300" fillImageColor = "Black"/>
     <!-- Buttons -->
     <Button class = "back" color = "Blue" textColor = "White" fontSize = "32" width = "150" height = "50"
         rectAlignment = "UpperLeft" text = "Back" onClick = "showStaging"/>
@@ -108,51 +108,6 @@
                         <Cell><Image class = "dirSel" id = "exploration"/></Cell>
                     </Row>
                 </TableLayout>
-            </Panel>
-        </VerticalScrollView>
-    </Panel>
-    <!-- Officer Selection Panel -->
-    <Panel id = "selectOfficer" active = "false">
-        <Button class = "back"/>
-        <VerticalScrollView>
-            <Panel id = "officerScrollPanel" height = "1960">
-                <GridLayout cellSize = "400 300" spacing = "10 10" colors = "Black">
-                    <Panel class = "miniPanel" id = "off1"><Image class = "miniFront" id = "ob1"/><Image class = "miniBack" id = "o1"/></Panel>
-                    <Panel class = "miniPanel" id = "off2"><Image class = "miniFront" id = "ob2"/><Image class = "miniBack" id = "o2"/></Panel>
-                    <Panel class = "miniPanel" id = "off3"><Image class = "miniFront" id = "ob3"/><Image class = "miniBack" id = "o3"/></Panel>
-                    <Panel class = "miniPanel" id = "off4"><Image class = "miniFront" id = "ob4"/><Image class = "miniBack" id = "o4"/></Panel>
-                    <Panel class = "miniPanel" id = "off5"><Image class = "miniFront" id = "ob5"/><Image class = "miniBack" id = "o5"/></Panel>
-                    <Panel class = "miniPanel" id = "off6"><Image class = "miniFront" id = "ob6"/><Image class = "miniBack" id = "o6"/></Panel>
-                    <Panel class = "miniPanel" id = "off7"><Image class = "miniFront" id = "ob7"/><Image class = "miniBack" id = "o7"/></Panel>
-                    <Panel class = "miniPanel" id = "off8"><Image class = "miniFront" id = "ob8"/><Image class = "miniBack" id = "o8"/></Panel>
-                    <Panel class = "miniPanel" id = "off9"><Image class = "miniFront" id = "ob9"/><Image class = "miniBack" id = "o9"/></Panel>
-                    <Panel class = "miniPanel" id = "off10"><Image class = "miniFront" id = "ob10"/><Image class = "miniBack" id = "o10"/></Panel>
-                    <Panel class = "miniPanel" id = "off11"><Image class = "miniFront" id = "ob11"/><Image class = "miniBack" id = "o11"/></Panel>
-                    <Panel class = "miniPanel" id = "off12"><Image class = "miniFront" id = "ob12"/><Image class = "miniBack" id = "o12"/></Panel>
-                    <Panel class = "miniPanel" id = "off13"><Image class = "miniFront" id = "ob13"/><Image class = "miniBack" id = "o13"/></Panel>
-                    <Panel class = "miniPanel" id = "off14"><Image class = "miniFront" id = "ob14"/><Image class = "miniBack" id = "o14"/></Panel>
-                    <Panel class = "miniPanel" id = "off15"><Image class = "miniFront" id = "ob15"/><Image class = "miniBack" id = "o15"/></Panel>
-                    <Panel class = "miniPanel" id = "off16"><Image class = "miniFront" id = "ob16"/><Image class = "miniBack" id = "o16"/></Panel>
-                    <Panel class = "miniPanel" id = "off17"><Image class = "miniFront" id = "ob17"/><Image class = "miniBack" id = "o17"/></Panel>
-                    <Panel class = "miniPanel" id = "off18"><Image class = "miniFront" id = "ob18"/><Image class = "miniBack" id = "o18"/></Panel>
-                    <Panel class = "miniPanel" id = "off19"><Image class = "miniFront" id = "ob19"/><Image class = "miniBack" id = "o19"/></Panel>
-                    <Panel class = "miniPanel" id = "off20"><Image class = "miniFront" id = "ob20"/><Image class = "miniBack" id = "o20"/></Panel>
-                </GridLayout>
-            </Panel>
-        </VerticalScrollView>
-    </Panel>
-    <!-- Directive Selection Panel -->
-    <Panel id = "selectDirective" active = "false">
-        <Button class = "back"/>
-        <VerticalScrollView>
-            <Panel id = "directiveScrollPanel" height = "1960">
-                <GridLayout cellSize = "800 300" spacing = "5 5" colors = "Black">
-                    <Panel class = "stdPanel" id = "dir1"><Image class = "stdFront" id = "d1"/><Image class = "stdBack" id = "db1"/></Panel>
-                    <Panel class = "stdPanel" id = "dir2"><Image class = "stdFront" id = "d2"/><Image class = "stdBack" id = "db2"/></Panel>
-                    <Panel class = "stdPanel" id = "dir3"><Image class = "stdFront" id = "d3"/><Image class = "stdBack" id = "db3"/></Panel>
-                    <Panel class = "stdPanel" id = "dir4"><Image class = "stdFront" id = "d4"/><Image class = "stdBack" id = "db4"/></Panel>
-                    <Panel class = "stdPanel" id = "dir5"><Image class = "stdFront" id = "d5"/><Image class = "stdBack" id = "db5"/></Panel>
-                </GridLayout>
             </Panel>
         </VerticalScrollView>
     </Panel>
@@ -279,32 +234,47 @@
             </Panel>
         </VerticalScrollView>
     </Panel>
-    <!-- Title Selection Panel -->
-    <Panel id = "selectTitle" active = "false">
-        <Button class = "back" onClick = "fleetStaging"/>
+    <!-- Vertical card selector -->
+    <Panel id = "vertCardSelector" active = "false">
+        <Button class = "back"/>
         <VerticalScrollView>
-            <Panel id = "titleScrollPanel" height = "1960">
-                <GridLayout cellSize = "400 300" spacing = "5 5" colors = "Black">
-                    <Panel class = "miniPanel" id = "tp1"><Image class = "miniFront" id = "tf1"/><Image class = "miniBack" id = "tb1"/></Panel>
-                    <Panel class = "miniPanel" id = "tp2"><Image class = "miniFront" id = "tf2"/><Image class = "miniBack" id = "tb2"/></Panel>
-                    <Panel class = "miniPanel" id = "tp3"><Image class = "miniFront" id = "tf3"/><Image class = "miniBack" id = "tb3"/></Panel>
-                    <Panel class = "miniPanel" id = "tp4"><Image class = "miniFront" id = "tf4"/><Image class = "miniBack" id = "tb4"/></Panel>
-                    <Panel class = "miniPanel" id = "tp5"><Image class = "miniFront" id = "tf5"/><Image class = "miniBack" id = "tb5"/></Panel>
+            <Panel id = "vCardScrollPanel" height = "1960">
+                <GridLayout cellSize = "400 300" spacing = "10 10" colors = "Black">
+                    <Panel class = "vertPanel" id = "vc1"><Image class = "vertFront" id = "vb1"/><Image class = "vertBack" id = "vf1"/></Panel>
+                    <Panel class = "vertPanel" id = "vc2"><Image class = "vertFront" id = "vb2"/><Image class = "vertBack" id = "vf2"/></Panel>
+                    <Panel class = "vertPanel" id = "vc3"><Image class = "vertFront" id = "vb3"/><Image class = "vertBack" id = "vf3"/></Panel>
+                    <Panel class = "vertPanel" id = "vc4"><Image class = "vertFront" id = "vb4"/><Image class = "vertBack" id = "vf4"/></Panel>
+                    <Panel class = "vertPanel" id = "vc5"><Image class = "vertFront" id = "vb5"/><Image class = "vertBack" id = "vf5"/></Panel>
+                    <Panel class = "vertPanel" id = "vc6"><Image class = "vertFront" id = "vb6"/><Image class = "vertBack" id = "vf6"/></Panel>
+                    <Panel class = "vertPanel" id = "vc7"><Image class = "vertFront" id = "vb7"/><Image class = "vertBack" id = "vf7"/></Panel>
+                    <Panel class = "vertPanel" id = "vc8"><Image class = "vertFront" id = "vb8"/><Image class = "vertBack" id = "vf8"/></Panel>
+                    <Panel class = "vertPanel" id = "vc9"><Image class = "vertFront" id = "vb9"/><Image class = "vertBack" id = "vf9"/></Panel>
+                    <Panel class = "vertPanel" id = "vc10"><Image class = "vertFront" id = "vb10"/><Image class = "vertBack" id = "vf10"/></Panel>
+                    <Panel class = "vertPanel" id = "vc11"><Image class = "vertFront" id = "vb11"/><Image class = "vertBack" id = "vf11"/></Panel>
+                    <Panel class = "vertPanel" id = "vc12"><Image class = "vertFront" id = "vb12"/><Image class = "vertBack" id = "vf12"/></Panel>
+                    <Panel class = "vertPanel" id = "vc13"><Image class = "vertFront" id = "vb13"/><Image class = "vertBack" id = "vf13"/></Panel>
+                    <Panel class = "vertPanel" id = "vc14"><Image class = "vertFront" id = "vb14"/><Image class = "vertBack" id = "vf14"/></Panel>
+                    <Panel class = "vertPanel" id = "vc15"><Image class = "vertFront" id = "vb15"/><Image class = "vertBack" id = "vf15"/></Panel>
+                    <Panel class = "vertPanel" id = "vc16"><Image class = "vertFront" id = "vb16"/><Image class = "vertBack" id = "vf16"/></Panel>
+                    <Panel class = "vertPanel" id = "vc17"><Image class = "vertFront" id = "vb17"/><Image class = "vertBack" id = "vf17"/></Panel>
+                    <Panel class = "vertPanel" id = "vc18"><Image class = "vertFront" id = "vb18"/><Image class = "vertBack" id = "vf18"/></Panel>
+                    <Panel class = "vertPanel" id = "vc19"><Image class = "vertFront" id = "vb19"/><Image class = "vertBack" id = "vf19"/></Panel>
+                    <Panel class = "vertPanel" id = "vc20"><Image class = "vertFront" id = "vb20"/><Image class = "vertBack" id = "vf20"/></Panel>
                 </GridLayout>
             </Panel>
         </VerticalScrollView>
     </Panel>
-    <!-- Equpiment Selection Panel -->
-    <Panel id = "selectEquip" active = "false">
-        <Button class = "back" onClick = "fleetStaging"/>
+    <!-- Horizontal card selector -->
+    <Panel id = "horCardSelector" active = "false">
+        <Button class = "back"/>
         <VerticalScrollView>
-            <Panel id = "equipScrollPanel" height = "1960">
-                <GridLayout cellSize = "400 300" spacing = "5 5" colors = "Black">
-                    <Panel class = "miniPanel" id = "ep1"><Image class = "miniFront" id = "ef1"/><Image class = "miniBack" id = "eb1"/></Panel>
-                    <Panel class = "miniPanel" id = "ep2"><Image class = "miniFront" id = "ef2"/><Image class = "miniBack" id = "eb2"/></Panel>
-                    <Panel class = "miniPanel" id = "ep3"><Image class = "miniFront" id = "ef3"/><Image class = "miniBack" id = "eb3"/></Panel>
-                    <Panel class = "miniPanel" id = "ep4"><Image class = "miniFront" id = "ef4"/><Image class = "miniBack" id = "eb4"/></Panel>
-                    <Panel class = "miniPanel" id = "ep5"><Image class = "miniFront" id = "ef5"/><Image class = "miniBack" id = "eb5"/></Panel>
+            <Panel id = "hCardScrollPanel" height = "1960">
+                <GridLayout cellSize = "800 300" spacing = "5 5" colors = "Black">
+                    <Panel class = "horPanel" id = "hc1"><Image class = "horFront" id = "hf1"/><Image class = "horBack" id = "hb1"/></Panel>
+                    <Panel class = "horPanel" id = "hc2"><Image class = "horFront" id = "hf2"/><Image class = "horBack" id = "hb2"/></Panel>
+                    <Panel class = "horPanel" id = "hc3"><Image class = "horFront" id = "hf3"/><Image class = "horBack" id = "hb3"/></Panel>
+                    <Panel class = "horPanel" id = "hc4"><Image class = "horFront" id = "hf4"/><Image class = "horBack" id = "hb4"/></Panel>
+                    <Panel class = "horPanel" id = "hc5"><Image class = "horFront" id = "hf5"/><Image class = "horBack" id = "hb5"/></Panel>
                 </GridLayout>
             </Panel>
         </VerticalScrollView>

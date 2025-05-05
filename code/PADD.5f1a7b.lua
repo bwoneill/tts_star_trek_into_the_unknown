@@ -35,7 +35,7 @@ defaultImages = {
     title3 = "ui/PADD/title.png"
 }
 
-panelIds = {"fPanel", "stagingPanel", "selectOfficer", "selectDirective", "selectShip", "fleetStaging", "selectEquip", "selectTitle"}
+panelIds = {"fPanel", "stagingPanel", "vertCardSelector", "horCardSelector", "selectShip", "fleetStaging"}
 
 SAVE_VERSION = "1.0"
 
@@ -118,20 +118,20 @@ function selectOff(player, value, id)
                 image = images.front,
                 color = "White"
             }
-            self.UI.setAttributes("o".. count, attributes)
+            self.UI.setAttributes("vf".. count, attributes)
             attributes.image = images.back
-            self.UI.setAttributes("ob".. count, attributes)
-            self.UI.setAttribute("off" .. count, "active", true)
+            self.UI.setAttributes("vb".. count, attributes)
+            self.UI.setAttribute("vc" .. count, "active", true)
         end
     end
     for i = count + 1, 20 do
         local attributes = {image = "", color = "Black", onClick = ""}
-        self.UI.setAttributes("o" .. i, attributes)
-        self.UI.setAttributes("ob" .. i, attributes)
-        self.UI.setAttribute("off" .. i, "active", false)
+        self.UI.setAttributes("vf" .. i, attributes)
+        self.UI.setAttributes("vb" .. i, attributes)
+        self.UI.setAttribute("vc" .. i, "active", false)
     end
-    self.UI.setAttributes("officerScrollPanel", {height = 310 * math.ceil(count / 2) - 10})
-    self.UI.show("selectOfficer")
+    self.UI.setAttributes("vCardScrollPanel", {height = 310 * math.ceil(count / 2) - 10})
+    self.UI.show("vertCardSelector")
 end
 
 function offChoice(player, value, id)
@@ -160,21 +160,19 @@ function selectDir(player, value, id)
             onClick = "dirChoice(" .. id .. "=" .. i .. ")",
             image = paths.front, color = "White"
         }
-        self.UI.setAttributes("d" .. i, attributes)
+        self.UI.setAttributes("hf" .. i, attributes)
         attributes.image = paths.back
-        self.UI.setAttributes("db" .. i, attributes)
-        self.UI.setAttribute("dir" .. i, "active", true)
-        -- self.UI.show("dir" .. i)
+        self.UI.setAttributes("hb" .. i, attributes)
+        self.UI.setAttribute("hc" .. i, "active", true)
     end
     for i = #directives + 1, 5 do
         local attributes = {image = "", color = "Black", onClick = ""}
-        self.UI.setAttributes("d" .. i, attributes)
-        self.UI.setAttributes("db" .. i, attributes)
-        self.UI.setAttribute("dir" .. i, "active", false)
-        -- self.UI.hide("dir" .. i)
+        self.UI.setAttributes("hf" .. i, attributes)
+        self.UI.setAttributes("hb" .. i, attributes)
+        self.UI.setAttribute("hc" .. i, "active", false)
     end
     self.UI.setAttribute("directiveScrollPanel", "height", #directives * 305 - 5)
-    self.UI.show("selectDirective")
+    self.UI.show("horCardSelector")
 end
 
 function dirChoice(player, value, id)
@@ -283,20 +281,20 @@ function selectEquip(player, value, id)
                 image = images.front,
                 color = "White"
             }
-            self.UI.setAttributes("ef" .. count, attributes)
+            self.UI.setAttributes("vf" .. count, attributes)
             attributes.image = images.back
-            self.UI.setAttributes("eb" .. count, attributes)
-            self.UI.setAttribute("ep" .. count, "active", true)
+            self.UI.setAttributes("vb" .. count, attributes)
+            self.UI.setAttribute("vc" .. count, "active", true)
         end
     end
-    for i = count + 1, 5 do
+    for i = count + 1, 20 do
         local attributes = {image = "", color = "Black", onClick = ""}
-        self.UI.setAttributes("ef" .. i, attributes)
-        self.UI.setAttributes("eb" .. i, attributes)
-        self.UI.setAttribute("ep" .. i, "active", false)
+        self.UI.setAttributes("vf" .. i, attributes)
+        self.UI.setAttributes("vb" .. i, attributes)
+        self.UI.setAttribute("vc" .. i, "active", false)
     end
-    self.UI.setAttributes("equipScrollPanel", {height = 310 * math.ceil(count / 2) - 10})
-    self.UI.show("selectEquip")
+    self.UI.setAttributes("vCardScrollPanel", {height = 310 * math.ceil(count / 2) - 10})
+    self.UI.show("vertCardSelector")
 end
 
 function equipChoice(player, value, id)
@@ -325,20 +323,20 @@ function selectTitle(player, value, id)
                 image = images.front,
                 color = "White"
             }
-            self.UI.setAttributes("tf" .. count, attributes)
+            self.UI.setAttributes("vf" .. count, attributes)
             attributes.image = images.back
-            self.UI.setAttributes("tb" .. count, attributes)
-            self.UI.setAttribute("tp" .. count, "active", true)
+            self.UI.setAttributes("vb" .. count, attributes)
+            self.UI.setAttribute("vc" .. count, "active", true)
         end
     end
-    for i = count + 1, 5 do
+    for i = count + 1, 20 do
         local attributes = {image = "", color = "Black", onClick = ""}
-        self.UI.setAttributes("tf" .. i, attributes)
-        self.UI.setAttributes("tb" .. i, attributes)
-        self.UI.setAttribute("tp" .. i, "active", false)
+        self.UI.setAttributes("vf" .. i, attributes)
+        self.UI.setAttributes("vb" .. i, attributes)
+        self.UI.setAttribute("vc" .. i, "active", false)
     end
-    self.UI.setAttributes("titleScrollPanel", {height = 310 * math.ceil(count / 2) -10})
-    self.UI.show("selectTitle")
+    self.UI.setAttributes("vCardScrollPanel", {height = 310 * math.ceil(count / 2) -10})
+    self.UI.show("vertCardSelector")
 end
 
 function getTitleImages(ship, title)
@@ -708,15 +706,14 @@ function toArray(value)
     return result
 end
 
-function spawnCard(images, offset)
-    local delta = Vector(0, 0, 7)
-    if offset then
-        delta = delta + offset
-    end
+function spawnCard(args)
+    local delta = args.offset or Vector(10, 0, 0)
+    local scale = args.scale or Vector(1, 1, 1)
     local rot = self.getRotation().y
     local position = self.getPosition() + delta:rotateOver("y", rot)
-    local card = spawnObject({type = "CardCustom", position = position, rotation = Vector(0, rot + 180, 0)})
-    card.setCustomObject({face = images.front, back = images.back})
+    local card = spawnObject({type = "CardCustom", position = position,
+        rotation = Vector(0, rot + 180, args.faceUp and 0 or 180), scale = scale})
+    card.setCustomObject({face = args.images.front, back = args.images.back, sound = false})
     return card
 end
 
@@ -725,8 +722,7 @@ function spawnShipBoard(ship, n)
     if not xml_cache[ship.type] then
         local xml_path = path .. ship.type .. ".xml"
         local request = WebRequest.get(xml_path)
-        repeat
-        until request.is_done
+        repeat until request.is_done
         if request.is_error or request.text == "404: Not Found" then
             log("Error downloading " .. ship.type .. ".xml")
             return
@@ -734,31 +730,45 @@ function spawnShipBoard(ship, n)
             xml_cache[ship.type] = request.text
         end
     end
+    local script = "default = Global.getTable(\"ASSETS\").factions." .. ship.faction .. "." .. ship.folder .."." .. ship.type .. "\n" .. SHIP_BOARD_SCRIPT
     local rot = self.getRotation().y
     local pos = self.getPosition() + Vector(15 * (n - 2), 0, 13):rotateOver("y", rot)
     local result = {position = pos, rotation = Vector(0, rot + 180, 0)}
-    local script = "default = Global.getTable(\"ASSETS\").factions." .. ship.faction .. ".ships." .. ship.type .. "\n" .. SHIP_BOARD_SCRIPT
-    if ship.folder == "ships" then
-        result.data = {
-            Name = "Custom_Model", Transform = {scaleX = 1, scaleY = 1, scaleZ = 1},
-            CustomMesh = {
-                MeshURL = ASSET_ROOT .. "misc/ship_board.obj",
-                DiffuseURL = path .. "ship_board.png",
-                MaterialIndex = 3, Convex = false
-            },
-            LuaScript = script, XmlUI = xml_cache[ship.type]
-        }
-    elseif ship.folder == "auxiliary" then
-        -- local card = spawnObject({type = "CardCustom"})
-        -- card.setCustomObject({face = path .. "_front.png", back = path .. "_back.png", })
+    result.data = {
+        Name = "Custom_Model", Transform = {scaleX = 1, scaleY = 1, scaleZ = 1}, Nickname = ship.name,
+        CustomMesh = {
+            MeshURL = ASSET_ROOT .. "misc/ship_board.obj",
+            DiffuseURL = path .. "ship_board.png",
+            MaterialIndex = 3, Convex = false
+        },
+        LuaScript = script, XmlUI = xml_cache[ship.type]
+    }
+    local back = path .. "crit_back.png"
+    for i = 1, ship.crit_deck_size do
+        local images = {front = path .. "crit_" .. i .. ".png", back = back}
+        spawnCard({images = images, offset = Vector(15 * (n - 2) + 6.25, 0, 7)})
     end
     spawnObjectData(result)
+end
+
+function spawnAuxiliary(aux)
+end
+
+function getTeamImages(faction, team)
+    local path = ASSET_ROOT .. "factions/" .. faction .. "/teams/team_"
+    return {front = path .. team.front .. ".png", back = path .. team.back .. ".png"}
 end
 
 function spawn(player, value, id)
     for _, type in pairs(dirTypes) do
         if build[type] then
-            spawnCard(getDirectiveImages(build[type]), Vector(-5, 0, 0))
+            spawnCard({images = getDirectiveImages(build[type]), offset = Vector(10, 0, 3.5), faceUp = true})
+            if build[type].teams then
+                for _, team in pairs(build[type].teams) do
+                    spawnCard({images = getTeamImages(build.faction, team), offset = Vector(14, 0, 3.25),
+                        scale = Vector(1.33, 1, 1.33), faceUp = true})
+                end
+            end
         end
     end
     local line_officer = nil
@@ -769,28 +779,32 @@ function spawn(player, value, id)
     end
     for _, role in pairs(coreOfficers) do
         if build[role] then
-            spawnCard(getOfficerImage(build[role]))
+            spawnCard({images = getOfficerImage(build[role])})
         end
     end
     for i = 1, 2 do
         local transfer = build["option" .. i]
         local isSelected = build["select" .. i]
         if transfer and isSelected then
-            spawnCard(getOfficerImage(transfer))
+            spawnCard({images = getOfficerImage(transfer)})
         end
     end
     for _, equip in pairs(build.equipment) do
-        spawnCard(getEquipmentImages(equip))
+        spawnCard({images = getEquipmentImages(equip)})
     end
     for i = 1, 3 do
         local ship = build["ship" .. i]
         local title = build["title" .. i]
         if ship then
-            spawnCard(getOfficerImage(line_officer))
-            if title then
-                spawnCard(getTitleImages(ship, title))
+            if ship.folder == "ships" then
+                spawnCard({images = getOfficerImage(line_officer), offset = Vector(15 * (i - 2) + 3, 0, 7)})
+                if title then
+                    spawnCard({images = getTitleImages(ship, title), offset = Vector(15 * (i - 2) + 6.25, 0, 15)})
+                end
+                spawnShipBoard(ship, i)
+            elseif ship.folder == "auxiliary" then
+                spawnAuxiliary(ship)
             end
-            spawnShipBoard(ship, i)
         end
     end
 end
