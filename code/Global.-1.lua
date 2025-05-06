@@ -556,52 +556,17 @@ ASSETS = {
         }
     },
     equipment = {
-        {name = "Class 1 Probes", fp = 5, card = "probe_class_1.png"},
-        {name = "Escape Pods", fp = 3, card = "pod_escape.png"},
+        {name = "Class 1 Probes", fp = 5, card = {front = "probe_class_1.png", back = "pod_escape.png"}},
+        {name = "Escape Pods", fp = 3, card = {front = "pod_escape.png", back = "probe_class_1.png"}},
         {name = "Personnel Transponders", fp = 6, factions = {dominion = true}},
-        {name = "Quantum Torpedoes Reload", fp = 6, factions = {dominion = true, federation = true}, card = "torpedo_quantum.png"},
+        {name = "Quantum Torpedoes Reload", fp = 6, factions = {dominion = true, federation = true},
+            card = {front = "torpedo_quantum.png", back = "torpedo_photon.png"}},
         {name = "Runabout Berth", fp = 3, factions = {federation = true}}
     }
 }
 
 
 -- Spawn functions
-
-function spawnAsset(param)
-    if param.data then
-        if not param.data.Transform then
-            param.data.Transform = {scaleX = 1, scaleY = 1, scaleZ = 1}
-        end
-        return spawnObjectData(param)
-    end
-    local obj = spawnObject(param.object)
-    if param.script then
-        obj.setLuaScript(param.script)
-    end
-    if param.custom then
-        obj.setCustomObject(param.custom)
-    end
-    if param.color then
-        obj.setColorTint(param.color)
-    end
-    return obj
-end
-
-function spawnModel(param)
-    local base = spawnAsset(param.size.base)
-    if param.model.object.position then
-        param.model.object.position = base.getPosition() + param.model.object.position
-    end
-    local model = spawnAsset(param.model)
-    model.addTag("Ship")
-    base.addAttachment(model)
-    base.addTag("Ship")
-    return base
-end
-
-function spawnRuler() return spawnAsset(ASSETS.tools.ruler_12in) end
-
-function spawnTurningTool() return spawnAsset(ASSETS.tools.turning_tool) end
 
 function spawnSystemMarkers(name)
     local system = ASSETS.setup.systems[name]
@@ -617,7 +582,7 @@ function spawnSystemMarkers(name)
         if system then
             local pos = board.getPosition() + Vector(0, 0.001, 0)
             for i, center in ipairs(system.centers) do
-                local marker = spawnAsset(ASSETS.setup.system_marker)
+                local marker = spawnObjectData(ASSETS.setup.system_marker)
                 marker.setPosition(pos + center)
                 if i ~= marker.getStateId() then
                     marker = marker.setState(i)
@@ -625,7 +590,7 @@ function spawnSystemMarkers(name)
                 marker.lock()
                 for _, angle in pairs(system.borders[i]) do
                     local offset = Vector(0, 0.05, 0.37142565 - system.radius[i]):rotateOver("y", angle) -- radius - half width of border marker
-                    local border = spawnAsset(ASSETS.setup.system_border)
+                    local border = spawnObjectData(ASSETS.setup.system_border)
                     border.setPosition(pos + center + offset)
                     border.setRotation(Vector(0, angle, 0))
                     border.lock()
@@ -633,7 +598,7 @@ function spawnSystemMarkers(name)
             end
             for type, list in pairs(system.deployment) do
                 for _, entry in pairs(list) do
-                    ruler = spawnAsset(ASSETS.tools[type])
+                    ruler = spawnObjectData(ASSETS.tools[type])
                     ruler.setPosition(entry.pos)
                     ruler.setRotation(entry.rot)
                     ruler.lock()
