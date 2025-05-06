@@ -1,5 +1,5 @@
 --Netural Entity Unit
 
-default = Global.getTable("ASSETS").tinman
+default = Global.getTable("ASSETS").factions.neutral.ships.tinman
 
 require("ship")

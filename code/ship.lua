@@ -1,11 +1,82 @@
 -- Basic ship script
 -- Usage:
--- default = Global.getTable("ASSETS").<ship_class>
+-- default = Global.getTable("ASSETS").factions.<faction>.ships.<ship_class>
 -- require("ship")
 
 ignore_save = false -- set to true for updates on data in Global
 
 saveData = {}
+
+ASSET_ROOT = Global.getVar("ASSET_ROOT")
+
+TOOLS = Global.getTable("ASSETS").tools
+
+DIAL_CONST = {
+    alert = {pos = Vector(-2.7, -0.1, 0.2), rot = -40, scale = 1.25},
+    crew = {pos = Vector(3.4, -0.1, 0.2), rot = 40, scale = 0.85},
+    hull = {pos = Vector(3.8, -0.1, -2.6), rot = 36, scale = 0.62},
+    power = {pos = Vector(0.6, -0.1, -2.9), rot = 40, scale = 0.63}
+}
+
+BASE_CONST = {
+    shuttle = {
+        bounds = Vector(1.5, 0, 0.75), arcHeight = 0.05,
+        warpAttachment = Vector(0.26, 0, 0.26),
+        toolAttachment = {
+            fore = {pos = Vector(-1.125, 0 , 0), rot = 0},
+            aft = {pos = Vector(1.125, 0, 0), rot = 180},
+            port = {pos = Vector(0, 0, -0.75), rot = 270},
+            starboard = {pos = Vector(0, 0, 0.75), rot = 90}
+        }
+    },
+    small = {
+        warpAttachment = Vector(0.4, 0, 0.75),
+        toolAttachment = {
+            fore = {pos = Vector(-1.5, 0 , 0), rot = 0},
+            aft = {pos = Vector(1.5, 0, 0), rot = 180},
+            port = {pos = Vector(0, 0, -1), rot = 270},
+            starboard = {pos = Vector(0, 0, 1), rot = 90}
+        },
+        arcOffsets = {bow = Vector(-0.6, 0, 0), stern = Vector(0.6, 0, 0)}, arcHeight = 0.05,
+        bounds = Vector(2.125, 0, 1.5)
+    },
+    medium = {
+        warpAttachment = Vector(0.45, 0, 1),
+        toolAttachment = {
+            fore = {pos = Vector(-2, 0 , 0), rot = 0},
+            aft = {pos = Vector(2, 0, 0), rot = 180},
+            port = {pos = Vector(0, 0, -1.25), rot = 270},
+            starboard = {pos = Vector(0, 0, 1.25), rot = 90}
+        },
+        arcOffsets = {bow = Vector(-0.8, 0, 0), stern = Vector(0.8, 0, 0)}, arcHeight = 0.05,
+        bounds = Vector(3.5, 0, 2)
+    },
+    large = {
+        warpAttachment = Vector(0.45, 0, 1.25),
+        toolAttachment = {
+            fore = {pos = Vector(-2.75, 0 , 0), rot = 0},
+            aft = {pos = Vector(2.75, 0, 0), rot = 180},
+            port = {pos = Vector(0, 0, -1.5), rot = 270},
+            starboard = {pos = Vector(0, 0, 1.5), rot = 90}
+        },
+        arcOffsets = {bow = Vector(-1.25, 0, 0), stern = Vector(1.25, 0, 0)}, arcHeight = 0.05,
+        bounds = Vector(5, 0, 2.5)
+    }
+}
+
+ARCS = { -- aft = 0, left handed coords
+    fore = {90, 270},
+    aft = {-90, 90},
+    starboard = {180, 360},
+    port = {0, 180},
+    all = {0, 360},
+    bow = {135, 225},
+    stern = {-45, 45},
+    fore_starboard = {180, 270},
+    aft_starboard = {270, 360},
+    fore_port = {90, 180},
+    aft_port = {0, 90}
+}
 
 function onLoad(script_state)
     shipData = default
@@ -29,8 +100,7 @@ function onLoad(script_state)
         end
         local ship = getObjectFromGUID(saveData.shipGUID)
         if ship then
-            ship.addContextMenuItem('Impulse', function() impulseMoveStart() end, false)
-            ship.addContextMenuItem('Warp Speed', function() placeWarpTemplate() end, false)
+            setShipContextMenu()
         end
     end
 end
@@ -45,6 +115,14 @@ function onSave()
     return JSON.encode(saveData)
 end
 
+function onDestroy()
+    if saveData.dials then
+        for _, dial in pairs(saveData.dials) do
+            destroyObject(getObjectFromGUID(dial.GUID))
+        end
+    end
+end
+
 function setUp(player, value, id)
 
     activateButtons()
@@ -57,12 +135,16 @@ function setUp(player, value, id)
         saveData.dials = saveData.dials or {}
         for name, dial in pairs(shipData.dials) do
             saveData.dials[name] = saveData.dials[name] or {}
+            local dial_pos = Vector(DIAL_CONST[name].pos)
             if not saveData.dials[name].GUID then
-                local object = Global.call("spawnAsset", dial)
+                local parameters = {
+                    data = generateDialData(name),
+                    position = pos +  dial_pos:rotateOver("z", rot.z):rotateOver("x", rot.x):rotateOver("y", rot.y),
+                    rotation = rot
+                }
+                local object = spawnObjectData(parameters)
                 saveData.dials[name].GUID = object.getGUID()
                 saveData.dials[name].value = 0
-                object.setPosition(pos +  Vector(dial.pos):rotateOver("z", rot.z):rotateOver("x", rot.x):rotateOver("y", rot.y))
-                object.setRotation(rot)
                 object.interactable = false
                 object.jointTo(self, {type = "Fixed"})
             end
@@ -71,19 +153,78 @@ function setUp(player, value, id)
 
     -- Ship
     if not saveData.shipGUID then
-        local myShip = spawnShip(shipData, pos + Vector(5.25, 0, -5.25):rotateOver("y", rot.y), rot, player.color)
+        local parameters = {
+            data = generateShipModelData(shipData, player.color),
+            position = pos + Vector(5.5, 0, -5.5):rotateOver("y", rot.y),
+            rotation = rot
+        }
+        local myShip = spawnObjectData(parameters)
         saveData.shipGUID = myShip.getGUID()
+        setShipContextMenu()
     end
 end
 
-function spawnShip(data, pos, rot, color)
-    local ship = Global.call("spawnModel", data)
-    ship.setPosition(pos)
-    ship.setRotation(rot)
+function generateDialData(dial_type)
+    local scale = DIAL_CONST[dial_type].scale
+    local result = {
+        Name = "Custom_Token", Transform = {scaleX = scale, scaleY = 1, scaleZ = scale},
+        CustomImage = {
+            ImageURL = ASSET_ROOT .. "factions/" .. shipData.faction ..  "/ships/" .. shipData.type .. "/" .. dial_type .. "_dial.png",
+            CustomToken = {Thickness = 0.1}
+        }
+    }
+    return result
+end
+
+function generateShipModelData(ship_data, player_color, delta)
+    local faction = ship_data.faction
+    local folder = ship_data.folder
+    local class = ship_data.type
+    local size = ship_data.size
+    local transform = ship_data.model_transform or {scaleX = 1}
+    transform.scaleX = transform.scaleX or 1
+    transform.scaleY = transform.scaleY or transform.scaleX
+    transform.scaleZ = transform.scaleZ or transform.scaleX
+    local color = type(player_color) == "string" and Color.fromString(player_color) or player_color
+    local data = {
+        Name = "Custom_Model", Transform = {scaleX = 1, scaleY = 1, scaleZ = 1}, Tags = {"Ship"},
+        ColorDiffuse = color,
+        CustomMesh = {
+            MeshURL = ASSET_ROOT .. "misc/bases/" .. size ..  "_base.obj",
+            ColliderURL = ASSET_ROOT .. "misc/bases/" .. size ..  "_base.obj",
+            Convex = false
+        },
+        ChildObjects = {
+            {
+                Name = "Custom_Model", Transform = transform,
+                CustomMesh = {
+                    MeshURL = ASSET_ROOT .. "factions/" .. faction .. "/" .. folder .. "/" .. class .. "/" .. class .. "_mesh.obj",
+                    DiffuseURL = ASSET_ROOT .. "factions/" .. faction .. "/" .. folder .. "/" .. class .. "/" .. class .. "_skin.png",
+                    ColliderURL = ASSET_ROOT .. "misc/no_collide.obj", MaterialIndex = 3
+                }
+            }
+        }
+    }
+    if ship_data.model then
+        mergeData(data, ship_data.model)
+    end
+    return data
+end
+
+function mergeData(data, delta)
+    for key, value in pairs(delta) do
+        if type(data[key]) == "table" then
+            mergeData(data[key], value)
+        else
+            data[key] = value
+        end
+    end
+end
+
+function setShipContextMenu()
+    local ship = getObjectFromGUID(saveData.shipGUID)
     ship.addContextMenuItem('Impulse', function() impulseMoveStart() end, false)
     ship.addContextMenuItem('Warp Speed', function() placeWarpTemplate() end, false)
-    ship.setColorTint(color)
-    return ship
 end
 
 function activateButtons()
@@ -108,7 +249,7 @@ function rotateDial(name, difference)
     local value = constrainValue(dialValues.value + difference, dialData.min, dialData.max)
     if value ~= dialValues.value then
         dialValues.value = value
-        rot.y = rot.y + dialData.rot * dialValues.value
+        rot.y = rot.y + DIAL_CONST[name].rot * dialValues.value
         dial.jointTo()
         -- local result = calculateRotation(-dialData.rot * dialValues.value, self.getRotation())
         -- log(result)
@@ -152,10 +293,10 @@ function placeTracker(side)
         tracker.destroy()
     end
     local myShip = getObjectFromGUID(saveData.shipGUID)
-    local attachment = shipData.size.toolAttachment[side]
+    local attachment = BASE_CONST[shipData.size].toolAttachment[side]
     oldPos = myShip.getPosition()
     oldRot = myShip.getRotation()
-    tracker = Global.call("spawnAsset", Global.getTable("ASSETS").tools.tracker)
+    tracker = spawnObjectData(TOOLS.tracker)
     tracker.setPosition(oldPos + (Vector(attachment.pos) + Vector(side == "aft" and -0.25 or 0.25, 0.05, 0)):rotateOver("y", oldRot.y))
     tracker.setRotation({0, oldRot.y + attachment.rot + 90, 0})
     tracker.createButton({function_owner = self, click_function = "cancelMove", label = "Cancel", position = {0, 0.2, 0}, rotation = {0, 180, 0}, width = 400, height = 180})
@@ -204,7 +345,7 @@ function impulseMoveRight() placeToolToShipRight() end
 
 -- Turning tool
 
-function placeTurningTool(side)
+function placeTurningTool(side, tracker)
     local myShip = getObjectFromGUID(saveData.shipGUID)
     myShip.clearButtons()
     myShip.lock()
@@ -214,10 +355,10 @@ function placeTurningTool(side)
     else
         placeTrackerAft()
     end
-    local attachment = shipData.size.toolAttachment[side]
+    local attachment = BASE_CONST[shipData.size].toolAttachment[side]
     local pos = myShip.getPosition()
     local rot = myShip.getRotation().y
-    template = Global.call("spawnTurningTool")
+    template = spanwObjectData()
     template.setPosition(pos + Vector(attachment.pos):rotateOver("y", rot))
     template.setRotation({0, rot + attachment.rot, 0})
     template.jointTo(myShip, {type = "Hinge", collision = false, break_force = 1000.0, axis = {0,1,0}, anchor = {0,0,0}})
@@ -250,7 +391,7 @@ end
 -- Step 2: Position the Ruler
 function positionRuler(direction)
     local myShip = getObjectFromGUID(saveData.shipGUID)
-    ruler = Global.call("spawnRuler")
+    ruler = spawnObject(TOOLS.ruler_12in)
     local sign = direction == "right" and 1 or -1
     local pos = template.getPosition()
     local rot = template.getRotation()
@@ -280,7 +421,7 @@ function positionShip()
     local myShip = getObjectFromGUID(saveData.shipGUID)
     local spawnPos = template.getPosition()
     local spawnRot = template.getRotation()
-    local attachment = shipData.size.toolAttachment[shipDirection]
+    local attachment = BASE_CONST[shipData.size].toolAttachment[shipDirection]
     local leftVector = template.getTransformRight()
     spawnRot.y = spawnRot.y - attachment.rot
     spawnPos = spawnPos + (leftVector * Vector(attachment.pos):magnitude())
@@ -326,16 +467,16 @@ function placeWarpTemplate()
     myShip.unlock()
     local pos = myShip.getPosition()
     local angle = myShip.getRotation().y
-    local offset = Vector(shipData.size.warpAttachment):rotateOver("y", angle)
+    local offset = Vector(BASE_CONST[shipData.size].warpAttachment):rotateOver("y", angle)
     local offsetA = offset + Vector(-6, 0.05, 0.3):rotateOver("y", angle)
     local offsetB = offset + Vector(-18, 0.05, 0.3):rotateOver("y", angle)
-    rulerA = Global.call("spawnRuler")
+    rulerA = spawnObjectData(TOOLS.ruler_12in)
     rulerA.setPosition(pos + offsetA)
     rulerA.setRotation({0, angle , 0})
     -- Lock the ruler in place
     rulerA.lock()
 	
-    rulerB = Global.call("spawnRuler")
+    rulerB = spawnObjectData(TOOLS.ruler_12in)
     rulerB.setPosition(pos + offsetB)
     rulerB.setRotation({0, angle , 0})
 
@@ -379,9 +520,8 @@ end
 function drawArc(system, jammed) -- system is "sensors", "comms", "weapons"
     local myShip = getObjectFromGUID(saveData.shipGUID)
     local arcs = shipData[system]
-    local ARCS = Global.getVar("ARCS")
     local clr = myShip.getColorTint()
-    local size = shipData.size.bounds
+    local size = BASE_CONST[shipData.size].bounds
     local lines = {}
     --[[ Axis overlay
         local v = Vector(1,1,0)
@@ -393,8 +533,8 @@ function drawArc(system, jammed) -- system is "sensors", "comms", "weapons"
         } 
         --]]
     for arc, range in pairs(arcs) do
-        local origin = shipData.size.arcOffsets and Vector(shipData.size.arcOffsets[arc]) or Vector(0, 0, 0)
-        origin.y = origin.y + shipData.size.arcHeight
+        local origin = BASE_CONST[shipData.size].arcOffsets and Vector(BASE_CONST[shipData.size].arcOffsets[arc]) or Vector(0, 0, 0)
+        origin.y = origin.y + BASE_CONST[shipData.size].arcHeight
         if ARCS[arc] then
             -- Calculate range
             if jammed and system ~= "weapons" then
@@ -499,19 +639,33 @@ function detach(player, value, id)
         local rot = self.getRotation()
         local pos = self.getPosition()
         -- create cards
-        shipData.aux_card.data.LuaScript = self.getLuaScript()
-        altCard = Global.call("spawnAsset", shipData.alt_card)
-        saveData.alt_card = saveData.alt_card or {}
-        saveData.alt_card.GUID = altCard.getGUID()
-        altCard.setPosition(pos + Vector(-3.5, 0, -6):rotateOver("y", rot.y))
-        altCard.setRotation(rot)
+        shipData.auxiliary.ship_board.data.LuaScript = self.getLuaScript()
+        local parameters = {
+            data = shipData.alternate.ship_board.data,
+            position = pos + Vector(-3.5, 0, -6):rotateOver("y", rot.y),
+            rotation = rot
+        }
+        altCard = spawnObjectData(parameters)
         altCard.jointTo(self, {type = "Fixed"})
         altCard.interactable = false
-        auxCard = Global.call("spawnAsset", shipData.aux_card)
-        saveData.aux_card = saveData.aux_card or {}
-        saveData.aux_card.GUID = auxCard.getGUID()
-        auxCard.setPosition(pos + Vector(5.25, 0, -5.25):rotateOver("y", rot.y))
-        auxCard.setRotation(rot)
+        saveData.altGUID = altCard.getGUID()
+        local path = ASSET_ROOT .. "factions/" .. shipData.faction .. "/" .. shipData.folder .. "/" .. shipData.type .. "/auxiliary.xml"
+        local request = WebRequest.get(path)
+        repeat until request.is_done
+        if request.is_error or request.text == "404: Not Found" then
+            log("Error downloading " .. ship.type .. ".xml")
+            return
+        else
+            shipData.auxiliary.ship_board.data.XmlUI = request.text
+        end
+        parameters = {
+            data = shipData.auxiliary.ship_board.data,
+            position = pos + Vector(5.25, 0, -5.25):rotateOver("y", rot.y),
+            rotation = rot
+        }
+        auxCard = spawnObjectData(parameters)
+        saveData.auxGUID = auxCard.getGUID()
+        launchAuxiliary(shipData.auxiliary.direction)
         -- swap ship models
         swapShip()
         -- check dial ranges
@@ -520,46 +674,53 @@ function detach(player, value, id)
         end
         -- change detach button to reattach
         self.UI.setAttributes("saucerSeparation", {onClick = "reattach", text = "Reattach"})
-        launchAuxiliary(shipData.auxiliary.direction)
-        saveData.detached = true
     end
 end
 
 function reattach(player, value, id)
-    if shipData.auxiliary and saveData.detached then
+    if saveData.detached then
         swapShip()
-        if shipData.alt_card then
-            local altCard =  getObjectFromGUID(saveData.alt_card.GUID)
+        if saveData.altGUID then
+            local altCard =  getObjectFromGUID(saveData.altGUID)
             if altCard then altCard.destroy() end
-            saveData.alt_card.GUID = nil
+            saveData.altGUID = nil
         end
-        if shipData.aux_card then
-            local auxCard = getObjectFromGUID(saveData.aux_card.GUID)
+        if saveData.auxGUID then
+            local auxCard = getObjectFromGUID(saveData.auxGUID)
             if auxCard then
                 local auxData = auxCard.getTable("saveData")
                 local auxShip = getObjectFromGUID(auxData.shipGUID)
                 if auxShip then auxShip.destroy() end
                 auxCard.destroy()
-                saveData.aux_card.GUID = nil
+                saveData.auxGUID = nil
             end
         end
         rotateDial("crew", -2)
         -- change reattach button to detach
         self.UI.setAttributes("saucerSeparation", {onClick = "detach", text = "Detach"})
-        saveData.detached = false
     end
 end
 
 function swapShip()
     local myShip = getObjectFromGUID(saveData.shipGUID)
-    if shipData.auxiliary then
+    if default.alternate then
         local color = myShip.getColorTint()
         local pos = myShip.getPosition()
         local rot = myShip.getRotation()
         myShip.destroy()
-        swapElements(shipData, shipData.alternate)
-        myShip = spawnShip(shipData, pos, rot, color)
+        if saveData.detached then
+            shipData = default
+        else
+            shipData = default.alternate
+        end
+        saveData.detached = not saveData.detached
+        local parameters = {
+            data = generateShipModelData(shipData, color, shipData.model),
+            position = pos, rotation = rot
+        }
+        myShip = spawnObjectData(parameters)
         saveData.shipGUID = myShip.getGUID()
+        setShipContextMenu()
     end
 end
 
