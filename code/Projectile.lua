@@ -23,7 +23,7 @@ function toggleRanges(player, value, id)
             points[color] = {}
         end
         for _, g in ipairs(geometry) do
-            local v = Vector(1, 0.01, 0):rotateOver("y", g.start)
+            local v = Vector(1, 0.05, 0):rotateOver("y", g.start)
             local focal_point = g.focal_point and g.focal_point:copy():scale(1 / scale) or Vector(0, 0, 0)
             local radius = g.radius and g.radius / scale or 0
             for theta = g.start, g.stop do
