@@ -1,4 +1,4 @@
-[[<Button 
+<Button 
     id="setUpBtn" 
     onClick="auxiliarySetup" 
     fontSize="20" 
@@ -87,4 +87,4 @@
     position="13 76 -19"
     rotation="0 0 180">
     Clear
-</Button>]]
+</Button>
