@@ -649,6 +649,15 @@ function detach(player, value, id)
         altCard.jointTo(self, {type = "Fixed"})
         altCard.interactable = false
         saveData.altGUID = altCard.getGUID()
+        local path = ASSET_ROOT .. "factions/" .. shipData.faction .. "/" .. shipData.folder .. "/" .. shipData.type .. "/auxiliary.xml"
+        local request = WebRequest.get(path)
+        repeat until request.is_done
+        if request.is_error or request.text == "404: Not Found" then
+            log("Error downloading " .. ship.type .. ".xml")
+            return
+        else
+            shipData.auxiliary.ship_board.data.XmlUI = request.text
+        end
         parameters = {
             data = shipData.auxiliary.ship_board.data,
             position = pos + Vector(5.25, 0, -5.25):rotateOver("y", rot.y),
