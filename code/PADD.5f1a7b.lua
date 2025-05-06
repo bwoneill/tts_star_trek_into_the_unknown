@@ -131,6 +131,7 @@ function selectOff(player, value, id)
         self.UI.setAttribute("vc" .. i, "active", false)
     end
     self.UI.setAttributes("vCardScrollPanel", {height = 310 * math.ceil(count / 2) - 10})
+    self.UI.setAttribute("vcsBack", "onClick", "showStaging")
     self.UI.show("vertCardSelector")
 end
 
@@ -172,6 +173,7 @@ function selectDir(player, value, id)
         self.UI.setAttribute("hc" .. i, "active", false)
     end
     self.UI.setAttribute("directiveScrollPanel", "height", #directives * 305 - 5)
+    self.UI.setAttribute("hcsBack", "onClick", "showStaging")
     self.UI.show("horCardSelector")
 end
 
@@ -294,6 +296,7 @@ function selectEquip(player, value, id)
         self.UI.setAttribute("vc" .. i, "active", false)
     end
     self.UI.setAttributes("vCardScrollPanel", {height = 310 * math.ceil(count / 2) - 10})
+    self.UI.setAttribute("vcsBack", "onClick", "fleetStaging")
     self.UI.show("vertCardSelector")
 end
 
@@ -336,6 +339,7 @@ function selectTitle(player, value, id)
         self.UI.setAttribute("vc" .. i, "active", false)
     end
     self.UI.setAttributes("vCardScrollPanel", {height = 310 * math.ceil(count / 2) -10})
+    self.UI.setAttribute("vcsBack", "onClick", "fleetStaging")
     self.UI.show("vertCardSelector")
 end
 

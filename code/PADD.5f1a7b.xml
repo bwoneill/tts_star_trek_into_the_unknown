@@ -45,7 +45,7 @@
 </Defaults>
 
 <Button id = "start" onClick = "start" width = "100" height = "50" color = "Blue"
-    textColor = "White" rotation = "0 0 90" position = "550 -300 -12"> Start </Button>
+    textColor = "White" rotation = "0 0 90" position = "550 -300 -12"> Start</Button>
 
 <Panel width = "1100" height = "800" position = "-135 0 -12" color = "Black">
     <!-- Faction Selection Panel -->
@@ -236,7 +236,7 @@
     </Panel>
     <!-- Vertical card selector -->
     <Panel id = "vertCardSelector" active = "false">
-        <Button class = "back"/>
+        <Button class = "back" id = "vcsBack"/>
         <VerticalScrollView>
             <Panel id = "vCardScrollPanel" height = "1960">
                 <GridLayout cellSize = "400 300" spacing = "10 10" colors = "Black">
@@ -266,7 +266,7 @@
     </Panel>
     <!-- Horizontal card selector -->
     <Panel id = "horCardSelector" active = "false">
-        <Button class = "back"/>
+        <Button class = "back" id = "hcsBack"/>
         <VerticalScrollView>
             <Panel id = "hCardScrollPanel" height = "1960">
                 <GridLayout cellSize = "800 300" spacing = "5 5" colors = "Black">
