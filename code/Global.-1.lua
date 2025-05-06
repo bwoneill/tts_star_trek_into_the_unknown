@@ -97,98 +97,6 @@ ROOT = "https://raw.githubusercontent.com/bwoneill/tts_star_trek_into_the_unknow
 ASSET_ROOT =  ROOT .. "assets/"
 CODE_ROOT = ROOT .. "code/"
 
-
-saucerXml = [[<Button 
-    id="setUpBtn" 
-    onClick="auxiliarySetup" 
-    fontSize="20" 
-    color="#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)" 
-    width="100" 
-    height="32" 
-    rectAlignment="UpperLeft" 
-    position="0 -51 -19"
-    rotation="0 0 180">
-    Deploy
-</Button>
-<Button  
-    active="false"
-    id="phaserBtn" 
-    onClick="firePhaser" 
-    fontSize="10" 
-    color="#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)" 
-    width="50" 
-    height="13" 
-    rectAlignment="UpperLeft" 
-    position="13 42 -19"
-    rotation="0 0 180">
-    Fire
-</Button>
-<Button  
-    active="false"
-    id="warpBtn" 
-    onClick="placeWarpTemplate" 
-    fontSize="10" 
-    color="#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)" 
-    width="40" 
-    height="13" 
-    rectAlignment="UpperLeft" 
-    position="-26 -45 -19"
-    rotation="0 0 180">
-    Warp
-</Button>
-<Button  
-    active="false"
-    id="impulsBtn" 
-    onClick="impulseMoveStart" 
-    fontSize="10" 
-    color="#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)" 
-    width="50" 
-    height="13" 
-    rectAlignment="UpperLeft" 
-    position="-26 -57 -19"
-    rotation="0 0 180">
-    Impulse
-</Button>
-<Button  
-    active="false"
-    id="scanBtn" 
-    onClick="scanCheck" 
-    fontSize="10" 
-    color="#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)" 
-    width="50" 
-    height="13" 
-    rectAlignment="UpperLeft" 
-    position="13 13 -19"
-    rotation="0 0 180">
-    Sensors
-</Button>
-<Button  
-    active="false"
-    id="commsBtn" 
-    onClick="hailCheck" 
-    fontSize="10" 
-    color="#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)" 
-    width="50" 
-    height="13" 
-    rectAlignment="UpperLeft" 
-    position="13 27 -19"
-    rotation="0 0 180">
-    Comms
-</Button>
-<Button
-    active="false"
-    id="clear"
-    onClick="clearArc"
-    fontSize="10" 
-    color="#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)" 
-    width="40" 
-    height="13" 
-    rectAlignment="UpperLeft" 
-    position="13 76 -19"
-    rotation="0 0 180">
-    Clear
-</Button>]]
-
 -- Assets
 
 ASSETS = {
@@ -495,7 +403,6 @@ ASSETS = {
                         ship_board = {
                             data = {
                                 Name = "Custom_Tile", Transform = {scaleX = 2.1, scaleY = 1, scaleZ = 2.1},
-                                XmlUI = saucerXml,
                                 CustomImage = {
                                     ImageURL = ASSET_ROOT .. "factions/federation/ships/galaxy/saucer_card.png",
                                     ImageSecondaryURL = ASSET_ROOT .. "factions/federation/ships/galaxy/saucer_card_back.png",
