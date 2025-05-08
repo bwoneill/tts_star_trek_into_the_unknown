@@ -182,13 +182,14 @@ ASSETS = {
             }
         },
         turning_tool = {
-            object = {type = "Custom_Model"},
-            custom = {
-                mesh = ASSET_ROOT .. "tools/turning_tool/turning_tool_mesh.obj",
-                diffuse = ASSET_ROOT .. "tools/turning_tool/turning_tool_diffuse.png",
-                collider = ASSET_ROOT .. "tools/turning_tool/turning_tool_collider.obj"
-            },
-            script = [[-- empty, for now]]
+            data = {
+                Name = "Custom_Model", Transform = {scaleX = 1, scaleY = 1, scaleZ = 1},
+                CustomMesh = {
+                    MeshURL = ASSET_ROOT .. "tools/turning_tool/turning_tool_mesh.obj",
+                    DiffuseURL = ASSET_ROOT .. "tools/turning_tool/turning_tool_diffuse.png",
+                    ColliderURL = ASSET_ROOT .. "tools/turning_tool/turning_tool_collider.obj"
+                }
+            }
         }
     },
     setup = {

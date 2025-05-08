@@ -296,7 +296,7 @@ function placeTracker(side)
     local attachment = BASE_CONST[shipData.size].toolAttachment[side]
     oldPos = myShip.getPosition()
     oldRot = myShip.getRotation()
-    tracker = spawnObjectData(TOOLS.tracker)
+    tracker = spawnObjectData(TOOLS.turning_tool)
     tracker.setPosition(oldPos + (Vector(attachment.pos) + Vector(side == "aft" and -0.25 or 0.25, 0.05, 0)):rotateOver("y", oldRot.y))
     tracker.setRotation({0, oldRot.y + attachment.rot + 90, 0})
     tracker.createButton({function_owner = self, click_function = "cancelMove", label = "Cancel", position = {0, 0.2, 0}, rotation = {0, 180, 0}, width = 400, height = 180})
@@ -391,7 +391,7 @@ end
 -- Step 2: Position the Ruler
 function positionRuler(direction)
     local myShip = getObjectFromGUID(saveData.shipGUID)
-    ruler = spawnObject(TOOLS.ruler_12in)
+    ruler = spawnObjectData(TOOLS.ruler_12in)
     local sign = direction == "right" and 1 or -1
     local pos = template.getPosition()
     local rot = template.getRotation()
