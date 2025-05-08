@@ -312,7 +312,7 @@ ASSETS = {
                 fighter = {
                     name = "Jem'Hadar Fighter", role = "scout", size = "small", crit_deck_size = 4,
                     faction = "dominion", folder = "ships", type = "fighter",
-                    dials = {alert = {min = 0, max = 4}, power = {min = 0, max = 6}, crew = {min = -2, max = 4}, hull = {min = 0, max = 6}},
+                    dials = {alert = {min = 0, max = 4}, power = {min = 0, max = 7}, crew = {min = -2, max = 4}, hull = {min = 0, max = 6}},
                     model_transform = {scaleX = 1.3}, instruments = {1, 2, 2, 1, 0},
                     sensors = {all = 4, fore = 4, instruments = {fore = true}},
                     comms = {all = 4, fore = 4, instruments = {fore = true}},
