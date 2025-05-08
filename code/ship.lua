@@ -296,7 +296,7 @@ function placeTracker(side)
     local attachment = BASE_CONST[shipData.size].toolAttachment[side]
     oldPos = myShip.getPosition()
     oldRot = myShip.getRotation()
-    tracker = spawnObjectData(TOOLS.turning_tool)
+    tracker = spawnObjectData(TOOLS.tracker)
     tracker.setPosition(oldPos + (Vector(attachment.pos) + Vector(side == "aft" and -0.25 or 0.25, 0.05, 0)):rotateOver("y", oldRot.y))
     tracker.setRotation({0, oldRot.y + attachment.rot + 90, 0})
     tracker.createButton({function_owner = self, click_function = "cancelMove", label = "Cancel", position = {0, 0.2, 0}, rotation = {0, 180, 0}, width = 400, height = 180})
@@ -358,7 +358,7 @@ function placeTurningTool(side, tracker)
     local attachment = BASE_CONST[shipData.size].toolAttachment[side]
     local pos = myShip.getPosition()
     local rot = myShip.getRotation().y
-    template = spanwObjectData(TOOLS.turning_tool)
+    template = spawnObjectData(TOOLS.turning_tool)
     template.setPosition(pos + Vector(attachment.pos):rotateOver("y", rot))
     template.setRotation({0, rot + attachment.rot, 0})
     template.jointTo(myShip, {type = "Hinge", collision = false, break_force = 1000.0, axis = {0,1,0}, anchor = {0,0,0}})
