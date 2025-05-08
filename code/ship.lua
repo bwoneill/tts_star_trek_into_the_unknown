@@ -358,7 +358,7 @@ function placeTurningTool(side, tracker)
     local attachment = BASE_CONST[shipData.size].toolAttachment[side]
     local pos = myShip.getPosition()
     local rot = myShip.getRotation().y
-    template = spanwObjectData()
+    template = spawnObjectData(TOOLS.turning_tool)
     template.setPosition(pos + Vector(attachment.pos):rotateOver("y", rot))
     template.setRotation({0, rot + attachment.rot, 0})
     template.jointTo(myShip, {type = "Hinge", collision = false, break_force = 1000.0, axis = {0,1,0}, anchor = {0,0,0}})
@@ -391,7 +391,7 @@ end
 -- Step 2: Position the Ruler
 function positionRuler(direction)
     local myShip = getObjectFromGUID(saveData.shipGUID)
-    ruler = spawnObject(TOOLS.ruler_12in)
+    ruler = spawnObjectData(TOOLS.ruler_12in)
     local sign = direction == "right" and 1 or -1
     local pos = template.getPosition()
     local rot = template.getRotation()
