@@ -146,6 +146,17 @@ ASSETS = {
                     }
                 }
             }
+        },
+        commodore = {
+            data = {
+                Name = "Custom_Tile",
+                Transform = {scaleX = 0.427587271, scaleY = 1, scaleZ = 0.427587271},
+                CustomImage = {
+                    ImageURL = ASSET_ROOT .. "tokens/commodore_blue.png",
+                    ImageSecondaryURL = ASSET_ROOT .. "tokens/commodore_orange.png",
+                    CustomTile = {Type = 2, Thickness = 0.1, Stretch = true}
+                }
+            }
         }
     },
     tools = {
