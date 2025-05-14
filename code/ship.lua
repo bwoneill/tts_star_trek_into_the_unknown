@@ -681,14 +681,11 @@ function drawArc(system, jammed) -- system is "sensors", "comms", "weapons"
     local geometry = BASE_CONST[shipData.size].arcs
     local lines = {}
     -- Axis overlay
-        local v = Vector(1,1,0)
-        v:rotateOver("y", 45)
-        local lines = {
-            {points = {{0,1,0}, {5,1,0}},color = {1,0,0}},
-            {points = {{0,1,0}, {0,6,0}},color = {0,1,0}},
-            {points = {{0,1,0}, {0,1,5}},color = {0,0,1}}
-        } 
-       
+    -- local lines = {
+    --     {points = {{0,1,0}, {5,1,0}},color = {1,0,0}},
+    --     {points = {{0,1,0}, {0,6,0}},color = {0,1,0}},
+    --     {points = {{0,1,0}, {0,1,5}},color = {0,0,1}}
+    -- } 
     for name, range in pairs(stats) do
         if name ~= "instruments" then
             local arcs
@@ -714,6 +711,8 @@ function drawArc(system, jammed) -- system is "sensors", "comms", "weapons"
                     stop = geometry[arc][#geometry[arc]]
                 end
                 if name ~= "all" then
+                    log(start)
+                    log(stop)
                     table.insert(points, 1, start)
                     table.insert(points, stop)
                 end
@@ -721,54 +720,6 @@ function drawArc(system, jammed) -- system is "sensors", "comms", "weapons"
             end
         end
     end
-    -- for arc, range in pairs(arcs) do
-    --     local origin = BASE_CONST[shipData.size].arcOffsets and Vector(BASE_CONST[shipData.size].arcOffsets[arc]) or Vector(0, 0, 0)
-    --     origin.y = origin.y + BASE_CONST[shipData.size].arcHeight
-    --     if ARCS[arc] then
-    --         -- Calculate range
-    --         if jammed and system ~= "weapons" then
-    --             range = 2
-    --         elseif arcs.instruments and arcs.instruments[arc] then
-    --             range = range + shipData.instruments[saveData.dials.alert.value + 1]
-    --         end
-    --         -- Calculate vectors
-    --         local start_angle = ARCS[arc][1]
-    --         local end_angle = ARCS[arc][2]
-    --         local points = {}
-    --         local theta = start_angle
-    --         local m = Vector(range, 0, 0)
-    --         m:rotateOver("y", start_angle)
-    --         local focal_point = calculateIntersect(size, m, origin)
-    --         if arc ~= "all" then
-    --             table.insert(points, focal_point:copy())
-    --         end
-    --         while theta < 360 and theta < end_angle do
-    --             table.insert(points, focal_point + m)
-    --             if theta == -90 or theta == 270 then
-    --                 focal_point.x = size.x/2
-    --             elseif theta == 0 then
-    --                 focal_point.z = -size.z/2
-    --             elseif theta == 90 then
-    --                 focal_point.x = -size.x/2
-    --             elseif theta == 180 then
-    --                 focal_point.z = size.z/2
-    --             end
-    --             if theta % 90 == 0 then
-    --                 table.insert(points, focal_point + m)
-    --             end
-    --             theta = theta + 1
-    --             m:rotateOver("y", 1)
-    --         end
-    --         table.insert(points, focal_point + m)
-    --         focal_point = calculateIntersect(size, m, origin)
-    --         table.insert(points, focal_point + m)
-    --         if arc ~= "all" then
-    --             table.insert(points, focal_point:copy())
-    --         end
-    --         table.insert(lines, {points = points, color = clr, thickness = 0.02})
-    --     end
-    --     -- do something
-    -- end
     myShip.setVectorLines(lines)
 end
 
@@ -943,4 +894,4 @@ function auxiliarySetup(player, value, id)
     setUp(player, value, id)
 end
 
--- build 1.0.1.6
+-- build 1.0.1.7
