@@ -715,6 +715,7 @@ function drawBase()
     local myShip = getObjectFromGUID(saveData.shipGUID)
     local geometry = BASE_CONST[shipData.size].arcs
     local lines = {}
+    local points = {}
     local arcs = COMPOUND_ARCS["all"]
     for _, arc in ipairs(arcs) do
         sweepOverPoints(points, geometry[arc], 0)
