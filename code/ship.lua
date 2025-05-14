@@ -20,48 +20,204 @@ DIAL_CONST = {
 
 BASE_CONST = {
     shuttle = {
-        bounds = Vector(1.5, 0, 0.75), arcHeight = 0.05,
-        warpAttachment = Vector(0.26, 0, 0.26),
+        bounds = Vector(1.47, 0, 0.76), arcHeight = 0.05,
+        warpAttachment = Vector(0.38, 0, 0.319),
         toolAttachment = {
-            fore = {pos = Vector(-1.125, 0 , 0), rot = 0},
-            aft = {pos = Vector(1.125, 0, 0), rot = 180},
-            port = {pos = Vector(0, 0, -0.75), rot = 270},
-            starboard = {pos = Vector(0, 0, 0.75), rot = 90}
+            fore = {pos = Vector(-1.14, 0 , 0), rot = 0},
+            aft = {pos = Vector(1.14, 0, 0), rot = 180},
+            port = {pos = Vector(0, 0, -0.765), rot = 270},
+            starboard = {pos = Vector(0, 0, 0.765), rot = 90}
+        },
+        arcs = {
+            all = {
+                {point = Vector(-0.293, 0, -0.735), start = 0, stop = 0},
+                {point = Vector( 0.293, 0, -0.735), start = 0, stop = 64},
+                {point = Vector( 0.380, 0, -0.577), start = 64, stop = 90},
+                {point = Vector( 0.380, 0,  0.577), start = 90, stop = 116},
+                {point = Vector( 0.293, 0,  0.735), start = 116, stop = 180},
+                {point = Vector(-0.293, 0,  0.735), start = 180, stop = 244},
+                {point = Vector(-0.380, 0,  0.557), start = 244, stop = 270},
+                {point = Vector(-0.380, 0, -0.577), start = 270, stop = 296},
+                {point = Vector(-0.293, 0, -0.735), start = 296, stop = 360},
+                {point = Vector(-0.293, 0, -0.735), start = 0, stop = 0}
+            },
         }
     },
     small = {
-        warpAttachment = Vector(0.4, 0, 0.75),
+        warpAttachment = Vector(0.404, 0, 0.77),
         toolAttachment = {
-            fore = {pos = Vector(-1.5, 0 , 0), rot = 0},
-            aft = {pos = Vector(1.5, 0, 0), rot = 180},
-            port = {pos = Vector(0, 0, -1), rot = 270},
-            starboard = {pos = Vector(0, 0, 1), rot = 90}
+            fore = {pos = Vector(-1.41, 0 , 0), rot = 0},
+            aft = {pos = Vector(1.41, 0, 0), rot = 180},
+            port = {pos = Vector(0, 0, -1.065), rot = 270},
+            starboard = {pos = Vector(0, 0, 1.065), rot = 90}
         },
         arcOffsets = {bow = Vector(-0.6, 0, 0), stern = Vector(0.6, 0, 0)}, arcHeight = 0.05,
-        bounds = Vector(2.125, 0, 1.5)
+        bounds = Vector(2.14, 0, 1.54),
+        arcs = {
+            aft_starboard = {
+                {point = Vector( 0.000, 0, -1.070), start = 0, stop = 0},
+                {point = Vector( 0.367, 0, -1.070), start = 0, stop = 10},
+                {point = Vector( 0.661, 0, -0.920), start = 10, stop = 27},
+                {point = Vector( 0.770, 0, -0.804), start = 27, stop = 90},
+                {point = Vector( 0.770, 0,  0.000), start = 90, stop = 90},
+            },
+            fore_starboard = {
+                {point = Vector( 0.770, 0,  0.000), start = 90, stop = 90},
+                {point = Vector( 0.770, 0,  0.804), start = 90, stop = 153},
+                {point = Vector( 0.661, 0,  0.920), start = 153, stop = 170},
+                {point = Vector( 0.367, 0,  1.070), start = 170, stop = 180},
+                {point = Vector( 0.000, 0,  1.070), start = 180, stop = 180}
+            },
+            fore_port = {
+                {point = Vector( 0.000, 0,  1.070), start = 180, stop = 180},
+                {point = Vector(-0.367, 0,  1.070), start = 180, stop = 190},
+                {point = Vector(-0.661, 0,  0.920), start = 190, stop = 207},
+                {point = Vector(-0.770, 0,  0.804), start = 207, stop = 170},
+                {point = Vector(-0.770, 0,  0.000), start = 270, stop = 270},
+            },
+            aft_port = {
+                {point = Vector(-0.770, 0,  0.000), start = 270, stop = 270},
+                {point = Vector(-0.770, 0, -0.804), start = 270, stop = 333},
+                {point = Vector(-0.661, 0, -0.920), start = 333, stop = 350},
+                {point = Vector(-0.367, 0, -1.070), start = 350, stop = 360},
+                {point = Vector(-0.000, 0, -1.070), start = 360, stop = 360}
+            },
+            bow = {
+                {point = Vector( 0.442, 0,  1.032), start = 135, stop = 153},
+                {point = Vector( 0.367, 0,  1.070), start = 153, stop = 180},
+                {point = Vector(-0.367, 0,  1.070), start = 180, stop = 207},
+                {point = Vector(-0.442, 0,  1.032), start = 207, stop = 225}
+            },
+            stern = {
+                {point = Vector(-0.442, 0, -1.032), start = 315, stop = 333},
+                {point = Vector(-0.367, 0, -1.070), start = 333, stop = 360},
+                {point = Vector( 0.367, 0, -1.070), start = 0, stop = 27},
+                {point = Vector( 0.442, 0, -1.032), start = 27, stop = 45}
+            }
+        }
     },
     medium = {
-        warpAttachment = Vector(0.45, 0, 1),
+        warpAttachment = Vector(0.427, 0, 1.03),
         toolAttachment = {
-            fore = {pos = Vector(-2, 0 , 0), rot = 0},
-            aft = {pos = Vector(2, 0, 0), rot = 180},
-            port = {pos = Vector(0, 0, -1.25), rot = 270},
-            starboard = {pos = Vector(0, 0, 1.25), rot = 90}
+            fore = {pos = Vector(-2.065, 0 , 0), rot = 0},
+            aft = {pos = Vector(2.065, 0, 0), rot = 180},
+            port = {pos = Vector(0, 0, -1.29), rot = 270},
+            starboard = {pos = Vector(0, 0, 1.29), rot = 90}
         },
         arcOffsets = {bow = Vector(-0.8, 0, 0), stern = Vector(0.8, 0, 0)}, arcHeight = 0.05,
-        bounds = Vector(3.5, 0, 2)
+        bounds = Vector(3.48, 0, 2.06),
+        arcs = {
+            aft_starboard = {
+                {point = Vector( 0.000, 0, -1.740), start = 0, stop = 0},
+                {point = Vector( 0.380, 0, -1.740), start = 0, stop = 10},
+                {point = Vector( 0.567, 0, -1.707), start = 10, stop = 27},
+                {point = Vector( 1.030, 0, -1.471), start = 27, stop = 90},
+                {point = Vector( 1.030, 0,  0.000), start = 90, stop = 90},
+            },
+            fore_starboard = {
+                {point = Vector( 1.030, 0,  0.000), start = 90, stop = 90},
+                {point = Vector( 1.030, 0,  1.471), start = 90, stop = 153},
+                {point = Vector( 0.567, 0,  1.707), start = 153, stop = 170},
+                {point = Vector( 0.380, 0,  1.740), start = 170, stop = 180},
+                {point = Vector( 0.000, 0,  1.740), start = 180, stop = 180}
+            },
+            fore_port = {
+                {point = Vector( 0.000, 0,  1.740), start = 180, stop = 180},
+                {point = Vector(-0.380, 0,  1.740), start = 180, stop = 190},
+                {point = Vector(-0.567, 0,  1.707), start = 190, stop = 207},
+                {point = Vector(-1.030, 0,  1.471), start = 207, stop = 170},
+                {point = Vector(-1.030, 0,  0.000), start = 270, stop = 270},
+            },
+            aft_port = {
+                {point = Vector(-1.030, 0,  0.000), start = 270, stop = 270},
+                {point = Vector(-1.030, 0, -1.471), start = 270, stop = 333},
+                {point = Vector(-0.567, 0, -1.707), start = 333, stop = 350},
+                {point = Vector(-0.380, 0, -1.740), start = 350, stop = 360},
+                {point = Vector( 0.000, 0, -1.740), start = 360, stop = 360}
+            },
+            bow = {
+                {point = Vector( 0.776, 0,  1.601), start = 135, stop = 153},
+                {point = Vector( 0.567, 0,  1.707), start = 153, stop = 170},
+                {point = Vector( 0.380, 0,  1.740), start = 170, stop = 180},
+                {point = Vector(-0.380, 0,  1.740), start = 180, stop = 190},
+                {point = Vector(-0.567, 0,  1.707), start = 190, stop = 207},
+                {point = Vector(-0.776, 0,  1.601), start = 207, stop = 225}
+            },
+            stern = {
+                {point = Vector(-0.776, 0, -1.601), start = 315, stop = 333},
+                {point = Vector(-0.567, 0, -1.707), start = 333, stop = 350},
+                {point = Vector(-0.380, 0, -1.740), start = 350, stop = 360},
+                {point = Vector( 0.380, 0, -1.740), start = 0, stop = 10},
+                {point = Vector( 0.567, 0, -1.707), start = 10, stop = 27}, 
+                {point = Vector( 0.776, 0, -1.601), start = 27, stop = 45}
+            }
+        }
     },
     large = {
-        warpAttachment = Vector(0.45, 0, 1.25),
+        warpAttachment = Vector(1.275, 0, 0.43),
         toolAttachment = {
-            fore = {pos = Vector(-2.75, 0 , 0), rot = 0},
-            aft = {pos = Vector(2.75, 0, 0), rot = 180},
-            port = {pos = Vector(0, 0, -1.5), rot = 270},
-            starboard = {pos = Vector(0, 0, 1.5), rot = 90}
+            fore = {pos = Vector(-2.82, 0 , 0), rot = 0},
+            aft = {pos = Vector(2.82, 0, 0), rot = 180},
+            port = {pos = Vector(0, 0, -1.53), rot = 270},
+            starboard = {pos = Vector(0, 0, 1.53), rot = 90}
         },
         arcOffsets = {bow = Vector(-1.25, 0, 0), stern = Vector(1.25, 0, 0)}, arcHeight = 0.05,
-        bounds = Vector(5, 0, 2.5)
+        bounds = Vector(5, 0, 2.55),
+        arcs = {
+            aft_starboard = {
+                {point = Vector( 0.000, 0, -2.500), start = 0, stop = 0},
+                {point = Vector( 0.384, 0, -2.500), start = 0, stop = 10},
+                {point = Vector( 0.812, 0, -2.425), start = 10, stop = 27},
+                {point = Vector( 1.275, 0, -2.189), start = 27, stop = 90},
+                {point = Vector( 1.275, 0,  0.000), start = 90, stop = 90},
+            },
+            fore_starboard = {
+                {point = Vector( 1.275, 0,  0.000), start = 90, stop = 90},
+                {point = Vector( 1.275, 0,  2.189), start = 90, stop = 153},
+                {point = Vector( 0.812, 0,  2.425), start = 153, stop = 170},
+                {point = Vector( 0.384, 0,  2.500), start = 170, stop = 180},
+                {point = Vector(-0.000, 0,  2.500), start = 180, stop = 180}
+            },
+            fore_port = {
+                {point = Vector( 0.000, 0,  2.500), start = 180, stop = 180},
+                {point = Vector(-0.384, 0,  2.500), start = 180, stop = 190},
+                {point = Vector(-0.812, 0,  2.425), start = 190, stop = 207},
+                {point = Vector(-1.275, 0,  2.189), start = 207, stop = 170},
+                {point = Vector(-1.275, 0,  0.000), start = 270, stop = 270},
+            },
+            aft_port = {
+                {point = Vector(-1.275, 0,  0.000), start = 270, stop = 270},
+                {point = Vector(-1.275, 0, -2.189), start = 270, stop = 333},
+                {point = Vector(-0.812, 0, -2.425), start = 333, stop = 350},
+                {point = Vector(-0.384, 0, -2.500), start = 350, stop = 360},
+                {point = Vector( 0.000, 0, -2.500), start = 360, stop = 360}
+            },
+            bow = {
+                {point = Vector( 1.066, 0,  2.296), start = 135, stop = 153},
+                {point = Vector( 0.812, 0,  2.425), start = 153, stop = 170},
+                {point = Vector( 0.384, 0,  2.500), start = 170, stop = 180},
+                {point = Vector(-0.384, 0,  2.500), start = 180, stop = 190},
+                {point = Vector(-0.812, 0,  2.425), start = 190, stop = 207},
+                {point = Vector(-1.066, 0,  2.296), start = 207, stop = 225}
+            },
+            stern = {
+                {point = Vector(-1.066, 0, -2.296), start = 315, stop = 333},
+                {point = Vector(-0.812, 0, -2.425), start = 333, stop = 350},
+                {point = Vector(-0.384, 0, -2.500), start = 350, stop = 360},
+                {point = Vector( 0.384, 0, -2.500), start = 0, stop = 10},
+                {point = Vector( 0.812, 0, -2.425), start = 10, stop = 27}, 
+                {point = Vector( 1.066, 0, -2.296), start = 27, stop = 45}
+            }
+        }
     }
+}
+
+COMPOUND_ARCS = {
+    all = {"aft_port", "fore_port", "fore_starboard", "aft_starboard"},
+    fore = {"fore_port", "fore_starboard"},
+    aft = {"aft_starboard", "aft_port"},
+    starboard = {"fore_starboard", "aft_starboard"},
+    port = {"aft_port", "fore_port"}
 }
 
 ARCS = { -- aft = 0, left handed coords
@@ -519,9 +675,10 @@ end
 
 function drawArc(system, jammed) -- system is "sensors", "comms", "weapons"
     local myShip = getObjectFromGUID(saveData.shipGUID)
-    local arcs = shipData[system]
+    local stats = shipData[system]
     local clr = myShip.getColorTint()
     local size = BASE_CONST[shipData.size].bounds
+    local geometry = BASE_CONST[shipData.size].arcs
     local lines = {}
     --[[ Axis overlay
         local v = Vector(1,1,0)
@@ -532,55 +689,96 @@ function drawArc(system, jammed) -- system is "sensors", "comms", "weapons"
             {points = {{0,1,0}, {0,1,5}},color = {0,0,1}}
         } 
         --]]
-    for arc, range in pairs(arcs) do
-        local origin = BASE_CONST[shipData.size].arcOffsets and Vector(BASE_CONST[shipData.size].arcOffsets[arc]) or Vector(0, 0, 0)
-        origin.y = origin.y + BASE_CONST[shipData.size].arcHeight
-        if ARCS[arc] then
-            -- Calculate range
-            if jammed and system ~= "weapons" then
-                range = 2
-            elseif arcs.instruments and arcs.instruments[arc] then
-                range = range + shipData.instruments[saveData.dials.alert.value + 1]
-            end
-            -- Calculate vectors
-            local start_angle = ARCS[arc][1]
-            local end_angle = ARCS[arc][2]
+    for name, range in pairs(stats) do
+        local arcs
+        -- Calculate range
+        if jammed and system ~= "weapons" then
+            range = 2
+        elseif arcs.instruments and arcs.instruments[arc] then
+            range = range + shipData.instruments[saveData.dials.alert.value + 1]
+        end
+        if geometry[name] then
+            arcs = {name}
+        elseif COMPOUND_ARCS[name] then
+            arcs = COMPOUND_ARCS[name]
+        else
+            log("Unable to find geometry for " .. name .. " arc")
+        end
+        if arcs then
             local points = {}
-            local theta = start_angle
-            local m = Vector(range, 0, 0)
-            m:rotateOver("y", start_angle)
-            local focal_point = calculateIntersect(size, m, origin)
-            if arc ~= "all" then
-                table.insert(points, focal_point:copy())
+            local start = geometry[arcs[1]].point:copy()
+            local stop
+            for _, arc in ipairs(arcs) do
+                calculatePoints(points, geometry[arc], range)
+                stop = geometry[arc][#geometry[arc]]
             end
-            while theta < 360 and theta < end_angle do
-                table.insert(points, focal_point + m)
-                if theta == -90 or theta == 270 then
-                    focal_point.x = size.x/2
-                elseif theta == 0 then
-                    focal_point.z = -size.z/2
-                elseif theta == 90 then
-                    focal_point.x = -size.x/2
-                elseif theta == 180 then
-                    focal_point.z = size.z/2
-                end
-                if theta % 90 == 0 then
-                    table.insert(points, focal_point + m)
-                end
-                theta = theta + 1
-                m:rotateOver("y", 1)
-            end
-            table.insert(points, focal_point + m)
-            focal_point = calculateIntersect(size, m, origin)
-            table.insert(points, focal_point + m)
-            if arc ~= "all" then
-                table.insert(points, focal_point:copy())
+            if name ~= "all" then
+                table.insert(points, 1, start)
+                table.insert(points, stop)
             end
             table.insert(lines, {points = points, color = clr, thickness = 0.02})
         end
-        -- do something
     end
+    -- for arc, range in pairs(arcs) do
+    --     local origin = BASE_CONST[shipData.size].arcOffsets and Vector(BASE_CONST[shipData.size].arcOffsets[arc]) or Vector(0, 0, 0)
+    --     origin.y = origin.y + BASE_CONST[shipData.size].arcHeight
+    --     if ARCS[arc] then
+    --         -- Calculate range
+    --         if jammed and system ~= "weapons" then
+    --             range = 2
+    --         elseif arcs.instruments and arcs.instruments[arc] then
+    --             range = range + shipData.instruments[saveData.dials.alert.value + 1]
+    --         end
+    --         -- Calculate vectors
+    --         local start_angle = ARCS[arc][1]
+    --         local end_angle = ARCS[arc][2]
+    --         local points = {}
+    --         local theta = start_angle
+    --         local m = Vector(range, 0, 0)
+    --         m:rotateOver("y", start_angle)
+    --         local focal_point = calculateIntersect(size, m, origin)
+    --         if arc ~= "all" then
+    --             table.insert(points, focal_point:copy())
+    --         end
+    --         while theta < 360 and theta < end_angle do
+    --             table.insert(points, focal_point + m)
+    --             if theta == -90 or theta == 270 then
+    --                 focal_point.x = size.x/2
+    --             elseif theta == 0 then
+    --                 focal_point.z = -size.z/2
+    --             elseif theta == 90 then
+    --                 focal_point.x = -size.x/2
+    --             elseif theta == 180 then
+    --                 focal_point.z = size.z/2
+    --             end
+    --             if theta % 90 == 0 then
+    --                 table.insert(points, focal_point + m)
+    --             end
+    --             theta = theta + 1
+    --             m:rotateOver("y", 1)
+    --         end
+    --         table.insert(points, focal_point + m)
+    --         focal_point = calculateIntersect(size, m, origin)
+    --         table.insert(points, focal_point + m)
+    --         if arc ~= "all" then
+    --             table.insert(points, focal_point:copy())
+    --         end
+    --         table.insert(lines, {points = points, color = clr, thickness = 0.02})
+    --     end
+    --     -- do something
+    -- end
     myShip.setVectorLines(lines)
+end
+
+function calculatePoints(points, geometry, range)
+    local m = Vector(range, 0, 0)
+    for _, vertex in iparis(geometry) do
+        n:rotateOver("y", vertex.start)
+        for theta = vertex.start, vertex.stop do
+            table.insert(points, vertex + m)
+            m:rotateOver("y", 1)
+        end
+    end
 end
 
 function firePhaser()
