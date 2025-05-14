@@ -690,33 +690,35 @@ function drawArc(system, jammed) -- system is "sensors", "comms", "weapons"
         } 
         --]]
     for name, range in pairs(stats) do
-        local arcs
-        -- Calculate range
-        if jammed and system ~= "weapons" then
-            range = 2
-        elseif arcs.instruments and arcs.instruments[arc] then
-            range = range + shipData.instruments[saveData.dials.alert.value + 1]
-        end
-        if geometry[name] then
-            arcs = {name}
-        elseif COMPOUND_ARCS[name] then
-            arcs = COMPOUND_ARCS[name]
-        else
-            log("Unable to find geometry for " .. name .. " arc")
-        end
-        if arcs then
-            local points = {}
-            local start = geometry[arcs[1]][1].point:copy()
-            local stop
-            for _, arc in ipairs(arcs) do
-                calculatePoints(points, geometry[arc], range)
-                stop = geometry[arc][#geometry[arc]]
+        if name ~= "instruments" then
+            local arcs
+            -- Calculate range
+            if jammed and system ~= "weapons" then
+                range = 2
+            elseif stats.instruments and stats.instruments[arc] then
+                range = range + shipData.instruments[saveData.dials.alert.value + 1]
             end
-            if name ~= "all" then
-                table.insert(points, 1, start)
-                table.insert(points, stop)
+            if geometry[name] then
+                arcs = {name}
+            elseif COMPOUND_ARCS[name] then
+                arcs = COMPOUND_ARCS[name]
+            else
+                log("Unable to find geometry for " .. name .. " arc")
             end
-            table.insert(lines, {points = points, color = clr, thickness = 0.02})
+            if arcs then
+                local points = {}
+                local start = geometry[arcs[1]][1].point:copy()
+                local stop
+                for _, arc in ipairs(arcs) do
+                    calculatePoints(points, geometry[arc], range)
+                    stop = geometry[arc][#geometry[arc]]
+                end
+                if name ~= "all" then
+                    table.insert(points, 1, start)
+                    table.insert(points, stop)
+                end
+                table.insert(lines, {points = points, color = clr, thickness = 0.02})
+            end
         end
     end
     -- for arc, range in pairs(arcs) do
