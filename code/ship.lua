@@ -773,9 +773,8 @@ function drawArc(system, jammed) -- system is "sensors", "comms", "weapons"
 end
 
 function calculatePoints(points, geometry, range)
-    local m = Vector(range, 0, 0)
     for _, vertex in ipairs(geometry) do
-        m:rotateOver("y", vertex.start)
+        local m Vector(range, 0, 0):rotateOver("y", vertex.start)
         for theta = vertex.start, vertex.stop do
             table.insert(points, vertex.point + m)
             m:rotateOver("y", 1)
