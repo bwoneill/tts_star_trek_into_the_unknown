@@ -774,7 +774,7 @@ end
 
 function calculatePoints(points, geometry, range)
     for _, vertex in ipairs(geometry) do
-        local m Vector(range, 0, 0):rotateOver("y", vertex.start)
+        local m = Vector(range, 0, 0):rotateOver("y", vertex.start)
         for theta = vertex.start, vertex.stop do
             table.insert(points, vertex.point + m)
             m:rotateOver("y", 1)
@@ -943,4 +943,4 @@ function auxiliarySetup(player, value, id)
     setUp(player, value, id)
 end
 
--- build 1.0.1.5
+-- build 1.0.1.6
