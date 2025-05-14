@@ -680,7 +680,7 @@ function drawArc(system, jammed) -- system is "sensors", "comms", "weapons"
     local size = BASE_CONST[shipData.size].bounds
     local geometry = BASE_CONST[shipData.size].arcs
     local lines = {}
-    --[[ Axis overlay
+    -- Axis overlay
         local v = Vector(1,1,0)
         v:rotateOver("y", 45)
         local lines = {
@@ -688,7 +688,7 @@ function drawArc(system, jammed) -- system is "sensors", "comms", "weapons"
             {points = {{0,1,0}, {0,6,0}},color = {0,1,0}},
             {points = {{0,1,0}, {0,1,5}},color = {0,0,1}}
         } 
-        --]]
+       
     for name, range in pairs(stats) do
         if name ~= "instruments" then
             local arcs
@@ -944,4 +944,4 @@ function auxiliarySetup(player, value, id)
     setUp(player, value, id)
 end
 
--- build 1.0.1.2
+-- build 1.0.1.4
