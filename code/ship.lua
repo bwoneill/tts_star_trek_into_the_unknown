@@ -650,33 +650,12 @@ function fireTorpedo(direction)
 	template.createButton({ click_function = "clearTemplates",function_owner = self,label= "Clear", position= {.8, .2, 0},rotation= {0, 180, 0},width= 300,height= 200,font_size= 95,color= {1,1,1},font_color= {0,0,0}, tooltip= "Place Ruler aliened with template",})
 end
 
--- Single Primary Arc Drawing Code (Solid Outer Arc Only, 6" from the object's front edge)
 -- Assumes all objects are scale = 1 and their dimensions returned by getBounds() are in inches.
-
-function calculateIntersect(size, m, origin)
-    local distances = {
-        size.x/m.x/2 - origin.x,
-        -size.x/m.x/2 - origin.x,
-        size.z/m.z/2 - origin.z,
-        -size.z/m.z/2 - origin.z
-    }
-    local min = 10000
-    for i, d in ipairs(distances) do
-        if d > 0 and d < min then
-            min = d
-        end
-    end
-    local value = m * min + origin
-    value.x = constrainValue(value.x, -size.x/2, size.x/2)
-    value.z = constrainValue(value.z, -size.z/2, size.z/2)
-    return value
-end
 
 function drawArc(system, jammed) -- system is "sensors", "comms", "weapons"
     local myShip = getObjectFromGUID(saveData.shipGUID)
     local stats = shipData[system]
     local clr = myShip.getColorTint()
-    local size = BASE_CONST[shipData.size].bounds
     local geometry = BASE_CONST[shipData.size].arcs
     local lines = {}
     -- Axis overlay
@@ -706,7 +685,7 @@ function drawArc(system, jammed) -- system is "sensors", "comms", "weapons"
                 local start = geometry[arcs[1]][1].point:copy()
                 local stop
                 for _, arc in ipairs(arcs) do
-                    calculatePoints(points, geometry[arc], range)
+                    sweepOverPoints(points, geometry[arc], range)
                     stop = geometry[arc][#geometry[arc]].point:copy()
                 end
                 if name ~= "all" then
@@ -722,14 +701,26 @@ function drawArc(system, jammed) -- system is "sensors", "comms", "weapons"
     myShip.setVectorLines(lines)
 end
 
-function calculatePoints(points, geometry, range)
+function sweepOverPoints(points, geometry, range)
     for _, vertex in ipairs(geometry) do
-        local m = Vector(range, 0, 0):rotateOver("y", vertex.start)
+        local m = Vector(range, 0.1, 0):rotateOver("y", vertex.start)
         for theta = vertex.start, vertex.stop do
             table.insert(points, vertex.point + m)
             m:rotateOver("y", 1)
         end
     end
+end
+
+function drawBase()
+    local myShip = getObjectFromGUID(saveData.shipGUID)
+    local geometry = BASE_CONST[shipData.size].arcs
+    local lines = {}
+    local arcs = COMPOUND_ARCS["all"]
+    for _, arc in ipairs(arcs) do
+        sweepOverPoints(points, geometry[arc], 0)
+    end
+    table.insert(lines, {points = points, color = Color.Black, thickness = 0.02})
+    myShip.setVectorLines(lines)
 end
 
 function firePhaser()
@@ -893,4 +884,4 @@ function auxiliarySetup(player, value, id)
     setUp(player, value, id)
 end
 
--- build 1.0.1.10
+-- build 1.0.1.11
