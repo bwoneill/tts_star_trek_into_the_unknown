@@ -706,7 +706,7 @@ function drawArc(system, jammed) -- system is "sensors", "comms", "weapons"
         end
         if arcs then
             local points = {}
-            local start = geometry[arcs[1]].point:copy()
+            local start = geometry[arcs[1]][1].point:copy()
             local stop
             for _, arc in ipairs(arcs) do
                 calculatePoints(points, geometry[arc], range)
