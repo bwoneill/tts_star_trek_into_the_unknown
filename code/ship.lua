@@ -692,7 +692,7 @@ function drawArc(system, jammed) -- system is "sensors", "comms", "weapons"
             -- Calculate range
             if jammed and system ~= "weapons" then
                 range = 2
-            elseif stats.instruments and stats.instruments[arc] then
+            elseif stats.instruments and stats.instruments[name] then
                 range = range + shipData.instruments[saveData.dials.alert.value + 1]
             end
             if geometry[name] then
@@ -894,4 +894,4 @@ function auxiliarySetup(player, value, id)
     setUp(player, value, id)
 end
 
--- build 1.0.1.8
+-- build 1.0.1.9
