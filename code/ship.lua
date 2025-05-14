@@ -62,8 +62,8 @@ BASE_CONST = {
             },
             fore_port = {
                 {point = Vector( 0.000, 0, -0.770), start = 90, stop = 90},
-                {point = Vector(-0.804, 0, -0.770), start = 90, stop = 137},
-                {point = Vector(-0.920, 0, -0.611), start = 137, stop = 153},
+                {point = Vector(-0.804, 0, -0.770), start = 90, stop = 133},
+                {point = Vector(-0.920, 0, -0.611), start = 133, stop = 153},
                 {point = Vector(-1.070, 0, -0.367), start = 153, stop = 180},
                 {point = Vector(-1.070, 0,  0.000), start = 180, stop = 180},
             },
@@ -893,4 +893,4 @@ function auxiliarySetup(player, value, id)
     setUp(player, value, id)
 end
 
--- build 1.0.1.9
+-- build 1.0.1.10
