@@ -708,11 +708,11 @@ function drawArc(system, jammed) -- system is "sensors", "comms", "weapons"
                 local stop
                 for _, arc in ipairs(arcs) do
                     calculatePoints(points, geometry[arc], range)
-                    stop = geometry[arc][#geometry[arc]]
+                    stop = geometry[arc][#geometry[arc]].point:copy()
                 end
                 if name ~= "all" then
-                    log(start)
-                    log(stop)
+                    -- log(start)
+                    -- log(stop)
                     table.insert(points, 1, start)
                     table.insert(points, stop)
                 end
@@ -894,4 +894,4 @@ function auxiliarySetup(player, value, id)
     setUp(player, value, id)
 end
 
--- build 1.0.1.7
+-- build 1.0.1.8
