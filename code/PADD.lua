@@ -40,6 +40,11 @@ panelIds = {"fPanel", "stagingPanel", "vertCardSelector", "horCardSelector", "se
 SAVE_VERSION = "1.0"
 
 function onLoad()
+    downloadScript()
+    start()
+end
+
+function downloadScript()
     local request = WebRequest.get(
         CODE_ROOT .. "ship.lua",
         function(r)
@@ -50,7 +55,7 @@ function onLoad()
             end
         end
     )
-    start()
+    repeat until request.is_done
 end
 
 -- Faction Selection
