@@ -192,20 +192,20 @@ BASE_CONST = {
                 {point = Vector( 2.500, 0,  0.000), start = 360, stop = 360},
             },
             stern = {
-                {point = Vector( 2.296, 0, -1.066), start = 315, stop = 333},
-                {point = Vector( 2.425, 0, -0.812), start = 333, stop = 350},
-                {point = Vector( 2.500, 0, -0.384), start = 350, stop = 360},
-                {point = Vector( 2.500, 0,  0.384), start = 0, stop = 10},
-                {point = Vector( 2.425, 0,  0.812), start = 10, stop = 27},
-                {point = Vector( 2.296, 0,  1.066), start = 27, stop = 45}
+                {point = Vector( 2.296, 0,  1.066), start = 315, stop = 333},
+                {point = Vector( 2.425, 0,  0.812), start = 333, stop = 350},
+                {point = Vector( 2.500, 0,  0.384), start = 350, stop = 360},
+                {point = Vector( 2.500, 0, -0.384), start = 0, stop = 10},
+                {point = Vector( 2.425, 0, -0.812), start = 10, stop = 27},
+                {point = Vector( 2.296, 0, -1.066), start = 27, stop = 45}
             },
             bow = {
-                {point = Vector(-2.296, 0,  1.066), start = 135, stop = 153},
-                {point = Vector(-2.425, 0,  0.812), start = 153, stop = 170},
-                {point = Vector(-2.500, 0,  0.384), start = 170, stop = 180},
-                {point = Vector(-2.500, 0, -0.384), start = 180, stop = 190},
-                {point = Vector(-2.425, 0, -0.812), start = 190, stop = 207},
-                {point = Vector(-2.296, 0, -1.066), start = 207, stop = 225}
+                {point = Vector(-2.296, 0, -1.066), start = 135, stop = 153},
+                {point = Vector(-2.425, 0, -0.812), start = 153, stop = 170},
+                {point = Vector(-2.500, 0, -0.384), start = 170, stop = 180},
+                {point = Vector(-2.500, 0,  0.384), start = 180, stop = 190},
+                {point = Vector(-2.425, 0,  0.812), start = 190, stop = 207},
+                {point = Vector(-2.296, 0,  1.066), start = 207, stop = 225}
             }
         }
     }
@@ -682,11 +682,11 @@ function drawArc(system, jammed) -- system is "sensors", "comms", "weapons"
             end
             if arcs then
                 local points = {}
-                local start = geometry[arcs[1]][1].point:copy()
+                local start = geometry[arcs[1]][1].point:copy() + Vector(0, 0.1, 0)
                 local stop
                 for _, arc in ipairs(arcs) do
                     sweepOverPoints(points, geometry[arc], range)
-                    stop = geometry[arc][#geometry[arc]].point:copy()
+                    stop = geometry[arc][#geometry[arc]].point:copy() + Vector(0, 0.1, 0)
                 end
                 if name ~= "all" then
                     -- log(start)
@@ -703,10 +703,8 @@ end
 
 function sweepOverPoints(points, geometry, range)
     for _, vertex in ipairs(geometry) do
-        local m = Vector(range, 0.1, 0):rotateOver("y", vertex.start)
         for theta = vertex.start, vertex.stop do
-            table.insert(points, vertex.point + m)
-            m:rotateOver("y", 1)
+            table.insert(points, vertex.point + Vector(range * math.cos(theta), 0.1, - range * math.sin(theta)))
         end
     end
 end
@@ -885,4 +883,4 @@ function auxiliarySetup(player, value, id)
     setUp(player, value, id)
 end
 
--- build 1.0.1.11
+-- build 1.0.1.12
