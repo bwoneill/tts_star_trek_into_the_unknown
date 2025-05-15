@@ -20,8 +20,7 @@ DIAL_CONST = {
 
 BASE_CONST = {
     shuttle = {
-        bounds = Vector(0.76, 0, 1.47), arcHeight = 0.05,
-        warpAttachment = Vector(0.38, 0, 0.319),
+        warpAttachment = Vector(0.319, 0, 0.38),
         toolAttachment = {
             fore = {pos = Vector(-1.14, 0 , 0), rot = 0},
             aft = {pos = Vector(1.14, 0, 0), rot = 180},
@@ -43,15 +42,13 @@ BASE_CONST = {
         }
     },
     small = {
-        warpAttachment = Vector(0.77, 0, 0.404),
+        warpAttachment = Vector(0.404, 0, 0.77),
         toolAttachment = {
             fore = {pos = Vector(-1.41, 0 , 0), rot = 0},
             aft = {pos = Vector(1.41, 0, 0), rot = 180},
             port = {pos = Vector(0, 0, -1.065), rot = 270},
             starboard = {pos = Vector(0, 0, 1.065), rot = 90}
         },
-        arcOffsets = {bow = Vector(-0.6, 0, 0), stern = Vector(0.6, 0, 0)}, arcHeight = 0.05,
-        bounds = Vector(2.14, 0, 1.54),
         arcs = {
             aft_port = {
                 {point = Vector( 1.070, 0,  0.000), start = 0, stop = 0},
@@ -96,15 +93,13 @@ BASE_CONST = {
         }
     },
     medium = {
-        warpAttachment = Vector(1.03, 0, 0.427),
+        warpAttachment = Vector(0.427, 0, 1.03),
         toolAttachment = {
             fore = {pos = Vector(-2.065, 0 , 0), rot = 0},
             aft = {pos = Vector(2.065, 0, 0), rot = 180},
             port = {pos = Vector(0, 0, -1.29), rot = 270},
             starboard = {pos = Vector(0, 0, 1.29), rot = 90}
         },
-        arcOffsets = {bow = Vector(-0.8, 0, 0), stern = Vector(0.8, 0, 0)}, arcHeight = 0.05,
-        bounds = Vector(3.48, 0, 2.06),
         arcs = {
             aft_port = {
                 {point = Vector( 1.740, 0,  0.000), start = 0, stop = 0},
@@ -160,8 +155,6 @@ BASE_CONST = {
             port = {pos = Vector(0, 0, -1.53), rot = 270},
             starboard = {pos = Vector(0, 0, 1.53), rot = 90}
         },
-        arcOffsets = {bow = Vector(-1.25, 0, 0), stern = Vector(1.25, 0, 0)}, arcHeight = 0.05,
-        bounds = Vector(5, 0, 2.55),
         arcs = {
             aft_port = {
                 {point = Vector( 2.500, 0,  0.000), start = 0, stop = 0},
@@ -881,4 +874,4 @@ function auxiliarySetup(player, value, id)
     setUp(player, value, id)
 end
 
--- build 1.0.1.14
+-- build 1.0.1.15
