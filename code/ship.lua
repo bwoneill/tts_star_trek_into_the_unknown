@@ -63,21 +63,21 @@ BASE_CONST = {
             fore_port = {
                 {point = Vector( 0.000, 0, -0.770), start = 90, stop = 90},
                 {point = Vector(-0.804, 0, -0.770), start = 90, stop = 133},
-                {point = Vector(-0.920, 0, -0.611), start = 133, stop = 153},
+                {point = Vector(-0.920, 0, -0.661), start = 133, stop = 153},
                 {point = Vector(-1.070, 0, -0.367), start = 153, stop = 180},
                 {point = Vector(-1.070, 0,  0.000), start = 180, stop = 180},
             },
             fore_starboard = {
                 {point = Vector(-1.070, 0,  0.000), start = 180, stop = 180},
                 {point = Vector(-1.070, 0,  0.367), start = 180, stop = 207},
-                {point = Vector(-0.920, 0,  0.611), start = 207, stop = 227},
+                {point = Vector(-0.920, 0,  0.661), start = 207, stop = 227},
                 {point = Vector(-0.804, 0,  0.770), start = 227, stop = 270},
                 {point = Vector( 0.000, 0,  0.770), start = 270, stop = 270},
             },
             aft_starboard = {
                 {point = Vector( 0.000, 0,  0.770), start = 270, stop = 270},
                 {point = Vector( 0.804, 0,  0.770), start = 270, stop = 313},
-                {point = Vector( 0.920, 0,  0.611), start = 313, stop = 333},
+                {point = Vector( 0.920, 0,  0.661), start = 313, stop = 333},
                 {point = Vector( 1.070, 0,  0.367), start = 333, stop = 360},
                 {point = Vector( 1.070, 0,  0.000), start = 0, stop = 0},
             },
@@ -682,15 +682,13 @@ function drawArc(system, jammed) -- system is "sensors", "comms", "weapons"
             end
             if arcs then
                 local points = {}
-                local start = geometry[arcs[1]][1].point:copy() + Vector(0, 0.1, 0)
+                local start = geometry[arcs[1]][1].point + Vector(0, 0.1, 0)
                 local stop
                 for _, arc in ipairs(arcs) do
                     sweepOverPoints(points, geometry[arc], range)
-                    stop = geometry[arc][#geometry[arc]].point:copy() + Vector(0, 0.1, 0)
+                    stop = geometry[arc][#geometry[arc]].point + Vector(0, 0.1, 0)
                 end
                 if name ~= "all" then
-                    -- log(start)
-                    -- log(stop)
                     table.insert(points, 1, start)
                     table.insert(points, stop)
                 end
@@ -883,4 +881,4 @@ function auxiliarySetup(player, value, id)
     setUp(player, value, id)
 end
 
--- build 1.0.1.13
+-- build 1.0.1.14
