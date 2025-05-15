@@ -704,7 +704,7 @@ end
 function sweepOverPoints(points, geometry, range)
     for _, vertex in ipairs(geometry) do
         for theta = vertex.start, vertex.stop do
-            table.insert(points, vertex.point + Vector(range * math.cos(theta), 0.1, - range * math.sin(theta)))
+            table.insert(points, vertex.point + Vector(range * math.cos(math.rad(theta)), 0.1, - range * math.sin(math.rad(theta))))
         end
     end
 end
@@ -883,4 +883,4 @@ function auxiliarySetup(player, value, id)
     setUp(player, value, id)
 end
 
--- build 1.0.1.12
+-- build 1.0.1.13
