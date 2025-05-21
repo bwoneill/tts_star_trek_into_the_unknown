@@ -45,9 +45,9 @@
 </Defaults>
 
 <Button id = "start" onClick = "start" width = "100" height = "50" color = "Blue"
-    textColor = "White" rotation = "0 0 90" position = "550 -300 -12"> Start</Button>
+    textColor = "White" rotation = "0 0 90" position = "550 -300 -30"> Start</Button>
 
-<Panel width = "1100" height = "800" position = "-135 0 -12" color = "Black">
+<Panel width = "1100" height = "800" position = "-135 0 -30" color = "Black">
     <!-- Faction Selection Panel -->
     <Panel id = "fPanel" active = "false">
         <Text fontSize = "48" offsetXY = "0 375">Choose a Faction</Text>
