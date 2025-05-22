@@ -302,7 +302,7 @@ function setUp(player, value, id)
     -- Ship
     if not saveData.shipGUID then
         local parameters = {
-            data = generateShipModelData(shipData, Color(player.color):setAt("a", 0.33)),
+            data = generateShipModelData(shipData, Color.fromString(player.color):setAt("a", 0.33)),
             position = pos + Vector(5.5, 0, -5.5):rotateOver("y", rot.y),
             rotation = rot
         }
