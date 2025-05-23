@@ -817,3 +817,5 @@ function spawn(player, value, id)
         end
     end
 end
+
+require("PADD/maps")
