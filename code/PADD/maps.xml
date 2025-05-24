@@ -1,10 +1,10 @@
-<Panel id = "maps" width = "1100" height = "800" position = "-135 0 -30" color = "Black" active = "fasle">
+<Panel id = "maps" width = "1100" height = "800" position = "-135 0 -30" color = "Black" active = "false">
     <Text fontSize = "48" offsetXY = "0 375">Choose a map</Text>
     <Button color = "Yellow" textColor = "Black" fontSize = "32" width = "150" height = "50"
         rectAlignment = "UpperLeft" text = "R Left" onClick = "rotateLeft" offsetXY = "150 0"/>
     <Button color = "Purple" textColor = "White" fontSize = "32" width = "150" height = "50"
         rectAlignment = "UpperRight" text = "R Right" onClick = "rotateRight" offsetXY = "-150 0"/>
-    <Button class = "back" onClick = "closeMaps"/>
+    <Button class = "back" onClick = "close(maps)"/>
     <VerticalScrollView>
         <Panel id = "mapsPanel">
             <GridLayout cellSize = "360 360" space = "10 10">

@@ -1,0 +1,7 @@
+<Button id = "start" onClick = "start" width = "100" height = "50" color = "Blue"
+    textColor = "White" rotation = "0 0 90" position = "550 -300 -30"> Start</Button>
+
+<Panel id = "startPanel" width = "1100" height = "800" position = "-135 0 -30" color = "Black">
+    <Button text = "Task Force" width = "200" height = "50" onClick = "start(taskForce)" color="Red"/>
+    <Button text = "Maps" width = "200" height = "50" offsetXY = "200 0" onClick = "start(maps)" color="Yellow"/>
+</Panel>

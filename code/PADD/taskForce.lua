@@ -1,4 +1,3 @@
-ASSET_ROOT = Global.getVar("ASSET_ROOT")
 CODE_ROOT = Global.getVar("CODE_ROOT")
 
 factions = Global.getTable("ASSETS").factions
@@ -7,6 +6,8 @@ xml_cache = {}
 
 coreOfficers = {"command", "ops", "science", "spec1", "spec2"}
 allOfficers = {"command", "ops", "science", "spec1", "spec2", "trans1", "trans2", "trans3", "trans4", "trans5", "trans6"}
+
+dirTypes = {"combat", "diplomacy", "exploration"}
 
 dirTypes = {"combat", "diplomacy", "exploration"}
 
@@ -38,12 +39,6 @@ defaultImages = {
 panelIds = {"fPanel", "stagingPanel", "vertCardSelector", "horCardSelector", "selectShip", "fleetStaging"}
 
 SAVE_VERSION = "1.0"
-
-function onLoad()
-    downloadScript()
-    start()
-end
-
 function downloadScript()
     local request = WebRequest.get(
         CODE_ROOT .. "ship.lua",
@@ -60,8 +55,10 @@ end
 
 -- Faction Selection
 
-function start(player, value, id)
-    hideAll()
+function taskForce(player, value, id)
+    if not SHIP_BOARD_SCRIPT then
+        downloadScript()
+    end
     build = {equipment = {}}
     local index = 1
     for name, faction in pairs(factions) do
@@ -79,7 +76,7 @@ function start(player, value, id)
             index = index + 1
         end
     end
-    self.UI.show("fPanel")
+    self.UI.show("taskForce")
 end
 
 function selectFaction(player, value, id)
@@ -104,7 +101,6 @@ end
 -- Officer Selection
 
 function selectOff(player, value, id)
-    hideAll()
     local filter = (id == "command" or id == "ops" or id == "science") and id or nil
     local count = 0
     for i, officer in ipairs(factions[build.faction].officers) do
@@ -136,7 +132,6 @@ function selectOff(player, value, id)
         self.UI.setAttribute("vc" .. i, "active", false)
     end
     self.UI.setAttributes("vCardScrollPanel", {height = 310 * math.ceil(count / 2) - 10})
-    self.UI.setAttribute("vcsBack", "onClick", "showStaging")
     self.UI.show("vertCardSelector")
 end
 
@@ -145,6 +140,7 @@ function offChoice(player, value, id)
     for id, i in pairs(values) do
         build[id] = factions[build.faction].officers[i]
     end
+    self.UI.hide("vertCardSelector")
     showStaging()
 end
 
@@ -158,7 +154,6 @@ end
 -- Directive Selection
 
 function selectDir(player, value, id)
-    hideAll()
     local directives = factions[build.faction].directives[id]
     for i, dir in ipairs(directives) do
         local paths = getDirectiveImages(dir)
@@ -178,7 +173,6 @@ function selectDir(player, value, id)
         self.UI.setAttribute("hc" .. i, "active", false)
     end
     self.UI.setAttribute("directiveScrollPanel", "height", #directives * 305 - 5)
-    self.UI.setAttribute("hcsBack", "onClick", "showStaging")
     self.UI.show("horCardSelector")
 end
 
@@ -187,6 +181,7 @@ function dirChoice(player, value, id)
     for id, i in pairs(values) do
         build[id] = factions[build.faction].directives[id][i]
     end
+    self.UI.hide("horCardSelector")
     showStaging()
 end
 
@@ -201,7 +196,6 @@ end
 -- Fleet Staging
 
 function fleetStaging(player, value, id)
-    hideAll()
     updateImages()
     updateFlexPoints()
     local attributes = {text = string.format("%i/%i", fp, 50 - cp), color = fp <= (50 - cp) and "White" or "Red"}
@@ -213,7 +207,6 @@ end
 -- Ship Selection
 
 function selectShip(player, value, id)
-    hideAll()
     local count = 0
     local filters = id == "ship1" and {"capital"} or {"scout", "specialist", "support"}
     for i, ship in pairs(factions[build.faction].ships) do
@@ -247,6 +240,7 @@ function shipChoice(player, value, id)
         build[index] = factions[build.faction].ships[i]
         build["title" .. index:match"%d+"] = nil
     end
+    self.UI.hide("selectShip")
     fleetStaging()
 end
 
@@ -269,7 +263,6 @@ function getEquipmentImages(equip)
 end
 
 function selectEquip(player, value, id)
-    hideAll()
     local index = tonumber(string.gmatch(id, "%d+")())
     local this = build.equipment[index]
     local count = 0
@@ -301,7 +294,6 @@ function selectEquip(player, value, id)
         self.UI.setAttribute("vc" .. i, "active", false)
     end
     self.UI.setAttributes("vCardScrollPanel", {height = 310 * math.ceil(count / 2) - 10})
-    self.UI.setAttribute("vcsBack", "onClick", "fleetStaging")
     self.UI.show("vertCardSelector")
 end
 
@@ -312,13 +304,13 @@ function equipChoice(player, value, id)
         build.equipment[index] = equipment[i]
         build.equipment[index].n = 1
     end
+    self.UI.hide("vertCardSelector")
     fleetStaging()
 end
 
 -- Title Selection
 
 function selectTitle(player, value, id)
-    hideAll()
     local index = tonumber(id:match"%d+")
     local ship = build["ship" .. index]
     local count = 0
@@ -344,7 +336,6 @@ function selectTitle(player, value, id)
         self.UI.setAttribute("vc" .. i, "active", false)
     end
     self.UI.setAttributes("vCardScrollPanel", {height = 310 * math.ceil(count / 2) -10})
-    self.UI.setAttribute("vcsBack", "onClick", "fleetStaging")
     self.UI.show("vertCardSelector")
 end
 
@@ -359,6 +350,7 @@ function titleChoice(player, value, id)
     for index, i in pairs(values) do
         build["title" .. index] = build["ship" .. index].titles[i]
     end
+    self.UI.hide("vertCardSelector")
     fleetStaging()
 end
 
@@ -448,7 +440,6 @@ function hideAll()
 end
 
 function updateImages()
-    hideAll()
     for type, path in pairs(defaultImages) do
         local image = getImage(type)
         self.UI.setAttribute(type, "image", image)
@@ -817,5 +808,3 @@ function spawn(player, value, id)
         end
     end
 end
-
-require("PADD/maps")

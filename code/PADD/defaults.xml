@@ -1,0 +1,43 @@
+<Defaults>
+    <VerticalScrollView height = "750" width = "1100" flexibleHeight = "50" color = "Black" scrollbarColors = "Blue"
+        scrollbarBackgroundColor = "Orange" rectAlignment = "UpperLeft" scrollSensitivity = "80" offsetXY = "0 -50"/>
+    <Text color = "White" fontSize = "20"/>
+    <Row class = "text" preferredHeight = "40"/>
+    <!-- Faction selection -->
+    <Image class = "fLogo" height = "330" width = "330"/>
+    <Panel class = "fLayout" active = "false" rectAlignment = "UpperLeft" outline = "White" height = "300"/>
+    <!-- Vertical card panel -->
+    <Panel class = "vertPanel" height = "300" width = "400" color = "Black"/>
+    <Image class = "vertFront" width = "200" height = "300" fillImageColor = "Black" offsetXY = "-100 0"/>
+    <Image class = "vertBack" width = "200" height = "300" fillImageColor = "Black" offsetXY = "100 0"/>
+    <Image class = "vertPort" height = "300" width = "200" fillImageColor = "Black"/>
+    <!-- Horizontal card panel -->
+    <Panel class = "horPanel" height = "300" width = "800" rectAlignment = "UpperLeft"/>
+    <Image class = "horFront" width = "400" height = "300" fillImageColor = "Black" offsetXY = "-200 0"/>
+    <Image class = "horBack" width = "400" height = "300" fillImageColor = "Black" offsetXY = "200 0"/>
+    <Image class = "horPort" width = "400" height = "300" fillImageColor = "Black"/>
+    <!-- Buttons -->
+    <Button class = "back" color = "Blue" textColor = "White" fontSize = "32" width = "150" height = "50"
+        rectAlignment = "UpperLeft" text = "Back"/>
+    <Button class = "next" color = "Orange" textColor = "Black" fontSize = "32" width = "150" height = "50"
+        rectAlignment = "UpperRight" text = "Next" onClick = "fleetStaging"/>
+    <Button class = "remove" color = "Red" textColor = "Black" width = "25" height = "25" rectAlignment = "UpperRight"
+        onClick = "remove" text = "X"/>
+    <Button class = "export" color = "Purple" textColor = "White" fontSize = "32" width = "150" height = "50"
+        rectAlignment = "UpperRight" text = "Export" onClick = "export" offsetXY = "-150 0"/>
+    <Button class = "import" color = "Yellow" textColor = "Black" fontSize = "32" width = "150" height = "50"
+        rectAlignment = "UpperLeft" text = "Import" onClick = "import" offsetXY = "150 0"/>
+    <Button class = "spawn" color = "Orange" textColor = "Black" fontSize = "32" width = "150" height = "50"
+        rectAlignment = "UpperRight" text = "Spawn" onClick = "spawn"/>
+    <!-- Selectors -->
+    <Image class = "offSel" height = "300" width = "200" onClick = "selectOff"/>
+    <Panel class = "offSel" height = "300" width = "200" rectAlignment = "UpperLeft" color = "#bbbdbf"/>
+    <Image class = "dirSel" onClick = "selectDir"/>
+    <Image class = "titleSel" height = "300" width = "200" onClick = "selectTitle"/>
+    <Toggle class = "selTrans" offsetXY = "0 -125" onValueChanged = "logTransfer"/>
+    <Panel class = "transfer" width = "250" height = "300" color = "#bbbdbf"/>
+    <Panel class = "title" width = "250" height = "300" color = "Black"/>
+    <Panel class = "equipment" width = "200" height = "300" color = "Black"/>
+    <Dropdown class = "equipment" width = "100" offsetXY = "0 -125" onValueChanged = "updateEquipment"/>
+    <Image class = "equip" color = "Black" onClick = "selectEquip"/>
+</Defaults>

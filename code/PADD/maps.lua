@@ -5,7 +5,7 @@ mapURLs = {
     "Space_Frost.jpg", "Starry_Knight.png", "Sword_of_Orion.png"
 }
 
-function mapChanger()
+function maps()
     for i, url in ipairs(mapURLs) do
         local attributes = {
             image = ASSET_ROOT .. "maps/" .. url,

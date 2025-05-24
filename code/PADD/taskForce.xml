@@ -1,56 +1,8 @@
-<!-- Xml UI. See documentation: https://api.tabletopsimulator.com/ui/introUI/ -->
-
-<Defaults>
-    <VerticalScrollView height = "750" width = "1100" flexibleHeight = "50" color = "Black" scrollbarColors = "Blue"
-        scrollbarBackgroundColor = "Orange" rectAlignment = "UpperLeft" scrollSensitivity = "80" offsetXY = "0 -50"/>
-    <Text color = "White" fontSize = "20"/>
-    <Row class = "text" preferredHeight = "40"/>
-    <!-- Faction selection -->
-    <Image class = "fLogo" height = "330" width = "330"/>
-    <Panel class = "fLayout" active = "false" rectAlignment = "UpperLeft" outline = "White" height = "300"/>
-    <!-- Vertical card panel -->
-    <Panel class = "vertPanel" height = "300" width = "400" color = "Black"/>
-    <Image class = "vertFront" width = "200" height = "300" fillImageColor = "Black" offsetXY = "-100 0"/>
-    <Image class = "vertBack" width = "200" height = "300" fillImageColor = "Black" offsetXY = "100 0"/>
-    <Image class = "vertPort" height = "300" width = "200" fillImageColor = "Black"/>
-    <!-- Horizontal card panel -->
-    <Panel class = "horPanel" height = "300" width = "800" rectAlignment = "UpperLeft"/>
-    <Image class = "horFront" width = "400" height = "300" fillImageColor = "Black" offsetXY = "-200 0"/>
-    <Image class = "horBack" width = "400" height = "300" fillImageColor = "Black" offsetXY = "200 0"/>
-    <Image class = "horPort" width = "400" height = "300" fillImageColor = "Black"/>
-    <!-- Buttons -->
-    <Button class = "back" color = "Blue" textColor = "White" fontSize = "32" width = "150" height = "50"
-        rectAlignment = "UpperLeft" text = "Back" onClick = "showStaging"/>
-    <Button class = "next" color = "Orange" textColor = "Black" fontSize = "32" width = "150" height = "50"
-        rectAlignment = "UpperRight" text = "Next" onClick = "fleetStaging"/>
-    <Button class = "remove" color = "Red" textColor = "Black" width = "25" height = "25" rectAlignment = "UpperRight"
-        onClick = "remove" text = "X"/>
-    <Button class = "export" color = "Purple" textColor = "White" fontSize = "32" width = "150" height = "50"
-        rectAlignment = "UpperRight" text = "Export" onClick = "export" offsetXY = "-150 0"/>
-    <Button class = "import" color = "Yellow" textColor = "Black" fontSize = "32" width = "150" height = "50"
-        rectAlignment = "UpperLeft" text = "Import" onClick = "import" offsetXY = "150 0"/>
-    <Button class = "spawn" color = "Orange" textColor = "Black" fontSize = "32" width = "150" height = "50"
-        rectAlignment = "UpperRight" text = "Spawn" onClick = "spawn"/>
-    <!-- Selectors -->
-    <Image class = "offSel" height = "300" width = "200" onClick = "selectOff"/>
-    <Panel class = "offSel" height = "300" width = "200" rectAlignment = "UpperLeft" color = "#bbbdbf"/>
-    <Image class = "dirSel" onClick = "selectDir"/>
-    <Image class = "titleSel" height = "300" width = "200" onClick = "selectTitle"/>
-    <Toggle class = "selTrans" offsetXY = "0 -125" onValueChanged = "logTransfer"/>
-    <Panel class = "transfer" width = "250" height = "300" color = "#bbbdbf"/>
-    <Panel class = "title" width = "250" height = "300" color = "Black"/>
-    <Panel class = "equipment" width = "200" height = "300" color = "Black"/>
-    <Dropdown class = "equipment" width = "100" offsetXY = "0 -125" onValueChanged = "updateEquipment"/>
-    <Image class = "equip" color = "Black" onClick = "selectEquip"/>
-</Defaults>
-
-<Button id = "start" onClick = "start" width = "100" height = "50" color = "Blue"
-    textColor = "White" rotation = "0 0 90" position = "550 -300 -30"> Start</Button>
-
-<Panel id = "fleetBuilder" width = "1100" height = "800" position = "-135 0 -30" color = "Black">
+<Panel id = "taskForce" width = "1100" height = "800" position = "-135 0 -30" color = "Black" active = "false">
     <!-- Faction Selection Panel -->
-    <Panel id = "fPanel" active = "false">
+    <Panel id = "fPanel">
         <Text fontSize = "48" offsetXY = "0 375">Choose a Faction</Text>
+        <Button class = "back" onClick = "close(taskForce)"/>
         <Button class = "import"/>
         <VerticalScrollView>
             <GridLayout cellSize = "330 330" spacing = "10 10">
@@ -70,9 +22,9 @@
         </VerticalScrollView>
     </Panel>
     <!-- Task Force Creation -->
-    <Panel id = "stagingPanel" active = "false">
+    <Panel id = "stagingPanel" active = "false" color = "Black">
         <Text fontSize = "32" offsetXY = "0 375">Task Force Creation</Text>
-        <Button class = "back" onClick = "start"/>
+        <Button class = "back" onClick = "close(stagingPanel)"/>
         <Button class = "next"/>
         <Button class = "import"/>
         <Button class = "export"/>
@@ -112,10 +64,10 @@
         </VerticalScrollView>
     </Panel>
     <!-- Fleet Staging -->
-    <Panel id = "fleetStaging" active = "false">
+    <Panel id = "fleetStaging" active = "false" color = "Black">
         <Text fontSize = "32" offsetXY = "0 375">Fleet Staging</Text>
         <Text offsetXY = "200 375" width = "150" height = "50" id = "fp" resizeTextForBestFit = "true"/>
-        <Button class = "back"/>
+        <Button class = "back" onClick = "close(fleetStaging)"/>
         <Button class = "export"/>
         <Button class = "import"/>
         <Button class = "spawn"/>
@@ -221,7 +173,7 @@
     </Panel>
     <!-- Ship Selection Panel -->
     <Panel id = "selectShip" active = "false">
-        <Button class = "back" onClick = "fleetStaging"/>
+        <Button class = "back" onClick = "close(selectShip)"/>
         <VerticalScrollView>
             <Panel id = "shipScrollPanel" height = "1960">
                 <GridLayout cellSize = "400 300" spacing = "5 5" colors = "Black">
@@ -236,7 +188,7 @@
     </Panel>
     <!-- Vertical card selector -->
     <Panel id = "vertCardSelector" active = "false">
-        <Button class = "back" id = "vcsBack"/>
+        <Button class = "back" id = "vcsBack" onClick = "close(vertCardSelector)"/>
         <VerticalScrollView>
             <Panel id = "vCardScrollPanel" height = "1960">
                 <GridLayout cellSize = "400 300" spacing = "10 10" colors = "Black">
@@ -266,7 +218,7 @@
     </Panel>
     <!-- Horizontal card selector -->
     <Panel id = "horCardSelector" active = "false">
-        <Button class = "back" id = "hcsBack"/>
+        <Button class = "back" id = "hcsBack" onClick = "horCardSelector"/>
         <VerticalScrollView>
             <Panel id = "hCardScrollPanel" height = "1960">
                 <GridLayout cellSize = "800 300" spacing = "5 5" colors = "Black">
@@ -280,5 +232,3 @@
         </VerticalScrollView>
     </Panel>
 </Panel>
-
-<Include src="PADD/maps.xml"/>
