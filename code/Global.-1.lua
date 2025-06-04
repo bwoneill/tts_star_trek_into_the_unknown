@@ -325,7 +325,7 @@ end]]
             officers = {
                 {name = "Eris", subtitle = "Manipulative Agent", unique = true, roles = {command = true, ops = true}, cp = 8, fp = 4},
                 {name = "Founder", roles = {command = true, ops = true, science = true}, cp = 9, fp = 6},
-                {name = "Hanok", subtitle = "Santimonious Minister", sway = {"ferengi"}, unique = true, roles = {ops = true, science = true}, cp = 9, fp = 3},
+                {name = "Hanok", subtitle = "Sanctimonious Minister", sway = {"ferengi"}, unique = true, roles = {ops = true, science = true}, cp = 9, fp = 3},
                 {name = "JemHadar First", roles = {ops = true}, cp = 8, fp = 3},
                 {name = "JemHadar Second", roles = {ops = true}, cp = 7, fp = 2},
                 {name = "Karemma Researcher", roles = {science = true}, cp = 7, fp = 3},
