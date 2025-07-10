@@ -1,6 +1,6 @@
 <!-- Xml UI. See documentation: https://api.tabletopsimulator.com/ui/introUI/ -->
 
-<HorizontalLayout width = "200" height = "25" rectAlignment = "UpperCenter" offsetXY = "0 -50">
+<!-- <HorizontalLayout width = "200" height = "25" rectAlignment = "UpperCenter" offsetXY = "0 -50">
     <Button 
         onClick = "drawFeatureRange"
         tooltip = "Draw 2&quot;, 4&quot;, and 6&quot; range on features on the board"
@@ -10,7 +10,7 @@
     <Button onClick = "clearFeatureRange">
         Clear
     </Button>
-</HorizontalLayout>
+</HorizontalLayout> -->
 
 <!-- <VerticalLayout width = "48" height = "240" rectAlignment = "MiddleRight">
     <Button onClick = "drawSystemBorders"
