@@ -1,0 +1,2 @@
+<Button height = "25" width = "75" position = "0 -35 -11" rotation = "0 0 0" color = "rgba(1,1,1,0.25)"
+    onClick = "toggleRanges(Red=2;Yellow=4;Green=6)">Range</Button>
