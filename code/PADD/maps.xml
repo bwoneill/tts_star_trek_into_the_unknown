@@ -1,27 +1,45 @@
 <Panel id = "maps" width = "1100" height = "800" position = "-135 0 -30" color = "Black" active = "false">
-    <Text fontSize = "48" offsetXY = "0 375">Choose a map</Text>
-    <Button color = "Yellow" textColor = "Black" fontSize = "32" width = "150" height = "50"
-        rectAlignment = "UpperLeft" text = "R Left" onClick = "rotateLeft" offsetXY = "150 0"/>
-    <Button color = "Purple" textColor = "White" fontSize = "32" width = "150" height = "50"
-        rectAlignment = "UpperRight" text = "R Right" onClick = "rotateRight" offsetXY = "-150 0"/>
-    <Button class = "back" onClick = "close(maps)"/>
-    <VerticalScrollView>
-        <Panel id = "mapsPanel">
+    <Panel>
+        <Text fontSize = "48" offsetXY = "0 375">Choose a map</Text>
+        <Button color = "Yellow" textColor = "Black" fontSize = "32" width = "150" height = "50"
+            rectAlignment = "UpperLeft" text = "R Left" onClick = "rotateLeft" offsetXY = "150 0"/>
+        <Button color = "Purple" textColor = "White" fontSize = "32" width = "150" height = "50"
+            rectAlignment = "UpperRight" text = "R Right" onClick = "rotateRight" offsetXY = "-150 0"/>
+        <Button color = "Orange" textColor = "Black" fontSize = "32" width = "150" height = "50"
+            rectAlignment = "UpperRight" text = "Layout" onClick = "layout"/>
+        <Button class = "back" onClick = "close(maps)"/>
+        <VerticalScrollView>
+            <Panel id = "mapsPanel">
+                <GridLayout cellSize = "360 360" space = "10 10">
+                    <Image id = "map1"/>
+                    <Image id = "map2"/>
+                    <Image id = "map3"/>
+                    <Image id = "map4"/>
+                    <Image id = "map5"/>
+                    <Image id = "map6"/>
+                    <Image id = "map7"/>
+                    <Image id = "map8"/>
+                    <Image id = "map9"/>
+                    <Image id = "map10"/>
+                    <Image id = "map11"/>
+                    <Image id = "map12"/>
+                    <Image id = "map13"/>
+                </GridLayout>
+            </Panel>
+        </VerticalScrollView>
+    </Panel>
+    <Panel id = "sysLayout" color = "Black" active = "false">
+        <Text fontSize = "48" offsetXY = "0 375">System layout</Text>
+        <Button class = "back" onClick = "close(sysLayout)"/>
+        <Panel offsetXY = "0 -50">
             <GridLayout cellSize = "360 360" space = "10 10">
-                <Image id = "map1"/>
-                <Image id = "map2"/>
-                <Image id = "map3"/>
-                <Image id = "map4"/>
-                <Image id = "map5"/>
-                <Image id = "map6"/>
-                <Image id = "map7"/>
-                <Image id = "map8"/>
-                <Image id = "map9"/>
-                <Image id = "map10"/>
-                <Image id = "map11"/>
-                <Image id = "map12"/>
-                <Image id = "map13"/>
+                <Image id = "solitary"/>
+                <Image id = "helix"/>
+                <Image id = "trinary"/>
+                <Image id = "empty"/>
+                <Image id = "draw"/>
+                <Image id = "clear"/>
             </GridLayout>
         </Panel>
-    </VerticalScrollView>
+    </Panel>
 </Panel>

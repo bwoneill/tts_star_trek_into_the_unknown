@@ -12,7 +12,7 @@
     </Button>
 </HorizontalLayout>
 
-<VerticalLayout width = "48" height = "240" rectAlignment = "MiddleRight">
+<!-- <VerticalLayout width = "48" height = "240" rectAlignment = "MiddleRight">
     <Button onClick = "drawSystemBorders"
         image = "https://raw.githubusercontent.com/bwoneill/tts_star_trek_into_the_unknown/v0.14_purple_data/assets/ui/draw_system_borders.png"
         tooltip = "Draw system borders" tooltipPosition = "Left">
@@ -33,4 +33,4 @@
         image = "https://raw.githubusercontent.com/bwoneill/tts_star_trek_into_the_unknown/v0.14_purple_data/assets/ui/trinary.png"
         tooltip = "Trinary setup" tooltipPosition = "Left">
     </Button>
-</VerticalLayout>
+</VerticalLayout> -->

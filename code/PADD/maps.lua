@@ -5,15 +5,23 @@ mapURLs = {
     "Space_Frost.jpg", "Starry_Knight.png", "Sword_of_Orion.png"
 }
 
+layoutURLs = {
+    solitary = "solitary.png", helix = "helix.png", trinary = "trinary.png",
+    empty = "empty.png", draw = "draw_system_borders.png", clear = "clear_system_borders.png"
+}
+
 function maps()
-    for i, url in ipairs(mapURLs) do
-        local attributes = {
-            image = ASSET_ROOT .. "maps/" .. url,
-            onClick = "loadMap(" .. i .. ")"
-        }
-        self.UI.setAttributes("map" .. i, attributes)
+    if not mapsInitialized then
+        for i, url in ipairs(mapURLs) do
+            local attributes = {
+                image = ASSET_ROOT .. "maps/" .. url,
+                onClick = "loadMap(" .. i .. ")"
+            }
+            self.UI.setAttributes("map" .. i, attributes)
+        end
+        self.UI.setAttribute("mapsPanel", "height", 360 * math.ceil(#mapURLs / 3))
+        mapsInitialized = true
     end
-    self.UI.setAttribute("mapsPanel", "height", 360 * math.ceil(#mapURLs / 3))
     self.UI.setAttribute("maps", "active", true)
 end
 
@@ -55,4 +63,28 @@ end
 
 function closeMaps(player, value, id)
     self.UI.setAttribute("maps", "active", false)
+end
+
+function layout(player, value, id)
+    if not layoutInitialized then
+        for id, url in pairs(layoutURLs) do
+            local attributes = {
+                image = ASSET_ROOT .. "ui/" .. url,
+                onClick = "setLayout(" .. id .. ")"
+            }
+            self.UI.setAttributes(id, attributes)
+        end
+        layoutIntialized = true
+    end
+    self.UI.setAttribute("sysLayout", "active", true)
+end
+
+function setLayout(player, value, id)
+    if value == "solitary" or value == "helix" or value == "trinary" or value == "empty" then
+        Global.call("spawnSystemMarkers", value)
+    elseif value == "draw" then
+        Global.call("drawSystemBorders")
+    elseif value == "clear" then
+        Global.call("clearSystemBorders")
+    end
 end
