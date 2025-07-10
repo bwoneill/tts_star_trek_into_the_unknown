@@ -1,4 +1,4 @@
-geometry = {
+proj_geometry = {
     {start = 0, stop = 30, focal_point = Vector(0.43, 0, 0)},
     {start = 30, stop = 90, focal_point = Vector(0.43, 0, 0):rotateOver("y",60)},
     {start = 90, stop = 150, focal_point = Vector(0.43, 0, 0):rotateOver("y",120)},
@@ -6,6 +6,10 @@ geometry = {
     {start = 210, stop = 270, focal_point = Vector(0.43, 0, 0):rotateOver("y",240)},
     {start = 270, stop = 330, focal_point = Vector(0.43, 0, 0):rotateOver("y",300)},
     {start = 330, stop = 360, focal_point = Vector(0.43, 0, 0)}
+}
+
+feat_geometry = {
+    {start = 0, stop = 360, focal_point = Vector(), radius = 0.625}
 }
 
 function toggleRanges(player, value, id)
