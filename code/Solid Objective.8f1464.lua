@@ -1,3 +1,3 @@
 require("geometry.ranges")
 
-geometry = proj_geometry
+geometry = feat_geometry
