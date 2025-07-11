@@ -3,6 +3,10 @@
 
 <Panel id = "startPanel" width = "1100" height = "800" position = "-135 0 -30" color = "Black">
     <Text text = "Start Here" fontSize = "48" offsetXY = "0 375" id = "title"/>
-    <Button text = "Task Force" width = "200" height = "50" onClick = "start(taskForce)" color="Red"/>
-    <Button text = "Maps" width = "200" height = "50" offsetXY = "200 0" onClick = "start(maps)" color="Yellow"/>
+    <GridLayout offsetXY = "0 -600" cellSize = "550 100">
+        <Button class = "appButton" text = "Task Force Creation" onClick = "start(taskForce)" color="Red"/>
+        <Button class = "appButton" text = "Library Access" onClick = "start(library)" color="Purple" interactable = "false"/>
+        <Button class = "appButton" text = "Maps" onClick = "start(maps)" color="Yellow"/>
+        <Button class = "appButton" text = "Tutorial" onClick = "start(tutorial)" color="Blue" interactable = "false"/>
+    </GridLayout>
 </Panel>

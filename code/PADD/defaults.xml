@@ -3,6 +3,7 @@
         scrollbarBackgroundColor = "Orange" rectAlignment = "UpperLeft" scrollSensitivity = "80" offsetXY = "0 -50"/>
     <Text color = "White" fontSize = "20"/>
     <Row class = "text" preferredHeight = "40"/>
+    <Button class = "appButton" resizeTextForBestFit = "true" resizeTextMaxSize = "48"/>
     <!-- Faction selection -->
     <Image class = "fLogo" height = "330" width = "330"/>
     <Panel class = "fLayout" active = "false" rectAlignment = "UpperLeft" outline = "White" height = "300"/>
