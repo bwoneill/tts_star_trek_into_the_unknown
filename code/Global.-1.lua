@@ -97,6 +97,99 @@ ROOT = "https://raw.githubusercontent.com/bwoneill/tts_star_trek_into_the_unknow
 ASSET_ROOT =  ROOT .. "assets/"
 CODE_ROOT = ROOT .. "code/"
 
+turning_tool_script = [[function onDrop()
+    local rulers = getObjectsWithTag("Ruler")
+    local closest = nil
+    local dist = 12
+    local pos = self.getPosition()
+    for _, ruler in pairs(rulers) do
+        local d = (pos - ruler.getPosition()):magnitude()
+        if d < dist then
+            d = dist
+            closest = ruler
+        end
+    end
+    if closest then
+        local rot = closest.getRotation().y
+        local d = (pos - closest.getPosition()):rotateOver("y", -rot)
+        if d.z > 0 then
+            d.z = 1.3
+            self.setRotation(Vector(0, rot - 90, 0))
+        else
+            d.z = -1.3
+            self.setRotation(Vector(0, rot + 90, 0))
+        end
+        d:rotateOver("y", rot)
+        self.setPosition(d + closest.getPosition())
+    end
+end]]
+
+range_script = [[-- geometry/ranges.lua
+function toggleRanges(player, value, id)
+    if active then
+        self.setVectorLines({})
+        active = false
+    else
+        local lines = {}
+        local points = {}
+        local scale = self.getScale().x
+        local scales = {}
+        for pair in value:gmatch("[^;]+") do
+            local color, range = pair:match("%s*([%S]+)%s*=%s*([%S]+)")
+            scales[color] = range / scale
+            points[color] = {}
+        end
+        for _, g in ipairs(geometry) do
+            local v = Vector(1, 0.05, 0):rotateOver("y", g.start)
+            local focal_point = g.focal_point and g.focal_point:copy():scale(1 / scale) or Vector(0, 0, 0)
+            local radius = g.radius and g.radius / scale or 0
+            for theta = g.start, g.stop do
+                for color, s in pairs(scales) do
+                    table.insert(points[color], v:copy():scale(Vector(s + radius, 1, s + radius)) + focal_point)
+                end
+                v:rotateOver("y", 1)
+            end
+        end
+        for color, p in pairs(points) do
+            table.insert(lines, {points = p, color = color, thickness = 0.05})
+        end
+        self.setVectorLines(lines)
+        active = true
+    end
+end]]
+
+proj_geometry = [[geometry = {
+    {start = 0, stop = 30, focal_point = Vector(0.43, 0, 0)},
+    {start = 30, stop = 90, focal_point = Vector(0.43, 0, 0):rotateOver("y",60)},
+    {start = 90, stop = 150, focal_point = Vector(0.43, 0, 0):rotateOver("y",120)},
+    {start = 150, stop = 210, focal_point = Vector(0.43, 0, 0):rotateOver("y",180)},
+    {start = 210, stop = 270, focal_point = Vector(0.43, 0, 0):rotateOver("y",240)},
+    {start = 270, stop = 330, focal_point = Vector(0.43, 0, 0):rotateOver("y",300)},
+    {start = 330, stop = 360, focal_point = Vector(0.43, 0, 0)}
+}
+]]
+
+feat_geometry = [[geometry = {{start = 0, stop = 360, focal_point = Vector(), radius = 0.625}}
+]]
+
+probe_xml = [[<Button height = "50" width = "150" position = "0 0 -11" rotation = "0 0 90" color = "rgba(1,1,1,0.25)"
+    onClick = "toggleRanges(Red=2;Yellow=4)" fontSize = "28">Range</Button>
+<Button height = "50" width = "150" position = "0 0 1" rotation = "180 0 270" color = "rgba(1,1,1,0.25)"
+    onClick = "toggleRanges(Red=2;Yellow=4)" fontSize = "28">Range</Button>]]
+
+torpedo_xml = [[<Button height = "50" width = "150" position = "0 0 -11" rotation = "0 0 90" color = "rgba(1,1,1,0.25)"
+    onClick = "toggleRanges(Red=1;Yellow=4)" fontSize = "28">Range</Button>
+<Button height = "50" width = "150" position = "0 0 1" rotation = "180 0 270" color = "rgba(1,1,1,0.25)"
+    onClick = "toggleRanges(Red=1;Yellow=4)" fontSize = "28">Range</Button>]]
+
+escape_xml = [[<Button height = "50" width = "150" position = "0 0 -11" rotation = "0 0 90" color = "rgba(1,1,1,0.25)"
+    onClick = "toggleRanges(Red=2)" fontSize = "28">Range</Button>
+<Button height = "50" width = "150" position = "0 0 1" rotation = "180 0 270" color = "rgba(1,1,1,0.25)"
+    onClick = "toggleRanges(Red=2)" fontSize = "28">Range</Button>]]
+
+feat_xml = [[<Button height = "25" width = "75" position = "0 -35 -11" rotation = "0 0 0" color = "rgba(1,1,1,0.25)"
+    onClick = "toggleRanges(Red=2;Yellow=4;Green=6)">Range</Button>]]
+
 -- Assets
 
 ASSETS = {
@@ -110,7 +203,9 @@ ASSETS = {
                         ImageURL = ASSET_ROOT .. "tokens/proj_probe_blue_tile.png",
                         ImageSecondaryURL = ASSET_ROOT .. "tokens/proj_probe_orange_tile.png",
                         CustomTile = {Type = 1, Stretch = false, Thickness = 0.1}
-                    }
+                    },
+                    LuaScript = proj_geometry .. range_script,
+                    XmlUI = probe_xml
                 }
             },
             photon = {
@@ -121,7 +216,9 @@ ASSETS = {
                         ImageURL = ASSET_ROOT .. "tokens/proj_photon_blue_tile.png",
                         ImageSecondaryURL = ASSET_ROOT .. "tokens/proj_photon_orange_tile.png",
                         CustomTile = {Type = 1, Stretch = false, Thickness = 0.1}
-                    }
+                    },
+                    LuaScript = proj_geometry .. range_script,
+                    XmlUI = torpedo_xml
                 }
             },
             quantum = {
@@ -132,7 +229,9 @@ ASSETS = {
                         ImageURL = ASSET_ROOT .. "tokens/proj_quantum_blue_tile.png",
                         ImageSecondaryURL = ASSET_ROOT .. "tokens/proj_quantum_orange_tile.png",
                         CustomTile = {Type = 1, Stretch = false, Thickness = 0.1}
-                    }
+                    },
+                    LuaScript = proj_geometry .. range_script,
+                    XmlUI = torpedo_xml
                 }
             },
             escape = {
@@ -143,7 +242,9 @@ ASSETS = {
                         ImageURL = ASSET_ROOT .. "tokens/proj_escape_pod_blue_tile.png",
                         ImageSecondaryURL = ASSET_ROOT .. "tokens/proj_escape_pod_orange_tile.png",
                         CustomTile = {Type = 1, Stretch = false, Thickness = 0.1}
-                    }
+                    },
+                    LuaScript = proj_geometry .. range_script,
+                    XmlUI = escape_xml
                 }
             }
         },
@@ -157,6 +258,19 @@ ASSETS = {
                     CustomTile = {Type = 2, Thickness = 0.1, Stretch = true}
                 }
             }
+        },
+        feature = {
+            anomaly = {},
+            cloud = {},
+            comet = {},
+            rift = {},
+            stellar = {},
+            wormhole = {},
+            wreck = {}
+        },
+        objective = {
+            solid = {},
+            ping = {}
         }
     },
     tools = {
@@ -200,32 +314,7 @@ ASSETS = {
                     DiffuseURL = ASSET_ROOT .. "tools/turning_tool/turning_tool_diffuse.png",
                     ColliderURL = ASSET_ROOT .. "tools/turning_tool/turning_tool_collider.obj"
                 },
-                LuaScript = [[function onDrop()
-    local rulers = getObjectsWithTag("Ruler")
-    local closest = nil
-    local dist = 12
-    local pos = self.getPosition()
-    for _, ruler in pairs(rulers) do
-        local d = (pos - ruler.getPosition()):magnitude()
-        if d < dist then
-            d = dist
-            closest = ruler
-        end
-    end
-    if closest then
-        local rot = closest.getRotation().y
-        local d = (pos - closest.getPosition()):rotateOver("y", -rot)
-        if d.z > 0 then
-            d.z = 1.3
-            self.setRotation(Vector(0, rot - 90, 0))
-        else
-            d.z = -1.3
-            self.setRotation(Vector(0, rot + 90, 0))
-        end
-        d:rotateOver("y", rot)
-        self.setPosition(d + closest.getPosition())
-    end
-end]]
+                LuaScript = turning_tool_script
             }
         }
     },
