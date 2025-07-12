@@ -69,7 +69,7 @@ function layout(player, value, id)
     if not layoutInitialized then
         for id, url in pairs(layoutURLs) do
             local attributes = {
-                image = ASSET_ROOT .. "ui/" .. url,
+                image = ASSET_ROOT .. "ui/PADD/layout/" .. url,
                 onClick = "setLayout(" .. id .. ")"
             }
             self.UI.setAttributes(id, attributes)
