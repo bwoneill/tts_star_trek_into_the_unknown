@@ -516,7 +516,7 @@ end]]
 function spawnSystemMarkers(name)
     local system = ASSETS.setup.systems[name]
     local board = getBoard()
-    local markers = getObjectsWithAnyTags({"Marker", "Ruler"})
+    local markers = getObjectsWithAnyTags({"Marker", "Setup"})
     for _, marker in pairs(markers) do
         local pos = marker.getPosition()
         if onBoard(pos) then
@@ -544,6 +544,7 @@ function spawnSystemMarkers(name)
             for type, list in pairs(system.deployment) do
                 for _, entry in pairs(list) do
                     ruler = spawnObjectData(ASSETS.tools[type])
+                    ruler.setTags({"Setup"})
                     ruler.setPosition(entry.pos)
                     ruler.setRotation(entry.rot)
                     ruler.lock()
