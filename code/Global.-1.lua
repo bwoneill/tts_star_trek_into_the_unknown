@@ -19,7 +19,7 @@ function onObjectDrop(player_color, dropped_object)
             if #objs == 1 then
                 local obj = objs[1]
                 if obj == dropped_object then
-                    log(type .. " placed in " .. type .. " zone")
+                    -- log(type .. " placed in " .. type .. " zone")
                     if type == "overture" then
                         local setup = isType(dropped_object, {"solitary", "helix", "trinary"})
                         if setup then
@@ -63,13 +63,21 @@ function getComplications(list)
             end
             table.sort(indices, function(a, b) return a > b end)
             for _, index in pairs(indices) do
-                local card_obj = obj.takeObject({position = {i, 2 + 0.01 * i, -i}, index = index, flip = true})
+                local card_obj = obj.takeObject({position = {i, 2 + 0.02 * i, -i}, index = index, flip = obj.is_face_down})
                 i = i + 1
             end
         else
             if isType(obj, list) then
-                obj.setPosition({i, 2 + 0.01 * i, -i})
+                obj.setPosition({i, 2 + 0.02 * i, -i})
+                if obj.is_face_down then
+                    obj.flip()
+                end
                 i = i + 1
+            else
+                if not obj.is_face_down then
+                    obj.flip()
+                end
+                obj.setPosition(Vector(6.5, 1, -20.5))
             end
         end
     end
@@ -207,14 +215,14 @@ end
 function spawnMission(mission, pos, rot)
     local obj = spawnObject({
         type = "CardCustom", position = pos or Vector(0, 0, 0),
-        scale = Vector(1.474092, 1, 1.474092), rotation = rot or Vector(0, 0, 0)
+        scale = Vector(1.474092, 1, 1.474092), rotation = rot or Vector(0, 0, 0),
+        sound = false
     })
     local m_type = string.lower(mission.tags[1])
     local filename = string.gsub(mission.name, " ", "_") .. ".png"
     obj.setCustomObject({
         face = ASSET_ROOT .. "cards/" .. m_type .. "/" .. filename,
-        back = ASSET_ROOT .. "cards/" .. m_type .. "/back.png",
-        sideways = true
+        back = ASSET_ROOT .. "cards/" .. m_type .. "/back.png"
     })
     obj.setName(mission.name)
     obj.setTags(mission.tags)
@@ -222,14 +230,28 @@ function spawnMission(mission, pos, rot)
 end
 
 function spawnMissionDecks()
+    local objs = getObjectsWithAnyTags({"overture", "situation", "complication"})
+    for _, obj in pairs(objs) do
+        local o_type = obj.getData().Name
+        if o_type == "CardCustom" or o_type == "Deck" then
+            destroyObject(obj)
+        end
+    end
     local pos = {
-        overture = Vector(-10, 1, -20),
-        situation = Vector(-1.75, 1, -20),
-        complication = Vector(6.5, 1, -20)
+        overture = Vector(-10, 1, -20.5),
+        situation = Vector(-1.75, 1, -20.5),
+        complication = Vector(6.5, 1, -20.5)
     }
     for m_type, missions in pairs(ASSETS.missions) do
         for name, mission in pairs(missions) do
-            spawnMission(mission, pos[m_type], Vector(0, 180, 0))
+            local obj = spawnMission(mission, pos[m_type], Vector(0, 180, 180))
+            if m_type == "complication" then
+                obj.setSnapPoints({
+                    {position = {-0.6, -0.2,  0.45}},
+                    {position = { 0.6, -0.2,  0.45}},
+                    {position = { 0.0, -0.2, -0.35}}
+                })
+            end
         end
     end
 end
