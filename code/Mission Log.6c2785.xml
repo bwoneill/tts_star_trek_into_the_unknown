@@ -1,3 +1,15 @@
-<Button onClick = "Global/spawnMissionDecks" height = "26" width = "35" position = "222.5 -26 -2"
+<Button onClick = "Global/spawnMissionDecks" height = "16" width = "47" position = "-9 27 -2"
     rotation = "0 0 180" resizeTextForBestFit = "True"
-    image = "https://raw.githubusercontent.com/bwoneill/tts_star_trek_into_the_unknown/v1.0.3/assets/ui/spawn_missions.png"/>
+    image = "https://raw.githubusercontent.com/bwoneill/tts_star_trek_into_the_unknown/v1.0.3/assets/ui/Mission_Log/button_1.png"/>
+
+<Button onClick = "" height = "16" width = "47" position = "-9 43 -2"
+    rotation = "0 0 180" resizeTextForBestFit = "True"
+    image = "https://raw.githubusercontent.com/bwoneill/tts_star_trek_into_the_unknown/v1.0.3/assets/ui/Mission_Log/button_2.png"/>
+
+<Button onClick = "" height = "16" width = "47" position = "-9 59 -2"
+    rotation = "0 0 180" resizeTextForBestFit = "True"
+    image = "https://raw.githubusercontent.com/bwoneill/tts_star_trek_into_the_unknown/v1.0.3/assets/ui/Mission_Log/button_3.png"/>
+
+<Button onClick = "" height = "16" width = "47" position = "-9 75 -2"
+    rotation = "0 0 180" resizeTextForBestFit = "True"
+    image = "https://raw.githubusercontent.com/bwoneill/tts_star_trek_into_the_unknown/v1.0.3/assets/ui/Mission_Log/button_4.png"/>
