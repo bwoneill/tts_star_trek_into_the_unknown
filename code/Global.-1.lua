@@ -401,8 +401,8 @@ ASSETS = {
                 }
             },
             helix = {
-                centers = {Vector(-5, 0, 17), Vector(5, 0, -17)}, radius = {13, 13},
-                borders = {{25, 75, 285, 335}, {105, 155, 205, 255}},
+                centers = {Vector(5, 0, -17), Vector(-5, 0, 17)}, radius = {13, 13},
+                borders = {{105, 155, 205, 255}, {25, 75, 285, 335} },
                 deployment = {
                     ruler_12in = {
                         {pos = Vector(-11.75, 1, -12), rot = Vector(0, 270, 0)},
@@ -415,18 +415,18 @@ ASSETS = {
                 }
             },
             trinary = {
-                centers = {Vector(-17, 0, -17), Vector(17, 0, -17), Vector(0, 0, 14)},radius = {13, 13, 13},
-                borders = {{200, 250}, {110, 160}, {30, 90, 270, 330}},
+                centers = {Vector(17, 0, 17), Vector(-17, 0, 17), Vector(0, 0, -14)},radius = {13, 13, 13},
+                borders = {{20, 70}, {290, 340}, {90, 150, 210, 270}},
                 deployment = {
                     ruler_12in = {
-                        {pos = Vector(-11.75, 1, 3), rot = Vector(0, 270, 0)},
-                        {pos = Vector(11.75, 1, 3), rot = Vector(0, 90, 0)}
+                        {pos = Vector(-11.75, 1, -3), rot = Vector(0, 270, 0)},
+                        {pos = Vector(11.75, 1, -3), rot = Vector(0, 90, 0)}
                     },
                     ruler_6in = {
-                        {pos = Vector(-15, 1, -3.25), rot = Vector(0, 180, 0)},
-                        {pos = Vector(15, 1, 9.25), rot = Vector(0, 0, 0)},
-                        {pos = Vector(-15, 1, 9.25), rot = Vector(0, 180, 0)},
-                        {pos = Vector(15, 1, -3.25), rot = Vector(0, 0, 0)}
+                        {pos = Vector(-15, 1, -9.25), rot = Vector(0, 180, 0)},
+                        {pos = Vector(15, 1, 3.25), rot = Vector(0, 0, 0)},
+                        {pos = Vector(-15, 1, 3.25), rot = Vector(0, 180, 0)},
+                        {pos = Vector(15, 1, -9.25), rot = Vector(0, 0, 0)}
                     }
                 }
             }
