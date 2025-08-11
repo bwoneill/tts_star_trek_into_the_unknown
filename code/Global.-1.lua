@@ -19,23 +19,48 @@ function onObjectDrop(player_color, dropped_object)
             if #objs == 1 then
                 local obj = objs[1]
                 if obj == dropped_object then
+                    missionSetup(type, dropped_object)
                     -- log(type .. " placed in " .. type .. " zone")
-                    if type == "overture" then
-                        local setup = isType(dropped_object, {"solitary", "helix", "trinary"})
-                        if setup then
-                            spawnSystemMarkers(setup)
-                        end
-                    end
-                    local sit_zone = getObjectFromGUID(zoneGUIDS.situation)
-                    local ovr_zone = getObjectFromGUID(zoneGUIDS.overture)
-                    local situations, overtures = sit_zone.getObjects(), ovr_zone.getObjects()
-                    if #situations == 1 and #overtures == 1 and (dropped_object == situations[1] or dropped_object == overtures[1]) then
-                        local types = {isType(situations[1], complication_types), isType(overtures[1], complication_types)}
-                        getComplications(types)
-                    end
                 end
             elseif #objs > 2 then
                 log("too many " .. type .. "s in zone")
+            end
+        end
+    end
+end
+
+function missionSetup(type, object)
+    if type == "overture" then
+        local setup = isType(object, {"solitary", "helix", "trinary"})
+        if setup then
+            spawnSystemMarkers(setup)
+        end
+    end
+    local sit_zone = getObjectFromGUID(zoneGUIDS.situation)
+    local ovr_zone = getObjectFromGUID(zoneGUIDS.overture)
+    local situations, overtures = sit_zone.getObjects(), ovr_zone.getObjects()
+    if #situations == 1 and #overtures == 1 and (object == situations[1] or object == overtures[1]) then
+        local types = {isType(situations[1], complication_types), isType(overtures[1], complication_types)}
+        getComplications(types)
+    end
+    local mission = ASSETS.missions[type][object.getName()]
+    if type == "overture" or type == "situation" then
+        local j = type == "situation" and 2 or 0
+        for i, x in pairs({"feature", "objective"}) do
+            for f, data in pairs(ASSETS.tokens[x]) do
+                local feature = mission[f]
+                if feature then
+                    if f == "anomalies" then
+                    else
+                        for i = 1, feature.quantity do
+                            data.position = Vector(10.25 + 1.25 * i, 1, -19 - 1.25 * j)
+                            local obj = spawnObjectData(data)
+                            obj.setName(feature.name)
+                            obj.setDescription(feature.description)
+                        end
+                        j = j + 1
+                    end
+                end
             end
         end
     end
