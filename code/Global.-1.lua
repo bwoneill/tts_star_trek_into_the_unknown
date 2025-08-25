@@ -51,6 +51,10 @@ function missionSetup(type, object)
                 local feature = mission[f]
                 if feature then
                     if f == "anomalies" then
+                        data.data = anomalies_data(feature.name)
+                        data.position = Vector(10.25 + 1.25 * i, 1, -19 - 1.25 * j)
+                        j = j + 1
+                        spawnObjectData(data)
                     else
                         for i = 1, feature.quantity do
                             data.position = Vector(10.25 + 1.25 * i, 1, -19 - 1.25 * j)
@@ -235,6 +239,23 @@ function feature_data(name, diffuse)
         XmlUI = feat_xml
     }
     return result
+end
+
+function anomalies_data(name)
+    local data = {
+        Name = "Custom_Model_Bag", Nickname = "Anomalies Bag",
+        Transform = {scaleX = 1, scaleY = 1, scaleZ = 1},
+        CustomMesh = {
+            MeshURL = ASSET_ROOT .. "tokens/features/feature_mesh.obj",
+            ColliderURL = ASSET_ROOT .. "tokens/features/feature_collider.obj",
+            DiffuseURL = ASSET_ROOT .. "tokens/features/anomalies.png"
+        },
+        ContainedObjects = {}
+    }
+    for i = 1, 8 do
+        data.ContainedObjects[i] = feature_data(name, "anomaly_" .. i .. ".png")
+    end
+    return {data = data}
 end
 
 function spawnMission(mission, pos, rot)
