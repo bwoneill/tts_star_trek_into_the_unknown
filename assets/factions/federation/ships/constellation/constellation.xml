@@ -312,7 +312,7 @@
     width = "100"
     height = "20"
     rectAlignment="UpperLeft"  
-    position = "-170 125 -2"
+    position = "-140 125 -2"
     rotation="0 0 180"
     text = "Thickness:"
 />
