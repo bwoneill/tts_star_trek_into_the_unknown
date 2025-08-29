@@ -248,6 +248,35 @@
     Clear
 </Button>
 
+<Text
+    active = "false"
+    fontSize = "10"
+    id = "thickness"
+    text = "Thickness: 0.02"
+    position = "-170 125 -2"
+    rotation = "0 0 180"
+    width = "100"
+/>
+
+<Button
+    active = "false"
+    onClick = "adjust_thickness(increase)"
+    fontSize = "10"
+    position = "-270 125 -2"
+    width = "10">
+    +
+</Button>
+
+<Button
+    active = "false"
+    onClick = "adjust_thickness(decrease)"
+    fontSize = "10"
+    position = "-280 125 -2"
+    width = "10">
+    -
+</Button>
+
+
 <Button  
     active="false"
     id="scanJammed" 
