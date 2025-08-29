@@ -309,7 +309,7 @@
     id = "thicknessText"
     fontSize = "10"
     color="#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)" 
-    width = "100"
+    width = "150"
     height = "20"
     rectAlignment="UpperLeft"  
     position = "-170 125 -2"
