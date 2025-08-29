@@ -365,6 +365,9 @@ function activateButtons()
     for _, button in pairs(self.UI.getXmlTable()) do
         self.UI.setAttribute(button.attributes.id, "active", button.attributes.active == "false" and "true" or "false")
     end
+    if not saveData.thickness then
+        saveData.thickness = 0.02
+    end
     self.UI.setAttribute("thicknessText", "text", "Thickness: " .. saveData.thickness .. "\"")
 end
 
