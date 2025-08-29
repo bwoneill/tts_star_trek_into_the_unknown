@@ -261,6 +261,7 @@
 
 <Button
     active = "false"
+    id = "increaseThickness"
     onClick = "adjust_thickness(increase)"
     fontSize = "10"
     rectAlignment="UpperLeft" 
@@ -271,6 +272,7 @@
 
 <Button
     active = "false"
+    id = "decreaseThickness"
     onClick = "adjust_thickness(decrease)"
     fontSize = "10"
     rectAlignment="UpperLeft" 
