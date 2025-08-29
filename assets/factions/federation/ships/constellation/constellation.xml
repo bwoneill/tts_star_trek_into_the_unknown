@@ -253,7 +253,8 @@
     fontSize = "10"
     id = "thickness"
     text = "Thickness: 0.02"
-    position = "-120 175 -2"
+    rectAlignment="UpperLeft" 
+    position = "-170 125 -2"
     rotation = "0 0 180"
     width = "100"
 />
@@ -262,7 +263,8 @@
     active = "false"
     onClick = "adjust_thickness(increase)"
     fontSize = "10"
-    position = "-120 275 -2"
+    rectAlignment="UpperLeft" 
+    position = "-270 125 -2"
     width = "10"
     text = "+">
 </Button>
@@ -271,7 +273,8 @@
     active = "false"
     onClick = "adjust_thickness(decrease)"
     fontSize = "10"
-    position = "-120 285 -2"
+    rectAlignment="UpperLeft" 
+    position = "-280 125 -2"
     width = "10"
     text = "-">
 </Button>
