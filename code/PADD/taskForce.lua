@@ -41,7 +41,7 @@ panelIds = {"fPanel", "stagingPanel", "vertCardSelector", "horCardSelector", "se
 SAVE_VERSION = "1.0"
 function downloadScript()
     local request = WebRequest.get(
-        CODE_ROOT .. "ship.lua",
+        CODE_ROOT .. "ships/ship.lua",
         function(r)
             if r.is_error then
                 log(r.error)
