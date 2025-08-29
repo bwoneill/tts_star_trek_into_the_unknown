@@ -866,7 +866,7 @@ function adjust_thickness(player, value, id)
     elseif value == "decrease" then
         saveData.thickness = saveData.thickness > 0.01 and saveData.thickness - 0.01 or 0.01
     end
-    self.UI.setAttribute("thickness", "text", "Thickness: " .. saveData.thickness)
+    self.UI.setAttribute("thicknessText", "text", "Thickness: " .. saveData.thickness)
 end
 
 -- build 1.0.3.01
