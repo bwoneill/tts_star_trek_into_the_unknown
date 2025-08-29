@@ -230,7 +230,7 @@
     width="50" 
     height="20" 
     rectAlignment="UpperLeft" 
-    position="-120 115 -2"
+    position="-120 100 -2"
     rotation="0 0 180">
     Clear
 </Button>
@@ -272,7 +272,7 @@
     width = "20"
     height = "20"
     rectAlignment="UpperLeft"  
-    position = "-270 125 -2"
+    position = "-270 100 -2"
     rotation="0 0 180">
     +
 </Button>
@@ -286,7 +286,7 @@
     width = "20"
     height = "20"
     rectAlignment="UpperLeft"  
-    position = "-290 125 -2"
+    position = "-290 100 -2"
     rotation="0 0 180">
     -
 </Button>
@@ -299,7 +299,7 @@
     width = "100"
     height = "20"
     rectAlignment="UpperLeft"  
-    position = "-170 125 -2"
+    position = "-170 100 -2"
     rotation="0 0 180"
     text = "Thickness:"
 />
