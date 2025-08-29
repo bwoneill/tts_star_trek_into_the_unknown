@@ -671,7 +671,7 @@ function drawArc(system, jammed) -- system is "sensors", "comms", "weapons"
                     table.insert(points, 1, start)
                     table.insert(points, stop)
                 end
-                table.insert(lines, {points = points, color = clr, thickness = thickness})
+                table.insert(lines, {points = points, color = clr, thickness = saveData.thickness})
             end
         end
     end
@@ -695,7 +695,7 @@ function drawBase()
     for _, arc in ipairs(arcs) do
         sweepOverPoints(points, geometry[arc], 0)
     end
-    table.insert(lines, {points = points, color = Color.Black, thickness = thickness})
+    table.insert(lines, {points = points, color = Color.Black, thickness = saveData.thickness})
     myShip.setVectorLines(lines)
 end
 
