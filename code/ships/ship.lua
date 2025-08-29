@@ -638,7 +638,7 @@ end
 function drawArc(system, jammed) -- system is "sensors", "comms", "weapons"
     local myShip = getObjectFromGUID(saveData.shipGUID)
     local stats = shipData[system]
-    local clr = myShip.getColorTint()
+    local clr = myShip.getColorTint().setAt("a", 1)
     local geometry = BASE_CONST[shipData.size].arcs
     local lines = {}
     -- Axis overlay
