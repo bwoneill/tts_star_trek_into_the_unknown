@@ -19,23 +19,52 @@ function onObjectDrop(player_color, dropped_object)
             if #objs == 1 then
                 local obj = objs[1]
                 if obj == dropped_object then
-                    log(type .. " placed in " .. type .. " zone")
-                    if type == "overture" then
-                        local setup = isType(dropped_object, {"solitary", "helix", "trinary"})
-                        if setup then
-                            spawnSystemMarkers(setup)
-                        end
-                    end
-                    local sit_zone = getObjectFromGUID(zoneGUIDS.situation)
-                    local ovr_zone = getObjectFromGUID(zoneGUIDS.overture)
-                    local situations, overtures = sit_zone.getObjects(), ovr_zone.getObjects()
-                    if #situations == 1 and #overtures == 1 and (dropped_object == situations[1] or dropped_object == overtures[1]) then
-                        local types = {isType(situations[1], complication_types), isType(overtures[1], complication_types)}
-                        getComplications(types)
-                    end
+                    missionSetup(type, dropped_object)
+                    -- log(type .. " placed in " .. type .. " zone")
                 end
             elseif #objs > 2 then
                 log("too many " .. type .. "s in zone")
+            end
+        end
+    end
+end
+
+function missionSetup(type, object)
+    if type == "overture" then
+        local setup = isType(object, {"solitary", "helix", "trinary"})
+        if setup then
+            spawnSystemMarkers(setup)
+        end
+    end
+    local sit_zone = getObjectFromGUID(zoneGUIDS.situation)
+    local ovr_zone = getObjectFromGUID(zoneGUIDS.overture)
+    local situations, overtures = sit_zone.getObjects(), ovr_zone.getObjects()
+    if #situations == 1 and #overtures == 1 and (object == situations[1] or object == overtures[1]) then
+        local types = {isType(situations[1], complication_types), isType(overtures[1], complication_types)}
+        getComplications(types)
+    end
+    local mission = ASSETS.missions[type][object.getName()]
+    if type == "overture" or type == "situation" then
+        local j = type == "situation" and 2 or 0
+        for i, x in pairs({"feature", "objective"}) do
+            for f, data in pairs(ASSETS.tokens[x]) do
+                local feature = mission[f]
+                if feature then
+                    if f == "anomalies" then
+                        data.data = anomalies_data(feature.name, feature.description)
+                        data.position = Vector(10.25 + 1.25 * i, 1, -19 - 1.25 * j)
+                        j = j + 1
+                        spawnObjectData(data)
+                    else
+                        for i = 1, feature.quantity do
+                            data.position = Vector(10.25 + 1.25 * i, 1, -19 - 1.25 * j)
+                            local obj = spawnObjectData(data)
+                            obj.setName(feature.name)
+                            obj.setDescription(feature.description)
+                        end
+                        j = j + 1
+                    end
+                end
             end
         end
     end
@@ -63,13 +92,21 @@ function getComplications(list)
             end
             table.sort(indices, function(a, b) return a > b end)
             for _, index in pairs(indices) do
-                local card_obj = obj.takeObject({position = {i, 2 + 0.01 * i, -i}, index = index, flip = true})
+                local card_obj = obj.takeObject({position = {i, 2 + 0.02 * i, -i}, index = index, flip = obj.is_face_down})
                 i = i + 1
             end
         else
             if isType(obj, list) then
-                obj.setPosition({i, 2 + 0.01 * i, -i})
+                obj.setPosition({i, 2 + 0.02 * i, -i})
+                if obj.is_face_down then
+                    obj.flip()
+                end
                 i = i + 1
+            else
+                if not obj.is_face_down then
+                    obj.flip()
+                end
+                obj.setPosition(Vector(6.5, 1, -20.5))
             end
         end
     end
@@ -93,7 +130,7 @@ zoneGUIDS = {overture = "737129", situation = "da2ad6", complication = "5860dd"}
 
 complication_types = {"battle", "intrigue", "mystery", "politics", "study", "threat"}
 
-ROOT = "https://raw.githubusercontent.com/bwoneill/tts_star_trek_into_the_unknown/v1.0.2/"
+ROOT = "https://raw.githubusercontent.com/bwoneill/tts_star_trek_into_the_unknown/v1.0.3/"
 ASSET_ROOT =  ROOT .. "assets/"
 CODE_ROOT = ROOT .. "code/"
 
@@ -190,6 +227,84 @@ escape_xml = [[<Button height = "50" width = "150" position = "0 0 -11" rotation
 feat_xml = [[<Button height = "25" width = "75" position = "0 -35 -11" rotation = "0 0 0" color = "rgba(1,1,1,0.25)"
     onClick = "toggleRanges(Red=2;Yellow=4;Green=6)">Range</Button>]]
 
+function feature_data(name, diffuse)
+    local result = {
+        Name = "Custom_Model", Nickname = name, Transform = {scaleX = 1, scaleY = 1, scaleZ = 1},
+        CustomMesh = {
+            MeshURL = ASSET_ROOT .. "tokens/features/feature_mesh.obj",
+            ColliderURL = ASSET_ROOT .. "tokens/features/feature_collider.obj",
+            DiffuseURL = ASSET_ROOT .. "tokens/features/" .. diffuse
+        },
+        LuaScript = feat_geometry .. range_script,
+        XmlUI = feat_xml
+    }
+    return result
+end
+
+function anomalies_data(name, description)
+    local data = {
+        Name = "Custom_Model_Bag", Nickname = "Anomalies Bag",
+        Transform = {scaleX = 1, scaleY = 1, scaleZ = 1},
+        CustomMesh = {
+            MeshURL = ASSET_ROOT .. "tokens/features/feature_mesh.obj",
+            ColliderURL = ASSET_ROOT .. "tokens/features/feature_mesh.obj",
+            DiffuseURL = ASSET_ROOT .. "tokens/features/anomalies.png",
+            TypeIndex = 6
+        },
+        Bag = {Order = 2},
+        ContainedObjects = {}
+    }
+    for i = 1, 8 do 
+        data.ContainedObjects[i] = feature_data(name, "anomaly_" .. i .. ".png")
+        data.ContainedObjects[i].Description = description
+    end
+    return data
+end
+
+function spawnMission(mission, pos, rot)
+    local obj = spawnObject({
+        type = "CardCustom", position = pos or Vector(0, 0, 0),
+        scale = Vector(1.474092, 1, 1.474092), rotation = rot or Vector(0, 0, 0),
+        sound = false
+    })
+    local m_type = string.lower(mission.tags[1])
+    local filename = string.gsub(mission.name, " ", "_") .. ".png"
+    obj.setCustomObject({
+        face = ASSET_ROOT .. "cards/" .. m_type .. "/" .. filename,
+        back = ASSET_ROOT .. "cards/" .. m_type .. "/back.png"
+    })
+    obj.setName(mission.name)
+    obj.setTags(mission.tags)
+    return obj
+end
+
+function spawnMissionDecks()
+    local objs = getObjectsWithAnyTags({"overture", "situation", "complication"})
+    for _, obj in pairs(objs) do
+        local o_type = obj.getData().Name
+        if o_type == "CardCustom" or o_type == "Deck" then
+            destroyObject(obj)
+        end
+    end
+    local pos = {
+        overture = Vector(-10, 1, -20.5),
+        situation = Vector(-1.75, 1, -20.5),
+        complication = Vector(6.5, 1, -20.5)
+    }
+    for m_type, missions in pairs(ASSETS.missions) do
+        for name, mission in pairs(missions) do
+            local obj = spawnMission(mission, pos[m_type], Vector(0, 180, 180))
+            if m_type == "complication" then
+                obj.setSnapPoints({
+                    {position = {-0.6, -0.2,  0.45}},
+                    {position = { 0.6, -0.2,  0.45}},
+                    {position = { 0.0, -0.2, -0.35}}
+                })
+            end
+        end
+    end
+end
+
 -- Assets
 
 ASSETS = {
@@ -260,17 +375,17 @@ ASSETS = {
             }
         },
         feature = {
-            anomaly = {},
-            cloud = {},
-            comet = {},
-            rift = {},
-            stellar = {},
-            wormhole = {},
-            wreck = {}
+            anomalies = {},
+            cloud = {data = feature_data("Cloud", "feature_cloud.png")},
+            comet = {data = feature_data("Comet", "feature_comet.png")},
+            rift = {data = feature_data("Rift", "feature_rift.png")},
+            stellar = {data = feature_data("Stellar", "feature_stellar.png")},
+            wormhole = {data = feature_data("Wormhole", "feature_wormhole.png")},
+            wreck = {data = feature_data("Wreck", "feature_wrek.png")}
         },
         objective = {
-            solid = {},
-            ping = {}
+            solid = {data = feature_data("Solid Objective", "objective_solid.png")},
+            ping = {data = feature_data("Ping Objective", "objective_ping.png")}
         }
     },
     tools = {
@@ -335,8 +450,8 @@ ASSETS = {
                 }
             },
             helix = {
-                centers = {Vector(-5, 0, 17), Vector(5, 0, -17)}, radius = {13, 13},
-                borders = {{25, 75, 285, 335}, {105, 155, 205, 255}},
+                centers = {Vector(5, 0, -17), Vector(-5, 0, 17)}, radius = {13, 13},
+                borders = {{105, 155, 205, 255}, {25, 75, 285, 335} },
                 deployment = {
                     ruler_12in = {
                         {pos = Vector(-11.75, 1, -12), rot = Vector(0, 270, 0)},
@@ -349,18 +464,18 @@ ASSETS = {
                 }
             },
             trinary = {
-                centers = {Vector(-17, 0, -17), Vector(17, 0, -17), Vector(0, 0, 14)},radius = {13, 13, 13},
-                borders = {{200, 250}, {110, 160}, {30, 90, 270, 330}},
+                centers = {Vector(17, 0, 17), Vector(-17, 0, 17), Vector(0, 0, -14)},radius = {13, 13, 13},
+                borders = {{20, 70}, {290, 340}, {90, 150, 210, 270}},
                 deployment = {
                     ruler_12in = {
-                        {pos = Vector(-11.75, 1, 3), rot = Vector(0, 270, 0)},
-                        {pos = Vector(11.75, 1, 3), rot = Vector(0, 90, 0)}
+                        {pos = Vector(-11.75, 1, -3), rot = Vector(0, 270, 0)},
+                        {pos = Vector(11.75, 1, -3), rot = Vector(0, 90, 0)}
                     },
                     ruler_6in = {
-                        {pos = Vector(-15, 1, -3.25), rot = Vector(0, 180, 0)},
-                        {pos = Vector(15, 1, 9.25), rot = Vector(0, 0, 0)},
-                        {pos = Vector(-15, 1, 9.25), rot = Vector(0, 180, 0)},
-                        {pos = Vector(15, 1, -3.25), rot = Vector(0, 0, 0)}
+                        {pos = Vector(-15, 1, -9.25), rot = Vector(0, 180, 0)},
+                        {pos = Vector(15, 1, 3.25), rot = Vector(0, 0, 0)},
+                        {pos = Vector(-15, 1, 3.25), rot = Vector(0, 180, 0)},
+                        {pos = Vector(15, 1, -9.25), rot = Vector(0, 0, 0)}
                     }
                 }
             }
@@ -596,6 +711,175 @@ ASSETS = {
         {name = "Quantum Torpedoes Reload", fp = 6, factions = {dominion = true, federation = true},
             card = {front = "torpedo_quantum.png", back = "torpedo_photon.png"}},
         {name = "Runabout Berth", fp = 3, factions = {federation = true}}
+    },
+    missions = {
+        overture = {
+            ["Battlefield Rescue"] = {
+                name = "Battlefield Rescue",
+                tags = {"Overture", "Battle", "Solitary"},
+                solid = {
+                    quantity = 4,
+                    name = "Wreckage drift",
+                    description = "Capacity 2\nUnstable 1"
+                }
+            },
+            ["Show the Flag"] = {
+                name = "Show the Flag",
+                tags = {"Overture", "Battle", "Helix"},
+                solid = {
+                    quantity = 4,
+                    name = "Rally point",
+                    description = "Capacity 2"
+                }
+            },
+            ["Unstable Discovery"] = {
+                name = "Unstable Discovery",
+                tags = {"Overture", "Study", "Solitary"},
+                ping = {
+                    quantity = 6,
+                    name = "Unusual readings",
+                    description = "Treacherous 2"
+                }
+            },
+            ["Neutral Zone Survey"] = {
+                name = "Neutral Zone Survey",
+                tags = {"Overture", "Politics", "Helix"},
+                ping = {
+                    quantity = 6,
+                    name = "Signal"
+                }
+            },
+            ["Missing Survey Teams"] = {
+                name = "Missing Survey Teams",
+                tags = {"Overture", "Politics", "Helix"},
+                solid = {
+                    quantity = 3,
+                    name = "Scouting point",
+                    description = "Capacity 3\nMassive 1"
+                },
+                ping = {
+                    quantity = 3,
+                    name = "Suspicous readings",
+                    description = "Treacherous 2\nUnstable 2"
+                }
+            },
+            ["Distress Call"] = {
+                name = "Distress Call",
+                tags = {"Overture", "Study", "Trinary"},
+                solid = {
+                    quantity = 6,
+                    name = "Signal location",
+                    description = "Capacity 3\nUnstable 2"
+                }
+            }
+        },
+        situation = {
+            ["Anomalous Objects"] = {
+                name = "Anomalous Objects",
+                tags = {"Situation", "Mystery"},
+                anomalies = {
+                    name = "Strange beacon", quantity = 6,
+                    description = "Capacity 2"
+                }
+            },
+            ["Disruptive Ion Storms"] = {
+                name = "Disruptive Ion Storms",
+                tags = {"Situation", "Threat"},
+                cloud = {
+                    name = "Ion cloud", quantity = 4,
+                    description = "Obscuring 1\nTreacherous 3"
+                }
+            },
+            ["Gamma Quadrant Anomalies"] = {
+                name = "Gamma Quadrant Anomalies",
+                tags = {"Situation", "Threat"},
+                anomalies = {
+                    name = "Anomalous readings", quantity = 6
+                }
+            },
+            ["Delicate Treaty"] = {
+                name = "Delicate Treaty",
+                tags = {"Situation", "Intrigue"},
+                rift = {
+                    name = "Gravity rift", quantity = 2,
+                    description = "Massive 1\nTreacherous 3"
+                },
+                anomalies = {
+                    name = "Warning bouy", quanity = 4
+                }
+            },
+            ["Hostile Raiders"] = {
+                name = "Hostile Raiders",
+                tags = {"Situation", "Intrigue"},
+                cloud = {
+                    name = "Nebula", quantity = 2,
+                    description = "Obscuring 1"
+                },
+                anmomalies = {
+                    name = "Distress bouy", quantity = 4,
+                    description = "Treacherous 2"
+                },
+                raider = 1
+            }
+        },
+        complication = {
+            ["Cloak and Dagger"] = {
+                name = "Cloak and Dagger",
+                tags = {"Complication", "Politics", "Intrigue"},
+                solid = {
+                    name = "Secret base", quantity = 8,
+                    add_description = "Capacity 3"
+                }
+            },
+            ["Missing Crew"] = {
+                name = "Missing Crew",
+                tags = {"Complication", "Politics", "Mystery"},
+                ping = {
+                    name = "Cryptic signal", quantity = 4,
+                    description = "Treacherous 3\nUnstable 2"
+                }
+            },
+            ["Inscrutable Entity"] = {
+                name = "Inscrutable Entity",
+                tags = {"Complication", "Study", "Threat", "Mystery"},
+                ping = {
+                    name = "Clue", quantity = 4
+                },
+                tinman = 1
+            },
+            ["Contested Territory"] = {
+                name = "Contested Territory",
+                tags = {"Complication", "Battle", "Politics", "Intrigue"},
+                solid = {
+                    name = "Strategic holding",
+                    add_description = "Capacity 3"
+                }
+            },
+            ["Tactical Extraction"] = {
+                name = "Tactical Extraction",
+                tags = {"Complication", "Battle", "Threat"},
+                solid = {
+                    name = "Embedded base", quantity = 6,
+                    add_description = "Capacity 2"
+                }
+            },
+            ["Infection"] = {
+                name = "Infection",
+                tags = {"Complication", "Study", "Battle", "Threat"},
+                solid = {
+                    name = "Infection origin", quantity = 6,
+                    add_description = "Capacity 3"
+                }
+            },
+            ["Race for Knowledge"] = {
+                name = "Race for Knowledge",
+                tags = {"Complication", "Study", "Intrigue", "Mystery"},
+                solid = {
+                    name = "Archealogical site", quantity = 8,
+                    add_description = "Capacity 3\nUnstable 2"
+                }
+            }
+        }
     }
 }
 

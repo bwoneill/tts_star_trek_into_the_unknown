@@ -83,3 +83,44 @@
     rotation="0 0 180">
     Clear
 </Button>
+
+<Button
+    active = "false"
+    id = "increaseThickness"
+    onClick = "adjust_thickness(increase)"
+    fontSize = "10"
+    color="#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)" 
+    width = "20"
+    height = "20"
+    rectAlignment="UpperLeft"  
+    position = "-40 100 -30"
+    rotation="0 0 180">
+    +
+</Button>
+
+<Button
+    active = "false"
+    id = "decreaseThickness"
+    onClick = "adjust_thickness(decrease)"
+    fontSize = "10"
+    color="#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)" 
+    width = "20"
+    height = "20"
+    rectAlignment="UpperLeft"  
+    position = "-60 100 -30"
+    rotation="0 0 180">
+    -
+</Button>
+
+<Text
+    active = "false"
+    id = "thicknessText"
+    fontSize = "10"
+    color="#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)" 
+    width = "80"
+    height = "20"
+    rectAlignment="UpperLeft"  
+    position = "40 100 -30"
+    rotation="0 0 180"
+    text = "Thickness:"
+/>

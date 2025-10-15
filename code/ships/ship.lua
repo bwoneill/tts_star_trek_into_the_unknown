@@ -5,7 +5,7 @@
 
 ignore_save = false -- set to true for updates on data in Global
 
-saveData = {}
+saveData = {thickness = 0.02}
 
 ASSET_ROOT = Global.getVar("ASSET_ROOT")
 
@@ -212,20 +212,6 @@ COMPOUND_ARCS = {
     port = {"aft_port", "fore_port"}
 }
 
-ARCS = { -- aft = 0, left handed coords
-    fore = {90, 270},
-    aft = {-90, 90},
-    starboard = {180, 360},
-    port = {0, 180},
-    all = {0, 360},
-    bow = {135, 225},
-    stern = {-45, 45},
-    fore_starboard = {180, 270},
-    aft_starboard = {270, 360},
-    fore_port = {90, 180},
-    aft_port = {0, 90}
-}
-
 function onLoad(script_state)
     shipData = default
     local state = JSON.decode(script_state)
@@ -379,6 +365,10 @@ function activateButtons()
     for _, button in pairs(self.UI.getXmlTable()) do
         self.UI.setAttribute(button.attributes.id, "active", button.attributes.active == "false" and "true" or "false")
     end
+    if not saveData.thickness then
+        saveData.thickness = 0.02
+    end
+    self.UI.setAttribute("thicknessText", "text", "Thickness: " .. saveData.thickness .. "\"")
 end
 
 function constrainValue(value, min, max)
@@ -649,6 +639,7 @@ function drawArc(system, jammed) -- system is "sensors", "comms", "weapons"
     local myShip = getObjectFromGUID(saveData.shipGUID)
     local stats = shipData[system]
     local clr = myShip.getColorTint()
+    clr.a = 1
     local geometry = BASE_CONST[shipData.size].arcs
     local lines = {}
     -- Axis overlay
@@ -685,7 +676,7 @@ function drawArc(system, jammed) -- system is "sensors", "comms", "weapons"
                     table.insert(points, 1, start)
                     table.insert(points, stop)
                 end
-                table.insert(lines, {points = points, color = clr, thickness = 0.02})
+                table.insert(lines, {points = points, color = clr, thickness = saveData.thickness})
             end
         end
     end
@@ -709,7 +700,7 @@ function drawBase()
     for _, arc in ipairs(arcs) do
         sweepOverPoints(points, geometry[arc], 0)
     end
-    table.insert(lines, {points = points, color = Color.Black, thickness = 0.02})
+    table.insert(lines, {points = points, color = Color.Black, thickness = saveData.thickness})
     myShip.setVectorLines(lines)
 end
 
@@ -874,4 +865,13 @@ function auxiliarySetup(player, value, id)
     setUp(player, value, id)
 end
 
--- build 1.0.1.15
+function adjust_thickness(player, value, id)
+    if value == "increase" then
+        saveData.thickness = saveData.thickness + 0.01
+    elseif value == "decrease" then
+        saveData.thickness = saveData.thickness > 0.01 and saveData.thickness - 0.01 or 0.01
+    end
+    self.UI.setAttribute("thicknessText", "text", "Thickness: " .. saveData.thickness .. "\"")
+end
+
+-- build 1.0.3.01

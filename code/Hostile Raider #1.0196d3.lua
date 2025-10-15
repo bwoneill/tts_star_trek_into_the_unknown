@@ -2,4 +2,4 @@
 
 default = Global.getTable("ASSETS").factions.neutral.ships.raider
 
-require("ship")
+require("ships/ship")
