@@ -20,3 +20,4 @@ assets/ships/constellation_class/Constellation hull dial.xcf
 .vscode/
 assets/tokens/features/features.xcf
 assets/misc/situation_board.xcf
+assets/factions/*/*/*/*.xcf
