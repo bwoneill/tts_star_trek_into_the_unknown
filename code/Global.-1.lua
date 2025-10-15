@@ -610,7 +610,7 @@ ASSETS = {
                     sensors = {all = 2, bow = 4, instruments = {bow = true}},
                     comms = {all = 2, bow = 6, instruments = {bow = true}},
                     weapons = {all = 6, fore = 6, fore_port = 4, fore_starboard = 4, aft = 6},
-                    titles = {{name = "Defiant", fp = 3}}
+                    titles = {{name = "Defiant", fp = 3}, {name = "Valiant", fp = 3}}
                 },
                 galaxy = {
                     name = "Galaxy-Class Starship", role = "capital", size = "large", crit_deck_size = 6,
@@ -657,6 +657,16 @@ ASSETS = {
                         direction = "fore"
                     }
                 },
+                miranda = {
+                    name = "Miranda-Class Starship", role = "support", size = "small", crit_deck_size = 5, fp = -2,
+                    faction = "federation", folder = "ships", type = "miranda",
+                    dials = {alert = {min = 0, max = 4}, power = {min = 0, max = 7}, crew = {min = -2, max = 4}, hull = {min = 0, max = 7}},
+                    model_transform = {scaleX = 1.25}, instruments = {2, 2, 1, 0, 0}, -- scale TBD
+                    sensors = {all = 3, bow = 3, instruments = {bow = true}},
+                    comms = {all = 4, bow = 4, instruments = {bow = true}},
+                    weapons = {bow = 4, fore_port = 6, fore_starboard = 6, aft = 6},
+                    titles = {{name = "Trial", pf = 1}}
+                }
             },
             auxiliary = {
                 runabout = {
@@ -685,7 +695,47 @@ ASSETS = {
             }
         },
         klingon = {
-            displayName = "Klingon Empire", playable = false
+            displayName = "Klingon Empire", playable = true,
+            ships = {
+                brel = {
+                    name = "B\'rel-Class Bird-of-Prey", role = "scout", size = "small", crit_deck_size = 5, fp = -1,
+                    faction = "klingon", folder = "ships", type = "brel",
+                    dials = {alert = {min = 0, max = 4}, power = {min = 0, max = 6}, crew = {min = -2, max = 4}},
+                    model_transform = {scaleX = 1}, instruments = {1, 2, 1, 0, 0}, -- scale TBD
+                    sensors = {all = 2, bow = 4, instruments = {bow = true}},
+                    comms = {all = 2, bow = 4, instruments = {bow = true}},
+                    weapons = {fore_port = 4, fore_starboard = 4},
+                    titles = {{name = "Buruk", fp = 2}}
+                },
+                vorcha = {
+                    name = "Vor\'cha-Class Attack Cruiser", role = "support", size = "medium", crit_deck_size = 5, fp = 1,
+                    faction = "klingon", folder = "ships", type = "vorcha",
+                    dials = {alert = {min = 0, max = 5}, power = {min = 0, max = 7}, crew = {min = -2, max = 5}},
+                    model_transform = {scaleX = 1}, instruments = {2, 3, 2, 1, 1, 0}, -- scale TBD
+                    sensors = {all = 4, bow = 4, instruments = {bow = true}},
+                    comms = {all = 6, bow = 6, instruments = {bow = true}},
+                    weapons = {bow = 6, fore_port = 4, fore_starboard = 4},
+                    titles = {{name = "Bortas", fp = 3}}
+                }
+            },
+            auxiliary = {
+                toron = {
+                    name = "Toron-Class", size = "shuttel",
+                    faction = "klingon", folder = "auxiliary", type = "toron",
+                    model_transform = {scaleX = 1}, -- scale TBD
+                    sensors = {all = 3}, comms = {all = 3}, weapons = {all = 3}
+                }
+            },
+            directives = {
+                combat = {{front = "Uphold the Empires Oaths", back = "It is a Good Day to Die"}},
+                diplomacy = {{front = "Boisterous Demeaner", back = "Actions Surpass Words"}},
+                exploration = {
+                    {front = "Glory Awaits", back = "Deeds Worthy of Song", teams = {
+                        alpha = {front = "honor_guard_a", back = "boarding_a"},
+                        beta = {front = "honor_guard_b", back = "boarding_b"},
+                        gamma = {front = "honor_guard_c", back = "repair_c"}
+                    }}}
+            }
         },
         neutral = {
             ships = {
