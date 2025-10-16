@@ -716,7 +716,7 @@ ASSETS = {
                 brel = {
                     name = "B\'rel-Class Bird-of-Prey", role = "scout", size = "small", crit_deck_size = 5, fp = -1,
                     faction = "klingon", folder = "ships", type = "brel",
-                    dials = {alert = {min = 0, max = 4}, power = {min = 0, max = 6}, crew = {min = -2, max = 4}},
+                    dials = {alert = {min = 0, max = 4}, power = {min = 0, max = 6}, crew = {min = -2, max = 4}, hull = {min = 0, max = 6}},
                     model_transform = {scaleX = 1}, instruments = {1, 2, 1, 0, 0}, -- scale TBD
                     sensors = {all = 2, bow = 4, instruments = {bow = true}},
                     comms = {all = 2, bow = 4, instruments = {bow = true}},
@@ -726,7 +726,7 @@ ASSETS = {
                 vorcha = {
                     name = "Vor\'cha-Class Attack Cruiser", role = "support", size = "medium", crit_deck_size = 6, fp = 1,
                     faction = "klingon", folder = "ships", type = "vorcha",
-                    dials = {alert = {min = 0, max = 5}, power = {min = 0, max = 7}, crew = {min = -2, max = 5}},
+                    dials = {alert = {min = 0, max = 5}, power = {min = 0, max = 7}, crew = {min = -2, max = 5}, hull = {min = 0, max = 8}},
                     model_transform = {scaleX = 1}, instruments = {2, 3, 2, 1, 1, 0}, -- scale TBD
                     sensors = {all = 4, bow = 4, instruments = {bow = true}},
                     comms = {all = 6, bow = 6, instruments = {bow = true}},
