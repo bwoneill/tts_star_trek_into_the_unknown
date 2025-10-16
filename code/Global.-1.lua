@@ -527,18 +527,18 @@ ASSETS = {
         dominion = {
             displayName = "Dominion", playable = true,
             officers = {
-                {name = "Eris", subtitle = "Manipulative Agent", unique = true, roles = {command = true, ops = true}, cp = 8, fp = 4},
-                {name = "Founder", roles = {command = true, ops = true, science = true}, cp = 9, fp = 6},
-                {name = "Hanok", subtitle = "Sanctimonious Minister", sway = {"ferengi"}, unique = true, roles = {ops = true, science = true}, cp = 9, fp = 3},
-                {name = "JemHadar First", roles = {ops = true}, cp = 8, fp = 3},
-                {name = "JemHadar Second", roles = {ops = true}, cp = 7, fp = 2},
-                {name = "Karemma Researcher", roles = {science = true}, cp = 7, fp = 3},
-                {name = "Ometiklan", subtitle = "Loyal First", unique = true, roles = {ops = true}, cp = 11, fp = 4},
-                {name = "Talaktalan", subtitle = "Menacing Third", unique = true, roles = {ops = true}, cp = 9, fp = 3},
-                {name = "The Female Changeling", subtitle = "Divine Ruler", unique = true, roles = {command = true, ops = true, science = true}, cp = 10, fp = 3},
-                {name = "Vorta Diplomat", roles = {command = true}, cp = 6, fp = 3},
-                {name = "Vorta Supervisor", line_officer = true, roles = {command = true}, cp = 0, fp = 2},
-                {name = "Weyoun 4", subtitle = "Unctuous Envoy", unique = true, roles = {command = true}, cp = 9, fp = 3}
+                {name = "Eris", subtitle = "Manipulative Agent", factions = {dominion = true}, unique = true, roles = {command = true, ops = true}, cp = 8, fp = 4},
+                {name = "Founder", factions = {dominion = true}, roles = {command = true, ops = true, science = true}, cp = 9, fp = 6},
+                {name = "Hanok", subtitle = "Sanctimonious Minister", factions = {dominion = true}, sway = {ferengi = 1}, unique = true, roles = {ops = true, science = true}, cp = 9, fp = 3},
+                {name = "JemHadar First", factions = {dominion = true}, roles = {ops = true}, cp = 8, fp = 3},
+                {name = "JemHadar Second", factions = {dominion = true}, roles = {ops = true}, cp = 7, fp = 2},
+                {name = "Karemma Researcher", factions = {dominion = true}, roles = {science = true}, cp = 7, fp = 3},
+                {name = "Ometiklan", subtitle = "Loyal First", factions = {dominion = true}, unique = true, roles = {ops = true}, cp = 11, fp = 4},
+                {name = "Talaktalan", subtitle = "Menacing Third", factions = {dominion = true}, unique = true, roles = {ops = true}, cp = 9, fp = 3},
+                {name = "The Female Changeling", subtitle = "Divine Ruler", factions = {dominion = true}, unique = true, roles = {command = true, ops = true, science = true}, cp = 10, fp = 3},
+                {name = "Vorta Diplomat", factions = {dominion = true}, roles = {command = true}, cp = 6, fp = 3},
+                {name = "Vorta Supervisor", factions = {dominion = true}, line_officer = true, roles = {command = true}, cp = 0, fp = 2},
+                {name = "Weyoun 4", subtitle = "Unctuous Envoy", factions = {dominion = true}, unique = true, roles = {command = true}, cp = 9, fp = 3}
             },
             ships = {
                 battlecruiser = {
@@ -575,21 +575,25 @@ ASSETS = {
         federation = {
             displayName = "United Federation of Planets", playable = true,
             officers = {
-                {name = "Benjamin Sisko", subtitle = "Reluctant Emissary",  sway = {"bajoran"}, unique = true, roles = {command = true, ops = true}, cp = 11, fp = 4},
-                {name = "Daring First Officer",  roles = {command = true, ops = true}, cp = 6, fp = 3},
-                {name = "Geordi LaForge", subtitle = "Inquisitive Engineer",  unique = true, roles = {ops = true, science = true}, cp = 11, fp = 4},
-                {name = "Intrepid Captain",  roles = {command = true}, cp = 7, fp = 4},
-                {name = "Jadzia Dax", subtitle = "Vivacious Host", sway = {"ferengi", "klingon"}, unique = true, roles = {ops = true, science = true}, cp = 10, fp = 4},
-                {name = "Jean-Luc Picard", subtitle = "Principled Captain", unique = true,  roles = {command = true, ops = true, science = true}, cp = 14, fp = 6},
-                {name = "Julian Bashir", subtitle = "Inquisitive Doctor",  unique = true, roles = {science = true}, cp = 9, fp = 3},
-                {name = "Kira Nerys", subtitle = "Bajoran Hero", factions = {"bajoran"}, sway = {"bajoran", "bajoran", "federation"}, unique = true, roles = {command = true, ops = true}, cp = 10, fp = 4},
-                {name = "Miles OBrien", subtitle = "Chief of Operations", unique = true, roles = {ops = true}, cp = 12, fp = 5},
-                {name = "Odo", subtitle = "Stern Constable", factions = {"bajoran"}, sway = {"bajoran", "cardasian"}, unique = true, roles = {ops = true}, cp = 10, fp = 5},
-                {name = "Redoubtable Engineer",  roles = {ops = true, science = true}, cp = 6, fp = 3},
-                {name = "Reliable Commander",  line_officer = true, roles = {command = true}, cp = 0, fp = 3},
-                {name = "Scholarly Doctor",  roles = {science = true}, cp = 6, fp = 3},
-                {name = "Vigilant Security Chief",  roles = {ops = true}, cp = 6, fp = 2},
-                {name = "Worf", subtitle = "Son of Mogh", factions = {"klingon"}, sway = {"klingon", "federation"}, unique = true, roles = {command = true, ops = true}, cp = 11, fp = 3}
+                {name = "Benjamin Sisko", subtitle = "Reluctant Emissary", factions = {federation = true},  sway = {bajoran = 1}, unique = true, roles = {command = true, ops = true}, cp = 11, fp = 4},
+                {name = "Daring First Officer", factions = {federation = true}, roles = {command = true, ops = true}, cp = 6, fp = 3},
+                {name = "Geordi LaForge", subtitle = "Inquisitive Engineer", factions = {federation = true}, sway = {},  unique = true, roles = {ops = true, science = true}, cp = 11, fp = 4}, -- incomplete sway
+                {name = "Intrepid Captain", factions = {federation = true}, roles = {command = true}, cp = 7, fp = 4},
+                {name = "Jadzia Dax", subtitle = "Vivacious Host", factions = {federation = true}, sway = {ferengi = 1, klingon = 1}, unique = true, roles = {ops = true, science = true}, cp = 10, fp = 4},
+                {name = "Jean-Luc Picard", subtitle = "Principled Captain", factions = {federation = true}, unique = true,  roles = {command = true, ops = true, science = true}, cp = 14, fp = 6},
+                {name = "Julian Bashir", subtitle = "Inquisitive Doctor", factions = {federation = true},  unique = true, roles = {science = true}, cp = 9, fp = 3},
+                {name = "Kira Nerys", subtitle = "Bajoran Hero", factions = {federation = true, bajoran = true}, sway = {bajoran = 2, federation = 1}, unique = true, roles = {command = true, ops = true}, cp = 10, fp = 4},
+                {name = "Miles OBrien", subtitle = "Chief of Operations", factions = {federation = true}, unique = true, roles = {ops = true}, cp = 12, fp = 5},
+                {name = "Odo", subtitle = "Stern Constable", factions = {federation = true, bajoran = true}, sway = {bajoran = 1, cardasian = 1}, unique = true, roles = {ops = true}, cp = 10, fp = 5},
+                {name = "Redoubtable Engineer", factions = {federation = true},  roles = {ops = true, science = true}, cp = 6, fp = 3},
+                {name = "Reliable Commander",  factions = {federation = true}, line_officer = true, roles = {command = true}, cp = 0, fp = 3},
+                {name = "Scholarly Doctor",  factions = {federation = true}, roles = {science = true}, cp = 6, fp = 3},
+                {name = "Vigilant Security Chief", factions = {federation = true},  roles = {ops = true}, cp = 6, fp = 2},
+                {name = "Worf", subtitle = "Son of Mogh", factions = {federation = true, klingon = true}, sway = {klingon = true, federation = true}, unique = true, roles = {command = true, ops = true}, cp = 11, fp = 3},
+                {name = "Beverly Crusher", subtitle = "Expert Physician", factions = {federation = true}, sway = {}, unique = true, roles = {command = true, science = true}, cp = 9, fp = 4}, -- incomplete sway
+                {name = "Data", subtitle = "Positronic Prodigy", factions = {federation = true}, unique = true, roles = {ops = true, science = true}, cp = 15, fp = 6},
+                {name = "Deanna Troi", subtitle = "Insightful Counsellor", factions = {federation = true}, sway = {}, unique = true, roles = {science = true}, cp = 9, fp = 3}, -- incomplete sway
+                {name = "William Riker", subtitle = "Dashing Commander", factions = {federation = true}, unique = true, roles = {command = true, ops = true}, cp = 12, fp = 6}
             },
             ships = {
                 constellation = {
@@ -696,6 +700,18 @@ ASSETS = {
         },
         klingon = {
             displayName = "Klingon Empire", playable = true,
+            officers = {
+                {name = "Cunning Weapons Officer", factions = {klingon = true}, roles = {ops = true}, cp = 7, fp = 3},
+                {name = "Gowron", subtitle = "Canny Chancellor", factions = {klingon = true}, unique = true, roles = {command = true}, cp = 15, fp = 4},
+                {name = "Grilka", subtitle = "Indomitable Leader", factions = {klingon = true}, sway = {ferengi = 2}, unique = true, roles = {command = true}, cp = 12, fp = 3},
+                {name = "KEhleyr", subtitle = "Ambassador of Two Worlds", factions = {klingon = true, federation = true}, sway = {klingon = 1, federation = 1}, unique = true, roles = {ops = true, science = true}, cp = 9, fp = 5},
+                {name = "Kurn", subtitle = "Steadfast Supporter", factions = {klingon = true}, unique = true, roles = {command = true, ops = true}, cp = 12, fp = 4},
+                {name = "Loyal Commander", line_officer = true, factions = {klingon = true}, roles = {command = true}, cp = 0, fp = 3},
+                {name = "Proud Captain", factions = {klingon = true}, roles = {command = true}, cp = 8, fp = 3},
+                {name = "Restless First Officer", factions = {klingon = true}, roles = {ops = true}, cp = 8, fp = 3},
+                {name = "Savvy Engineer", factions = {klingon = true}, roles = {ops = true, science = ture}, cp = 8, fp = 3},
+                {name = "Wary Science Officer", factions = {"klingon"}, roles = {science = true}, cp = 7, fp = 2}
+            },
             ships = {
                 brel = {
                     name = "B\'rel-Class Bird-of-Prey", role = "scout", size = "small", crit_deck_size = 5, fp = -1,
@@ -737,6 +753,12 @@ ASSETS = {
                     }}}
             }
         },
+        romulan = {
+            displayName = "Romulan Star Empire", playable = false,
+            officers = {
+                {name = "TRul", subtitle = "Acerbic Subcommander", factions = {romulan = true, federation = true}, unique = true, roles = {science = true}, cp = 8, fp = 4}
+            }
+        },
         neutral = {
             ships = {
                 raider = {
@@ -760,7 +782,11 @@ ASSETS = {
         {name = "Personnel Transponders", fp = 6, factions = {dominion = true}},
         {name = "Quantum Torpedoes Reload", fp = 6, factions = {dominion = true, federation = true},
             card = {front = "torpedo_quantum.png", back = "torpedo_photon.png"}},
-        {name = "Runabout Berth", fp = 3, factions = {federation = true}}
+        {name = "Runabout Berth", fp = 3, factions = {federation = true}},
+        {name = "Modernized Drive System", fp = 2, factions = {federation = true}},
+        {name = "Relic Armory", fp = 2, factions = {klingon = true}},
+        {name = "Romulan Cloaking Device", fp = 0, factions = {federation = true}},
+        {name = "Toron Class Shuttle Berth", fp = 2, factions = {klingon = true}}
     },
     missions = {
         overture = {
