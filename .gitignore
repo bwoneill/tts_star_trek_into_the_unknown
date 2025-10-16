@@ -1,23 +1,2 @@
-assets/ships/constellation_class/Constellation alert dial.xcf
-assets/ships/galaxy_class/Galaxy alert dial.xcf
-assets/power_dials.xcf
-assets/ships/constellation_class/Constellation crew dial.xcf
-assets/ships/constellation_class/Constellation hull dial.xcf
-assets/ships/defiant_class/Defiant alert dial.xcf
-assets/ships/defiant_class/Defiant crew dial.xcf
-assets/ships/defiant_class/Defiant hull dial.xcf
-assets/ships/galaxy_class/Galaxy crew dial.xcf
-assets/ships/galaxy_class/Galaxy hull dial.xcf
-assets/ships/jh_fighter/JH Fighter hull.xcf
-assets/ships/jh_fighter/JH Fighter alert.xcf
-assets/ships/jh_fighter/JH Fighter crew.xcf
-assets/ships/jh_battlecruiser/JH Battlecruiser alert dial.xcf
-assets/ships/jh_battlecruiser/JH Battlecruiser hull dial.xcf
-assets/ships/jh_battlecruiser/JH Battlecruiser crew dial.xcf
-assets/ships/constellation_class/Constellation alert dial.xcf
-assets/ships/constellation_class/Constellation crew dial.xcf
-assets/ships/constellation_class/Constellation hull dial.xcf
 .vscode/
-assets/tokens/features/features.xcf
-assets/misc/situation_board.xcf
-assets/factions/*/*/*/*.xcf
+**/*.xcf
