@@ -218,7 +218,7 @@
     </Panel>
     <!-- Horizontal card selector -->
     <Panel id = "horCardSelector" active = "false">
-        <Button class = "back" id = "hcsBack" onClick = "horCardSelector"/>
+        <Button class = "back" id = "hcsBack" onClick = "close(horCardSelector)"/>
         <VerticalScrollView>
             <Panel id = "hCardScrollPanel" height = "1960">
                 <GridLayout cellSize = "800 300" spacing = "5 5" colors = "Black">
