@@ -431,6 +431,16 @@ ASSETS = {
                 },
                 LuaScript = turning_tool_script
             }
+        },
+        wake_tracker = {
+            data = {
+                Name = "Custom_Model", Transform = {scaleX = 1},
+                CustomMesh = {
+                    MeshURL = ASSET_ROOT .. "tools/wake_tracker/wake_tracker.obj",
+                    DiffuseURL = ASSET_ROOT .. "tools/wake_tracker/wake_teexture.png",
+                    ColliderURL = ASSET_ROOT .. "tools/wake_tracker/wake_tracker.obj"
+                }
+            }
         }
     },
     setup = {
@@ -710,7 +720,7 @@ ASSETS = {
                 {name = "Proud Captain", factions = {klingon = true}, roles = {command = true}, cp = 8, fp = 3},
                 {name = "Restless First Officer", factions = {klingon = true}, roles = {ops = true}, cp = 8, fp = 3},
                 {name = "Savvy Engineer", factions = {klingon = true}, roles = {ops = true, science = ture}, cp = 8, fp = 3},
-                {name = "Wary Science Officer", factions = {"klingon"}, roles = {science = true}, cp = 7, fp = 2}
+                {name = "Wary Science Officer", factions = {klingon = true}, roles = {science = true}, cp = 7, fp = 2}
             },
             ships = {
                 brel = {
