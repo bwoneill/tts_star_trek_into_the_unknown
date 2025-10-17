@@ -434,7 +434,7 @@ ASSETS = {
         },
         wake_tracker = {
             data = {
-                Name = "Custom_Model", Transform = {scaleX = 1},
+                Name = "Custom_Model", Transform = {scaleX = 1, scaleY = 1, scaleZ = 1},
                 CustomMesh = {
                     MeshURL = ASSET_ROOT .. "tools/wake_tracker/wake_tracker.obj",
                     DiffuseURL = ASSET_ROOT .. "tools/wake_tracker/wake_texture.png",
