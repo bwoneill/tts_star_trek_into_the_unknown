@@ -437,7 +437,7 @@ ASSETS = {
                 Name = "Custom_Model", Transform = {scaleX = 1},
                 CustomMesh = {
                     MeshURL = ASSET_ROOT .. "tools/wake_tracker/wake_tracker.obj",
-                    DiffuseURL = ASSET_ROOT .. "tools/wake_tracker/wake_teexture.png",
+                    DiffuseURL = ASSET_ROOT .. "tools/wake_tracker/wake_texture.png",
                     ColliderURL = ASSET_ROOT .. "tools/wake_tracker/wake_tracker.obj"
                 }
             }
