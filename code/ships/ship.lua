@@ -893,7 +893,6 @@ function cloak(player, value, id)
         obj.call("setData", wake_data)
     end
     obj_data.data.Nickname = shipData.name .. "(" .. self.getGUID() .. ")"
-    log(obj_data.data.LuaScriptState)
     wake = spawnObjectData(obj_data)
 end
 
