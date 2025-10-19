@@ -888,6 +888,8 @@ function cloak(player, value, id)
     wake = spawnObjectData(TOOLS.wake_tracker)
     wake.setVar("owner", self.getGUID())
     wake.setVar("ship_type", shipData.name)
+    wake.setName(shipData.name)
+    log(player.color)
     wake.UI.setAttribute("foreground", "visibility", player.color)
 end
 
