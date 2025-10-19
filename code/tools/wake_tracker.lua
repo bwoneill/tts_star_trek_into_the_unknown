@@ -54,13 +54,6 @@ description = {
     ["6\""] = "within [8db9c7]light blue[ffffff] range (4-6\")",
 }
 
-data = {
-    pos = "A",
-    dis = "1\"",
-    ship_type = "Unknown ship",
-    owner = ""
-}
-
 reset = true
 
 function onLoad(script_state)

@@ -887,7 +887,7 @@ function cloak(player, value, id)
     end
     wake = spawnObjectData(TOOLS.wake_tracker)
     wake.setTable("data", {owner = player.color, shipGUID = self.getGUID(), ship_type = shipData.name})
-    wake.setName(shipData.name)
+    wake.setName(shipData.name .. "(" .. self.getGUID() .. ")")
 end
 
--- build 1.1.0
+-- build 1.1.0.2
