@@ -54,56 +54,46 @@ description = {
     ["6\""] = "within [8db9c7]light blue[ffffff] range (4-6\")",
 }
 
-selected = {pos = "A", dis = "1\""}
+data = {
+    pos = "A",
+    dis = "1\"",
+    ship_type = "Unknown ship",
+    owner = ""
+}
 
 reset = true
-
-ship_type = "Unknown ship"
 
 function onLoad(script_state)
     if not reset then
         local state = JSON.decode(script_state)
         if state then
-            selected = state.selected
+            data = state            
             self.UI.setXmlTable(state.xml)
-            local xml = self.UI.getXmlTable()
-            if state.UI_state and xml then
-                for name, active in pairs(saveData.UI_state) do
-                    if xml[name] and xml[name].attributes then
-                        xml[name].attributes.active = active
-                    end
-                end
-                if #xml > 0 then
-                    self.UI.setXmlTable(xml)
-                end
-            end
-            self.UI.setAttribute("posDrp", "value", values[selected.pos])
-            self.UI.setAttribute("disDrp", "value", values[selected.dis])
+            self.UI.setAttribute("posDrp", "value", values[data.pos])
+            self.UI.setAttribute("disDrp", "value", values[data.dis])
         end
     end
+    self.UI.setAttribute("foreground", "visibility", data.owner)
 end
 
 function onSave()
-    local state = {}
-    state.selected = selected
-    state.owner = owner
-    state.xml = self.UI.getXmlTable()
-    return JSON.encode(state)
+    data.xml = self.UI.getXmlTable()
+    return JSON.encode(data)
 end
 
 function valueChanged(player, value, id)
     local ui_type = id:sub(-3)
     local tlm_type = id:sub(0, 3)
     if ui_type == "Drp" then
-        selected[tlm_type] = value
+        data[tlm_type] = value
         self.UI.setAttribute(id, "color", colors[value])
         self.UI.setAttribute(id, "textColor", textColor[value] or "#000000")
         self.UI.setAttribute(id, "itemTextColor", "#000000")
         self.UI.setAttribute(id, "arrowColor", textColor[value] or "#000000")
     elseif ui_type == "Rev" then
-        self.UI.setAttribute(tlm_type .. "Tlm", "color", value == "True" and colors[selected[tlm_type]] or "#000000")
+        self.UI.setAttribute(tlm_type .. "Tlm", "color", value == "True" and colors[data[tlm_type]] or "#000000")
         if value == "True" then
-            print(ship_type .. " detected " .. description[selected[tlm_type]] .. " of the wake tracker")
+            print(data.ship_type .. "(" .. data.shipGUID .. ") detected " .. description[data[tlm_type]] .. " of the wake tracker")
         end
     end
 end
@@ -112,7 +102,7 @@ function cloak(player, value, id)
     self.UI.setAttribute("posDrp", "interactable", "false")
     self.UI.setAttribute("disDrp", "interactable", "false")
     self.UI.setAttribute("cloak", "interactable", "false")
-    print(ship_type .. " cloaked (position locked-in)")
+    print(data.ship_type .. "(" .. data.shipGUID .. ") cloaked (position locked-in)")
 end
 
 function close(player, value, id)
@@ -127,5 +117,5 @@ end
 
 function decloak(player, value, id)
     self.UI.setAttribute("foreground", "visibility", "")
-    print(ship_type .. " decloaking in direction " .. selected.pos .. " at " .. selected.dis     .. " of the wake tracker")
+    print(data.ship_type .. "(" .. data.shipGUID .. ") decloaking in direction " .. data.pos .. " at " .. data.dis     .. " of the wake tracker")
 end
