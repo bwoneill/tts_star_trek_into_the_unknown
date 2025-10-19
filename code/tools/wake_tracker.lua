@@ -63,6 +63,8 @@ function onLoad(script_state)
         ship_type = "Unknown ship",
         owner = "Black"
     }
+    log("Loading wake tracker")
+    log(script_state)
     if not reset then
         local state = JSON.decode(script_state)
         if state then
