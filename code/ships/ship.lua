@@ -885,9 +885,10 @@ function cloak(player, value, id)
     if not TOOLS.wake_tracker.data.XmlUI then
         TOOLS.wake_tracker.data.XmlUI = Global.call("getFile", TOOLS.wake_tracker.xml_path)
     end
-    wake = spawnObjectData(TOOLS.wake_tracker)
-    wake.setName(shipData.name .. "(" .. self.getGUID() .. ")")
-    wake.call("setData", {owner = player.color, shipGUID = self.getGUID(), ship_type = shipData.name})
+    local obj_data = {data = TOOLS.wake_tracker.data}
+    obj_data.data.LuaScriptState = JSON.encode({owner = player.color, shipGUID = self.getGUID(), ship_type = shipData.name})
+    obj_data.data.Nickname = shipData.name .. "(" .. self.getGUID() .. ")"
+    wake = spawnObjectData(obj_data)
 end
 
 -- build 1.1.0.2

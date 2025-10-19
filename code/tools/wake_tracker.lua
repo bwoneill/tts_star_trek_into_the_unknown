@@ -81,10 +81,7 @@ function setData(new_data)
     for key, value in pairs(new_data) do
         data[key] = value
     end
-    log(data.owner)
-    log(self.UI.getAttribute("foreground", "visibility"))
     self.UI.setAttribute("foreground", "visibility", data.owner)
-    log(self.UI.getAttribute("foreground", "visibility"))
 end
 
 function onSave()
