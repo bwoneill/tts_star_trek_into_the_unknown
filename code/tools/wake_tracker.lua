@@ -57,6 +57,7 @@ description = {
 reset_ui = true
 
 function onObjectSpawn(object)
+    log(self.getData().LuaScriptState)
     onLoad(self.getData().LuaScriptState)
 end
 
