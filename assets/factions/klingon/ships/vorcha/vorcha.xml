@@ -337,7 +337,7 @@
     width = "50"
     height = "20"
     rectAlignment="UpperLeft"  
-    position = "-110 -155 -2"
+    position = "-110 -125 -2"
     rotation="0 0 180"
     text = "Cloak"
     onClick = "cloak"
