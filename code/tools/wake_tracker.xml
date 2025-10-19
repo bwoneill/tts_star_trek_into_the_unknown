@@ -1,0 +1,43 @@
+<Defaults>
+    <Dropdown width = "60" height = "30" rectAlignment = "UpperLeft" itemHeight = "30" dropdownHeight = "30"
+              scrollSensitivity = "30" color = "#ce6737" onValueChanged = "valueChanged"/>
+    <Button width = "110" height = "20" rectAlignment = "UpperLeft" tooltipPosition = "Below"  resizeTextMaxSize = "14" resizeTextForBestFit = "true"/>
+    <Toggle width = "110" height = "30" rectAlignment = "UpperLeft" onValueChanged = "valueChanged" tooltipPosition = "Below" resizeTextForBestFit = "true"/>
+</Defaults>
+
+<Panel height = "600" width = "800" position = "0 0 -10">
+    <Panel id = "stealth" height = "120" width = "240" allowDragging = "true" returnToOriginalPositionWhenReleased = "false">
+        <Panel id = "background" color = "white">
+            <Text text = "Position" rectAlignment = "UpperLeft" height = "20" width = "110" offsetXY = "5 -5"/>
+            <Text text = "Distance" rectAlignment = "UpperLeft" height = "20" width = "110" offsetXY = "125 -5"/>
+            <Panel id = "posTlm" rectAlignment = "UpperLeft" height = "30" width = "120" color = "#000000" offsetXY = "0 -30"/>
+            <Panel id = "disTlm" rectAlignment = "UpperLeft" height = "30" width = "120" color = "#000000" offsetXY = "120 -30"/>
+            <Button text = "X" color = "red" textColor = "white" onClick = "close" rectAlignment = "UpperLeft" width = "20" height = "20" offsetXY = "220 0"/>
+        </Panel>
+        <Panel id = "foreground" visibility = "Blue">
+            <Dropdown id = "posDrp" offsetXY = "30 -30">
+                <Option>A</Option>
+                <Option>B</Option>
+                <Option>C</Option>
+                <Option>D</Option>
+                <Option>E</Option>
+                <Option>F</Option>
+                <Option>G</Option>
+                <Option>H</Option>
+            </Dropdown>
+            <Dropdown id = "disDrp" offsetXY = "150 -30">
+                <Option>1"</Option>
+                <Option>2"</Option>
+                <Option>3"</Option>
+                <Option>4"</Option>
+                <Option>5"</Option>
+                <Option>6"</Option>
+            </Dropdown>
+            <Toggle id = "posRev" text = "Reveal Direction" offsetXY = "5 -65" tooltip = "Reveal approximate direction"/>
+            <Toggle id = "disRev" text = "Reveal Distance" offsetXY = "125 -65" tooltip = "Reveal approximate distance"/>
+            <Button id = "cloak" text = "Cloak" offsetXY = "5 -95" onClick = "cloak" tooltip = "Lock position and distance (cannot be undone)"/>
+            <Button id = "decloak" text = "Decloak" offsetXY = "125 -95" onClick = "decloak" tooltip = "Reveal exact location (cannot be undone)"/>
+        </Panel>
+    </Panel>
+</Panel>
+<Button id = "show" text = "+" height = "20" width = "20" position = "0 0 -10" onClick = "show" active = "false" rectAlignment = "MiddleCenter"/>
