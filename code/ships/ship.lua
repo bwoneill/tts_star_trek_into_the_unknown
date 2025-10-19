@@ -884,7 +884,7 @@ function cloak(player, value, id)
     end
     if not TOOLS.wake_tracker.data.XmlUI then
         local xml = Global.call("getFile", TOOLS.wake_tracker.xml_path)
-        xml = temp:gsub("Black", player.color)
+        xml = xml:gsub("Black", player.color)
         TOOLS.wake_tracker.data.XmlUI = xml
     end
     local obj_data = {data = TOOLS.wake_tracker.data}
@@ -897,4 +897,4 @@ function cloak(player, value, id)
     wake = spawnObjectData(obj_data)
 end
 
--- build 1.1.0.5
+-- build 1.1.0.6
