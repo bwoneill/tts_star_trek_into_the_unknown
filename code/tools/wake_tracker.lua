@@ -57,7 +57,14 @@ description = {
 reset_ui = true
 
 function onObjectSpawn(object)
-    log(self.getData().LuaScriptState)
+    data = self.getData().LuaScriptState
+    data = data and JSON.decode(data) or {
+        pos = "A",
+        dis = "1\"",
+        ship_type = "Unknown ship",
+        owner = "Black"
+    }
+    log(data.owner)
     onLoad(self.getData().LuaScriptState)
 end
 
