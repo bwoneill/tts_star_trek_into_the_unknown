@@ -9,6 +9,8 @@ saveData = {thickness = 0.02}
 
 ASSET_ROOT = Global.getVar("ASSET_ROOT")
 
+CODE_ROOT = Global.getVar("CODE_ROOT")
+
 TOOLS = Global.getTable("ASSETS").tools
 
 DIAL_CONST = {
@@ -874,4 +876,18 @@ function adjust_thickness(player, value, id)
     self.UI.setAttribute("thicknessText", "text", "Thickness: " .. saveData.thickness .. "\"")
 end
 
--- build 1.0.3.01
+function cloak(player, value, id)
+    -- Move ship
+    -- Spawn wake tracker
+    if not TOOLS.wake_tracker.data.LuaScript then
+        TOOLS.wake_tracker.data.LuaScript = Global.call("getFile", TOOLS.wake_tracker.script_path)
+    end
+    if not TOOLS.wake_tracker.data.XmlUI then
+        TOOLS.wake_tracker.data.XmlUI = Global.call("getFile", TOOLS.wake_tracker.xml_path)
+    end
+    wake = spawnObjectData(TOOLS.wake_tracker)
+    wake.setVar("owner", self.getGUID())
+    wake.setVar("ship_type", shipData.name)
+end
+
+-- build 1.1.0

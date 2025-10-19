@@ -133,6 +133,7 @@ complication_types = {"battle", "intrigue", "mystery", "politics", "study", "thr
 ROOT = "https://raw.githubusercontent.com/bwoneill/tts_star_trek_into_the_unknown/v1.1.0/"
 ASSET_ROOT =  ROOT .. "assets/"
 CODE_ROOT = ROOT .. "code/"
+FILE_CACHE = {}
 
 turning_tool_script = [[function onDrop()
     local rulers = getObjectsWithTag("Ruler")
@@ -440,7 +441,9 @@ ASSETS = {
                     DiffuseURL = ASSET_ROOT .. "tools/wake_tracker/wake_texture.png",
                     ColliderURL = ASSET_ROOT .. "tools/wake_tracker/wake_tracker.obj"
                 }
-            }
+            },
+            script_path = CODE_ROOT .. "/tools/wake_tracker.lua",
+            xml_path = CODE_ROOT .. "/tools/wake_tracker.xml"
         }
     },
     setup = {
@@ -1118,4 +1121,17 @@ function getBoard()
     else
         log("Wrong number of boards")
     end
+end
+
+function getFile(path)
+    if not FILE_CACHE[path] then
+        local request = WebRequest.get(path)
+        repeat until request.is_done
+        if request.is_error or request.text == "404: Not Found" then
+            log("Error downloading " .. path)
+        else
+            FILE_CACHE[path] = request.text
+        end
+    end
+    return FILE_CACHE[path]
 end

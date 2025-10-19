@@ -40,17 +40,7 @@ panelIds = {"fPanel", "stagingPanel", "vertCardSelector", "horCardSelector", "se
 
 SAVE_VERSION = "1.0"
 function downloadScript()
-    local request = WebRequest.get(
-        CODE_ROOT .. "ships/ship.lua",
-        function(r)
-            if r.is_error then
-                log(r.error)
-            else
-                SHIP_BOARD_SCRIPT = r.text
-            end
-        end
-    )
-    repeat until request.is_done
+    SHIP_BOARD_SCRIPT = Global.call("getFile", CODE_ROOT .. "ships/ship.lua")
 end
 
 -- Faction Selection
@@ -719,17 +709,7 @@ end
 
 function spawnShipBoard(ship, n)
     local path = ASSET_ROOT .. "factions/" .. ship.faction .. "/" .. ship.folder .. "/" .. ship.type .. "/"
-    if not xml_cache[ship.type] then
-        local xml_path = path .. ship.type .. ".xml"
-        local request = WebRequest.get(xml_path)
-        repeat until request.is_done
-        if request.is_error or request.text == "404: Not Found" then
-            log("Error downloading " .. ship.type .. ".xml")
-            return
-        else
-            xml_cache[ship.type] = request.text
-        end
-    end
+    local ship_xml = Global.call("getFile", path .. ship.type .. ".xml")
     local script = "default = Global.getTable(\"ASSETS\").factions." .. ship.faction .. "." .. ship.folder .."." .. ship.type .. "\n" .. SHIP_BOARD_SCRIPT
     local rot = self.getRotation().y
     local pos = self.getPosition() + Vector(15 * (n - 2), 0, 13):rotateOver("y", rot)
@@ -741,7 +721,7 @@ function spawnShipBoard(ship, n)
             DiffuseURL = path .. "ship_board.png",
             MaterialIndex = 3, Convex = false
         },
-        LuaScript = script, XmlUI = xml_cache[ship.type]
+        LuaScript = script, XmlUI = ship_xml
     }
     local back = path .. "crit_back.png"
     for i = 1, ship.crit_deck_size do
