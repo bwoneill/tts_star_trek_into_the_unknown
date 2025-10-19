@@ -89,6 +89,11 @@ function onSave()
     return JSON.encode(data)
 end
 
+function onDestroy()
+    local parent = getObjectFromGUID(data.shipGUID)
+    parent.call("clearCloak")
+end
+
 function valueChanged(player, value, id)
     local ui_type = id:sub(-3)
     local tlm_type = id:sub(0, 3)
