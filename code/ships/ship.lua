@@ -203,6 +203,45 @@ BASE_CONST = {
                 {point = Vector(-2.296, 0,  1.066), start = 207, stop = 225}
             }
         }
+    },
+    wake = {
+        warpAttachment = Vector(0.367, 0, 0.77),
+        toolAttachment = {
+            fore = {pos = Vector(-1.065, 0 , 0), rot = 0},
+            aft = {pos = Vector(1.065, 0, 0), rot = 180},
+            port = {pos = Vector(0, 0, -1.065), rot = 270},
+            starboard = {pos = Vector(0, 0, 1.065), rot = 90}
+        },
+        arcs = {
+            aft_port = {
+                {point = Vector( 0.770, 0,  0.000), start = 0, stop = 0},
+                {point = Vector( 0.770, 0, -0.367), start = 0, stop = 27},
+                {point = Vector( 0.661, 0, -0.661), start = 27, stop = 47},
+                {point = Vector( 0.367, 0, -0.770), start = 47, stop = 90},
+                {point = Vector( 0.000, 0, -0.770), start = 90, stop = 90}
+            },
+            fore_port = {
+                {point = Vector( 0.000, 0, -0.770), start = 90, stop = 90},
+                {point = Vector(-0.367, 0, -0.770), start = 90, stop = 133},
+                {point = Vector(-0.661, 0, -0.661), start = 133, stop = 153},
+                {point = Vector(-0.770, 0, -0.367), start = 153, stop = 180},
+                {point = Vector(-0.770, 0,  0.000), start = 180, stop = 180},
+            },
+            fore_starboard = {
+                {point = Vector(-0.770, 0,  0.000), start = 180, stop = 180},
+                {point = Vector(-0.770, 0,  0.367), start = 180, stop = 207},
+                {point = Vector(-0.661, 0,  0.661), start = 207, stop = 227},
+                {point = Vector(-0.367, 0,  0.770), start = 227, stop = 270},
+                {point = Vector( 0.000, 0,  0.770), start = 270, stop = 270},
+            },
+            aft_starboard = {
+                {point = Vector( 0.000, 0,  0.770), start = 270, stop = 270},
+                {point = Vector( 0.367, 0,  0.770), start = 270, stop = 313},
+                {point = Vector( 0.661, 0,  0.661), start = 313, stop = 333},
+                {point = Vector( 0.770, 0,  0.367), start = 333, stop = 360},
+                {point = Vector( 0.770, 0,  0.000), start = 0, stop = 0},
+            }
+        }
     }
 }
 
@@ -432,8 +471,8 @@ function placeTracker(side)
     if tracker then
         tracker.destroy()
     end
-    local myShip = getObjectFromGUID(saveData.shipGUID)
-    local attachment = BASE_CONST[shipData.size].toolAttachment[side]
+    local myShip = getShipObject()
+    local attachment = getBaseGeometry().toolAttachment[side]
     oldPos = myShip.getPosition()
     oldRot = myShip.getRotation()
     tracker = spawnObjectData(TOOLS.tracker)
@@ -461,7 +500,7 @@ function cancelMove()
         rulerB.destroy()
         rulerB = nil
     end
-    local myShip = getObjectFromGUID(saveData.shipGUID)
+    local myShip = getObjectFromGUID(saveData.shipGUID) -- TODO: handle wakes
     myShip.setPosition(oldPos)
     myShip.setRotation(oldRot)
     tracker.destroy()
@@ -471,7 +510,7 @@ end
 -- Impulse
 
 function impulseMoveStart()
-    local myShip = getObjectFromGUID(saveData.shipGUID)
+    local myShip = getShipObject()
     myShip.createButton({function_owner = self, click_function = "impulseMoveFront",label = "Fore", position = {1.5,.2,0}, rotation = {0, 90, 0}, width = 350, height = 150 })
     myShip.createButton({function_owner = self, click_function = "impulseMoveBack",label = "Aft", position = {-1.5,.2,0}, rotation = {0, 90, 0}, width = 350, height = 150 })
     myShip.createButton({function_owner = self, click_function = "impulseMoveLeft",label = "Port", position = {-0.1,.2,-1.2}, rotation = {0, 90, 0}, width = 350, height = 150})
@@ -486,7 +525,7 @@ function impulseMoveRight() placeToolToShipRight() end
 -- Turning tool
 
 function placeTurningTool(side, tracker)
-    local myShip = getObjectFromGUID(saveData.shipGUID)
+    local myShip = getShipObject()
     myShip.clearButtons()
     myShip.lock()
     shipDirection = side
@@ -495,7 +534,7 @@ function placeTurningTool(side, tracker)
     else
         placeTrackerAft()
     end
-    local attachment = BASE_CONST[shipData.size].toolAttachment[side]
+    local attachment = getBaseGeometry().toolAttachment[side]
     local pos = myShip.getPosition()
     local rot = myShip.getRotation().y
     template = spawnObjectData(TOOLS.turning_tool)
@@ -530,7 +569,7 @@ end
 
 -- Step 2: Position the Ruler
 function positionRuler(direction)
-    local myShip = getObjectFromGUID(saveData.shipGUID)
+    local myShip = getShipObject()
     ruler = spawnObjectData(TOOLS.ruler_12in)
     local sign = direction == "right" and 1 or -1
     local pos = template.getPosition()
@@ -558,10 +597,10 @@ end
 
 -- Step 3: Position Ship to the Template and Remove Ruler
 function positionShip()
-    local myShip = getObjectFromGUID(saveData.shipGUID)
+    local myShip = getShipObject()
     local spawnPos = template.getPosition()
     local spawnRot = template.getRotation()
-    local attachment = BASE_CONST[shipData.size].toolAttachment[shipDirection]
+    local attachment = getBaseGeometry().toolAttachment[shipDirection]
     local leftVector = template.getTransformRight()
     spawnRot.y = spawnRot.y - attachment.rot
     spawnPos = spawnPos + (leftVector * Vector(attachment.pos):magnitude())
@@ -580,7 +619,7 @@ function positionShip()
 end
 
 function clearTemplates()
-    local myShip = getObjectFromGUID(saveData.shipGUID)
+    local myShip = getShipObject()
     myShip.clearButtons()
     myShip.lock()
     template.destroy()
@@ -603,11 +642,11 @@ function clearWarp()
 end
 
 function placeWarpTemplate()
-    local myShip = getObjectFromGUID(saveData.shipGUID)
+    local myShip = getShipObject()
     myShip.unlock()
     local pos = myShip.getPosition()
     local angle = myShip.getRotation().y
-    local offset = Vector(BASE_CONST[shipData.size].warpAttachment):rotateOver("y", angle)
+    local offset = Vector(getBaseGeometry().warpAttachment):rotateOver("y", angle)
     local offsetA = offset + Vector(-6, 0.05, 0.3):rotateOver("y", angle)
     local offsetB = offset + Vector(-18, 0.05, 0.3):rotateOver("y", angle)
     rulerA = spawnObjectData(TOOLS.ruler_12in)
@@ -638,11 +677,11 @@ end
 -- Assumes all objects are scale = 1 and their dimensions returned by getBounds() are in inches.
 
 function drawArc(system, jammed) -- system is "sensors", "comms", "weapons"
-    local myShip = getObjectFromGUID(saveData.shipGUID)
+    local myShip = getShipObject()
     local stats = shipData[system]
     local clr = myShip.getColorTint()
     clr.a = 1
-    local geometry = BASE_CONST[shipData.size].arcs
+    local geometry = getBaseGeometry().arcs
     local lines = {}
     -- Axis overlay
     -- local lines = {
@@ -682,7 +721,11 @@ function drawArc(system, jammed) -- system is "sensors", "comms", "weapons"
             end
         end
     end
-    myShip.setVectorLines(lines)
+    if wake then
+        wake.setVectorLines(lines)
+    else
+        myShip.setVectorLines(lines)
+    end
 end
 
 function sweepOverPoints(points, geometry, range)
@@ -694,8 +737,8 @@ function sweepOverPoints(points, geometry, range)
 end
 
 function drawBase()
-    local myShip = getObjectFromGUID(saveData.shipGUID)
-    local geometry = BASE_CONST[shipData.size].arcs
+    local myShip = getShipObject()
+    local geometry = getBaseGeometry().arcs
     local lines = {}
     local points = {}
     local arcs = COMPOUND_ARCS["all"]
@@ -727,7 +770,7 @@ function commsJammed()
 end
 
 function clearArc(_rangeCir, _range)
-    local myShip = getObjectFromGUID(saveData.shipGUID)
+    local myShip = getShipObject()
     myShip.setVectorLines({})
 end
 
@@ -742,7 +785,7 @@ function launch(direction)
 end
 
 function launchAuxiliary(direction)
-    local myShip = getObjectFromGUID(saveData.shipGUID)
+    local myShip = getShipObject()
     if direction == "fore" then
         myShip.createButton({function_owner = self, click_function = "launchFore",label = "Fore", position = {1.5,.2,0}, rotation = {0, 90, 0}, width = 350, height = 150 })
     elseif direction == "aft" then
@@ -876,6 +919,14 @@ function adjust_thickness(player, value, id)
     self.UI.setAttribute("thicknessText", "text", "Thickness: " .. saveData.thickness .. "\"")
 end
 
+function getShipObject()
+    return getObjectFromGUID(saveData.wakeGUID or saveData.shipGUID)
+end
+
+function getBaseGeometry()
+    return BASE_CONST[saveData.wakeGUID and "wake" or shipData.size]
+end
+
 function cloak(player, value, id)
     -- Move ship
     placeTrackerAft()
@@ -897,13 +948,14 @@ function cloak(player, value, id)
         obj.call("setData", wake_data)
     end
     obj_data.data.Nickname = shipData.name .. "(" .. self.getGUID() .. ")"
-    wake = spawnObjectData(obj_data)
+    local wake = spawnObjectData(obj_data)
     -- Set wake tracker position
     local pos = tracker.getPosition()
     local rot = tracker.getRotation()
-    pos = pos + Vector(0, 0, 1.02):rotateOver("y", rot.y)
+    pos = pos + Vector(0, 0, 0.77):rotateOver("y", rot.y)
     wake.setPosition(pos)
     wake.setRotation(rot)
+    saveData.wakeGUID = wake.getGUID()
 end
 
--- build 1.1.0.9
+-- build 1.1.0.10
