@@ -57,13 +57,21 @@ description = {
 reset = true
 
 function onLoad(script_state)
+    data = {
+        pos = "A",
+        dis = "1\"",
+        ship_type = "Unknown ship",
+        owner = "Black"
+    }
     if not reset then
         local state = JSON.decode(script_state)
         if state then
-            data = state            
-            self.UI.setXmlTable(state.xml)
-            self.UI.setAttribute("posDrp", "value", values[data.pos])
-            self.UI.setAttribute("disDrp", "value", values[data.dis])
+            data = state
+            if state.xml then
+                self.UI.setXmlTable(state.xml)
+                self.UI.setAttribute("posDrp", "value", values[data.pos])
+                self.UI.setAttribute("disDrp", "value", values[data.dis])
+            end
         end
     end
     self.UI.setAttribute("foreground", "visibility", data.owner)

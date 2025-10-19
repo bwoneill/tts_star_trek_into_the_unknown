@@ -886,8 +886,8 @@ function cloak(player, value, id)
         TOOLS.wake_tracker.data.XmlUI = Global.call("getFile", TOOLS.wake_tracker.xml_path)
     end
     wake = spawnObjectData(TOOLS.wake_tracker)
-    wake.setTable("data", {owner = player.color, shipGUID = self.getGUID(), ship_type = shipData.name})
     wake.setName(shipData.name .. "(" .. self.getGUID() .. ")")
+    wake.call("onLoad", {pos = "A", dis = "1\"", owner = player.color, shipGUID = self.getGUID(), ship_type = shipData.name})
 end
 
 -- build 1.1.0.2
