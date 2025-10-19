@@ -888,7 +888,8 @@ function cloak(player, value, id)
     local obj_data = {data = TOOLS.wake_tracker.data}
     obj_data.data.LuaScriptState = JSON.encode({owner = player.color, shipGUID = self.getGUID(), ship_type = shipData.name})
     obj_data.data.Nickname = shipData.name .. "(" .. self.getGUID() .. ")"
+    log(obj_data.data.LuaScriptState)
     wake = spawnObjectData(obj_data)
 end
 
--- build 1.1.0.2
+-- build 1.1.0.3
