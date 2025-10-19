@@ -63,8 +63,6 @@ function setData(new_data)
         ship_type = "Unknown ship",
         owner = "Black"
     }
-    log(data.owner)
-    self.UI.setAttribute("foreground", "visibility", data.owner)
 end
 
 function onLoad(script_state)
