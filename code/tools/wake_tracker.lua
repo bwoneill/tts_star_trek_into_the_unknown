@@ -65,6 +65,7 @@ function onObjectSpawn(object)
         owner = "Black"
     }
     log(data.owner)
+    self.UI.setAttribute("foreground", "visibility", data.owner)
     onLoad(self.getData().LuaScriptState)
 end
 
