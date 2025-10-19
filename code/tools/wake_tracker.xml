@@ -14,7 +14,7 @@
             <Panel id = "disTlm" rectAlignment = "UpperLeft" height = "30" width = "120" color = "#000000" offsetXY = "120 -30"/>
             <Button text = "X" color = "red" textColor = "white" onClick = "close" rectAlignment = "UpperLeft" width = "20" height = "20" offsetXY = "220 0"/>
         </Panel>
-        <Panel id = "foreground">
+        <Panel id = "foreground" visibility = "Black">
             <Dropdown id = "posDrp" offsetXY = "30 -30">
                 <Option>A</Option>
                 <Option>B</Option>

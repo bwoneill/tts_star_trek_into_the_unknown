@@ -77,6 +77,16 @@ function onLoad(script_state)
     self.UI.setAttribute("foreground", "visibility", data.owner)
 end
 
+function setData(new_data)
+    for key, value in pairs(new_data) do
+        data[key] = value
+    end
+    log(data.owner)
+    log(self.UI.getAttribute("foreground", "visibility"))
+    self.UI.setAttribute("foreground", "visibility", data.owner)
+    log(self.UI.getAttribute("foreground", "visibility"))
+end
+
 function onSave()
     data.xml = self.UI.getXmlTable()
     return JSON.encode(data)
