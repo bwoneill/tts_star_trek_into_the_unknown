@@ -879,6 +879,7 @@ end
 function cloak(player, value, id)
     -- Move ship
     placeTrackerAft()
+    local myShip = getObjectFromGUID(saveData.shipGUID)
     myShip.setPosition(self.getPosition() + Vector(5.5, 0, -5.5):rotateOver("y", rot.y))
     myShip.setRotation(self.getRotation())
     -- Spawn wake tracker
@@ -905,4 +906,4 @@ function cloak(player, value, id)
     wake.setRotation(rot)
 end
 
--- build 1.1.0.6
+-- build 1.1.0.7
