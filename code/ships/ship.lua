@@ -901,9 +901,9 @@ function cloak(player, value, id)
     -- Set wake tracker position
     local pos = tracker.getPosition()
     local rot = tracker.getRotation()
-    pos = pos + Vector(1.02, 0, 0):rotateOver("y", rot.y)
+    pos = pos + Vector(0, 0, 1.02):rotateOver("y", rot.y)
     wake.setPosition(pos)
     wake.setRotation(rot)
 end
 
--- build 1.1.0.8
+-- build 1.1.0.9
