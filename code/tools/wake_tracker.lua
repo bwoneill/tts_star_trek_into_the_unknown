@@ -56,9 +56,8 @@ description = {
 
 reset_ui = true
 
-function onObjectSpawn(object)
-    data = self.getData().LuaScriptState
-    data = data and JSON.decode(data) or {
+function setData(new_data)
+    data = new_data or {
         pos = "A",
         dis = "1\"",
         ship_type = "Unknown ship",
@@ -66,7 +65,6 @@ function onObjectSpawn(object)
     }
     log(data.owner)
     self.UI.setAttribute("foreground", "visibility", data.owner)
-    onLoad(self.getData().LuaScriptState)
 end
 
 function onLoad(script_state)
