@@ -54,7 +54,7 @@ description = {
     ["6\""] = "within [8db9c7]light blue[ffffff] range (4-6\")",
 }
 
-reset = true
+reset_ui = true
 
 function onLoad(script_state)
     data = {
@@ -63,17 +63,13 @@ function onLoad(script_state)
         ship_type = "Unknown ship",
         owner = "Black"
     }
-    log("Loading wake tracker")
-    log(script_state)
-    if not reset then
-        local state = JSON.decode(script_state)
-        if state then
-            data = state
-            if state.xml then
-                self.UI.setXmlTable(state.xml)
-                self.UI.setAttribute("posDrp", "value", values[data.pos])
-                self.UI.setAttribute("disDrp", "value", values[data.dis])
-            end
+    local state = JSON.decode(script_state)
+    if state then
+        data = state
+        if state.xml and not reset_ui then
+            self.UI.setXmlTable(state.xml)
+            self.UI.setAttribute("posDrp", "value", values[data.pos])
+            self.UI.setAttribute("disDrp", "value", values[data.dis])
         end
     end
     self.UI.setAttribute("foreground", "visibility", data.owner)
