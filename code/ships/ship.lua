@@ -690,10 +690,10 @@ function drawArc(system, jammed) -- system is "sensors", "comms", "weapons"
     --     {points = {{0,1,0}, {0,1,5}},color = {0,0,1}}
     -- } 
     for name, range in pairs(stats) do
-        if name ~= "instruments" then
+        if name == "all" or not saveData.wakeGUID and name ~= "instruments" then
             local arcs
             -- Calculate range
-            if jammed and system ~= "weapons" then
+            if jammed and system ~= "weapons" or saveData.wakeGUID then
                 range = 2
             elseif stats.instruments and stats.instruments[name] then
                 range = range + shipData.instruments[saveData.dials.alert.value + 1]
@@ -958,4 +958,8 @@ function cloak(player, value, id)
     saveData.wakeGUID = wake.getGUID()
 end
 
--- build 1.1.0.10
+function clearCloak()
+    saveData.wakeGUID = nil
+end
+
+-- build 1.1.0.11
