@@ -56,6 +56,10 @@ description = {
 
 reset_ui = true
 
+function onObjectSpawn(object)
+    onLoad(self.getData().LuaScriptState)
+end
+
 function onLoad(script_state)
     data = {
         pos = "A",
@@ -71,13 +75,6 @@ function onLoad(script_state)
             self.UI.setAttribute("posDrp", "value", values[data.pos])
             self.UI.setAttribute("disDrp", "value", values[data.dis])
         end
-    end
-    self.UI.setAttribute("foreground", "visibility", data.owner)
-end
-
-function setData(new_data)
-    for key, value in pairs(new_data) do
-        data[key] = value
     end
     self.UI.setAttribute("foreground", "visibility", data.owner)
 end
