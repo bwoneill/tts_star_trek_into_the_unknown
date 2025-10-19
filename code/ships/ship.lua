@@ -878,6 +878,9 @@ end
 
 function cloak(player, value, id)
     -- Move ship
+    placeTrackerAft()
+    myShip.setPosition(self.getPosition() + Vector(5.5, 0, -5.5):rotateOver("y", rot.y))
+    myShip.setRotation(self.getRotation())
     -- Spawn wake tracker
     if not TOOLS.wake_tracker.data.LuaScript then
         TOOLS.wake_tracker.data.LuaScript = Global.call("getFile", TOOLS.wake_tracker.script_path)
@@ -894,6 +897,12 @@ function cloak(player, value, id)
     end
     obj_data.data.Nickname = shipData.name .. "(" .. self.getGUID() .. ")"
     wake = spawnObjectData(obj_data)
+    -- Set wake tracker position
+    local pos = tracker.getPosition()
+    local rot = tracker.getRotation()
+    pos = pos + Vector(1.02, 0, 0):rotateOver("y", rot.y)
+    wake.setPosition(pos)
+    wake.setRotation(rot)
 end
 
 -- build 1.1.0.6
