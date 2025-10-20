@@ -953,9 +953,8 @@ function cloak(player, value, id)
     local pos = tracker.getPosition()
     local attach = BASE_CONST.wake.toolAttachment.aft.pos
     attach.x = 0.25 - attach.x
-    local rot = oldRot
-    wake.setPosition(pos + attach:rotateOver("y", rot.y))
-    wake.setRotation(rot)
+    wake.setPosition(pos + attach:rotateOver("y", -oldRot.y))
+    wake.setRotation(oldRot)
     saveData.wakeGUID = wake.getGUID()
 end
 
@@ -963,4 +962,4 @@ function clearCloak()
     saveData.wakeGUID = nil
 end
 
--- build 1.1.0.13
+-- build 1.1.0.14
