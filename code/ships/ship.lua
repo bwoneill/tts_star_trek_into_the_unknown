@@ -623,8 +623,10 @@ function clearTemplates()
     local myShip = getShipObject()
     myShip.clearButtons()
     myShip.lock()
-    template.destroy()
-    template = nil
+    if template then
+        template.destroy()
+        template = nil
+    end
     if tracker then
         tracker.destroy()
         tracker = nil
