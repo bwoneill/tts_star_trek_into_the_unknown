@@ -629,6 +629,11 @@ function clearTemplates()
         tracker.destroy()
         tracker = nil
     end
+    if saveData.wakeGUID and not saveData.cloaked then
+        local wake = getObjectFromGUID(saveData.wakeGUID)
+        wake.destroy()
+        saveData.wakeGUID = nil
+    end
 end
 
 function clearWarp() 
@@ -921,7 +926,7 @@ function adjust_thickness(player, value, id)
 end
 
 function getShipObject()
-    return getObjectFromGUID(saveData.wakeGUID or saveData.shipGUID)
+    return getObjectFromGUID(saveData.cloaked and saveData.wakeGUID or saveData.shipGUID)
 end
 
 function getBaseGeometry()
@@ -929,6 +934,7 @@ function getBaseGeometry()
 end
 
 function cloak(player, value, id)
+    clearArc()
     -- Move ship
     local pos, rot = placeTrackerAft()
     local myShip = getObjectFromGUID(saveData.shipGUID)
@@ -944,7 +950,7 @@ function cloak(player, value, id)
         TOOLS.wake_tracker.data.XmlUI = xml
     end
     local obj_data = {data = TOOLS.wake_tracker.data}
-    local wake_data = {owner = player.color, shipGUID = self.getGUID(), ship_type = shipData.name}
+    local wake_data = {owner = player.color, parent = self.getGUID(), ship_type = shipData.name}
     obj_data.callback_function = function(obj)
         obj.call("setData", wake_data)
     end
@@ -958,8 +964,17 @@ function cloak(player, value, id)
     saveData.wakeGUID = wake.getGUID()
 end
 
+function completeCloak()
+    saveData.cloaked = true
+    clearTemplates()
+end
+
+function decloak()
+    saveData.cloaked = false
+end
+
 function clearCloak()
     saveData.wakeGUID = nil
 end
 
--- build 1.1.0.18
+-- build 1.1.0.19

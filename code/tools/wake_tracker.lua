@@ -90,7 +90,7 @@ function onSave()
 end
 
 function onDestroy()
-    local parent = getObjectFromGUID(data.shipGUID)
+    local parent = getObjectFromGUID(data.parent)
     parent.call("clearCloak")
 end
 
@@ -106,7 +106,7 @@ function valueChanged(player, value, id)
     elseif ui_type == "Rev" then
         self.UI.setAttribute(tlm_type .. "Tlm", "color", value == "True" and colors[data[tlm_type]] or "#000000")
         if value == "True" then
-            print(data.ship_type .. "(" .. data.shipGUID .. ") detected " .. description[data[tlm_type]] .. " of the wake tracker")
+            print(data.ship_type .. "(" .. data.parent .. ") detected " .. description[data[tlm_type]] .. " of the wake tracker")
         end
     end
 end
@@ -115,7 +115,9 @@ function cloak(player, value, id)
     self.UI.setAttribute("posDrp", "interactable", "false")
     self.UI.setAttribute("disDrp", "interactable", "false")
     self.UI.setAttribute("cloak", "interactable", "false")
-    print(data.ship_type .. "(" .. data.shipGUID .. ") cloaked (position locked-in)")
+    print(data.ship_type .. "(" .. data.parent .. ") cloaked (position locked-in)")
+    local parent = getObjectFromGUID(data.parent)
+    parent.call("completeCloak")
 end
 
 function close(player, value, id)
@@ -130,5 +132,7 @@ end
 
 function decloak(player, value, id)
     self.UI.setAttribute("foreground", "visibility", "")
-    print(data.ship_type .. "(" .. data.shipGUID .. ") decloaking in direction " .. data.pos .. " at " .. data.dis     .. " of the wake tracker")
+    print(data.ship_type .. "(" .. data.parent .. ") decloaking in direction " .. data.pos .. " at " .. data.dis     .. " of the wake tracker")
 end
+
+-- build v1.1.0.2
