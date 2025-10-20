@@ -480,10 +480,11 @@ function placeTracker(side)
     tracker.setRotation({0, oldRot.y + attachment.rot + 90, 0})
     tracker.createButton({function_owner = self, click_function = "cancelMove", label = "Cancel", position = {0, 0.2, 0}, rotation = {0, 180, 0}, width = 400, height = 180})
     tracker.lock()
+    return oldPos, oldRot
 end
 
-function placeTrackerFore() placeTracker("fore") end
-function placeTrackerAft() placeTracker("aft") end
+function placeTrackerFore() return placeTracker("fore") end
+function placeTrackerAft() return placeTracker("aft") end
 
 function cancelMove()
     if template then
@@ -929,7 +930,7 @@ end
 
 function cloak(player, value, id)
     -- Move ship
-    placeTrackerAft()
+    local pos, rot = placeTrackerAft()
     local myShip = getObjectFromGUID(saveData.shipGUID)
     myShip.setPosition(self.getPosition() + Vector(5.5, 0, -5.5):rotateOver("y", self.getRotation().y))
     myShip.setRotation(self.getRotation())
@@ -950,11 +951,10 @@ function cloak(player, value, id)
     obj_data.data.Nickname = shipData.name .. "(" .. self.getGUID() .. ")"
     local wake = spawnObjectData(obj_data)
     -- Set wake tracker position
-    local pos = tracker.getPosition()
     local attach = BASE_CONST.wake.toolAttachment.aft.pos
     attach.x = attach.x - 0.25
-    wake.setPosition(pos - attach:rotateOver("y", oldRot.y))
-    wake.setRotation(oldRot)
+    wake.setPosition(tracker.getPosition() - attach:rotateOver("y", rot.y))
+    wake.setRotation(rot)
     saveData.wakeGUID = wake.getGUID()
 end
 
@@ -962,4 +962,4 @@ function clearCloak()
     saveData.wakeGUID = nil
 end
 
--- build 1.1.0.16
+-- build 1.1.0.17
