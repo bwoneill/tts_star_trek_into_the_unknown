@@ -951,7 +951,7 @@ function cloak(player, value, id)
     local wake = spawnObjectData(obj_data)
     -- Set wake tracker position
     local pos = tracker.getPosition()
-    local attach = BASE_CONST.wake.toolAttachment.aft
+    local attach = BASE_CONST.wake.toolAttachment.aft.pos
     attach.x = 0.25 - attach.x
     local rot = oldRot
     wake.setPosition(pos + attach:rotateOver("y", rot.y))
@@ -963,4 +963,4 @@ function clearCloak()
     saveData.wakeGUID = nil
 end
 
--- build 1.1.0.12
+-- build 1.1.0.13
