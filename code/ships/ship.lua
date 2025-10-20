@@ -952,7 +952,8 @@ function cloak(player, value, id)
     -- Set wake tracker position
     local pos = tracker.getPosition()
     local rot = tracker.getRotation()
-    pos = pos + Vector(0, 0, 0.77):rotateOver("y", rot.y)
+    rot.y = rot.y - 90
+    pos = pos + Vector(0.77, 0, 0):rotateOver("y", rot.y)
     wake.setPosition(pos)
     wake.setRotation(rot)
     saveData.wakeGUID = wake.getGUID()
@@ -962,4 +963,4 @@ function clearCloak()
     saveData.wakeGUID = nil
 end
 
--- build 1.1.0.11
+-- build 1.1.0.12
