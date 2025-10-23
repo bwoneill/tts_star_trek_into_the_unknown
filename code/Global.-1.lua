@@ -567,7 +567,7 @@ ASSETS = {
                     name = "Jem'Hadar Fighter", role = "scout", size = "small", crit_deck_size = 4,
                     faction = "dominion", folder = "ships", type = "fighter",
                     dials = {alert = {min = 0, max = 4}, power = {min = 0, max = 7}, crew = {min = -2, max = 4}, hull = {min = 0, max = 6}},
-                    model_transform = {scaleX = 1.3}, instruments = {1, 2, 2, 1, 0},
+                    model_transform = {scaleX = 1.3, posY = 0.25}, instruments = {1, 2, 2, 1, 0},
                     sensors = {all = 4, fore = 4, instruments = {fore = true}},
                     comms = {all = 4, fore = 4, instruments = {fore = true}},
                     weapons = {fore = 6, aft = 6}
@@ -623,7 +623,7 @@ ASSETS = {
                     name = "Defiant-Class Escort", role = "scout", size = "small", crit_deck_size = 5, fp = 3,
                     faction = "federation", folder = "ships", type = "defiant",
                     dials = {alert = {min = 0, max = 4}, power = {min = 0, max = 6}, crew = {min = -2, max = 4}, hull = {min = 0, max = 7}},
-                    model_transform = {scaleX = 1.3}, instruments = {2, 2, 1, 1, 0},
+                    model_transform = {scaleX = 1.3, posY = 0.35}, instruments = {2, 2, 1, 1, 0},
                     sensors = {all = 2, bow = 4, instruments = {bow = true}},
                     comms = {all = 2, bow = 6, instruments = {bow = true}},
                     weapons = {all = 6, fore = 6, fore_port = 4, fore_starboard = 4, aft = 6},
@@ -678,7 +678,7 @@ ASSETS = {
                     name = "Miranda-Class Starship", role = "support", size = "small", crit_deck_size = 5, fp = -2,
                     faction = "federation", folder = "ships", type = "miranda",
                     dials = {alert = {min = 0, max = 4}, power = {min = 0, max = 7}, crew = {min = -2, max = 4}, hull = {min = 0, max = 7}},
-                    model_transform = {scaleX = 1.5, posY = 0.50, rotY = 90}, instruments = {2, 2, 1, 0, 0}, -- scale TBD
+                    model_transform = {scaleX = 1.5, posY = 0.75, rotY = 90}, instruments = {2, 2, 1, 0, 0}, -- scale TBD
                     sensors = {all = 3, bow = 3, instruments = {bow = true}},
                     comms = {all = 4, bow = 4, instruments = {bow = true}},
                     weapons = {bow = 4, fore_port = 6, fore_starboard = 6, aft = 6},
@@ -730,7 +730,7 @@ ASSETS = {
                     name = "B\'rel-Class Bird-of-Prey", role = "scout", size = "small", crit_deck_size = 5, fp = -1,
                     faction = "klingon", folder = "ships", type = "brel",
                     dials = {alert = {min = 0, max = 4}, power = {min = 0, max = 6}, crew = {min = -2, max = 4}, hull = {min = 0, max = 6}},
-                    model_transform = {scaleX = 1}, instruments = {1, 2, 1, 0, 0}, -- scale TBD
+                    model_transform = {scaleX = 0.85, posX = 0.75, posY = 0.88, posZ = -0.43}, instruments = {1, 2, 1, 0, 0}, -- scale TBD
                     sensors = {all = 2, bow = 4, instruments = {bow = true}},
                     comms = {all = 2, bow = 4, instruments = {bow = true}},
                     weapons = {fore_port = 4, fore_starboard = 4},
