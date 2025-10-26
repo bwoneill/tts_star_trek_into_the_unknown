@@ -22,7 +22,7 @@ DIAL_CONST = {
 
 BASE_CONST = {
     shuttle = {
-        warpAttachment = Vector(0.319, 0, 0.38),
+        warpAttachment = Vector(-0.38, 0, 0.319),
         toolAttachment = {
             starboard = {pos = Vector(-0.765, 0, 0), rot = 0},
             aft = {pos = Vector(0, 0, 1.14), rot = 90},
@@ -44,7 +44,7 @@ BASE_CONST = {
         }
     },
     small = {
-        warpAttachment = Vector(0.404, 0, 0.77),
+        warpAttachment = Vector(-0.77, 0, 0.404),
         toolAttachment = {
             starboard = {pos = Vector(-1.065, 0, 0), rot = 0},
             aft = {pos = Vector(0, 0, 1.41), rot = 90},
@@ -95,7 +95,7 @@ BASE_CONST = {
         }
     },
     medium = {
-        warpAttachment = Vector(0.427, 0, 1.03),
+        warpAttachment = Vector(-1.03, 0, 0.427),
         toolAttachment = {
             starboard = {pos = Vector(-1.29, 0, 0), rot = 0},
             aft = {pos = Vector(0, 0, 2.065), rot = 90},
@@ -150,7 +150,7 @@ BASE_CONST = {
         }
     },
     large = {
-        warpAttachment = Vector(0.43, 0, 1.275),
+        warpAttachment = Vector(1.275, 0, 0.43),
         toolAttachment = {
             starboard = {pos = Vector(-1.53, 0, 0), rot = 0},
             aft = {pos = Vector(0, 0, 2.82), rot = 90},
@@ -655,17 +655,17 @@ function placeWarpTemplate()
     local pos = myShip.getPosition()
     local angle = myShip.getRotation().y
     local offset = Vector(getBaseGeometry().warpAttachment):rotateOver("y", angle)
-    local offsetA = offset + Vector(-6, 0.05, 0.3):rotateOver("y", angle)
-    local offsetB = offset + Vector(-18, 0.05, 0.3):rotateOver("y", angle)
+    local offsetA = offset + Vector(-0.3, 0.05, -6):rotateOver("y", angle)
+    local offsetB = offset + Vector(-0.3, 0.05, -18):rotateOver("y", angle)
     rulerA = spawnObjectData(TOOLS.ruler_12in)
     rulerA.setPosition(pos + offsetA)
-    rulerA.setRotation({0, angle , 0})
+    rulerA.setRotation({0, angle + 90, 0})
     -- Lock the ruler in place
     rulerA.lock()
 	
     rulerB = spawnObjectData(TOOLS.ruler_12in)
     rulerB.setPosition(pos + offsetB)
-    rulerB.setRotation({0, angle , 0})
+    rulerB.setRotation({0, angle + 90, 0})
 
     -- Lock the ruler in place
     rulerB.lock()
