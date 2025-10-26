@@ -512,10 +512,10 @@ end
 
 function impulseMoveStart()
     local myShip = getShipObject()
-    myShip.createButton({function_owner = self, click_function = "impulseMoveFront",label = "Fore", position = {1.5,.2,0}, rotation = {0, 90, 0}, width = 350, height = 150 })
-    myShip.createButton({function_owner = self, click_function = "impulseMoveBack",label = "Aft", position = {-1.5,.2,0}, rotation = {0, 90, 0}, width = 350, height = 150 })
-    myShip.createButton({function_owner = self, click_function = "impulseMoveLeft",label = "Port", position = {-0.1,.2,-1.2}, rotation = {0, 90, 0}, width = 350, height = 150})
-    myShip.createButton({function_owner = self, click_function = "impulseMoveRight",label = "Starboard", position = {-0.1,.2,1.2}, rotation = {0, 90, 0}, width = 550, height = 150})
+    myShip.createButton({function_owner = self, click_function = "impulseMoveFront",label = "Fore", position = {0,.2,-1.5}, width = 350, height = 150 })
+    myShip.createButton({function_owner = self, click_function = "impulseMoveBack",label = "Aft", position = {0,.2,1.5}, width = 350, height = 150 })
+    myShip.createButton({function_owner = self, click_function = "impulseMoveLeft",label = "Port", position = {-1.2,.2,0.1}, width = 350, height = 150})
+    myShip.createButton({function_owner = self, click_function = "impulseMoveRight",label = "Starboard", position = {1.2,.2,0.1}, width = 550, height = 150})
 end
 
 function impulseMoveFront() placeToolToShipFront() end
