@@ -24,10 +24,10 @@ BASE_CONST = {
     shuttle = {
         warpAttachment = Vector(0.319, 0, 0.38),
         toolAttachment = {
-            fore = {pos = Vector(0, 0 , 1.14), rot = 270},
-            aft = {pos = Vector(0, 0, -1.14), rot = 90},
-            port = {pos = Vector(-0.765, 0, 0), rot = 180},
-            starboard = {pos = Vector(0.765, 0, 0), rot = 0}
+            fore = {pos = Vector(0, 0 , -1.14), rot = 270},
+            aft = {pos = Vector(0, 0, 1.14), rot = 90},
+            port = {pos = Vector(0.765, 0, 0), rot = 180},
+            starboard = {pos = Vector(-0.765, 0, 0), rot = 0}
         },
         arcs = {
             all = {
@@ -46,10 +46,10 @@ BASE_CONST = {
     small = {
         warpAttachment = Vector(0.404, 0, 0.77),
         toolAttachment = {
-            fore = {pos = Vector(0, 0 , 1.41), rot = 270},
-            aft = {pos = Vector(0, 0, -1.41), rot = 90},
-            port = {pos = Vector(-1.065, 0, 0), rot = 180},
-            starboard = {pos = Vector(1.065, 0, 0), rot = 0}
+            fore = {pos = Vector(0, 0 , -1.41), rot = 270},
+            aft = {pos = Vector(0, 0, 1.41), rot = 90},
+            port = {pos = Vector(1.065, 0, 0), rot = 180},
+            starboard = {pos = Vector(-1.065, 0, 0), rot = 0}
         },
         arcs = {
             aft_port = {
@@ -97,10 +97,10 @@ BASE_CONST = {
     medium = {
         warpAttachment = Vector(0.427, 0, 1.03),
         toolAttachment = {
-            fore = {pos = Vector(0, 0 , 2.065), rot = 270},
-            aft = {pos = Vector(0, 0, -2.065), rot = 90},
-            port = {pos = Vector(-1.29, 0, 0), rot = 180},
-            starboard = {pos = Vector(1.29, 0, 0), rot = 0}
+            fore = {pos = Vector(0, 0 , -2.065), rot = 270},
+            aft = {pos = Vector(0, 0, 2.065), rot = 90},
+            port = {pos = Vector(1.29, 0, 0), rot = 180},
+            starboard = {pos = Vector(-1.29, 0, 0), rot = 0}
         },
         arcs = {
             aft_port = {
@@ -152,10 +152,10 @@ BASE_CONST = {
     large = {
         warpAttachment = Vector(0.43, 0, 1.275),
         toolAttachment = {
-            fore = {pos = Vector(0, 0 , 2.82), rot = 270},
-            aft = {pos = Vector(0, 0, -2.82), rot = 90},
-            port = {pos = Vector(-1.53, 0, 0), rot = 180},
-            starboard = {pos = Vector(1.53, 0, 0), rot = 0}
+            fore = {pos = Vector(0, 0 , -2.82), rot = 270},
+            aft = {pos = Vector(0, 0, 2.82), rot = 90},
+            port = {pos = Vector(1.53, 0, 0), rot = 180},
+            starboard = {pos = Vector(-1.53, 0, 0), rot = 0}
         },
         arcs = {
             aft_port = {
@@ -207,10 +207,10 @@ BASE_CONST = {
     wake = {
         warpAttachment = Vector(0.367, 0, 0.77),
         toolAttachment = {
-            fore = {pos = Vector(0, 0 , 1.065), rot = 270},
-            aft = {pos = Vector(0, 0, -1.065), rot = 90},
-            port = {pos = Vector(-1.065, 0, 0), rot = 180},
-            starboard = {pos = Vector(1.065, 0, 0), rot = 0}
+            fore = {pos = Vector(0, 0 , -1.065), rot = 270},
+            aft = {pos = Vector(0, 0, 1.065), rot = 90},
+            port = {pos = Vector(1.065, 0, 0), rot = 180},
+            starboard = {pos = Vector(-1.065, 0, 0), rot = 0}
         },
         arcs = {
             aft_port = {
