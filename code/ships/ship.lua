@@ -37,9 +37,9 @@ BASE_CONST = {
                 {point = Vector(-0.380, 0, -0.557), start = 154, stop = 180},
                 {point = Vector(-0.380, 0,  0.577), start = 180, stop = 206},
                 {point = Vector(-0.293, 0,  0.735), start = 206, stop = 270},
-                {point = Vector(-0.293, 0,  0.735), start = 270, stop = 270},
                 {point = Vector( 0.293, 0,  0.735), start = 270, stop = 334},
-                {point = Vector( 0.380, 0,  0.577), start = 334, stop = 360}
+                {point = Vector( 0.380, 0,  0.577), start = 334, stop = 360},
+                {point = Vector( 0.380, 0, -0.577), start = 0, stop = 0},
             },
         }
     },
