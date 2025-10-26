@@ -53,44 +53,44 @@ BASE_CONST = {
         },
         arcs = {
             aft_port = {
-                {point = Vector( 1.070, 0,  0.000), start = 0, stop = 0},
-                {point = Vector( 1.070, 0, -0.367), start = 0, stop = 27},
-                {point = Vector( 0.920, 0, -0.661), start = 27, stop = 47},
-                {point = Vector( 0.804, 0, -0.770), start = 47, stop = 90},
-                {point = Vector( 0.000, 0, -0.770), start = 90, stop = 90}
+                {point = Vector( 0.000, 0,  1.070), start = 270, stop = 270},
+                {point = Vector( 0.367, 0,  1.070), start = 270, stop = 297},
+                {point = Vector( 0.661, 0,  0.920), start = 297, stop = 317},
+                {point = Vector( 0.770, 0,  0.804), start = 317, stop = 360},
+                {point = Vector( 0.770, 0,  0.000), start = 360, stop = 360}
             },
             fore_port = {
-                {point = Vector( 0.000, 0, -0.770), start = 90, stop = 90},
-                {point = Vector(-0.804, 0, -0.770), start = 90, stop = 133},
-                {point = Vector(-0.920, 0, -0.661), start = 133, stop = 153},
-                {point = Vector(-1.070, 0, -0.367), start = 153, stop = 180},
-                {point = Vector(-1.070, 0,  0.000), start = 180, stop = 180},
+                {point = Vector( 0.770, 0,  0.000), start = 0, stop = 0},
+                {point = Vector( 0.770, 0, -0.804), start = 0, stop = 43},
+                {point = Vector( 0.661, 0, -0.920), start = 43, stop = 63},
+                {point = Vector( 0.367, 0, -1.070), start = 63, stop = 90},
+                {point = Vector( 0.000, 0, -1.070), start = 90, stop = 90},
             },
             fore_starboard = {
-                {point = Vector(-1.070, 0,  0.000), start = 180, stop = 180},
-                {point = Vector(-1.070, 0,  0.367), start = 180, stop = 207},
-                {point = Vector(-0.920, 0,  0.661), start = 207, stop = 227},
-                {point = Vector(-0.804, 0,  0.770), start = 227, stop = 270},
-                {point = Vector( 0.000, 0,  0.770), start = 270, stop = 270},
+                {point = Vector( 0.000, 0, -1.070), start = 90, stop = 90},
+                {point = Vector(-0.367, 0, -1.070), start = 90, stop = 117},
+                {point = Vector(-0.661, 0, -0.920), start = 117, stop = 137},
+                {point = Vector(-0.770, 0, -0.804), start = 137, stop = 180},
+                {point = Vector(-0.770, 0,  0.000), start = 180, stop = 180},
             },
             aft_starboard = {
-                {point = Vector( 0.000, 0,  0.770), start = 270, stop = 270},
-                {point = Vector( 0.804, 0,  0.770), start = 270, stop = 313},
-                {point = Vector( 0.920, 0,  0.661), start = 313, stop = 333},
-                {point = Vector( 1.070, 0,  0.367), start = 333, stop = 360},
-                {point = Vector( 1.070, 0,  0.000), start = 0, stop = 0},
+                {point = Vector(-0.770, 0,  0.000), start = 180, stop = 180},
+                {point = Vector(-0.770, 0,  0.804), start = 180, stop = 223},
+                {point = Vector(-0.661, 0,  0.920), start = 223, stop = 243},
+                {point = Vector(-0.367, 0,  1.070), start = 243, stop = 270},
+                {point = Vector(-0.000, 0,  1.070), start = 270, stop = 270},
             },
             stern = {
-                {point = Vector( 1.032, 0,  0.442), start = 315, stop = 333},
-                {point = Vector( 1.070, 0,  0.367), start = 333, stop = 360},
-                {point = Vector( 1.070, 0, -0.367), start = 0, stop = 27},
-                {point = Vector( 1.032, 0, -0.442), start = 27, stop = 45}
+                {point = Vector(-0.442, 0,  1.032), start = 225, stop = 243},
+                {point = Vector(-0.367, 0,  1.070), start = 243, stop = 270},
+                {point = Vector( 0.367, 0,  1.070), start = 270, stop = 297},
+                {point = Vector( 0.442, 0,  1.032), start = 279, stop = 315}
             },
             bow = {
-                {point = Vector(-1.032, 0, -0.442), start = 135, stop = 153},
-                {point = Vector(-1.070, 0, -0.367), start = 153, stop = 180},
-                {point = Vector(-1.070, 0,  0.367), start = 180, stop = 207},
-                {point = Vector(-1.032, 0,  0.442), start = 207, stop = 225}
+                {point = Vector( 0.442, 0, -1.032), start = 45, stop = 63},
+                {point = Vector( 0.367, 0, -1.070), start = 63, stop = 90},
+                {point = Vector(-0.367, 0, -1.070), start = 90, stop = 117},
+                {point = Vector(-0.442, 0, -1.032), start = 117, stop = 135}
             }
         }
     },
