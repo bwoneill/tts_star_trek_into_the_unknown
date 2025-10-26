@@ -331,7 +331,7 @@ function setUp(player, value, id)
         local parameters = {
             data = generateShipModelData(shipData, Color.fromString(player.color):setAt("a", 0.33)),
             position = pos + Vector(5.5, 0, -5.5):rotateOver("y", rot.y),
-            rotation = rot
+            rotation = rot + Vector(0, 90, 0)
         }
         local myShip = spawnObjectData(parameters)
         saveData.shipGUID = myShip.getGUID()
@@ -941,7 +941,7 @@ function cloak(player, value, id)
     local pos, rot = placeTrackerAft()
     local myShip = getObjectFromGUID(saveData.shipGUID)
     myShip.setPosition(self.getPosition() + Vector(5.5, 0, -5.5):rotateOver("y", self.getRotation().y))
-    myShip.setRotation(self.getRotation())
+    myShip.setRotation(self.getRotation() + Vector(0, 90, 0))
     -- Spawn wake tracker
     if not TOOLS.wake_tracker.data.LuaScript then
         TOOLS.wake_tracker.data.LuaScript = Global.call("getFile", TOOLS.wake_tracker.script_path)
@@ -979,4 +979,4 @@ function clearCloak()
     saveData.wakeGUID = nil
 end
 
--- build 1.1.0.19
+-- build 1.1.0.20
