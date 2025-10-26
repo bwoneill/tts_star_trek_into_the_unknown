@@ -961,7 +961,7 @@ function cloak(player, value, id)
     local wake = spawnObjectData(obj_data)
     -- Set wake tracker position
     local attach = Vector(BASE_CONST.wake.toolAttachment.aft.pos)
-    attach.z = attach.z + 0.25
+    attach.z = attach.z - 0.25
     wake.setPosition(tracker.getPosition() - attach:rotateOver("y", rot.y))
     wake.setRotation(rot)
     saveData.wakeGUID = wake.getGUID()
