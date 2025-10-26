@@ -502,7 +502,12 @@ function cancelMove()
         rulerB.destroy()
         rulerB = nil
     end
-    local myShip = getObjectFromGUID(saveData.shipGUID) -- TODO: handle wakes
+    if saveData.wakeGUID and not saveData.cloaked then
+        local wake = getObjectFromGUID(saveData.wakeGUID)
+        wake.destroy()
+        saveData.wakeGUID = nil
+    end
+    local myShip = getShipObject()
     myShip.setPosition(oldPos)
     myShip.setRotation(oldRot)
     tracker.destroy()
@@ -979,4 +984,4 @@ function clearCloak()
     saveData.wakeGUID = nil
 end
 
--- build 1.1.0.23
+-- build 1.1.0.24
