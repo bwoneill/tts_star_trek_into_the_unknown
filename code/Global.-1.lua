@@ -558,7 +558,7 @@ ASSETS = {
                     name = "Jem'Hadar Battle Cruiser", role = "capital", size = "large", crit_deck_size = 6,
                     faction = "dominion", folder = "ships", type = "battlecruiser",
                     dials = {alert = {min = 0, max = 5}, power = {min = 0, max = 8}, crew = {min = -2, max = 5}, hull = {min = 0, max = 9}},
-                    model_transform = {scaleX = 1.3}, instruments = {2, 3, 2, 2, 1, 0},
+                    model_transform = {scaleX = 1.3, rotY = -90}, instruments = {2, 3, 2, 2, 1, 0},
                     sensors = {all = 4, fore = 4, instruments = {fore = true}},
                     comms = {all = 6, fore = 6, instruments = {fore = true}},
                     weapons = {fore = 6, aft = 6}
@@ -567,7 +567,7 @@ ASSETS = {
                     name = "Jem'Hadar Fighter", role = "scout", size = "small", crit_deck_size = 4,
                     faction = "dominion", folder = "ships", type = "fighter",
                     dials = {alert = {min = 0, max = 4}, power = {min = 0, max = 7}, crew = {min = -2, max = 4}, hull = {min = 0, max = 6}},
-                    model_transform = {scaleX = 1.3, posY = 0.25}, instruments = {1, 2, 2, 1, 0},
+                    model_transform = {scaleX = 1.3, posY = 0.25, rotY = -90}, instruments = {1, 2, 2, 1, 0},
                     sensors = {all = 4, fore = 4, instruments = {fore = true}},
                     comms = {all = 4, fore = 4, instruments = {fore = true}},
                     weapons = {fore = 6, aft = 6}
@@ -613,7 +613,7 @@ ASSETS = {
                     name = "Constellation-Class Starship", role = "support", size = "medium", crit_deck_size = 5, fp = -3,
                     faction = "federation", folder = "ships", type = "constellation",
                     dials = {alert = {min = 0, max = 5}, power = {min = 0, max = 7}, crew = {min = -2, max = 4}, hull = {min = 0, max = 8}},
-                    model_transform = {scaleX = 1.25}, instruments = {2, 3, 2, 1, 1, 0},
+                    model_transform = {scaleX = 1.25, rotY = -90}, instruments = {2, 3, 2, 1, 1, 0},
                     sensors = {all = 4, bow = 4, instruments = {bow = true}},
                     comms = {all = 6, bow = 6, instruments = {bow = true}},
                     weapons = {fore_port = 6, fore_starboard = 6, stern = 6},
@@ -623,7 +623,7 @@ ASSETS = {
                     name = "Defiant-Class Escort", role = "scout", size = "small", crit_deck_size = 5, fp = 3,
                     faction = "federation", folder = "ships", type = "defiant",
                     dials = {alert = {min = 0, max = 4}, power = {min = 0, max = 6}, crew = {min = -2, max = 4}, hull = {min = 0, max = 7}},
-                    model_transform = {scaleX = 1.3, posY = 0.35}, instruments = {2, 2, 1, 1, 0},
+                    model_transform = {scaleX = 1.3, posY = 0.35, rotY = -90}, instruments = {2, 2, 1, 1, 0},
                     sensors = {all = 2, bow = 4, instruments = {bow = true}},
                     comms = {all = 2, bow = 6, instruments = {bow = true}},
                     weapons = {all = 6, fore = 6, fore_port = 4, fore_starboard = 4, aft = 6},
@@ -633,7 +633,7 @@ ASSETS = {
                     name = "Galaxy-Class Starship", role = "capital", size = "large", crit_deck_size = 6,
                     faction = "federation", folder = "ships", type = "galaxy",
                     dials = {alert = {min = 0, max = 6}, power = {min = 0, max = 8}, crew = {min = -2, max = 5}, hull = {min = 0, max = 9}},
-                    model_transform = {scaleX = 1.4}, instruments = {3, 3, 2, 2, 1, 1, 0},
+                    model_transform = {scaleX = 1.4, rotY = -90}, instruments = {3, 3, 2, 2, 1, 1, 0},
                     sensors = {all = 4, bow = 4, instruments = {bow = true}},
                     comms = {all = 6, bow = 6, instruments = {bow = true}},
                     weapons = {fore = 6, aft = 6},
@@ -644,7 +644,7 @@ ASSETS = {
                         dials = {alert = {min = 1, max = 5}, power = {min = 0, max = 8}, crew = {min = 2, max = 5}, hull = {min = 0, max = 9}},
                         ship_board = {
                             data = {
-                                Name = "Custom_Tile", Transform = {scaleX = 2.1, scaleY = 1, scaleZ = 2.1},
+                                Name = "Custom_Tile", Transform = {scaleX = 2.1, scaleY = 1, scaleZ = 2.1, rotY = -90},
                                 CustomImage = {
                                     ImageURL = ASSET_ROOT .. "factions/federation/ships/galaxy/stardrive_card.png",
                                     ImageSecondaryURL = ASSET_ROOT .. "factions/federation/ships/galaxy/stardrive_card_back.png",
@@ -661,7 +661,7 @@ ASSETS = {
                         faction = "federation", folder = "ships", type = "galaxy",
                         ship_board = {
                             data = {
-                                Name = "Custom_Tile", Transform = {scaleX = 2.1, scaleY = 1, scaleZ = 2.1},
+                                Name = "Custom_Tile", Transform = {scaleX = 2.1, scaleY = 1, scaleZ = 2.1, rotY = -90},
                                 CustomImage = {
                                     ImageURL = ASSET_ROOT .. "factions/federation/ships/galaxy/saucer_card.png",
                                     ImageSecondaryURL = ASSET_ROOT .. "factions/federation/ships/galaxy/saucer_card_back.png",
@@ -678,7 +678,7 @@ ASSETS = {
                     name = "Miranda-Class Starship", role = "support", size = "small", crit_deck_size = 5, fp = -2,
                     faction = "federation", folder = "ships", type = "miranda",
                     dials = {alert = {min = 0, max = 4}, power = {min = 0, max = 7}, crew = {min = -2, max = 4}, hull = {min = 0, max = 7}},
-                    model_transform = {scaleX = 1.5, posY = 0.75, rotY = 90}, instruments = {2, 2, 1, 0, 0}, -- scale TBD
+                    model_transform = {scaleX = 1.5, posY = 0.75}, instruments = {2, 2, 1, 0, 0},
                     sensors = {all = 3, bow = 3, instruments = {bow = true}},
                     comms = {all = 4, bow = 4, instruments = {bow = true}},
                     weapons = {bow = 4, fore_port = 6, fore_starboard = 6, aft = 6},
@@ -689,13 +689,13 @@ ASSETS = {
                 runabout = {
                     name = "Danube-Class Runabout", size = "shuttle",
                     faction = "federation", folder = "auxiliary", type = "runabout",
-                    model_transform = {posY = 0.25, rotY = 90, scaleX = 0.25},
+                    model_transform = {posY = 0.25, scaleX = 0.25},
                     sensors = {all = 3}, comms = {all = 3}, weapons = {all = 4}
                 },
                 type6 = {
                     name = "Type 6 Shuttle", size = "shuttle",
                     faction = "federation", folder = "auxiliary", type = "type6",
-                    model_transform = {posY = 0.5},
+                    model_transform = {posY = 0.5, rotY = -90},
                     sensors = {all = 3}, comms = {all = 3}, weapons = {all = 4}
                 }
             },
@@ -730,7 +730,7 @@ ASSETS = {
                     name = "B\'rel-Class Bird-of-Prey", role = "scout", size = "small", crit_deck_size = 5, fp = -1,
                     faction = "klingon", folder = "ships", type = "brel",
                     dials = {alert = {min = 0, max = 4}, power = {min = 0, max = 6}, crew = {min = -2, max = 4}, hull = {min = 0, max = 6}},
-                    model_transform = {scaleX = 0.85, posX = 0.75, posY = 0.88, posZ = -0.43}, instruments = {1, 2, 1, 0, 0}, -- scale TBD
+                    model_transform = {scaleX = 0.85, posX = 0.35, posY = 0.88, posZ = 0.75, rotY = -90}, instruments = {1, 2, 1, 0, 0}, -- Need to adjust position
                     sensors = {all = 2, bow = 4, instruments = {bow = true}},
                     comms = {all = 2, bow = 4, instruments = {bow = true}},
                     weapons = {fore_port = 4, fore_starboard = 4},
@@ -740,7 +740,7 @@ ASSETS = {
                     name = "Vor\'cha-Class Attack Cruiser", role = "support", size = "medium", crit_deck_size = 6, fp = 1,
                     faction = "klingon", folder = "ships", type = "vorcha",
                     dials = {alert = {min = 0, max = 5}, power = {min = 0, max = 7}, crew = {min = -2, max = 5}, hull = {min = 0, max = 8}},
-                    model_transform = {scaleX = 2, posY = 0.75, rotY = 180}, instruments = {2, 3, 2, 1, 1, 0}, -- scale TBD
+                    model_transform = {scaleX = 2, posY = 0.75, rotY = 90}, instruments = {2, 3, 2, 1, 1, 0},
                     sensors = {all = 4, bow = 4, instruments = {bow = true}},
                     comms = {all = 6, bow = 6, instruments = {bow = true}},
                     weapons = {bow = 6, fore_port = 4, fore_starboard = 4},
