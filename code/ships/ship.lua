@@ -363,6 +363,7 @@ function generateShipModelData(ship_data, player_color, delta)
     local color = type(player_color) == "string" and Color.fromString(player_color) or player_color
     local data = {
         Name = "Custom_Model", Transform = {scaleX = 1, scaleY = 1, scaleZ = 1}, Tags = {"Ship"},
+        Nickname = shipData.name .. "(" .. self.getGUID() .. ")",
         ColorDiffuse = color,
         CustomMesh = {
             MeshURL = ASSET_ROOT .. "misc/bases/" .. size ..  "_base.obj",
@@ -960,7 +961,7 @@ function cloak(player, value, id)
     local wake = spawnObjectData(obj_data)
     -- Set wake tracker position
     local attach = Vector(BASE_CONST.wake.toolAttachment.aft.pos)
-    attach.x = attach.x - 0.25
+    attach.z = attach.z + 0.25
     wake.setPosition(tracker.getPosition() - attach:rotateOver("y", rot.y))
     wake.setRotation(rot)
     saveData.wakeGUID = wake.getGUID()
@@ -979,4 +980,4 @@ function clearCloak()
     saveData.wakeGUID = nil
 end
 
--- build 1.1.0.20
+-- build 1.1.0.21
