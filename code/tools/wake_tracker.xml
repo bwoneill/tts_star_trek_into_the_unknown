@@ -33,10 +33,10 @@
                 <Option>5"</Option>
                 <Option>6"</Option>
             </Dropdown>
-            <Toggle id = "posRev" text = "Reveal Direction" offsetXY = "5 -65" tooltip = "Reveal approximate direction"/>
-            <Toggle id = "disRev" text = "Reveal Distance" offsetXY = "125 -65" tooltip = "Reveal approximate distance"/>
-            <Button id = "cloak" text = "Cloak" offsetXY = "5 -95" onClick = "cloak" tooltip = "Lock position and distance (cannot be undone)"/>
-            <Button id = "decloak" text = "Decloak" offsetXY = "125 -95" onClick = "decloak" tooltip = "Reveal exact location (cannot be undone)"/>
+            <Toggle id = "posRev" text = "Reveal Direction" offsetXY = "5 -65"/>
+            <Toggle id = "disRev" text = "Reveal Distance" offsetXY = "125 -65"/>
+            <Button id = "cloak" text = "Cloak" offsetXY = "5 -95" onClick = "cloak"/>
+            <Button id = "decloak" text = "Decloak" offsetXY = "125 -95" onClick = "decloak"/>
         </Panel>
     </Panel>
 </Panel>
