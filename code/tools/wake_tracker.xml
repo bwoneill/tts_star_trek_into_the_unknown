@@ -3,24 +3,25 @@
               scrollSensitivity = "30" color = "#ce6737" onValueChanged = "valueChanged"/>
     <Button width = "110" height = "20" rectAlignment = "UpperLeft" tooltipPosition = "Below"  resizeTextMaxSize = "14" resizeTextForBestFit = "true"/>
     <Toggle width = "110" height = "30" rectAlignment = "UpperLeft" onValueChanged = "valueChanged" tooltipPosition = "Below" resizeTextForBestFit = "true"/>
+    <Image height = "15" width = "15" onClick = "placeRuler" rotation = "0 0 180"/>
 </Defaults>
 
 <Image id = "a" image = "https://raw.githubusercontent.com/bwoneill/tts_star_trek_into_the_unknown/v1.1.0/assets/tools/wake_tracker/a.png"
-        height = "15" width = "15" position = "18 30 -6" onClick = "placeRuler"/>
+        position = "-18 -30 -6"/>
 <Image id = "b" image = "https://raw.githubusercontent.com/bwoneill/tts_star_trek_into_the_unknown/v1.1.0/assets/tools/wake_tracker/b.png"
-        height = "15" width = "15" position = "30 18 -6" onClick = "placeRuler"/>
+        position = "-30 -18 -6"/>
 <Image id = "c" image = "https://raw.githubusercontent.com/bwoneill/tts_star_trek_into_the_unknown/v1.1.0/assets/tools/wake_tracker/c.png"
-        height = "15" width = "15" position = "30 -18 -6" onClick = "placeRuler"/>
+        position = "-30 18 -6"/>
 <Image id = "d" image = "https://raw.githubusercontent.com/bwoneill/tts_star_trek_into_the_unknown/v1.1.0/assets/tools/wake_tracker/d.png"
-        height = "15" width = "15" position = "18 -30 -6" onClick = "placeRuler"/>
+        position = "-18 30 -6"/>
 <Image id = "e" image = "https://raw.githubusercontent.com/bwoneill/tts_star_trek_into_the_unknown/v1.1.0/assets/tools/wake_tracker/e.png"
-        height = "15" width = "15" position = "-18 -30 -6" onClick = "placeRuler"/>
+        position = "18 30 -6"/>
 <Image id = "f" image = "https://raw.githubusercontent.com/bwoneill/tts_star_trek_into_the_unknown/v1.1.0/assets/tools/wake_tracker/f.png"
-        height = "15" width = "15" position = "-30 -18 -6" onClick = "placeRuler"/>
+        position = "30 18 -6"/>
 <Image id = "g" image = "https://raw.githubusercontent.com/bwoneill/tts_star_trek_into_the_unknown/v1.1.0/assets/tools/wake_tracker/g.png"
-        height = "15" width = "15" position = "-30 18 -6" onClick = "placeRuler"/>
+        position = "30 -18 -6"/>
 <Image id = "h" image = "https://raw.githubusercontent.com/bwoneill/tts_star_trek_into_the_unknown/v1.1.0/assets/tools/wake_tracker/h.png"
-        height = "15" width = "15" position = "-18 30 -6" onClick = "placeRuler"/>
+        position = "18 -30 -6"/>
 <Button id = "show" text = "+" height = "20" width = "20" position = "0 0 -6" onClick = "show" active = "false" rectAlignment = "MiddleCenter"/>
 
 <Panel height = "600" width = "800" position = "0 0 -10" rotation = "0 0 180">
