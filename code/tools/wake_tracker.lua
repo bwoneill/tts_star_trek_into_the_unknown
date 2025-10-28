@@ -54,6 +54,10 @@ description = {
     ["6\""] = "within [8db9c7]light blue[ffffff] range (4-6\")",
 }
 
+rotation = {
+    A = 120, B = 150, C = 210, D = 240, E = 300, F = 330, G = 30, H = 60
+}
+
 reset_ui = true
 
 function setData(new_data)
@@ -135,4 +139,12 @@ function decloak(player, value, id)
     print(data.ship_type .. "(" .. data.parent .. ") decloaking in direction " .. data.pos .. " at " .. data.dis     .. " of the wake tracker")
 end
 
--- build v1.1.0.2
+function placeRuler(player, value, id)
+    local offset = Vector(6.4, 0.2, 0):rotateOver("y", rotation[id])
+    local ruler = spawnObjectData(Global.getTable("ASSETS").tools.ruler_12in)
+    ruler.lock()
+    ruler.setPosition(self.getPosition() + offset)
+    ruler.setRotation(self.getRotation() + Vector(0, rotation[id] + 180, 0))
+end
+
+-- build v1.1.0.3
