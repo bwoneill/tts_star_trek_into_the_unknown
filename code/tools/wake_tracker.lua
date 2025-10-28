@@ -55,7 +55,7 @@ description = {
 }
 
 rotation = {
-    A = 120, B = 150, C = 210, D = 240, E = 300, F = 330, G = 30, H = 60
+    A = 210, B = 240, C = 300, D = 330, E = 30, F = 60, G = 120, H = 150
 }
 
 reset_ui = true
@@ -140,11 +140,20 @@ function decloak(player, value, id)
 end
 
 function placeRuler(player, value, id)
-    local offset = Vector(6.4, 0.2, 0):rotateOver("y", rotation[id])
+    -- Axis overlay
+    -- local lines = {
+    --     {points = {{0,1,0}, {5,1,0}},color = {1,0,0}},
+    --     {points = {{0,1,0}, {0,6,0}},color = {0,1,0}},
+    --     {points = {{0,1,0}, {0,1,5}},color = {0,0,1}}
+    -- } 
+    -- self.setVectorLines(lines)
+    local pos = self.getPosition()
+    local rot = self.getRotation()
+    local offset = Vector(0, 0.2, 6.4):rotateOver("y", rot.y + rotation[id])
     local ruler = spawnObjectData(Global.getTable("ASSETS").tools.ruler_12in)
     ruler.lock()
-    ruler.setPosition(self.getPosition() + offset)
-    ruler.setRotation(self.getRotation() + Vector(0, rotation[id] + 180, 0))
+    ruler.setPosition(pos + offset)
+    ruler.setRotation(rot + Vector(0, rotation[id] + 90, 0))
 end
 
--- build v1.1.0.3
+-- build v1.1.0.4
