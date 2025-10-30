@@ -603,7 +603,7 @@ end
 
 
 -- Step 3: Position Ship to the Template and Remove Ruler
-function positionShip()
+function positionShip(param)
     local myShip = getShipObject()
     local spawnPos = template.getPosition()
     local spawnRot = template.getRotation()
@@ -735,11 +735,7 @@ function drawArc(system, jammed) -- system is "sensors", "comms", "weapons"
             end
         end
     end
-    if wake then
-        wake.setVectorLines(lines)
-    else
-        myShip.setVectorLines(lines)
-    end
+    myShip.setVectorLines(lines)
 end
 
 function sweepOverPoints(points, geometry, range)
@@ -976,12 +972,13 @@ function completeCloak()
     clearTemplates()
 end
 
-function decloak()
+function decloak(param)
     saveData.cloaked = false
+    clearTemplates()
 end
 
 function clearCloak()
     saveData.wakeGUID = nil
 end
 
--- build 1.1.0.24
+-- build 1.1.0.25

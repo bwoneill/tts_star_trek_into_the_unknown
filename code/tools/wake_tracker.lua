@@ -58,7 +58,7 @@ rotation = {
     A = 210, B = 240, C = 300, D = 330, E = 30, F = 60, G = 120, H = 150
 }
 
-reset_ui = true
+reset_ui = false
 
 function setData(new_data)
     data = new_data or {
@@ -137,23 +137,63 @@ end
 function decloak(player, value, id)
     self.UI.setAttribute("foreground", "visibility", "")
     print(data.ship_type .. "(" .. data.parent .. ") decloaking in direction " .. data.pos .. " at " .. data.dis     .. " of the wake tracker")
+    local parent = getObjectFromGUID(data.parent)
+    placeRuler(player, data.dis, data.pos)
+end
+
+function cancelDecloak(player, value, id)
+    clearRuler()
+end
+
+function finishDecloak(player, value, id)
+    clearRuler()
+    local parent = getObjectFromGUID(data.parent)
+    parent.call("decloak")
+end
+
+function clearRuler(player, value, id)
+    if ruler then
+        ruler.destroy()
+        ruler = nil
+    end
 end
 
 function placeRuler(player, value, id)
-    -- Axis overlay
-    -- local lines = {
-    --     {points = {{0,1,0}, {5,1,0}},color = {1,0,0}},
-    --     {points = {{0,1,0}, {0,6,0}},color = {0,1,0}},
-    --     {points = {{0,1,0}, {0,1,5}},color = {0,0,1}}
-    -- } 
-    -- self.setVectorLines(lines)
+    ruler_pos = id
     local pos = self.getPosition()
     local rot = self.getRotation()
     local offset = Vector(0, 0.2, 6.4):rotateOver("y", rot.y + rotation[id])
-    local ruler = spawnObjectData(Global.getTable("ASSETS").tools.ruler_12in)
+    local ruler_data = Global.getTable("ASSETS").tools.ruler_12in
+    ruler = spawnObjectData(ruler_data)
     ruler.lock()
     ruler.setPosition(pos + offset)
     ruler.setRotation(rot + Vector(0, rotation[id] + 90, 0))
+    for i = 1, 6 do
+        if string.sub(value, -1) ~= "\"" or value == i .. "\"" then
+            ruler.createButton({function_owner = self, click_function = "placeShipDis" .. i, label = i .. "\"", rotation = {0, 90, 0},
+                                position = {(i - 6) / ruler_data.data.Transform.scaleX, 0.07, 0}, width = 150, height = 125})
+        end
+    end
+    ruler.createButton({function_owner = self, click_function = "clearRuler", label = "Cancel", rotation = {0, 90, 0}, width = 400,
+                        position = {-5.9 / ruler_data.data.Transform.scaleX, 0.07, 0}})
 end
 
--- build v1.1.0.4
+function placeShipDis1() placeShip(1) end
+function placeShipDis2() placeShip(2) end
+function placeShipDis3() placeShip(3) end
+function placeShipDis4() placeShip(4) end
+function placeShipDis5() placeShip(5) end
+function placeShipDis6() placeShip(6) end
+
+function placeShip(dis)
+    local ruler_data = Global.getTable("ASSETS").tools.ruler_12in
+    local parent = getObjectFromGUID(data.parent)
+    local myShip = getObjectFromGUID(parent.getTable("saveData").shipGUID)
+    myShip.setRotation(self.getRotation())
+    local delta = Vector(0, 0, dis + 0.4):rotateOver("y", self.getRotation().y + rotation[ruler_pos])
+    myShip.setPosition(self.getPosition() + delta)
+    ruler.createButton({function_owner = self, click_function = "finishDecloak", label = "Decloak", rotation = {0, 90, 0}, width = 450,
+                        position = {(dis - 6) / ruler_data.data.Transform.scaleX, 0.07, 0.75}})
+end
+
+-- build v1.1.0.5
