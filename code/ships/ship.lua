@@ -51,6 +51,7 @@ BASE_CONST = {
             port = {pos = Vector(1.065, 0, 0), rot = 180},
             fore = {pos = Vector(0, 0 , -1.41), rot = 270}
         },
+        cloakOffset = {A = 1.121, B = 0.889},
         arcs = {
             aft_port = {
                 {point = Vector( 0.000, 0,  1.070), start = 270, stop = 270},
@@ -102,6 +103,7 @@ BASE_CONST = {
             port = {pos = Vector(1.29, 0, 0), rot = 180},
             fore = {pos = Vector(0, 0 , -2.065), rot = 270}
         },
+        cloakOffset = {A = 1.781, B = 1.184},
         arcs = {
             aft_port = {
                 {point = Vector( 0.000, 0,  1.740), start = 270, stop = 270},
@@ -157,6 +159,7 @@ BASE_CONST = {
             port = {pos = Vector(1.53, 0, 0), rot = 180},
             fore = {pos = Vector(0, 0 , -2.82), rot = 270}
         },
+        cloakOffset = {A = 2.533, B = 1.472},
         arcs = {
             aft_port = {
                 {point = Vector( 0.000, 0,  2.500), start = 270, stop = 270},
@@ -981,4 +984,12 @@ function clearCloak()
     saveData.wakeGUID = nil
 end
 
--- build 1.1.0.25
+function getCloakOffset(pos)
+    if pos == "A" or pos == "D" or pos == "E" or pos == "H" then
+        return BASE_CONST[shipData.size].cloakOffset("A")
+    else
+        return BASE_CONST[shipData.size].cloakOffset("B")
+    end
+end
+
+-- build 1.1.0.26

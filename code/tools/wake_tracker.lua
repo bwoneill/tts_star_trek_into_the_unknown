@@ -155,6 +155,7 @@ function clearRuler(player, value, id)
     if ruler then
         ruler.destroy()
         ruler = nil
+        ruler_pos = nil
     end
 end
 
@@ -190,7 +191,8 @@ function placeShip(dis)
     local parent = getObjectFromGUID(data.parent)
     local myShip = getObjectFromGUID(parent.getTable("saveData").shipGUID)
     myShip.setRotation(self.getRotation())
-    local delta = Vector(0, 0, dis + 0.4):rotateOver("y", self.getRotation().y + rotation[ruler_pos])
+    local offset = parent.call("getCloakOffset", ruler_pos)
+    local delta = Vector(0, 0, dis + offset + 0.4):rotateOver("y", self.getRotation().y + rotation[ruler_pos])
     myShip.setPosition(self.getPosition() + delta)
     ruler.createButton({function_owner = self, click_function = "finishDecloak", label = "Decloak", rotation = {0, 90, 0}, width = 450,
                         position = {(dis - 6) / ruler_data.data.Transform.scaleX, 0.07, 0.75}})
