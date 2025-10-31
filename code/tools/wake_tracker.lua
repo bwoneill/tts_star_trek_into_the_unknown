@@ -138,6 +138,7 @@ function decloak(player, value, id)
     self.UI.setAttribute("foreground", "visibility", "")
     print(data.ship_type .. "(" .. data.parent .. ") decloaking in direction " .. data.pos .. " at " .. data.dis     .. " of the wake tracker")
     local parent = getObjectFromGUID(data.parent)
+    decloaking = true
     placeRuler(player, data.dis, data.pos)
 end
 
@@ -194,8 +195,16 @@ function placeShip(dis)
     local offset = parent.call("getCloakOffset", ruler_pos)
     local delta = Vector(0, 0, dis + offset + 0.4):rotateOver("y", self.getRotation().y + rotation[ruler_pos])
     myShip.setPosition(self.getPosition() + delta)
-    ruler.createButton({function_owner = self, click_function = "finishDecloak", label = "Decloak", rotation = {0, 90, 0}, width = 450,
-                        position = {(dis - 6) / ruler_data.data.Transform.scaleX, 0.07, 0.75}})
+    local buttons = ruler.getButtons()
+    for i = #buttons - 1, 0, -1 do
+        if buttons[i].label == "Decloak" then
+            ruler.removeButton(buttons[i].index)
+        end
+    end
+    if decloaking then
+        ruler.createButton({function_owner = self, click_function = "finishDecloak", label = "Decloak", rotation = {0, 90, 0}, width = 450,
+                            position = {(dis - 6) / ruler_data.data.Transform.scaleX, 0.07, 0.75}})
+    end
 end
 
 -- build v1.1.0.7
