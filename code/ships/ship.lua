@@ -984,13 +984,12 @@ function clearCloak()
     saveData.wakeGUID = nil
 end
 
-function getCloakOffset(param)
-    local pos = param.pos
+function getCloakOffset(pos)
     if pos == "A" or pos == "D" or pos == "E" or pos == "H" then
-        return BASE_CONST[shipData.size].cloakOffset("A")
+        return BASE_CONST[shipData.size].cloakOffset["A"]
     else
-        return BASE_CONST[shipData.size].cloakOffset("B")
+        return BASE_CONST[shipData.size].cloakOffset["B"]
     end
 end
 
--- build 1.1.0.27
+-- build 1.1.0.28
