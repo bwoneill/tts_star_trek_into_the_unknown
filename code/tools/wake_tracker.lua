@@ -196,7 +196,10 @@ function placeShip(dis)
     local delta = Vector(0, 0, dis + offset + 0.4):rotateOver("y", self.getRotation().y + rotation[ruler_pos])
     myShip.setPosition(self.getPosition() + delta)
     local buttons = ruler.getButtons()
+    log(#buttons)
     for i = #buttons - 1, 0, -1 do
+        log(buttons[i].index)
+        log(buttons[i].label)
         if buttons[i].label == "Decloak" then
             ruler.removeButton(buttons[i].index)
         end
@@ -207,4 +210,4 @@ function placeShip(dis)
     end
 end
 
--- build v1.1.0.7
+-- build v1.1.0.8
