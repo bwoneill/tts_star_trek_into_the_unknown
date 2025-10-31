@@ -67,18 +67,14 @@ function setData(new_data)
         ship_type = "Unknown ship",
         owner = "Black"
     }
+    data.pos = data.pos or "A"
+    data.dis = data.dis or "1\""
 end
 
 function onLoad(script_state)
-    data = {
-        pos = "A",
-        dis = "1\"",
-        ship_type = "Unknown ship",
-        owner = "Black"
-    }
     local state = JSON.decode(script_state)
+    setData(state)
     if state then
-        data = state
         if state.xml and not reset_ui then
             self.UI.setXmlTable(state.xml)
             self.UI.setAttribute("posDrp", "value", values[data.pos])
@@ -207,4 +203,4 @@ function placeShip(dis)
     end
 end
 
--- build v1.1.0.9
+-- build v1.1.0.10
