@@ -118,6 +118,7 @@ function cloak(player, value, id)
     print(data.ship_type .. "(" .. data.parent .. ") cloaked (position locked-in)")
     local parent = getObjectFromGUID(data.parent)
     parent.call("completeCloak")
+    close()
 end
 
 function close(player, value, id)
@@ -136,6 +137,7 @@ function decloak(player, value, id)
     local parent = getObjectFromGUID(data.parent)
     decloaking = true
     placeRuler(player, data.dis, data.pos)
+    close()
 end
 
 function cancelDecloak(player, value, id)
@@ -203,4 +205,4 @@ function placeShip(dis)
     end
 end
 
--- build v1.1.0.10
+-- build v1.1.0.11
