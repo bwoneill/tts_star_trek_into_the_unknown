@@ -737,10 +737,10 @@ ASSETS = {
                     titles = {{name = "Buruk", fp = 2}}
                 },
                 vorcha = {
-                    name = "Vor\'cha-Class Attack Cruiser", role = "support", size = "medium", crit_deck_size = 6, fp = 1,
+                    name = "Vor\'cha-Class Attack Cruiser", role = "support", size = "large", crit_deck_size = 6, fp = 1,
                     faction = "klingon", folder = "ships", type = "vorcha",
                     dials = {alert = {min = 0, max = 5}, power = {min = 0, max = 7}, crew = {min = -2, max = 5}, hull = {min = 0, max = 8}},
-                    model_transform = {scaleX = 2, posY = 0.75, rotY = 90}, instruments = {2, 3, 2, 1, 1, 0},
+                    model_transform = {scaleX = 2.75, posY = 0.75, rotY = 90}, instruments = {2, 3, 2, 1, 1, 0},
                     sensors = {all = 4, bow = 4, instruments = {bow = true}},
                     comms = {all = 6, bow = 6, instruments = {bow = true}},
                     weapons = {bow = 6, fore_port = 4, fore_starboard = 4},
