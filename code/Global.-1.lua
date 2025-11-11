@@ -751,7 +751,7 @@ ASSETS = {
             },
             auxiliary = {
                 toron = {
-                    name = "Toron-Class", size = "shuttel",
+                    name = "Toron-Class", size = "shuttle",
                     faction = "klingon", folder = "auxiliary", type = "toron",
                     model_transform = {scaleX = 1}, -- scale TBD
                     sensors = {all = 3}, comms = {all = 3}, weapons = {all = 3}
