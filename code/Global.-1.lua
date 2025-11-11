@@ -633,7 +633,7 @@ ASSETS = {
                     name = "Galaxy-Class Starship", role = "capital", size = "large", crit_deck_size = 6,
                     faction = "federation", folder = "ships", type = "galaxy",
                     dials = {alert = {min = 0, max = 6}, power = {min = 0, max = 8}, crew = {min = -2, max = 5}, hull = {min = 0, max = 9}},
-                    model_transform = {scaleX = 1.4, rotY = -90}, instruments = {3, 3, 2, 2, 1, 1, 0},
+                    model_transform = {scaleX = 1.4, rotY = 270}, instruments = {3, 3, 2, 2, 1, 1, 0},
                     sensors = {all = 4, bow = 4, instruments = {bow = true}},
                     comms = {all = 6, bow = 6, instruments = {bow = true}},
                     weapons = {fore = 6, aft = 6},
@@ -644,7 +644,7 @@ ASSETS = {
                         dials = {alert = {min = 1, max = 5}, power = {min = 0, max = 8}, crew = {min = 2, max = 5}, hull = {min = 0, max = 9}},
                         ship_board = {
                             data = {
-                                Name = "Custom_Tile", Transform = {scaleX = 2.1, scaleY = 1, scaleZ = 2.1, rotY = -90},
+                                Name = "Custom_Tile", Transform = {scaleX = 2.1, scaleY = 1, scaleZ = 2.1, rotY = 270},
                                 CustomImage = {
                                     ImageURL = ASSET_ROOT .. "factions/federation/ships/galaxy/stardrive_card.png",
                                     ImageSecondaryURL = ASSET_ROOT .. "factions/federation/ships/galaxy/stardrive_card_back.png",
@@ -652,7 +652,8 @@ ASSETS = {
                                 }
                             }
                         },
-                        model = {ChildObjects = {{CustomMesh = {MeshURL = ASSET_ROOT .. "factions/federation/ships/galaxy/stardrive_mesh.obj"}}}},
+                        model = {ChildObjects = {{Transform = {rotY = 270},
+                            CustomMesh = {MeshURL = ASSET_ROOT .. "factions/federation/ships/galaxy/stardrive_mesh.obj"}}}},
                         sensors = {all = 2, bow = 4, instruments = {bow = true}},
                         comms = {all = 2, bow = 4, instruments = {bow = true}}
                     },
@@ -661,7 +662,7 @@ ASSETS = {
                         faction = "federation", folder = "ships", type = "galaxy",
                         ship_board = {
                             data = {
-                                Name = "Custom_Tile", Transform = {scaleX = 2.1, scaleY = 1, scaleZ = 2.1, rotY = -90},
+                                Name = "Custom_Tile", Transform = {scaleX = 2.1, scaleY = 1, scaleZ = 2.1, rotY = 270},
                                 CustomImage = {
                                     ImageURL = ASSET_ROOT .. "factions/federation/ships/galaxy/saucer_card.png",
                                     ImageSecondaryURL = ASSET_ROOT .. "factions/federation/ships/galaxy/saucer_card_back.png",
@@ -669,7 +670,8 @@ ASSETS = {
                                 }
                             }
                         },
-                        model = {ChildObjects = {{CustomMesh = {MeshURL = ASSET_ROOT .. "factions/federation/ships/galaxy/saucer_mesh.obj"}}}},
+                        model = {ChildObjects = {{Transform = {rotY = 270},
+                            CustomMesh = {MeshURL = ASSET_ROOT .. "factions/federation/ships/galaxy/saucer_mesh.obj"}}}},
                         sensors = {all = 4, bow = 6}, comms = {all = 6, bow = 8}, weapons = {fore = 6},
                         direction = "fore"
                     }
@@ -777,15 +779,27 @@ ASSETS = {
                 raider = {
                     name = "Hostile Raider", size = "medium",
                     faction = "neutral", folder = "ships", type = "raider",
-                    model_transform = {posY = 0.6, rotY = 270, scaleX = 0.325},
+                    model_transform = {posY = 0.6, rotY = 180, scaleX = 0.325},
                     sensors = {all = 3}, comms = {all = 3}, weapons = {all = 4, fore = 4}
                 },
                 tinman = {
-                    class = "Inscrutable Entity", size = "medium",
+                    name = "Inscrutable Entity", size = "medium",
                     faction = "neutral", folder = "ships", type = "tinman",
-                    model_transform = {posY = 0.9},
+                    model_transform = {posY = 0.9, rotY = 270},
                     sensors = {all = 3}, comms = {all = 3}, weapons = {all = 4, fore = 4}
                 },
+                artifact = {
+                    name = "Artifact Ship", size = "medium",
+                    faction = "neutral", folder = "ships", type = "radier",
+                    model_transform = {posY = 0.6, rotY = 180, scaleX = 0.325},
+                    sensors = {all = 6}, comms = {all = 6}, weapons = {fore_port = 5, fore_starboard = 5}
+                },
+                supply = {
+                    name = "Supply Ship", size = "medium",
+                    faction = "neutral", folder = "ships", type = "supply",
+                    model_transform = {posY = 0.6, rotY = 180, scaleX = 0.325},
+                    sensors = {all = 3}, comms = {all = 3}, weapons = {}
+                }
             }
         }
     },
