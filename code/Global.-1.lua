@@ -725,7 +725,8 @@ ASSETS = {
                 {name = "Proud Captain", factions = {klingon = true}, roles = {command = true}, cp = 8, fp = 3},
                 {name = "Restless First Officer", factions = {klingon = true}, roles = {ops = true}, cp = 8, fp = 3},
                 {name = "Savvy Engineer", factions = {klingon = true}, roles = {ops = true, science = ture}, cp = 8, fp = 3},
-                {name = "Wary Science Officer", factions = {klingon = true}, roles = {science = true}, cp = 7, fp = 2}
+                {name = "Wary Science Officer", factions = {klingon = true}, roles = {science = true}, cp = 7, fp = 2},
+                {name = "Duras", subtitle = "Son of Jarod", factions = {klingon = true}, sway = {romulan = 2}, unique = true, roles = {command = true}, cp = 10, fp = 2}
             },
             ships = {
                 brel = {
@@ -753,13 +754,13 @@ ASSETS = {
                 toron = {
                     name = "Toron-Class", size = "shuttle",
                     faction = "klingon", folder = "auxiliary", type = "toron",
-                    model_transform = {scaleX = 1}, -- scale TBD
+                    model_transform = {posY = 0.5, rotY = 270}, -- scale TBD
                     sensors = {all = 3}, comms = {all = 3}, weapons = {all = 3}
                 }
             },
             directives = {
                 combat = {{front = "Uphold the Empires Oaths", back = "It is a Good Day to Die"}},
-                diplomacy = {{front = "Boisterous Demeaner", back = "Actions Surpass Words"}},
+                diplomacy = {{front = "Boisterous Demeanor", back = "Actions Surpass Words"}},
                 exploration = {
                     {front = "Glory Awaits", back = "Deeds Worthy of Song", teams = {
                         alpha = {front = "honor_guard_a", back = "boarding_a"},
