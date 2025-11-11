@@ -790,7 +790,7 @@ ASSETS = {
                 },
                 artifact = {
                     name = "Artifact Ship", size = "medium",
-                    faction = "neutral", folder = "ships", type = "radier",
+                    faction = "neutral", folder = "ships", type = "artifact",
                     model_transform = {posY = 0.6, rotY = 180, scaleX = 0.325},
                     sensors = {all = 6}, comms = {all = 6}, weapons = {fore_port = 5, fore_starboard = 5}
                 },
