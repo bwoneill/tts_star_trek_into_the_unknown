@@ -770,7 +770,7 @@ ASSETS = {
             }
         },
         romulan = {
-            displayName = "Romulan Star Empire", playable = false,
+            displayName = "Romulan Star Empire", playable = true,
             officers = {
                 {name = "TRul", subtitle = "Acerbic Subcommander", factions = {romulan = true, federation = true}, unique = true, roles = {science = true}, cp = 8, fp = 4}
             }
