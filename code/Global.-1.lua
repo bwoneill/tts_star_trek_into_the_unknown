@@ -792,13 +792,14 @@ ASSETS = {
                 artifact = {
                     name = "Artifact Ship", size = "medium",
                     faction = "neutral", folder = "ships", type = "artifact",
-                    model_transform = {posY = 0.6, rotY = 180, scaleX = 0.325},
+                    model_transform = {posY = 0.6, scaleX = 1.8},
+                    color_transform = {r = 0.62, g = 0.71, b = 1, a = 1},
                     sensors = {all = 6}, comms = {all = 6}, weapons = {fore_port = 5, fore_starboard = 5}
                 },
                 supply = {
                     name = "Supply Ship", size = "medium",
                     faction = "neutral", folder = "ships", type = "supply",
-                    model_transform = {posY = 0.6, rotY = 180, scaleX = 0.325},
+                    model_transform = {posY = 0.6, scaleX = 1.8},
                     sensors = {all = 3}, comms = {all = 3}, weapons = {}
                 }
             }
