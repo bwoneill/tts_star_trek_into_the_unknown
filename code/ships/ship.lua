@@ -380,7 +380,8 @@ function generateShipModelData(ship_data, player_color, delta)
                     MeshURL = ASSET_ROOT .. "factions/" .. faction .. "/" .. folder .. "/" .. class .. "/" .. class .. "_mesh.obj",
                     DiffuseURL = ASSET_ROOT .. "factions/" .. faction .. "/" .. folder .. "/" .. class .. "/" .. class .. "_skin.png",
                     ColliderURL = ASSET_ROOT .. "misc/no_collide.obj", MaterialIndex = 3
-                }
+                },
+                ColorDiffuse = ship_data.color_transform
             }
         }
     }
