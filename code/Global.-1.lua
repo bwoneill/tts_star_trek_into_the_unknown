@@ -875,6 +875,16 @@ ASSETS = {
                     name = "Signal location",
                     description = "Capacity 3\nUnstable 2"
                 }
+            },
+            ["Critcal Supply Drop"] = {
+                name = "Critical Supply Drop",
+                tags = {"Overture", "Politics", "Trinary"},
+                solid = {
+                    quantity = 3,
+                    name = "Outpost",
+                    description = "Capacity 2"
+                },
+                supply = 2
             }
         },
         situation = {
@@ -924,6 +934,13 @@ ASSETS = {
                     description = "Treacherous 2"
                 },
                 raider = 1
+            },
+            ["Unexplained Biosigns"] = {
+                name = "Unexplained Biosigns",
+                tags = {"Situation", "Mystery"},
+                anomalies = {
+                    name = "Phantom life signs", quantity = 6
+                }
             }
         },
         complication = {
@@ -982,6 +999,23 @@ ASSETS = {
                     name = "Archealogical site", quantity = 8,
                     add_description = "Capacity 3\nUnstable 2"
                 }
+            },
+            ["On the Tide of Ages"] = {
+                name = "On the Tide of Ages",
+                tags = {"Complication", "Politic", "Study", "Mystery"},
+                solid = {
+                    name = "Ancient Ports", quantity = 3,
+                    add_description = "Capacity 3"
+                }
+            },
+            ["Surface Strikes"] = {
+                name = "Surface Strikes",
+                tags = {"Complication", "Battle", "Politics", "Intrigue"},
+                solid = {
+                    name = "Entrenched Base", quantity = 6,
+                    add_description = "Capacity 2"
+                },
+                artifact = 1
             }
         }
     }
