@@ -366,7 +366,7 @@ function generateShipModelData(ship_data, player_color, delta)
     local color = type(player_color) == "string" and Color.fromString(player_color) or player_color
     local data = {
         Name = "Custom_Model", Transform = {scaleX = 1, scaleY = 1, scaleZ = 1}, Tags = {"Ship"},
-        Nickname = shipData.name .. "(" .. self.getGUID() .. ")",
+        Nickname = self.getName() .. " (" .. self.getGUID() .. ")",
         ColorDiffuse = color,
         CustomMesh = {
             MeshURL = ASSET_ROOT .. "misc/bases/" .. size ..  "_base.obj",
