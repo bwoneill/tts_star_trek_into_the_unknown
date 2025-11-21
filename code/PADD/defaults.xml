@@ -1,5 +1,5 @@
 <Defaults>
-    <VerticalScrollView height = "750" width = "1100" flexibleHeight = "50" color = "Black" scrollbarColors = "Blue"
+    <VerticalScrollView class = "TFVS" height = "750" width = "1100" flexibleHeight = "50" color = "Black" scrollbarColors = "Blue"
         scrollbarBackgroundColor = "Orange" rectAlignment = "UpperLeft" scrollSensitivity = "80" offsetXY = "0 -50"/>
     <Text color = "White" fontSize = "20"/>
     <Row class = "text" preferredHeight = "40"/>

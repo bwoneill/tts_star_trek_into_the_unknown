@@ -4,7 +4,7 @@
         <Text fontSize = "48" offsetXY = "0 375">Choose a Faction</Text>
         <Button class = "back" onClick = "close(taskForce)"/>
         <Button class = "import"/>
-        <VerticalScrollView>
+        <VerticalScrollView class = "TFVS">
             <GridLayout cellSize = "330 330" spacing = "10 10">
                 <Panel class = "fLayout" id = "faction1">
                     <Image id = "fLogo1" class = "fLogo"/>
@@ -28,7 +28,7 @@
         <Button class = "next"/>
         <Button class = "import"/>
         <Button class = "export"/>
-        <VerticalScrollView>
+        <VerticalScrollView class = "TFVS">
             <Panel height = "1560" width = "1000">
                 <TableLayout>
                     <Row class = "text"><Cell columnSpan = "3"><Text>Core Officers</Text></Cell></Row>
@@ -71,7 +71,7 @@
         <Button class = "export"/>
         <Button class = "import"/>
         <Button class = "spawn"/>
-        <VerticalScrollView>
+        <VerticalScrollView class = "TFVS">
             <Panel height = "1960" width = "1000" id = "fleetPanel">
                 <TableLayout>
                     <Row class = "text"><Cell columnSpan = "3"><Text>Transfer Officers</Text></Cell></Row>
@@ -174,7 +174,7 @@
     <!-- Ship Selection Panel -->
     <Panel id = "selectShip" active = "false">
         <Button class = "back" onClick = "close(selectShip)"/>
-        <VerticalScrollView>
+        <VerticalScrollView class = "TFVS">
             <Panel id = "shipScrollPanel" height = "1960">
                 <GridLayout cellSize = "400 300" spacing = "5 5" colors = "Black">
                     <Image class = "ship" id = "s1"/>
@@ -189,7 +189,7 @@
     <!-- Vertical card selector -->
     <Panel id = "vertCardSelector" active = "false">
         <Button class = "back" id = "vcsBack" onClick = "close(vertCardSelector)"/>
-        <VerticalScrollView>
+        <VerticalScrollView class = "TFVS">
             <Panel id = "vCardScrollPanel" height = "1960">
                 <GridLayout cellSize = "400 300" spacing = "10 10" colors = "Black">
                     <Panel class = "vertPanel" id = "vc1"><Image class = "vertFront" id = "vb1"/><Image class = "vertBack" id = "vf1"/></Panel>
@@ -219,7 +219,7 @@
     <!-- Horizontal card selector -->
     <Panel id = "horCardSelector" active = "false">
         <Button class = "back" id = "hcsBack" onClick = "close(horCardSelector)"/>
-        <VerticalScrollView>
+        <VerticalScrollView class = "TFVS">
             <Panel id = "hCardScrollPanel" height = "1960">
                 <GridLayout cellSize = "800 300" spacing = "5 5" colors = "Black">
                     <Panel class = "horPanel" id = "hc1"><Image class = "horFront" id = "hf1"/><Image class = "horBack" id = "hb1"/></Panel>

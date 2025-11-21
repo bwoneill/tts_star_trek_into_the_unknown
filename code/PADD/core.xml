@@ -3,11 +3,11 @@
 
 <Panel id = "startPanel" width = "1100" height = "800" position = "-135 0 -30" color = "Black">
     <Image image = "https://raw.githubusercontent.com/bwoneill/tts_star_trek_into_the_unknown/v1.0.2/assets/ui/PADD/start_screen.png"/>
-    <!-- <Text text = "Start Here" fontSize = "48" offsetXY = "0 375" id = "title"/> -->
     <GridLayout offsetXY = "0 -600" cellSize = "550 100">
-        <Button class = "appButton" text = "Task Force Creation" onClick = "start(taskForce)" color="Red"/>
-        <Button class = "appButton" text = "Library Access" onClick = "start(library)" colors = "Purple|||#644478" interactable = "false"/>
-        <Button class = "appButton" text = "Stellar Cartography" onClick = "start(maps)" color="Yellow"/>
+        <Button class = "appButton" text = "Task Force Creation" onClick = "start(taskForce)" color = "Red"/>
+        <Button class = "appButton" text = "Library Access" onClick = "start(library)" color = "Purple"/>
+        <!-- <Button class = "appButton" text = "Library Access" onClick = "start(library)" colors = "Purple|||#644478"/> -->
+        <Button class = "appButton" text = "Stellar Cartography" onClick = "start(maps)" color = "Yellow"/>
         <Button class = "appButton" text = "Tutorial" onClick = "start(tutorial)" colors = "Blue|||#476280" interactable = "false"/>
     </GridLayout>
 </Panel>
