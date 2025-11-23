@@ -1,3 +1,4 @@
+require("utilities/classes")
 require("PADD/core")
 require("PADD/taskforce")
 require("PADD/maps")
