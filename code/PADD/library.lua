@@ -1,14 +1,14 @@
 function library()
     self.UI.setAttribute("library", "active", true)
-    self.UI.setAttribute("searchField", "text", "Search")
-
+    librarySearch()
 end
 
 function librarySearch(player, value, id)
-    local results = searchAssets(value)
+    results = searchAssets(value)
     local newXml = "<GridLayout id=\"searchResults\" cellSize=\"400 50\" color=\"Black\">"
     for i, value in pairs(results) do
-        newXml = newXml .. "<Text fontSize=\"28\" alignment = \"LowerLeft\">" .. value.name .. (value.subtitle and ", " .. value.subtitle or "") .. "</Text>"
+        newXml = newXml .. "<Text id = \"sr" .. i ..  "\" fontSize=\"28\" alignment = \"LowerLeft\" onClick = \"displayResult\">"
+                        .. value.name .. (value.subtitle and ", " .. value.subtitle or "") .. "</Text>"
     end
     if #results < 1 then
         newXml = newXml .. "<Text fontSize = \"28\" alignment = \"LowerLeft\">None</Text>"
@@ -24,6 +24,7 @@ function librarySearch(player, value, id)
 end
 
 function searchAssets(text)
+    text = text or ""
     if not LIBRARY then
         LIBRARY = Global.getTable("LIBRARY")
     end
@@ -35,4 +36,14 @@ function searchAssets(text)
         end
     end
     return results
+end
+
+function displayResult(player, value, id)
+    local index = tonumber(string.match(id, "%d+"))
+    for i = 1, #results do
+        self.UI.setAttribute("sr" .. i, "color", index == i and "Blue" or "White")
+    end
+    local selected = results[index]
+    local obj = otype[selected.otype]:new(selected)
+    obj:spawnObject()
 end
