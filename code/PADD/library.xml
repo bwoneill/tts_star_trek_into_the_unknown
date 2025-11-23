@@ -9,7 +9,7 @@
             <InputField id = "searchField" onEndEdit = "librarySearch" height ="50" width = "400" fontSize = "32" rectAlignment = "UpperLeft"/>
             <!--Search results panel-->
             <Panel height = "700" width = "400" offsetXY = "0 -50" rectAlignment = "UpperLeft">
-                <VerticalScrollView height = "700" width = "400" color = "Black">
+                <VerticalScrollView height = "700" width = "400" color = "Black" scrollSensitivity = "50" rectAlignment = "UpperLeft">
                     <Panel id = "searchScrollPanel" height = "700">
                         <GridLayout id = "searchResults" cellSize = "400 50" color = "Black">
                             <Text fontSize = "28" alignment = "LowerLeft">None</Text>
