@@ -8,7 +8,8 @@
         <Button color = "Orange" textColor = "Black" fontSize = "32" width = "150" height = "50"
             rectAlignment = "UpperRight" text = "Layout" onClick = "layout"/>
         <Button class = "back" onClick = "close(maps)"/>
-        <VerticalScrollView>
+        <VerticalScrollView height = "750" width = "1100" flexibleHeight = "50" color = "Black" scrollbarColors = "Blue"
+                            scrollbarBackgroundColor = "Orange" rectAlignment = "UpperLeft" scrollSensitivity = "80" offsetXY = "0 -50">
             <Panel id = "mapsPanel">
                 <GridLayout cellSize = "360 360" space = "10 10">
                     <Image id = "map1"/>
