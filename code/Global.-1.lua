@@ -1,3 +1,5 @@
+require("utilities/classes")
+
 --[[ Lua code. See documentation: https://api.tabletopsimulator.com/ --]]
 
 --[[ The onLoad event is called after the game save finishes loading. --]]
@@ -230,44 +232,6 @@ escape_xml = [[<Button height = "50" width = "150" position = "0 0 -11" rotation
 feat_xml = [[<Button height = "25" width = "75" position = "0 -35 -11" rotation = "0 0 0" color = "rgba(1,1,1,0.25)"
     onClick = "toggleRanges(Red=2;Yellow=4;Green=6)">Range</Button>]]
 
-Ship = {}
-
-function Ship:new(o)
-    o = o or {}
-    setmetatable(o, self)
-    self.__index = self
-    return o
-end
-
-function Ship:spawnObject(pos, rot)
-    pos = pos or Vector(0,0,0)
-    rot = rot or Vector(0,0,0)
-    local path = ASSET_ROOT .. "factions/" .. self.faction .. "/" .. self.folder .. "/" .. self.type .. "/"
-    local ship_xml = Global.call("getFile", path .. self.type .. ".xml")
-    local script = "default = Global.getTable(\"ASSETS\").factions." .. self.faction .. "." .. self.folder .."." .. self.type .. "\n"
-    script = script .. Global.call("getFile", CODE_ROOT .. "/ships/ship.lua")
-    local result = {
-        data = {
-            Name = "Custom_Model", Transform = {scaleX = 1, scaleY = 1, scaleZ = 1}, Nickname = self.name,
-            CustomMesh = {
-                MeshURL = ASSET_ROOT .. "misc/ship_board.obj",
-                DiffuseURL = path .. "ship_board.png",
-                MaterialIndex = 3, Convex = false
-            },
-            LuaScript = script, XmlUI = ship_xml
-        },
-        position = pos,
-        rotation = rot
-    }
-    local back = path .. "crit_back.png"
-    for i = 1, self.crit_deck_size do
-        local front = path .. "crit_" .. i .. ".png"
-        local offset = Vector(-6.25, 0, 6):rotateOver("y", rot.y)
-        local card = spawnObject({type = "CardCustom", position = pos + offset, rotation = Vector(0, rot.y, 180)})
-        card.setCustomObject({face = front, back = back, sound = false})
-    end
-    return spawnObjectData(result)
-end
 
 function feature_data(name, diffuse)
     local result = {
@@ -1231,25 +1195,25 @@ function buildLibrary()
     for f in pairs(ASSETS.factions) do
         if ASSETS.factions[f].officers then
             for i, o in ipairs(ASSETS.factions[f].officers) do
-                LIBRARY[o.name] = o
-                LIBRARY[o.name].otype = "officer"
+                table.insert(LIBRARY, o)
+                LIBRARY[#LIBRARY].otype = "officer"
             end
         end
         if ASSETS.factions[f].ships then
             for _, s in pairs(ASSETS.factions[f].ships) do
-                LIBRARY[s.name] = s
-                LIBRARY[s.name].otype = "ship"
+                table.insert(LIBRARY, s)
+                LIBRARY[#LIBRARY].otype = "ship"
             end
         end
         if ASSETS.factions[f].auxiliary then
             for _, a in pairs(ASSETS.factions[f].auxiliary) do
-                LIBRARY[a.name] = a
-                LIBRARY[a.name].otype = "auxiliary"
+                table.insert(LIBRARY, a)
+                LIBRARY[#LIBRARY].otype = "auxiliary"
             end 
         end
     end
     for i, e in ipairs(ASSETS.equipment) do
-        LIBRARY[e.name] = e
-        LIBRARY[e.name].otype = "equipment"
+        table.insert(LIBRARY, e)
+        LIBRARY[#LIBRARY].otype = "equipment"
     end
 end
