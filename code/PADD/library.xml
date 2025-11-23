@@ -1,15 +1,20 @@
 <Panel id = "library" width = "1100" height = "800" position = "-135 0 -30" color = "Black" active = "false">
     <Text fontSize = "48" offsetXY = "0 375">Object Library</Text>
     <Button class = "back" onClick = "close(library)"/>
+    <Button onClick = "librarySpawn" text = "Spawn" fontSize = "32" color = "Orange" height = "50" width = "150" rectAlignment = "UpperRight"/>
     <Panel rectAlignment = "UpperLeft" offsetXY = "0 -50">
         <!--Side Panel-->
         <Panel height = "750" width = "400" color = "Black" rectAlignment = "UpperLeft">
             <!--Search bar-->
-            <InputField id = "searchField" onValueChanged = "librarySearch" height ="50" width = "400" fontSize = "32" text = "Search" rectAlignment = "UpperLeft"/>
-            <!--Search results-->
-            <Panel height = "700" width = "400" offsetXY = "0 -50"  rectAlignment = "UpperLeft">
+            <InputField id = "searchField" onEndEdit = "librarySearch" height ="50" width = "400" fontSize = "32" rectAlignment = "UpperLeft"/>
+            <!--Search results panel-->
+            <Panel height = "700" width = "400" offsetXY = "0 -50" rectAlignment = "UpperLeft">
                 <VerticalScrollView height = "700" width = "400" color = "Black">
-                    <VerticalLayout id = "searchResults" color = "Black"/>
+                    <Panel id = "searchScrollPanel" height = "700">
+                        <GridLayout id = "searchResults" cellSize = "400 50" color = "Black">
+                            <Text fontSize = "28" alignment = "LowerLeft">None</Text>
+                        </GridLayout>
+                    </Panel>
                 </VerticalScrollView>
             </Panel>
         </Panel>
@@ -17,7 +22,6 @@
         <Panel height = "750" width = "700" offsetXY = "400 0" rectAlignment = "UpperLeft">
             <Image id = "primaryImage"/>
             <Image id = "secondaryImage"/>
-            <Button onClick = "librarySpawn" text = "Spawn" fontSize = "32" height = "50" width = "150" rectAlignment = "LowerRight"/>
         </Panel>
     </Panel>
 </Panel>

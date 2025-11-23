@@ -3,6 +3,7 @@
 --[[ The onLoad event is called after the game save finishes loading. --]]
 function onLoad()
     --[[ print('onLoad!') --]]
+    buildLibrary()
 end
 
 --[[ The onUpdate event is called once per frame. --]]
@@ -134,6 +135,7 @@ ROOT = "https://raw.githubusercontent.com/bwoneill/tts_star_trek_into_the_unknow
 ASSET_ROOT =  ROOT .. "assets/"
 CODE_ROOT = ROOT .. "code/"
 FILE_CACHE = {}
+LIBRARY = {}
 
 turning_tool_script = [[function onDrop()
     local rulers = getObjectsWithTag("Ruler")
@@ -227,6 +229,45 @@ escape_xml = [[<Button height = "50" width = "150" position = "0 0 -11" rotation
 
 feat_xml = [[<Button height = "25" width = "75" position = "0 -35 -11" rotation = "0 0 0" color = "rgba(1,1,1,0.25)"
     onClick = "toggleRanges(Red=2;Yellow=4;Green=6)">Range</Button>]]
+
+Ship = {}
+
+function Ship:new(o)
+    o = o or {}
+    setmetatable(o, self)
+    self.__index = self
+    return o
+end
+
+function Ship:spawnObject(pos, rot)
+    pos = pos or Vector(0,0,0)
+    rot = rot or Vector(0,0,0)
+    local path = ASSET_ROOT .. "factions/" .. self.faction .. "/" .. self.folder .. "/" .. self.type .. "/"
+    local ship_xml = Global.call("getFile", path .. self.type .. ".xml")
+    local script = "default = Global.getTable(\"ASSETS\").factions." .. self.faction .. "." .. self.folder .."." .. self.type .. "\n"
+    script = script .. Global.call("getFile", CODE_ROOT .. "/ships/ship.lua")
+    local result = {
+        data = {
+            Name = "Custom_Model", Transform = {scaleX = 1, scaleY = 1, scaleZ = 1}, Nickname = self.name,
+            CustomMesh = {
+                MeshURL = ASSET_ROOT .. "misc/ship_board.obj",
+                DiffuseURL = path .. "ship_board.png",
+                MaterialIndex = 3, Convex = false
+            },
+            LuaScript = script, XmlUI = ship_xml
+        },
+        position = pos,
+        rotation = rot
+    }
+    local back = path .. "crit_back.png"
+    for i = 1, self.crit_deck_size do
+        local front = path .. "crit_" .. i .. ".png"
+        local offset = Vector(-6.25, 0, 6):rotateOver("y", rot.y)
+        local card = spawnObject({type = "CardCustom", position = pos + offset, rotation = Vector(0, rot.y, 180)})
+        card.setCustomObject({face = front, back = back, sound = false})
+    end
+    return spawnObjectData(result)
+end
 
 function feature_data(name, diffuse)
     local result = {
@@ -729,7 +770,7 @@ ASSETS = {
                 {name = "Duras", subtitle = "Son of Jarod", factions = {klingon = true}, sway = {romulan = 2}, unique = true, roles = {command = true}, cp = 10, fp = 2}
             },
             ships = {
-                brel = {
+                brel = Ship:new{
                     name = "B\'rel-Class Bird-of-Prey", role = "scout", size = "small", crit_deck_size = 5, fp = -1,
                     faction = "klingon", folder = "ships", type = "brel",
                     dials = {alert = {min = 0, max = 4}, power = {min = 0, max = 6}, crew = {min = -2, max = 4}, hull = {min = 0, max = 6}},
@@ -739,7 +780,7 @@ ASSETS = {
                     weapons = {fore_port = 4, fore_starboard = 4},
                     titles = {{name = "Buruk", fp = 2}}
                 },
-                vorcha = {
+                vorcha = Ship:new{
                     name = "Vor\'cha-Class Attack Cruiser", role = "support", size = "large", crit_deck_size = 6, fp = 1,
                     faction = "klingon", folder = "ships", type = "vorcha",
                     dials = {alert = {min = 0, max = 5}, power = {min = 0, max = 7}, crew = {min = -2, max = 5}, hull = {min = 0, max = 8}},
@@ -1184,4 +1225,31 @@ function getFile(path)
         end
     end
     return FILE_CACHE[path]
+end
+
+function buildLibrary()
+    for f in pairs(ASSETS.factions) do
+        if ASSETS.factions[f].officers then
+            for i, o in ipairs(ASSETS.factions[f].officers) do
+                LIBRARY[o.name] = o
+                LIBRARY[o.name].otype = "officer"
+            end
+        end
+        if ASSETS.factions[f].ships then
+            for _, s in pairs(ASSETS.factions[f].ships) do
+                LIBRARY[s.name] = s
+                LIBRARY[s.name].otype = "ship"
+            end
+        end
+        if ASSETS.factions[f].auxiliary then
+            for _, a in pairs(ASSETS.factions[f].auxiliary) do
+                LIBRARY[a.name] = a
+                LIBRARY[a.name].otype = "auxiliary"
+            end 
+        end
+    end
+    for i, e in ipairs(ASSETS.equipment) do
+        LIBRARY[e.name] = e
+        LIBRARY[e.name].otype = "equipment"
+    end
 end
