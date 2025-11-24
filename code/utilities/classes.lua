@@ -42,6 +42,14 @@ function Ship:spawnObject(pos, rot)
     return spawnObjectData(result)
 end
 
+function Ship:toString()
+    local result = "ship"
+    for k, v in pairs(self) do
+        result = result .. (type(v) == "string" and k~= "otype" and " " .. v or "")
+    end
+    return result
+end
+
 Auxiliary = Ship:new()
 
 function Auxiliary:getImagePaths()
@@ -81,6 +89,14 @@ function Card:spawnObject(pos, rot)
     return card
 end
 
+function Card:toString()
+    local result = ""
+    for k, v in pairs(self) do
+        result = result .. (type(v) == "string" and " " .. v or "")
+    end
+    return result
+end
+
 Officer = Card:new()
 
 function Officer:new(o)
@@ -91,8 +107,30 @@ function Officer:new(o)
 end
 
 function Officer:getImagePaths()
-    local path = ASSET_ROOT .. "/officers/" .. string.gsub(self.name .. (self.subtitle and "_" .. self.subtitle or ""), " ", "_")
+    local fullName = string.gsub(self.name .. (self.subtitle and "_" .. self.subtitle or ""), "%s", "_")
+    log(fullName)
+    local path = ASSET_ROOT .. "officers/" .. fullName:gsub("[^%w%d%s_]", ""):gsub("%s", "_")
+    log(path)
     local result = {path .. ".png", path .. "_back.png"}
+    return result
+end
+
+function Officer:toString()
+    local result = "officer"
+    for k, v in pairs(self) do
+        if k == "factions" or k == "sway" or k == "roles" then
+            result = result .. (k == "sway" and " sway" or "")
+            for i, j in pairs(v) do
+                result = result .. " " .. i
+            end
+        elseif k == "unique" then
+            result = result .. (v and " unique" or "")
+        elseif k == "line_officer" then
+            result = result .. (v and " line officer" or "")
+        elseif type(v) == "string" and k ~= "otype" then
+            result = result .. " " .. v
+        end
+    end
     return result
 end
 
