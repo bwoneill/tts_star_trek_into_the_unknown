@@ -108,9 +108,7 @@ end
 
 function Officer:getImagePaths()
     local fullName = string.gsub(self.name .. (self.subtitle and "_" .. self.subtitle or ""), "%s", "_")
-    log(fullName)
-    local path = ASSET_ROOT .. "officers/" .. fullName:gsub("[^%w%d%s_]", ""):gsub("%s", "_")
-    log(path)
+    local path = ASSET_ROOT .. "officers/" .. fullName:gsub("[^%w%d%s-_]", ""):gsub("%s", "_")
     local result = {path .. ".png", path .. "_back.png"}
     return result
 end
