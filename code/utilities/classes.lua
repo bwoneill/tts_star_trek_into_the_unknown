@@ -140,4 +140,17 @@ function Equipment:getImagePaths()
     return result
 end
 
+function Equipment:toString()
+    local result = "equipment "
+    for k, v in pairs(self) do
+        result = result .. (type(v) == "string" and " " .. v or "")
+    end
+    if self.factions then
+        for k, v in pairs(self.factions) do
+            result = result .. (v and k or "")
+        end 
+    end
+    return result
+end
+
 otype = {ship = Ship, auxiliary = Auxiliary, officer = Officer, equipment = Equipment}
