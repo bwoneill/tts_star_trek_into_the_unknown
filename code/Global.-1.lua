@@ -1216,4 +1216,9 @@ function buildLibrary()
         table.insert(LIBRARY, e)
         LIBRARY[#LIBRARY].otype = "equipment"
     end
+    LIBRARY = table.sort(LIBRARY, function(a,b)
+        local fullNameA = a.name .. (a.subtitle and ", " .. a.subtitle or "")
+        local fullNameB = b.name .. (b.subtitle and ", " .. b.subtitle or "")
+        return fullNameA:lower() < fullNameB:lower()
+    end)
 end
