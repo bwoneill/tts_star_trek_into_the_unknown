@@ -3,11 +3,15 @@ function library()
     librarySearch()
 end
 
+libraryImages = {"cardFront","cardBack", "shipBoard", "shipImage", "auxFront", "auxBack"}
+typeImages = {officer = {"cardFront", "cardBack"}, equipment = {"cardFront", "cardBack"},
+              ship = {"shipBoard", "shipImage"}, auxiliary = {"auxFront", "auxBack"}}
+
 function librarySearch(player, value, id)
     searchResults = searchAssets(value)
     local newXml = "<GridLayout id=\"searchResults\" cellSize=\"400 50\" color=\"Black\">"
     for i, value in pairs(searchResults) do
-        newXml = newXml .. "<Text id = \"sr" .. i ..  "\" fontSize=\"28\" alignment = \"LowerLeft\" onClick = \"displayResult\">"
+        newXml = newXml .. "<Text id = \"sr" .. i ..  "\" fontSize=\"28\" alignment = \"MiddleLeft\" onClick = \"displayResult\">"
                         .. value.name .. (value.subtitle and ", " .. value.subtitle or "") .. "</Text>"
     end
     if #searchResults < 1 then
@@ -45,6 +49,19 @@ function displayResult(player, value, id)
         self.UI.setAttribute("sr" .. i, "color", index == i and "Blue" or "White")
     end
     selected = searchResults[index]
+    if otype[selected.otype] then
+        selected = otype[selected.otype]:new(selected)
+        local images = selected:getImagePaths()
+        for _, element in ipairs(libraryImages) do
+            self.UI.setAttribute(element, "active", false)
+        end
+        if typeImages[selected.otype] then
+            for i, x in ipairs(typeImages[selected.otype]) do
+                local attributes = {image = images[i], active = true}
+                self.UI.setAttributes(x, {image = images[i], active = true})
+            end
+        end
+    end
 end
 
 function librarySpawn(player, value, id)

@@ -20,8 +20,12 @@
         </Panel>
         <!--Main Panel-->
         <Panel height = "750" width = "700" offsetXY = "400 0" rectAlignment = "UpperLeft">
-            <Image id = "primaryImage"/>
-            <Image id = "secondaryImage"/>
+            <Image id = "cardFront" preserveAspect = "True" rectAlignment = "MiddleLeft" width = "350" active = "false"/>
+            <Image id = "cardBack" preserveAspect = "True" rectAlignment = "MiddleRight" width = "350" active = "false"/>
+            <Image id = "auxFront" preserveAspect = "True" rectAlignment = "UpperCenter" height = "375" active = "false"/>
+            <Image id = "auxBack" preserveAspect = "True" rectAlignment = "LowerCenter" height = "375" active = "false"/>
+            <Image id = "shipBoard" preserveAspect = "True" rectAlignment = "UpperLeft" width = "700" active = "false"/>
+            <Image id = "shipImage" preserveAspect = "True" rectAlignment = "LowerRight" width = "260" active = "false"/>
         </Panel>
     </Panel>
 </Panel>
