@@ -548,11 +548,11 @@ ASSETS = {
                 {name = "Eris", subtitle = "Manipulative Agent", factions = {dominion = true}, unique = true, roles = {command = true, ops = true}, cp = 8, fp = 4},
                 {name = "Founder", factions = {dominion = true}, roles = {command = true, ops = true, science = true}, cp = 9, fp = 6},
                 {name = "Hanok", subtitle = "Sanctimonious Minister", factions = {dominion = true}, sway = {ferengi = 1}, unique = true, roles = {ops = true, science = true}, cp = 9, fp = 3},
-                {name = "JemHadar First", factions = {dominion = true}, roles = {ops = true}, cp = 8, fp = 3},
-                {name = "JemHadar Second", factions = {dominion = true}, roles = {ops = true}, cp = 7, fp = 2},
+                {name = "Jem'Hadar First", factions = {dominion = true}, roles = {ops = true}, cp = 8, fp = 3},
+                {name = "Jem'Hadar Second", factions = {dominion = true}, roles = {ops = true}, cp = 7, fp = 2},
                 {name = "Karemma Researcher", factions = {dominion = true}, roles = {science = true}, cp = 7, fp = 3},
-                {name = "Ometiklan", subtitle = "Loyal First", factions = {dominion = true}, unique = true, roles = {ops = true}, cp = 11, fp = 4},
-                {name = "Talaktalan", subtitle = "Menacing Third", factions = {dominion = true}, unique = true, roles = {ops = true}, cp = 9, fp = 3},
+                {name = "Omet'iklan", subtitle = "Loyal First", factions = {dominion = true}, unique = true, roles = {ops = true}, cp = 11, fp = 4},
+                {name = "Talak'talan", subtitle = "Menacing Third", factions = {dominion = true}, unique = true, roles = {ops = true}, cp = 9, fp = 3},
                 {name = "The Female Changeling", subtitle = "Divine Ruler", factions = {dominion = true}, unique = true, roles = {command = true, ops = true, science = true}, cp = 10, fp = 3},
                 {name = "Vorta Diplomat", factions = {dominion = true}, roles = {command = true}, cp = 6, fp = 3},
                 {name = "Vorta Supervisor", factions = {dominion = true}, line_officer = true, roles = {command = true}, cp = 0, fp = 2},
@@ -724,7 +724,7 @@ ASSETS = {
                 {name = "Cunning Weapons Officer", factions = {klingon = true}, roles = {ops = true}, cp = 7, fp = 3},
                 {name = "Gowron", subtitle = "Canny Chancellor", factions = {klingon = true}, unique = true, roles = {command = true}, cp = 15, fp = 4},
                 {name = "Grilka", subtitle = "Indomitable Leader", factions = {klingon = true}, sway = {ferengi = 2}, unique = true, roles = {command = true}, cp = 12, fp = 3},
-                {name = "KEhleyr", subtitle = "Ambassador of Two Worlds", factions = {klingon = true, federation = true}, sway = {klingon = 1, federation = 1}, unique = true, roles = {ops = true, science = true}, cp = 9, fp = 5},
+                {name = "K'Ehleyr", subtitle = "Ambassador of Two Worlds", factions = {klingon = true, federation = true}, sway = {klingon = 1, federation = 1}, unique = true, roles = {ops = true, science = true}, cp = 9, fp = 5},
                 {name = "Kurn", subtitle = "Steadfast Supporter", factions = {klingon = true}, unique = true, roles = {command = true, ops = true}, cp = 12, fp = 4},
                 {name = "Loyal Commander", line_officer = true, factions = {klingon = true}, roles = {command = true}, cp = 0, fp = 3},
                 {name = "Proud Captain", factions = {klingon = true}, roles = {command = true}, cp = 8, fp = 3},
@@ -734,8 +734,8 @@ ASSETS = {
                 {name = "Duras", subtitle = "Son of Jarod", factions = {klingon = true}, sway = {romulan = 2}, unique = true, roles = {command = true}, cp = 10, fp = 2}
             },
             ships = {
-                brel = Ship:new{
-                    name = "B\'rel-Class Bird-of-Prey", role = "scout", size = "small", crit_deck_size = 5, fp = -1,
+                brel = {
+                    name = "B'rel-Class Bird-of-Prey", role = "scout", size = "small", crit_deck_size = 5, fp = -1,
                     faction = "klingon", folder = "ships", type = "brel",
                     dials = {alert = {min = 0, max = 4}, power = {min = 0, max = 6}, crew = {min = -2, max = 4}, hull = {min = 0, max = 6}},
                     model_transform = {scaleX = 0.989, posX = 0.35, posY = 0.88, posZ = 0.75, rotY = -90}, instruments = {1, 2, 1, 0, 0}, -- Need to adjust position
@@ -744,8 +744,8 @@ ASSETS = {
                     weapons = {fore_port = 4, fore_starboard = 4},
                     titles = {{name = "Buruk", fp = 2}}
                 },
-                vorcha = Ship:new{
-                    name = "Vor\'cha-Class Attack Cruiser", role = "support", size = "large", crit_deck_size = 6, fp = 1,
+                vorcha = {
+                    name = "Vor'cha-Class Attack Cruiser", role = "support", size = "large", crit_deck_size = 6, fp = 1,
                     faction = "klingon", folder = "ships", type = "vorcha",
                     dials = {alert = {min = 0, max = 5}, power = {min = 0, max = 7}, crew = {min = -2, max = 5}, hull = {min = 0, max = 8}},
                     model_transform = {scaleX = 2.505, posY = 0.75, rotY = 90}, instruments = {2, 3, 2, 1, 1, 0},
@@ -777,7 +777,7 @@ ASSETS = {
         romulan = {
             displayName = "Romulan Star Empire", playable = true,
             officers = {
-                {name = "TRul", subtitle = "Acerbic Subcommander", factions = {romulan = true, federation = true}, unique = true, roles = {science = true}, cp = 8, fp = 4}
+                {name = "T'Rul", subtitle = "Acerbic Subcommander", factions = {romulan = true, federation = true}, unique = true, roles = {science = true}, cp = 8, fp = 4}
             }
         },
         neutral = {
