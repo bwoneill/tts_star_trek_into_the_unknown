@@ -781,7 +781,7 @@ ASSETS = {
             }
         },
         neutral = {
-            ships = {
+            auxiliary = {
                 raider = {
                     name = "Hostile Raider", size = "medium",
                     faction = "neutral", folder = "ships", type = "raider",
