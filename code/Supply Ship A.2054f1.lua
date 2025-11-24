@@ -1,5 +1,5 @@
 --Netural Raider Unit
 
-default = Global.getTable("ASSETS").factions.neutral.ships.supply
+default = Global.getTable("ASSETS").factions.neutral.auxiliary.supply
 
 require("ships/ship")
