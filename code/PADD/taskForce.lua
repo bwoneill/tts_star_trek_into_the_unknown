@@ -136,6 +136,7 @@ end
 
 function getOfficerImage(officer)
     local path = string.gsub(officer.name .. (officer.subtitle and "_" .. officer.subtitle or ""), " ", "_")
+    path = path:gsub("[^%w%d%s_]", "")
     path = ASSET_ROOT .. "factions/" .. build.faction .. "/officers/" .. path
     local result = {front = path .. ".png", back = path .. "_back.png"}
     return result
