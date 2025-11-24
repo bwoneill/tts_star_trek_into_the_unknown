@@ -4,13 +4,13 @@ function library()
 end
 
 function librarySearch(player, value, id)
-    results = searchAssets(value)
+    searchResults = searchAssets(value)
     local newXml = "<GridLayout id=\"searchResults\" cellSize=\"400 50\" color=\"Black\">"
-    for i, value in pairs(results) do
+    for i, value in pairs(searchResults) do
         newXml = newXml .. "<Text id = \"sr" .. i ..  "\" fontSize=\"28\" alignment = \"LowerLeft\" onClick = \"displayResult\">"
                         .. value.name .. (value.subtitle and ", " .. value.subtitle or "") .. "</Text>"
     end
-    if #results < 1 then
+    if #searchResults < 1 then
         newXml = newXml .. "<Text fontSize = \"28\" alignment = \"LowerLeft\">None</Text>"
     end
     newXml = newXml .. "</GridLayout>"
@@ -20,18 +20,19 @@ function librarySearch(player, value, id)
     xml = string.sub(xml, 1, start -1) .. newXml .. string.sub(xml, stop + 1)
     self.UI.setXml(xml)
     self.UI.setAttribute("searchField", "text", value)
-    self.UI.setAttribute("searchScrollPanel", "height", math.max(50 * #results, 700))
+    self.UI.setAttribute("searchScrollPanel", "height", math.max(50 * #searchResults, 700))
 end
 
 function searchAssets(text)
-    text = text or ""
+    text = cleanSearchText(text)
     if not LIBRARY then
         LIBRARY = Global.getTable("LIBRARY")
     end
     local results = {}
     for _, value in pairs(LIBRARY) do
-        local fullName = value.name .. (value.subtitle and ", " .. value.subtitle or "")
-        if string.match(fullName, text) then
+        local obj = otype[value.otype]:new(value)
+        local target = cleanSearchText(obj:toString())
+        if wordMatch(target, text) then
             table.insert(results, value)
         end
     end
@@ -40,10 +41,41 @@ end
 
 function displayResult(player, value, id)
     local index = tonumber(string.match(id, "%d+"))
-    for i = 1, #results do
+    for i = 1, #searchResults do
         self.UI.setAttribute("sr" .. i, "color", index == i and "Blue" or "White")
     end
-    local selected = results[index]
-    local obj = otype[selected.otype]:new(selected)
-    obj:spawnObject()
+    selected = searchResults[index]
+end
+
+function librarySpawn(player, value, id)
+    if selected then
+        local obj = otype[selected.otype]:new(selected)
+        local pos = self.getPosition()
+        local rot = self.getRotation()
+        rot.y = rot.y + 180
+        if selected.otype == "ship" then
+            pos = pos + Vector(16, 0, -3.25):rotateOver("y", rot.y)
+        elseif selected.otype == "auxiliary" then
+            pos = pos + Vector(17.75, 0, 3):rotateOver("y", rot.y)
+        else
+            pos = pos + Vector(13, 0, 2.75):rotateOver("y", rot.y)
+        end
+        obj:spawnObject(pos, rot)
+    end
+end
+
+function cleanSearchText(text)
+    text = text or ""
+    text = string.lower(text)
+    text = string.gsub(text, "[-_]", " ")
+    text = string.gsub(text, "[^%w%d%s]", "")
+    return text
+end
+
+function wordMatch(target, words)
+    local match = true
+    for w in words:gmatch("%S+") do
+        match = match and target:match(w)
+    end
+    return match
 end
