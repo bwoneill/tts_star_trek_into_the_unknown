@@ -1,7 +1,8 @@
 <Panel id = "library" width = "1100" height = "800" position = "-135 0 -30" color = "Black" active = "false">
     <Text fontSize = "48" offsetXY = "0 375">Object Library</Text>
     <Button class = "back" onClick = "close(library)"/>
-    <Button onClick = "librarySpawn" text = "Spawn" fontSize = "32" color = "Orange" height = "50" width = "150" rectAlignment = "UpperRight"/>
+    <Button id = "librarySpawn" onClick = "librarySpawn" text = "Spawn" fontSize = "32" color = "Orange" height = "50" width = "150"
+            rectAlignment = "UpperRight" interactable = "false"/>
     <Panel rectAlignment = "UpperLeft" offsetXY = "0 -50">
         <!--Side Panel-->
         <Panel height = "750" width = "400" color = "Black" rectAlignment = "UpperLeft">
@@ -26,6 +27,7 @@
             <Image id = "auxBack" preserveAspect = "True" rectAlignment = "LowerCenter" height = "375" active = "false"/>
             <Image id = "shipBoard" preserveAspect = "True" rectAlignment = "UpperLeft" width = "700" active = "false"/>
             <Image id = "shipImage" preserveAspect = "True" rectAlignment = "LowerRight" width = "260" active = "false"/>
+            <Text id = "libraryText" fontSize = "32" alignment = "MiddleLeft"/>
         </Panel>
     </Panel>
 </Panel>

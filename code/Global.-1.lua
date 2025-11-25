@@ -1024,6 +1024,32 @@ ASSETS = {
                 artifact = 1
             }
         }
+    },
+    keywords = {
+        {name = "Augmented X", text = "While this officer leads a test, you may replace up to X intuition (blue) dice with that many expertise (black) dice."},
+        {name = "Changeling X", text = "After this officer leads a test, add X peril to each opposing unit at this officer's location."},
+        {name = "Glib X", text = "After this officer leads a hail, if you were accommodating, add X peril to a unit of your choice at Comms range."},
+        {name = "Handy X", text = "While this officer leads a repair test, you may reroll up to X dice."},
+        {name = "Inspiring [one or more stat icons]", text = "While this officer leads a test with the specified stat, you can spend two analysis results to inspire their unit."},
+        {name = "Medic X", text = "During your turn in the Ready Phase, you may test (difficulty 2) science stat + Biology.\nSuccess: Remove up to X trauma from personnel at this location. You can choose more than one personnel (officers and/or team units), in which case you decide how to split the total of X trauma removed this way."},
+        {name = "Perceptive X", text = "While this officer leads a test, treat their unit's instruments power stat as increased by X."},
+        {name = "Qapla'", text = "After this officer leads an action that scores 1 or more victory points, you may bank up to 1 of the tokens on their card. While this officer has 1 or more victory point banked on their card, they gain the bracketed abilities, skills, or other game text in brackets. At the end of the game, unless this officer is captured, score all victory points banked on them."},
+        {name = "Relentless X", text = "While this officer leads an attack or a test for which the relevant skill comes from the security skill category, you can reroll up to X dice. For each die rerolled this way that results in breakthrough success, this officer’s unit sustains 1 health damage during the Post Effects step."},
+        {name = "Detonation X", text = "This unit detonates if it is at X\" of an opposing unit before or after it moves. Then it uses its weapon profile to perform an attack against each unit at X\" (both friendly and opposing)."},
+        {name = "Guided", text = "If this unit begins its move at Sensors range of a locked opposing unit, it can move along one of its fore sides (instead of its lateral sides). A unit with this keyword shows these sides with striped lines on its unit card."},
+        {name = "Inertia", text = "This unit must activate to engage impulse and move during the Standby Phase if it has 1 or more endurance markers remaining. The unit must move a distance equal to its full engine power stat, if able."},
+        {name = "Relay X", text = "While there is a friendly unit with combined Comms range to this unit (adding both units' Comms ranges), this unit can use the friendly unit's X stat value instead of its own."},
+        {name = "Blast X", text = "When this unit detonates, it attacks each unit at X\" with this weapon profile. If there are one or more opposing units with a friendly lock token at X\", only those units are attacked."},
+        {name = "Breach X", text = "If the target has hull, during the resolve damage step, the defender does not stop reducing their hull value after their dial or track changes to the next hull status; its hull can be reduced up to X additional steps."},
+        {name = "Lethal X", text = "During the post effects step, you may resolve the following effect:\nAnalysis+: If the attack hit and the defender sustained damage, for each analysis result spent, up to X, the defender must sustain 1 additional health damage.\n• If the defender has a crew dial, its hull must have been reduced by the damage sustained."},
+        {name = "Pierce X", text = "If the target has shields, during the determine outcome step, you may resolve the following effect:\nAnalysis+: For each analysis spent, the defender's shield value is reduced by 1 until the end of the action. This effect is cumulative up to X, including across additional attacks during the same action."},
+        {name = "Pulse X", text = "During the modify dice step, you may reroll a number of dice up to X."},
+        {name = "Abundant X", text = "Each unit with no advantage at 2\" gains the following action:\n\tCargo Bay station - GATHER RESOURCES: Test (difficulty 3) science stat + Commerce or Fieldcraft (reroll instruments).\n\tSuccess: The unit adds 1 advantage, plus 1 per point by which it exceeded the difficulty, to a maximum of X."},
+        {name = "Capacity X", text = "This feature has one section, which can accommodate an unlimited number of officers and up to X ground units (per player). Units inside of the feature cannot be attacked by units outside of the feature."},
+        {name = "Massive X", text = "After a space unit performs a maneuver, if it is at 2\" of this feature, it must make the following test: test (difficulty X) command stat + Navigation (reroll impulse turn value ).\nSuccess: Add 2 peril.\nBreakthrough Success+: Remove 1 peril added this way per breakthrough success result.\nFailure: Add 1 peril, plus 1 peril per point by which the test failed. Then an opponent may rotate the space unit up to 1 impulse turn."},
+        {name = "Obscuring X", text = "Each unit at 2\" of this feature increases its evasion stat by X and treats its Comms and Sensors range as 2\"."},
+        {name = "Treacherous X", text = "While a space unit performs a warp maneuver that crosses this feature, it must immediately resolve the following: test (difficulty X) ops stat + Navigation (reroll instruments).\nSuccess: Complete the maneuver. Add 2 peril.\nBreakthrough Success+: Remove 1 peril added this way per breakthrough success.\nFailure: Add 1 peril, plus 1 per point by which the test failed. Then an opponent places the space unit touching the feature. Finally, the unit sustains 3 damage to its fore end."},
+        {name = "Unstable X",  text = "During the Hazard Phase, each unit at 2\" of this feature must make the following test: test (difficulty X) ops stat + Mechanics (reroll impulse turn):\nSuccess: Add 2 peril.\nBreakthrough Success+: Remove 1 peril gained this way per breakthrough success.\nFailure: Add 1 peril, plus 1 per point by which the test failed. Then if the ship has 3 or more <per>, any opponent may remove 3 peril from the ship to have it sustain 1 crew loss."}
     }
 }
 
@@ -1215,6 +1241,10 @@ function buildLibrary()
     for i, e in ipairs(ASSETS.equipment) do
         table.insert(LIBRARY, e)
         LIBRARY[#LIBRARY].otype = "equipment"
+    end
+    for i, k in ipairs(ASSETS.keywords) do
+        table.insert(LIBRARY, k)
+        LIBRARY[#LIBRARY].otype = "keyword"
     end
     LIBRARY = table.sort(LIBRARY, function(a,b)
         local fullNameA = a.name .. (a.subtitle and ", " .. a.subtitle or "")

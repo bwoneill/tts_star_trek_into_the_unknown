@@ -1,4 +1,4 @@
-Ship = {}
+Ship = {spawnable = true}
 
 function Ship:new(o)
     o = o or {}
@@ -73,7 +73,7 @@ function Auxiliary:spawnObject(pos, rot)
     return card
 end
 
-Card = {}
+Card = {spawnable = true}
 
 function Card:new(o)
     o = o or {}
@@ -153,4 +153,18 @@ function Equipment:toString()
     return result
 end
 
-otype = {ship = Ship, auxiliary = Auxiliary, officer = Officer, equipment = Equipment}
+Keyword = {}
+
+function Keyword:new(o)
+    o = o or {}
+    setmetatable(o, self)
+    self.__index = self
+    return o
+end
+
+function Keyword:toString()
+    local result = "keyword " .. self.name .. " " .. self.text
+    return result
+end
+
+otype = {ship = Ship, auxiliary = Auxiliary, officer = Officer, equipment = Equipment, keyword = Keyword}

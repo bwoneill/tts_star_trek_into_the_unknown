@@ -3,7 +3,7 @@ function library()
     librarySearch()
 end
 
-libraryImages = {"cardFront","cardBack", "shipBoard", "shipImage", "auxFront", "auxBack"}
+libraryImages = {"cardFront","cardBack", "shipBoard", "shipImage", "auxFront", "auxBack", "libraryText"}
 typeImages = {officer = {"cardFront", "cardBack"}, equipment = {"cardFront", "cardBack"},
               ship = {"shipBoard", "shipImage"}, auxiliary = {"auxFront", "auxBack"}}
 
@@ -34,8 +34,13 @@ function searchAssets(text)
     end
     local results = {}
     for _, value in pairs(LIBRARY) do
-        local obj = otype[value.otype]:new(value)
-        local target = cleanSearchText(obj:toString())
+        local target = ""
+        if otype[value.otype] then
+            local obj = otype[value.otype]:new(value)
+            target = cleanSearchText(obj:toString())
+        else
+            target = value.name .. " " .. value.text
+        end
         if wordMatch(target, text) then
             table.insert(results, value)
         end
@@ -49,19 +54,25 @@ function displayResult(player, value, id)
         self.UI.setAttribute("sr" .. i, "color", index == i and "Blue" or "White")
     end
     selected = searchResults[index]
+    for _, element in ipairs(libraryImages) do
+        self.UI.setAttribute(element, "active", false)
+    end
     if otype[selected.otype] then
         selected = otype[selected.otype]:new(selected)
-        local images = selected:getImagePaths()
-        for _, element in ipairs(libraryImages) do
-            self.UI.setAttribute(element, "active", false)
-        end
-        if typeImages[selected.otype] then
-            for i, x in ipairs(typeImages[selected.otype]) do
-                local attributes = {image = images[i], active = true}
-                self.UI.setAttributes(x, {image = images[i], active = true})
+        if selected.otype == "keyword" then
+            self.UI.setAttributes("libraryText", {text = selected.name .. "\n" .. selected.text, active = true})
+        else
+            local images = selected:getImagePaths()
+            if typeImages[selected.otype] then
+                for i, x in ipairs(typeImages[selected.otype]) do
+                    local attributes = {image = images[i], active = true}
+                    self.UI.setAttributes(x, {image = images[i], active = true})
+                end
             end
         end
+        self.UI.setAttribute("librarySpawn", "interactable", selected.spawnable or false)
     end
+
 end
 
 function librarySpawn(player, value, id)
