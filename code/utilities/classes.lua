@@ -1,23 +1,52 @@
-Ship = {spawnable = true}
+gtype = {}
 
-function Ship:new(o)
+GameType = {}
+
+function GameType:new(o)
     o = o or {}
-    setmetatable(o, self)
-    self.__index = self
+    local t = (o.gtype and gtype[o.gtype]) or self
+    setmetatable(o, t)
+    t.__index = t
     return o
 end
 
+function GameType:getName()
+    return self.name
+end
+
+Ship = GameType:new{gtype = "ship", spawnable = true}
+
 function Ship:getImagePaths()
-    local path = ASSET_ROOT .. "factions/" .. self.faction .. "/" .. self.folder .. "/" .. self.type .. "/"
+    local path = ASSET_ROOT .. "factions/" .. self.faction .. "/ships/" .. self.type .. "/"
     return {path .. "ship_board.png", path .. "image.png"}
 end
 
-function Ship:spawnObject(pos, rot)
+function Ship:getTitleImages(name)
+    local result
+    for i, v in ipairs(self.titles) do
+        if v.name == name then
+            name = name:gsub(" ", "_"):lower()
+            local path = ASSET_ROOT .. "factions/" .. self.faction .. "/ships/" .. self.type .. "/title_" .. name
+            result = {path .. "_front.png", path .. "_back.png"}
+        end
+    end
+    return result
+end
+
+function Ship:toString()
+    local result = "ship"
+    for k, v in pairs(self) do
+        result = result .. (type(v) == "string" and k~= "gtype" and " " .. v or "")
+    end
+    return result
+end
+
+function Ship:spawnObject(pos, rot, title)
     pos = pos or Vector(0,0,0)
     rot = rot or Vector(0,0,0)
-    local path = ASSET_ROOT .. "factions/" .. self.faction .. "/" .. self.folder .. "/" .. self.type .. "/"
+    local path = ASSET_ROOT .. "factions/" .. self.faction .. "/ships/" .. self.type .. "/"
     local ship_xml = Global.call("getFile", path .. self.type .. ".xml")
-    local script = "default = Global.getTable(\"ASSETS\").factions." .. self.faction .. "." .. self.folder .."." .. self.type .. "\n"
+    local script = "default = Global.getTable(\"ASSETS\").factions." .. self.faction .. ".ships." .. self.type .. "\n"
     script = script .. Global.call("getFile", CODE_ROOT .. "/ships/ship.lua")
     local result = {
         data = {
@@ -32,6 +61,7 @@ function Ship:spawnObject(pos, rot)
         position = pos,
         rotation = rot
     }
+    -- Spawn damage deck
     local back = path .. "crit_back.png"
     for i = 1, self.crit_deck_size do
         local front = path .. "crit_" .. i .. ".png"
@@ -39,15 +69,23 @@ function Ship:spawnObject(pos, rot)
         local card = spawnObject({type = "CardCustom", position = pos + offset, rotation = Vector(0, rot.y, 180)})
         card.setCustomObject({face = front, back = back, sound = false})
     end
+    -- Spawn line officer
+    local officers = Global.getTable("ASSETS").factions[self.faction].officers
+    for i, officer in ipairs(officers) do
+        if officer.line_officer then
+            local offset = Vector(-3, 0, 6):rotateOver("y", rot.y)
+            Officer:new(officer):spawnObject(pos + offset, Vector(0, rot.y, 180))
+        end
+    end
+    -- Spawn title
+    if title and title.name then
+        local offset = Vector(-6.25, 0, -2):rotateOver("y", rot.y)
+        Card:new({images = self:getTitleImages(title.name)}):spawnObject(pos + offset, Vector(0, rot.y, 180))
+    end
     return spawnObjectData(result)
 end
 
-function Ship:toString()
-    local result = "ship"
-    for k, v in pairs(self) do
-        result = result .. (type(v) == "string" and k~= "otype" and " " .. v or "")
-    end
-    return result
+function Ship:getTitles()
 end
 
 Auxiliary = Ship:new()
@@ -73,13 +111,17 @@ function Auxiliary:spawnObject(pos, rot)
     return card
 end
 
-Card = {spawnable = true}
+Card = GameType:new{spawnable = true}
 
 function Card:new(o)
     o = o or {}
     setmetatable(o, self)
     self.__index = self
     return o
+end
+
+function Card:getImagePaths()
+    return self.images
 end
 
 function Card:spawnObject(pos, rot)
@@ -97,7 +139,7 @@ function Card:toString()
     return result
 end
 
-Officer = Card:new()
+Officer = Card:new{gtype = "officer"}
 
 function Officer:new(o)
     o = o or {}
@@ -125,14 +167,18 @@ function Officer:toString()
             result = result .. (v and " unique" or "")
         elseif k == "line_officer" then
             result = result .. (v and " line officer" or "")
-        elseif type(v) == "string" and k ~= "otype" then
+        elseif type(v) == "string" and k ~= "gtype" then
             result = result .. " " .. v
         end
     end
     return result
 end
 
-Equipment = Card:new()
+function Officer:getName()
+    return self.name .. (self.subtitle and ", " .. self.subtitle or "")
+end
+
+Equipment = Card:new{gtype = "equipment"}
 
 function Equipment:getImagePaths()
     local path = ASSET_ROOT .. "/equipment/" .. string.gsub(self.name, " ", "_")
@@ -153,18 +199,16 @@ function Equipment:toString()
     return result
 end
 
-Keyword = {}
+Directive = Card:new{gtype = "directive"}
 
-function Keyword:new(o)
-    o = o or {}
-    setmetatable(o, self)
-    self.__index = self
-    return o
+function Directive:spawnObject(pos, rot)
 end
+
+Keyword = GameType:new{gtype = "keyword"}
 
 function Keyword:toString()
     local result = "keyword " .. self.name .. " " .. self.text
     return result
 end
 
-otype = {ship = Ship, auxiliary = Auxiliary, officer = Officer, equipment = Equipment, keyword = Keyword}
+gtype = {ship = Ship, auxiliary = Auxiliary, officer = Officer, equipment = Equipment, keyword = Keyword}
