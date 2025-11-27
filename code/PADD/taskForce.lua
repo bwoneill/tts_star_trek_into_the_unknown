@@ -235,12 +235,6 @@ function updateEquipment(player, value, id)
     fleetStaging()
 end
 
-function getEquipmentImages(equip)
-    local path = ASSET_ROOT .. "equipment/" .. string.gsub(equip.name, " ", "_")
-    local result = {front = path .. ".png", back = path .. "_back.png"}
-    return result
-end
-
 function selectEquip(player, value, id)
     local index = tonumber(string.gmatch(id, "%d+")())
     local this = build.equipment[index]
@@ -254,14 +248,14 @@ function selectEquip(player, value, id)
         end
         if available then
             count = count + 1
-            local images = getEquipmentImages(e)
+            local images = Equipment:new(e):getImagePaths()
             local attributes = {
                 onClick = "equipChoice(" .. index .. "=" .. i .. ")",
-                image = images.front,
+                image = images.front or images[1],
                 color = "White"
             }
             self.UI.setAttributes("vf" .. count, attributes)
-            attributes.image = images.back
+            attributes.image = images.back or images[2]
             self.UI.setAttributes("vb" .. count, attributes)
             self.UI.setAttribute("vc" .. count, "active", true)
         end
@@ -294,16 +288,16 @@ function selectTitle(player, value, id)
     local ship = build["ship" .. index]
     local count = 0
     if ship and ship.titles then
-        for i, name in ipairs(ship.titles) do
+        for i, title in ipairs(ship.titles) do
             count = count + 1
-            local images = getTitleImages(ship, name)
+            local images = Ship:new(ship):getTitleImages(title.name)
             local attributes = {
                 onClick = "titleChoice(" .. index .. "=" .. i .. ")",
-                image = images.front,
+                image = images.front or images[1],
                 color = "White"
             }
             self.UI.setAttributes("vf" .. count, attributes)
-            attributes.image = images.back
+            attributes.image = images.back or images[2]
             self.UI.setAttributes("vb" .. count, attributes)
             self.UI.setAttribute("vc" .. count, "active", true)
         end
@@ -316,12 +310,6 @@ function selectTitle(player, value, id)
     end
     self.UI.setAttributes("vCardScrollPanel", {height = 310 * math.ceil(count / 2) -10})
     self.UI.show("vertCardSelector")
-end
-
-function getTitleImages(ship, title)
-    local name = string.gsub(title.name, " ", "_"):lower()
-    local path = ASSET_ROOT .. "factions/" .. build.faction .. "/ships/" .. ship.type .. "/title_" .. name
-    return {path .. "_front.png", path .. "_back.png"}
 end
 
 function titleChoice(player, value, id)
@@ -366,11 +354,11 @@ function getImage(id)
             result = Ship:new(build[id]):getImagePaths()[2]
         elseif isTitle(id) then
             local ship = "ship" .. id:match"%d+"
-            result = getTitleImages(build[ship], build[id])[2]
+            result = Ship:new(build[ship]):getTitleImages(build[id].name)[2]
         elseif isDirective(id) then
             result = getDirectiveImages(build[id])[1]
         elseif isEquipment(id) then
-            result = getEquipmentImage(build[id])
+            result = Equipment:new(build[id]):getImagePaths()
         end
     else
         result = ASSET_ROOT .. defaultImages[id]
@@ -424,8 +412,8 @@ function updateImages()
         self.UI.setAttribute(type, "image", image)
     end
     for i, equip in ipairs(build.equipment) do
-        local images = getEquipmentImages(equip)
-        self.UI.setAttributes("eq" .. i, {image = images.back, color = "White"})
+        local images = Equipment:new(equip):getImagePaths()
+        self.UI.setAttributes("eq" .. i, {image = images.back or images[2], color = "White"})
         self.UI.setAttributes("ed" .. i, {value = build.equipment[i].n - 1, active = true})
         self.UI.setAttribute("ex" .. i, "active", true)
         self.UI.setAttribute("e" .. i, "active", true)
@@ -696,30 +684,6 @@ function spawnCard(args)
     return card
 end
 
-function spawnShipBoard(ship, n)
-    local path = ASSET_ROOT .. "factions/" .. ship.faction .. "/" .. ship.folder .. "/" .. ship.type .. "/"
-    local ship_xml = Global.call("getFile", path .. ship.type .. ".xml")
-    local script = "default = Global.getTable(\"ASSETS\").factions." .. ship.faction .. "." .. ship.folder .."." .. ship.type .. "\n" .. SHIP_BOARD_SCRIPT
-    local rot = self.getRotation().y
-    local pos = self.getPosition() + Vector(15 * (n - 2), 0, 13):rotateOver("y", rot)
-    local result = {position = pos, rotation = Vector(0, rot + 180, 0)}
-    result.data = {
-        Name = "Custom_Model", Transform = {scaleX = 1, scaleY = 1, scaleZ = 1}, Nickname = ship.name,
-        CustomMesh = {
-            MeshURL = ASSET_ROOT .. "misc/ship_board.obj",
-            DiffuseURL = path .. "ship_board.png",
-            MaterialIndex = 3, Convex = false
-        },
-        LuaScript = script, XmlUI = ship_xml
-    }
-    local back = path .. "crit_back.png"
-    for i = 1, ship.crit_deck_size do
-        local images = {path .. "crit_" .. i .. ".png", back}
-        spawnCard({images = images, offset = Vector(15 * (n - 2) + 6.25, 0, 7)})
-    end
-    spawnObjectData(result)
-end
-
 function spawnAuxiliary(aux)
 end
 
@@ -729,6 +693,9 @@ function getTeamImages(faction, team)
 end
 
 function spawn(player, value, id)
+    local pos = self.getPosition()
+    local rot = self.getRotation()
+    local cardPos = pos + Vector(10, 0, 0):rotateOver("y", rot.y)
     for _, type in pairs(dirTypes) do
         if build[type] then
             spawnCard({images = getDirectiveImages(build[type]), offset = Vector(10, 0, 3.5), faceUp = true})
@@ -748,32 +715,24 @@ function spawn(player, value, id)
     end
     for _, role in pairs(coreOfficers) do
         if build[role] then
-            spawnCard({images = Officer:new(build[role]):getImagePaths()})
+            Officer:new(build[role]):spawnObject(cardPos, Vector(0, rot.y + 180, 180))
         end
     end
     for i = 1, 2 do
         local transfer = build["option" .. i]
         local isSelected = build["select" .. i]
         if transfer and isSelected then
-            spawnCard({images = Officer:new(transfer):getImagePahts()})
+            Officer:new(transfer):spawnObject(cardPos, Vector(0, rot.y + 180, 180))
         end
     end
     for _, equip in pairs(build.equipment) do
-        spawnCard({images = getEquipmentImages(equip)})
+        Equipment:new(equip):spawnObject(cardPos, Vector(0, rot.y + 180, 180))
     end
     for i = 1, 3 do
         local ship = build["ship" .. i]
         local title = build["title" .. i]
         if ship then
-            if ship.folder == "ships" then
-                spawnCard({images = Officer:new(line_officer):getImagePaths(), offset = Vector(15 * (i - 2) + 3, 0, 7)})
-                if title then
-                    spawnCard({images = getTitleImages(ship, title), offset = Vector(15 * (i - 2) + 6.25, 0, 15)})
-                end
-                spawnShipBoard(ship, i)
-            elseif ship.folder == "auxiliary" then
-                spawnAuxiliary(ship)
-            end
+            GameType:new(ship):spawnObject(pos + Vector(15 * (i - 2), 0, 13):rotateOver("y", rot.y), Vector(0, rot.y + 180, 0), title)
         end
     end
 end
