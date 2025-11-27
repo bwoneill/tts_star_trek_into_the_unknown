@@ -1221,34 +1221,32 @@ function buildLibrary()
     for f in pairs(ASSETS.factions) do
         if ASSETS.factions[f].officers then
             for i, o in ipairs(ASSETS.factions[f].officers) do
-                table.insert(LIBRARY, o)
-                LIBRARY[#LIBRARY].otype = "officer"
+                o.gtype = "officer"
+                table.insert(LIBRARY, GameType:new(o))
             end
         end
         if ASSETS.factions[f].ships then
-            for _, s in pairs(ASSETS.factions[f].ships) do
-                table.insert(LIBRARY, s)
-                LIBRARY[#LIBRARY].otype = "ship"
+            for _, o in pairs(ASSETS.factions[f].ships) do
+                o.gtype = "ship"
+                table.insert(LIBRARY, GameType:new(o))
             end
         end
         if ASSETS.factions[f].auxiliary then
-            for _, a in pairs(ASSETS.factions[f].auxiliary) do
-                table.insert(LIBRARY, a)
-                LIBRARY[#LIBRARY].otype = "auxiliary"
+            for _, o in pairs(ASSETS.factions[f].auxiliary) do
+                o.gtype = "auxiliary"
+                table.insert(LIBRARY, GameType:new(o))
             end 
         end
     end
-    for i, e in ipairs(ASSETS.equipment) do
-        table.insert(LIBRARY, e)
-        LIBRARY[#LIBRARY].otype = "equipment"
+    for i, o in ipairs(ASSETS.equipment) do
+        o.gtype = "equipment"
+        table.insert(LIBRARY, GameType:new(o))
     end
-    for i, k in ipairs(ASSETS.keywords) do
-        table.insert(LIBRARY, k)
-        LIBRARY[#LIBRARY].otype = "keyword"
+    for i, o in ipairs(ASSETS.keywords) do
+        o.gtype = "keyword"
+        table.insert(LIBRARY, GameType:new(o))
     end
     LIBRARY = table.sort(LIBRARY, function(a,b)
-        local fullNameA = a.name .. (a.subtitle and ", " .. a.subtitle or "")
-        local fullNameB = b.name .. (b.subtitle and ", " .. b.subtitle or "")
-        return fullNameA:lower() < fullNameB:lower()
+        return a:getName():lower() < b:getName():lower()
     end)
 end
