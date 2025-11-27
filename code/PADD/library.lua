@@ -12,7 +12,7 @@ function librarySearch(player, value, id)
     local newXml = "<GridLayout id=\"searchResults\" cellSize=\"400 50\" color=\"Black\">"
     for i, value in pairs(searchResults) do
         newXml = newXml .. "<Text id = \"sr" .. i ..  "\" fontSize=\"28\" alignment = \"MiddleLeft\" onClick = \"displayResult\">"
-                        .. value.name .. (value.subtitle and ", " .. value.subtitle or "") .. "</Text>"
+                        .. GameType:new(value):getName() .. "</Text>"
     end
     if #searchResults < 1 then
         newXml = newXml .. "<Text fontSize = \"28\" alignment = \"LowerLeft\">None</Text>"
@@ -35,8 +35,8 @@ function searchAssets(text)
     local results = {}
     for _, value in pairs(LIBRARY) do
         local target = ""
-        if otype[value.otype] then
-            local obj = otype[value.otype]:new(value)
+        if gtype[value.gtype] then
+            local obj = GameType:new(value)
             target = cleanSearchText(obj:toString())
         else
             target = value.name .. " " .. value.text
@@ -57,14 +57,14 @@ function displayResult(player, value, id)
     for _, element in ipairs(libraryImages) do
         self.UI.setAttribute(element, "active", false)
     end
-    if otype[selected.otype] then
-        selected = otype[selected.otype]:new(selected)
-        if selected.otype == "keyword" then
+    if gtype[selected.gtype] then
+        selected = GameType:new(selected)
+        if selected.gtype == "keyword" then
             self.UI.setAttributes("libraryText", {text = selected.name .. "\n" .. selected.text, active = true})
         else
             local images = selected:getImagePaths()
-            if typeImages[selected.otype] then
-                for i, x in ipairs(typeImages[selected.otype]) do
+            if typeImages[selected.gtype] then
+                for i, x in ipairs(typeImages[selected.gtype]) do
                     local attributes = {image = images[i], active = true}
                     self.UI.setAttributes(x, {image = images[i], active = true})
                 end
@@ -77,13 +77,13 @@ end
 
 function librarySpawn(player, value, id)
     if selected then
-        local obj = otype[selected.otype]:new(selected)
+        local obj = GameType:new(selected)
         local pos = self.getPosition()
         local rot = self.getRotation()
         rot.y = rot.y + 180
-        if selected.otype == "ship" then
+        if selected.gtype == "ship" then
             pos = pos + Vector(16, 0, -3.25):rotateOver("y", rot.y)
-        elseif selected.otype == "auxiliary" then
+        elseif selected.gtype == "auxiliary" then
             pos = pos + Vector(17.75, 0, 3):rotateOver("y", rot.y)
         else
             pos = pos + Vector(13, 0, 2.75):rotateOver("y", rot.y)
