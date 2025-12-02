@@ -325,6 +325,7 @@ ASSETS = {
                         ImageSecondaryURL = ASSET_ROOT .. "tokens/proj_probe_orange_tile.png",
                         CustomTile = {Type = 1, Stretch = false, Thickness = 0.1}
                     },
+                    script_path = CODE_ROOT .. "geometry/ranges.lua",
                     LuaScript = proj_geometry .. range_script,
                     XmlUI = probe_xml
                 }
@@ -338,6 +339,7 @@ ASSETS = {
                         ImageSecondaryURL = ASSET_ROOT .. "tokens/proj_photon_orange_tile.png",
                         CustomTile = {Type = 1, Stretch = false, Thickness = 0.1}
                     },
+                    script_path = CODE_ROOT .. "geometry/ranges.lua",
                     LuaScript = proj_geometry .. range_script,
                     XmlUI = torpedo_xml
                 }
@@ -351,6 +353,7 @@ ASSETS = {
                         ImageSecondaryURL = ASSET_ROOT .. "tokens/proj_quantum_orange_tile.png",
                         CustomTile = {Type = 1, Stretch = false, Thickness = 0.1}
                     },
+                    script_path = CODE_ROOT .. "geometry/ranges.lua",
                     LuaScript = proj_geometry .. range_script,
                     XmlUI = torpedo_xml
                 }
@@ -364,6 +367,7 @@ ASSETS = {
                         ImageSecondaryURL = ASSET_ROOT .. "tokens/proj_escape_pod_orange_tile.png",
                         CustomTile = {Type = 1, Stretch = false, Thickness = 0.1}
                     },
+                    script_path = CODE_ROOT .. "geometry/ranges.lua",
                     LuaScript = proj_geometry .. range_script,
                     XmlUI = escape_xml
                 }
@@ -387,7 +391,7 @@ ASSETS = {
             rift = {data = feature_data("Rift", "feature_rift.png")},
             stellar = {data = feature_data("Stellar", "feature_stellar.png")},
             wormhole = {data = feature_data("Wormhole", "feature_wormhole.png")},
-            wreck = {data = feature_data("Wreck", "feature_wrek.png")}
+            wreck = {data = feature_data("Wreck", "feature_wreck.png")}
         },
         objective = {
             solid = {data = feature_data("Solid Objective", "objective_solid.png")},
@@ -435,6 +439,7 @@ ASSETS = {
                     DiffuseURL = ASSET_ROOT .. "tools/turning_tool/turning_tool_diffuse.png",
                     ColliderURL = ASSET_ROOT .. "tools/turning_tool/turning_tool_collider.obj"
                 },
+                script_path = CODE_ROOT .. "tools/turning_tool.lua",
                 LuaScript = turning_tool_script
             }
         },
@@ -1099,34 +1104,6 @@ function spawnSystemMarkers(name)
     end
 end
 
-function spawnSolitary() spawnSystemMarkers("solitary") end
-function spawnHelix() spawnSystemMarkers("helix") end
-function spawnTrinary() spawnSystemMarkers("trinary") end
-
-function drawFeatureRange()
-    local features = getObjectsWithTag("Feature")
-    for _, feature in pairs(features) do
-        local pos = feature.getPosition()
-        if onBoard(pos) then
-            local lines = {}
-            local p2, p4, p6 = {}, {}, {}
-            local v = Vector(1, 0.01, 0) - feature.getBoundsNormalized().offset
-            local scale = feature.getScale().x
-            local scale2, scale4, scale6 = 2.625 / scale, 4.625 / scale, 6.625 / scale
-            for theta = 0, 360 do
-                table.insert(p2, v:copy():scale(Vector(scale2, 1, scale2)))
-                table.insert(p4, v:copy():scale(Vector(scale4, 1, scale4)))
-                table.insert(p6, v:copy():scale(Vector(scale6, 1, scale6)))
-                v:rotateOver("y", 1)    
-            end
-            table.insert(lines, {points = p2, color = "Red", thickness = 0.05})
-            table.insert(lines, {points = p4, color = "Yellow", thickness = 0.05})
-            table.insert(lines, {points = p6, color = "Green", thickness = 0.05})
-            feature.setVectorLines(lines)
-        end
-    end
-end
-
 function drawSystemBorders()
     local systems = getObjectsWithTag("System")
     for _, s in pairs(systems) do
@@ -1151,24 +1128,6 @@ function clearSystemBorders()
     local systems = getObjectsWithTag("System")
     for _, s in pairs(systems) do
         s.setVectorLines({})
-    end
-end
-
-function clearFeatureRange()
-    local features = getObjectsWithAnyTags({"Feature", "System"})
-    for _, feature in pairs(features) do
-        feature.setVectorLines({})
-    end
-end
-
-function scaleFeatures()
-    local features = getObjectsWithTag("Feature")
-    for _, feature in pairs(features) do
-        local size = feature.getBounds().size.x
-        local scale = feature.getScale()
-        scale:scale(1.25 / size)
-        scale.y = 1
-        feature.setScale(scale)
     end
 end
 
