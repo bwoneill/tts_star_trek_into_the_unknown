@@ -3,15 +3,15 @@
     "directives": [
         {
             "faction": "dominion", "gtype": "directive", "type": "combat",
-            "images": ["Tactful Approach", "Make an Example"]
+            "names": ["Tactful Approach", "Make an Example"]
         },
         {
             "faction": "dominion", "gtype": "directive", "type": "diplomacy",
-            "images": ["Spread the Founders Influence", "Seed Doubt"]
+            "names": ["Spread the Founders Influence", "Seed Doubt"]
         },
         {
             "faction": "dominion", "gtype": "directive", "type": "exploration",
-            "images": ["Test Local Powers", "Seize Control"],
+            "names": ["Test Local Powers", "Seize Control"],
             "teams": [
                 ["diplomatic_a", "assault_a"],
                 ["diplomatic_b", "assault_b"],
@@ -20,15 +20,15 @@
         },
         {
             "faction": "federation", "gtype": "directive", "type": "combat",
-            "images": ["We Come In Peace", "Proportionate Response"]
+            "names": ["We Come In Peace", "Proportionate Response"]
         },
         {
             "faction": "federation", "gtype": "directive", "type": "diplomacy",
-            "images": ["Seek Out New Life and Civilizations", "Protect Federation Interests"]
+            "names": ["Seek Out New Life and Civilizations", "Protect Federation Interests"]
         },
         {
             "faction": "federation", "gtype": "directive", "type": "exploration",
-            "images": ["Explore Strange New Worlds", "Right to Self-Determination"],
+            "names": ["Explore Strange New Worlds", "Right to Self-Determination"],
             "teams": [
                 ["survey_a", "security_a"],
                 ["survey_b", "security_b"],
@@ -37,15 +37,15 @@
         },
         {
             "faction": "klingon", "gtype": "directive", "type": "combat",
-            "images": ["Uphold the Empires Oaths", "It is a Good Day to Die"]
+            "names": ["Uphold the Empires Oaths", "It is a Good Day to Die"]
         },
         {
             "faction": "klingon", "gtype": "directive", "type": "diplomacy",
-            "images": ["Boisterous Demeanor", "Actions Surpass Words"]
+            "names": ["Boisterous Demeanor", "Actions Surpass Words"]
         },
         {
             "faction": "klingon", "gtype": "directive", "type": "exploration",
-            "images": ["Glory Awaits", "Deeds Worthy of Song"],
+            "names": ["Glory Awaits", "Deeds Worthy of Song"],
             "teams": [
                 ["honor_guard_a", "boarding_a"],
                 ["honor_guard_b", "boarding_b"],
