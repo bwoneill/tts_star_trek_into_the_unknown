@@ -72,7 +72,7 @@ function Ship:spawnObject(pos, rot, title)
     -- Spawn line officer
     local officers = Global.getTable("ASSETS").officers
     for i, officer in ipairs(officers) do
-        if officer.line_officer then
+        if officer.line_officer and officer.factions[self.faction] then
             local offset = Vector(-3, 0, 6):rotateOver("y", rot.y)
             Officer:new(officer):spawnObject(pos + offset, Vector(0, rot.y, 180))
         end
