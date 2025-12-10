@@ -356,7 +356,6 @@ end
 
 function generateShipModelData(ship_data, player_color, delta)
     local faction = ship_data.faction
-    local folder = ship_data.folder
     local class = ship_data.short
     local size = ship_data.size
     local transform = ship_data.model_transform or {scaleX = 1}
@@ -377,8 +376,8 @@ function generateShipModelData(ship_data, player_color, delta)
             {
                 Name = "Custom_Model", Transform = transform,
                 CustomMesh = {
-                    MeshURL = ASSET_ROOT .. "factions/" .. faction .. "/" .. folder .. "/" .. class .. "/" .. class .. "_mesh.obj",
-                    DiffuseURL = ASSET_ROOT .. "factions/" .. faction .. "/" .. folder .. "/" .. class .. "/" .. class .. "_skin.png",
+                    MeshURL = ASSET_ROOT .. "factions/" .. faction .. "/ships/" .. class .. "/" .. class .. "_mesh.obj",
+                    DiffuseURL = ASSET_ROOT .. "factions/" .. faction .. "/ships/" .. class .. "/" .. class .. "_skin.png",
                     ColliderURL = ASSET_ROOT .. "misc/no_collide.obj", MaterialIndex = 3
                 },
                 ColorDiffuse = ship_data.color_transform
@@ -829,7 +828,7 @@ function detach(player, value, id)
         altCard.jointTo(self, {type = "Fixed"})
         altCard.interactable = false
         saveData.altGUID = altCard.getGUID()
-        local path = "factions/" .. shipData.faction .. "/" .. shipData.folder .. "/" .. shipData.short .. "/auxiliary.xml"
+        local path = "factions/" .. shipData.faction .. "/ships/" .. shipData.short .. "/auxiliary.xml"
         shipData.auxiliary.ship_board.data.XmlUI = Global.call("getFile", path)
         parameters = {
             data = shipData.auxiliary.ship_board.data,
@@ -986,4 +985,4 @@ function getCloakOffset(pos)
     end
 end
 
--- build 1.1.0.30
+-- build 1.1.0.31
