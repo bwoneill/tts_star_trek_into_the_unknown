@@ -800,14 +800,14 @@ end
 function launchAuxiliary(direction)
     local myShip = getShipObject()
     if direction == "fore" then
-        myShip.createButton({function_owner = self, click_function = "launchFore",label = "Fore", position = {1.5,.2,0}, rotation = {0, 90, 0}, width = 350, height = 150 })
+        myShip.createButton({function_owner = self, click_function = "launchFore",label = "Fore", position = {0, 0.2, -1.5}, rotation = {0, 180, 0}, width = 350, height = 150 })
     elseif direction == "aft" then
-        myShip.createButton({function_owner = self, click_function = "launchAft",label = "Aft", position = {-1.5,.2,0}, rotation = {0, 90, 0}, width = 350, height = 150 })
+        myShip.createButton({function_owner = self, click_function = "launchAft",label = "Aft", position = {0, 0.2, 1.5}, rotation = {0, 180, 0}, width = 350, height = 150 })
     else
         return
     end
-    myShip.createButton({function_owner = self, click_function = "launchPort",label = "Port", position = {-0.1,.2,-1.2}, rotation = {0, 90, 0}, width = 350, height = 150})
-    myShip.createButton({function_owner = self, click_function = "launchStarboard",label = "Starboard", position = {-0.1,.2,1.2}, rotation = {0, 90, 0}, width = 550, height = 150})
+    myShip.createButton({function_owner = self, click_function = "launchPort",label = "Port", position = {-1.2, 0.2, 0.1}, rotation = {0, 180, 0}, width = 350, height = 150})
+    myShip.createButton({function_owner = self, click_function = "launchStarboard",label = "Starboard", position = {1.2, 0.2, 0.1}, rotation = {0, 180, 0}, width = 550, height = 150})
 end
 
 function launchAuxFore() launchAuxiliary("fore") end
@@ -985,4 +985,4 @@ function getCloakOffset(pos)
     end
 end
 
--- build 1.1.0.31
+-- build 1.1.0.32
