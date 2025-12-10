@@ -44,7 +44,7 @@ end
 function Ship:spawnObject(pos, rot, title)
     pos = pos or Vector(0,0,0)
     rot = rot or Vector(0,0,0)
-    local path = ASSET_ROOT .. "factions/" .. self.faction .. "/ships/" .. self.short .. "/"
+    local path = "assets/factions/" .. self.faction .. "/ships/" .. self.short .. "/"
     local ship_xml = Global.call("getFile", path .. self.short .. ".xml")
     local script = "default = Global.getTable(\"ASSETS\").ships." .. self.short .. "\n"
     script = script .. Global.call("getFile", "code/ships/ship.lua")
@@ -53,7 +53,7 @@ function Ship:spawnObject(pos, rot, title)
             Name = "Custom_Model", Transform = {scaleX = 1, scaleY = 1, scaleZ = 1}, Nickname = self.name,
             CustomMesh = {
                 MeshURL = ASSET_ROOT .. "misc/ship_board.obj",
-                DiffuseURL = path .. "ship_board.png",
+                DiffuseURL = ROOT .. path .. "ship_board.png",
                 MaterialIndex = 3, Convex = false
             },
             LuaScript = script, XmlUI = ship_xml
@@ -62,9 +62,9 @@ function Ship:spawnObject(pos, rot, title)
         rotation = rot
     }
     -- Spawn damage deck
-    local back = path .. "crit_back.png"
+    local back = ROOT .. path .. "crit_back.png"
     for i = 1, self.crit_deck_size do
-        local front = path .. "crit_" .. i .. ".png"
+        local front = ROOT .. path .. "crit_" .. i .. ".png"
         local offset = Vector(-6.25, 0, 6):rotateOver("y", rot.y)
         local card = spawnObject({type = "CardCustom", position = pos + offset, rotation = Vector(0, rot.y, 180)})
         card.setCustomObject({face = front, back = back, sound = false})
