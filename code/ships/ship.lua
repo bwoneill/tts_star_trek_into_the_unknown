@@ -1,6 +1,6 @@
 -- Basic ship script
 -- Usage:
--- default = Global.getTable("ASSETS").factions.<faction>.ships.<ship_class>
+-- default = Global.getTable("ASSETS").ships.<short_name>
 -- require("ship")
 
 ignore_save = false -- set to true for updates on data in Global
@@ -829,7 +829,7 @@ function detach(player, value, id)
         altCard.jointTo(self, {type = "Fixed"})
         altCard.interactable = false
         saveData.altGUID = altCard.getGUID()
-        local path = ASSET_ROOT .. "factions/" .. shipData.faction .. "/" .. shipData.folder .. "/" .. shipData.type .. "/auxiliary.xml"
+        local path = "factions/" .. shipData.faction .. "/" .. shipData.folder .. "/" .. shipData.type .. "/auxiliary.xml"
         shipData.auxiliary.ship_board.data.XmlUI = Global.call("getFile", path)
         parameters = {
             data = shipData.auxiliary.ship_board.data,
@@ -986,4 +986,4 @@ function getCloakOffset(pos)
     end
 end
 
--- build 1.1.0.28
+-- build 1.1.0.29
