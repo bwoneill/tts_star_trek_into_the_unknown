@@ -91,14 +91,14 @@ end
 Auxiliary = Ship:new()
 
 function Auxiliary:getImagePaths()
-    local path = ASSET_ROOT .. "factions/" .. self.faction .. "/" .. self.folder .. "/" .. self.short .. "/"
+    local path = ASSET_ROOT .. "factions/" .. self.faction .. "/ships/" .. self.short .. "/"
     return {path .. self.short .. "_front.png", path .. self.short .. "_back.png"}
 end
 
 function Auxiliary:spawnObject(pos, rot)
     pos = pos or Vector(0,0,0)
     rot = rot or Vector(0,0,0)
-    local path = ASSET_ROOT .. "factions/" .. self.faction .. "/" .. self.folder .. "/" .. self.short .. "/"
+    local path = ASSET_ROOT .. "factions/" .. self.faction .. "/ships/" .. self.short .. "/"
     local ship_xml = Global.call("getFile", path .. self.short .. ".xml")
     local script = "default = Global.getTable(\"ASSETS\").ships." .. self.short .. "\n"
     script = script .. Global.call("getFile", CODE_ROOT .. "/ships/ship.lua")
