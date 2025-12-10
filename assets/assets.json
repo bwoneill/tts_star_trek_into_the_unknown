@@ -763,7 +763,7 @@
             ],
             "alternate": {
                 "name": "Galaxy-Class Stardrive", "faction": "federation", "role": "capital", "size": "large",
-                "short": "galaxy", "folder": "ship",
+                "short": "galaxy", "gtype": "ship",
                 "comms": {
                     "all": 2, "bow": 4,
                     "instruments": {"bow": true}
