@@ -979,8 +979,8 @@
                         "ImageURL": "ROOT\/assets\/tokens\/proj_quantum_blue_tile.png"
                     },
                     "Transform": {"scaleY": 1, "scaleX": 0.4329358, "scaleZ": 0.4329358, "rotY": 90},
-                    "XmlURL": "ROOT\/code\/tokens\/torpedo.xml",
-                    "ScriptURL": "ROOT\/code\/geometry\/ranges.lua"
+                    "XmlURL": "code\/tokens\/torpedo.xml",
+                    "ScriptURL": "code\/geometry\/ranges.lua"
                 }
             },
             "escape": {
@@ -992,8 +992,8 @@
                         "ImageURL": "ROOT\/assets\/tokens\/proj_escape_pod_blue_tile.png"
                     },
                     "Transform": {"scaleY": 1, "scaleX": 0.4329358, "scaleZ": 0.4329358, "rotY": 90},
-                    "XmlURL": "ROOT\/code\/geometry\/escape_pod.xml",
-                    "ScriptURL": "ROOT\/code\/geometry\/ranges.lua"
+                    "XmlURL": "code\/geometry\/escape_pod.xml",
+                    "ScriptURL": "code\/geometry\/ranges.lua"
                 }
             },
             "photon": {
@@ -1005,8 +1005,8 @@
                         "ImageURL": "ROOT\/assets\/tokens\/proj_photon_blue_tile.png"
                     },
                     "Transform": {"scaleY": 1, "scaleX": 0.4329358, "scaleZ": 0.4329358, "rotY": 90},
-                    "XmlURL": "ROOT\/code\/tokens\/torpedo.xml",
-                    "ScriptURL": "ROOT\/code\/geometry\/ranges.lua"
+                    "XmlURL": "code\/tokens\/torpedo.xml",
+                    "ScriptURL": "code\/geometry\/ranges.lua"
                 }
             },
             "class1": {
@@ -1018,8 +1018,8 @@
                         "ImageURL": "ROOT\/assets\/tokens\/proj_probe_blue_tile.png"
                     },
                     "Transform": {"scaleY": 1, "scaleX": 0.4329358, "scaleZ": 0.4329358, "rotY": 90},
-                    "XmlURL": "ROOT\/code\/tokens\/class_1_probe.xml",
-                    "ScriptURL": "ROOT\/code\/geometry\/ranges.lua"
+                    "XmlURL": "code\/tokens\/class_1_probe.xml",
+                    "ScriptURL": "code\/geometry\/ranges.lua"
                 }
             }
         },
@@ -1091,7 +1091,7 @@
                     "ColliderURL": "ROOT\/assets\/tools\/turning_tool\/turning_tool_collider.obj"
                 },
                 "Transform": {"scaleY": 1, "scaleX": 1, "scaleZ": 1},
-                "ScriptURL": "ROOT\/code\/tools\/turning_tool.lua"
+                "ScriptURL": "code\/tools\/turning_tool.lua"
             }
         },
         "wake_tracker": {
@@ -1104,8 +1104,8 @@
                 },
                 "Transform": {"scaleY": 1, "scaleX": 1, "scaleZ": 1}
             },
-            "XmlURL": "ROOT\/code\/\/tools\/wake_tracker.xml",
-            "ScriptURL": "ROOT\/code\/\/tools\/wake_tracker.lua"
+            "XmlURL": "code\/\/tools\/wake_tracker.xml",
+            "ScriptURL": "code\/\/tools\/wake_tracker.lua"
         }
     }
 }
