@@ -347,7 +347,7 @@ function generateDialData(dial_type)
     local result = {
         Name = "Custom_Token", Transform = {scaleX = scale, scaleY = 1, scaleZ = scale},
         CustomImage = {
-            ImageURL = ASSET_ROOT .. "factions/" .. shipData.faction ..  "/ships/" .. shipData.type .. "/" .. dial_type .. "_dial.png",
+            ImageURL = ASSET_ROOT .. "factions/" .. shipData.faction ..  "/ships/" .. shipData.short .. "/" .. dial_type .. "_dial.png",
             CustomToken = {Thickness = 0.1}
         }
     }
@@ -357,7 +357,7 @@ end
 function generateShipModelData(ship_data, player_color, delta)
     local faction = ship_data.faction
     local folder = ship_data.folder
-    local class = ship_data.type
+    local class = ship_data.short
     local size = ship_data.size
     local transform = ship_data.model_transform or {scaleX = 1}
     transform.scaleX = transform.scaleX or 1
@@ -829,7 +829,7 @@ function detach(player, value, id)
         altCard.jointTo(self, {type = "Fixed"})
         altCard.interactable = false
         saveData.altGUID = altCard.getGUID()
-        local path = "factions/" .. shipData.faction .. "/" .. shipData.folder .. "/" .. shipData.type .. "/auxiliary.xml"
+        local path = "factions/" .. shipData.faction .. "/" .. shipData.folder .. "/" .. shipData.short .. "/auxiliary.xml"
         shipData.auxiliary.ship_board.data.XmlUI = Global.call("getFile", path)
         parameters = {
             data = shipData.auxiliary.ship_board.data,
@@ -986,4 +986,4 @@ function getCloakOffset(pos)
     end
 end
 
--- build 1.1.0.29
+-- build 1.1.0.30
