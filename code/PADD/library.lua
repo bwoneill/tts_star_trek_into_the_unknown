@@ -9,13 +9,13 @@ typeImages = {officer = {"cardFront", "cardBack"}, equipment = {"cardFront", "ca
 
 function librarySearch(player, value, id)
     searchResults = searchAssets(value)
-    local newXml = "<GridLayout id=\"searchResults\" cellSize=\"400 50\" color=\"Black\">"
+    local newXml = [[<GridLayout id="searchResults" cellSize="400 50" color="Black">"]]
     for i, value in pairs(searchResults) do
-        newXml = newXml .. "<Text id = \"sr" .. i ..  "\" fontSize=\"28\" alignment = \"MiddleLeft\" onClick = \"displayResult\">"
+        newXml = newXml .. [[<Text id = "sr]] .. i ..  [[" fontSize="28" alignment = "MiddleLeft" onClick = "displayResult">]]
                         .. GameType:new(value):getName() .. "</Text>"
     end
     if #searchResults < 1 then
-        newXml = newXml .. "<Text fontSize = \"28\" alignment = \"LowerLeft\">None</Text>"
+        newXml = newXml .. [[<Text fontSize = "28" alignment = "LowerLeft">None</Text>]]
     end
     newXml = newXml .. "</GridLayout>"
     local xml = self.UI.getXml()
