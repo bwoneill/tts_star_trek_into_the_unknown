@@ -17,7 +17,7 @@ end
 Ship = GameType:new{gtype = "ship", spawnable = true}
 
 function Ship:getImagePaths()
-    local path = ASSET_ROOT .. "factions/" .. self.faction .. "/ships/" .. self.type .. "/"
+    local path = ASSET_ROOT .. "factions/" .. self.faction .. "/ships/" .. self.short .. "/"
     return {path .. "ship_board.png", path .. "image.png"}
 end
 
@@ -26,7 +26,7 @@ function Ship:getTitleImages(name)
     for i, v in ipairs(self.titles) do
         if v.name == name then
             name = name:gsub(" ", "_"):lower()
-            local path = ASSET_ROOT .. "factions/" .. self.faction .. "/ships/" .. self.type .. "/title_" .. name
+            local path = ASSET_ROOT .. "factions/" .. self.faction .. "/ships/" .. self.short .. "/title_" .. name
             result = {path .. "_front.png", path .. "_back.png"}
         end
     end
@@ -44,10 +44,10 @@ end
 function Ship:spawnObject(pos, rot, title)
     pos = pos or Vector(0,0,0)
     rot = rot or Vector(0,0,0)
-    local path = ASSET_ROOT .. "factions/" .. self.faction .. "/ships/" .. self.type .. "/"
-    local ship_xml = Global.call("getFile", path .. self.type .. ".xml")
-    local script = "default = Global.getTable(\"ASSETS\").factions." .. self.faction .. ".ships." .. self.type .. "\n"
-    script = script .. Global.call("getFile", CODE_ROOT .. "/ships/ship.lua")
+    local path = ASSET_ROOT .. "factions/" .. self.faction .. "/ships/" .. self.short .. "/"
+    local ship_xml = Global.call("getFile", path .. self.short .. ".xml")
+    local script = "default = Global.getTable(\"ASSETS\").ships." .. self.short .. "\n"
+    script = script .. Global.call("getFile", "code/ships/ship.lua")
     local result = {
         data = {
             Name = "Custom_Model", Transform = {scaleX = 1, scaleY = 1, scaleZ = 1}, Nickname = self.name,
@@ -70,7 +70,7 @@ function Ship:spawnObject(pos, rot, title)
         card.setCustomObject({face = front, back = back, sound = false})
     end
     -- Spawn line officer
-    local officers = Global.getTable("ASSETS").factions[self.faction].officers
+    local officers = Global.getTable("ASSETS").officers
     for i, officer in ipairs(officers) do
         if officer.line_officer then
             local offset = Vector(-3, 0, 6):rotateOver("y", rot.y)
@@ -91,16 +91,16 @@ end
 Auxiliary = Ship:new()
 
 function Auxiliary:getImagePaths()
-    local path = ASSET_ROOT .. "factions/" .. self.faction .. "/" .. self.folder .. "/" .. self.type .. "/"
-    return {path .. self.type .. "_front.png", path .. self.type .. "_back.png"}
+    local path = ASSET_ROOT .. "factions/" .. self.faction .. "/" .. self.folder .. "/" .. self.short .. "/"
+    return {path .. self.short .. "_front.png", path .. self.short .. "_back.png"}
 end
 
 function Auxiliary:spawnObject(pos, rot)
     pos = pos or Vector(0,0,0)
     rot = rot or Vector(0,0,0)
-    local path = ASSET_ROOT .. "factions/" .. self.faction .. "/" .. self.folder .. "/" .. self.type .. "/"
-    local ship_xml = Global.call("getFile", path .. self.type .. ".xml")
-    local script = "default = Global.getTable(\"ASSETS\").factions." .. self.faction .. "." .. self.folder .."." .. self.type .. "\n"
+    local path = ASSET_ROOT .. "factions/" .. self.faction .. "/" .. self.folder .. "/" .. self.short .. "/"
+    local ship_xml = Global.call("getFile", path .. self.short .. ".xml")
+    local script = "default = Global.getTable(\"ASSETS\").ships." .. self.short .. "\n"
     script = script .. Global.call("getFile", CODE_ROOT .. "/ships/ship.lua")
     local card = spawnObject({type = "CardCustom", position = pos, rotation = rot, scale = {1.47, 1, 1.47}})
     local images = self:getImagePaths()
@@ -201,7 +201,34 @@ end
 
 Directive = Card:new{gtype = "directive"}
 
+function Directive:getImagePaths()
+    local path = ASSET_ROOT .. "/factions/" .. self.faction .. "/directives/"
+    local result = {}
+    for i, name in ipairs(self.names) do
+        result[i] = string.gsub(path .. name .. ".png", " ", "_")
+    end
+    return result
+end
+
 function Directive:spawnObject(pos, rot)
+    pos = pos or Vector(0, 0, 0)
+    rot = rot or Vector(0, 0, 0)
+    local card = spawnObject({type = "CardCustom", position = pos, rotation = rot})
+    local images = self:getImagePaths()
+    card.setCustomObject({face = images[1], back = images[2]})
+    if self.teams then
+        for _, team in ipairs(self.teams) do
+            local path = ASSET_ROOT .. "/factions/" .. self.faction .. "/teams/team_"
+            local team_card = spawnObject({
+                type = "CardCustom",
+                position = pos + Vector(-4, 0, 0.25):rotateOver("y", rot.y),
+                rotation = rot,
+                scale = Vector(1.33, 1, 1.33)
+            })
+            team_card.setCustomObject({face = path .. team[1] .. ".png", back = path .. team[2] .. ".png"})
+        end
+    end
+    return card
 end
 
 Keyword = GameType:new{gtype = "keyword"}
