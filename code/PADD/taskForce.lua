@@ -312,6 +312,9 @@ function remove(player, value, id)
         table.remove(build.equipment, index)
     elseif id:sub(1, 1) == "t" then
         build["title" .. index] = nil
+    elseif id:sub(1, 1) == "s" then
+        build["ship" .. index] = nil
+        build["title" .. index] = nil
     end
     fleetStaging()
 end
@@ -405,6 +408,7 @@ function updateImages()
     end
     for i = 1, 3 do
         self.UI.setAttribute("tx" .. i, "active", build["title" .. i] and true or false)
+        self.UI.setAttribute("sx" .. i, "active", build["ship" .. i] and true or false)
     end
     local index = #build.equipment + 1
     self.UI.setAttributes("eq" .. index, {image = ASSET_ROOT .. "ui/PADD/equipment.png", color = "White"})

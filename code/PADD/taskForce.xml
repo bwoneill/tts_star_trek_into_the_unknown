@@ -92,9 +92,24 @@
                     </Row>
                     <Row class = "text"><Cell columnSpan = "3"><Text>Ships</Text></Cell></Row>
                     <Row preferredHeight = "245">
-                        <Cell><Image class = "shipSel" id = "ship1" onClick = "selectShip(capital)"/></Cell>
-                        <Cell><Image class = "shipSel" id = "ship2" onClick = "selectShip(noncapital)"/></Cell>
-                        <Cell><Image class = "shipSel" id = "ship3" onClick = "selectShip(noncapital)"/></Cell>
+                        <Cell>
+                            <Panel>
+                                <Image class = "shipSel" id = "ship1" onClick = "selectShip(capital)"/>
+                                <Button class = "remove" active = "false" id = "sx1"/>
+                            </Panel>
+                        </Cell>
+                        <Cell>
+                            <Panel>
+                                <Image class = "shipSel" id = "ship2" onClick = "selectShip(noncapital)"/>
+                                <Button class = "remove" active = "false" id = "sx2"/>
+                            </Panel>
+                        </Cell>
+                        <Cell>
+                            <Panel>
+                                <Image class = "shipSel" id = "ship3" onClick = "selectShip(noncapital)"/>
+                                <Button class = "remove" active = "false" id = "sx3"/>
+                            </Panel>
+                        </Cell>
                     </Row>
                     <Row class = "text"><Cell columnSpan = "3"><Text>Titles</Text></Cell></Row>
                     <Row preferredHeight = "300">
