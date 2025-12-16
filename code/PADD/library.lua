@@ -62,7 +62,7 @@ function displayResult(player, value, id)
         if selected.gtype == "keyword" then
             self.UI.setAttributes("libraryText", {text = selected.name .. "\n" .. selected.text, active = true})
         else
-            local images = selected:getImagePaths()
+            local images = selected:getImages()
             if typeImages[selected.gtype] then
                 for i, x in ipairs(typeImages[selected.gtype]) do
                     local attributes = {image = images[i], active = true}

@@ -124,10 +124,10 @@ function selectOff(player, value, id)
             end
         end
         if available then
-            local images = Officer:new(officer):getImagePaths()
+            local images = Officer:new(officer):getImages()
             local element = {
                 onClick = "offChoice(" .. id .. "=" .. i .. ")",
-                images = Officer:new(officer):getImagePaths()
+                images = Officer:new(officer):getImages()
             }
             table.insert(data, element)
         end
@@ -157,7 +157,7 @@ function selectDir(player, value, id)
         if available then
             local element = {
                 onClick = "dirChoice(" .. id .. "=" .. i .. ")",
-                images = Directive:new(directive):getImagePaths()
+                images = Directive:new(directive):getImages()
             }
             table.insert(data, element)
         end
@@ -201,7 +201,7 @@ function selectShip(player, value, id)
             count = count + 1
             local attributes = {
                 onClick = "shipChoice(" .. id .. "=" .. i .. ")",
-                image = Ship:new(ship):getImagePaths()[2],
+                image = Ship:new(ship):getImages()[2],
                 color = "White"
             }
             self.UI.setAttributes("s" .. count, attributes)
@@ -249,7 +249,7 @@ function selectEquip(player, value, id)
         if available then
             local element = {
                 onClick = "equipChoice(" .. index .. "=" .. i .. ")",
-                images = Equipment:new(e):getImagePaths()
+                images = Equipment:new(e):getImages()
             }
             table.insert(data, element)
         end
@@ -337,16 +337,16 @@ function getImage(id)
     local result = ""
     if build[id] then
         if isOfficer(id) then
-            result = Officer:new(build[id]):getImagePaths()[2]
+            result = Officer:new(build[id]):getImages()[2]
         elseif isShip(id) then
-            result = Ship:new(build[id]):getImagePaths()[2]
+            result = Ship:new(build[id]):getImages()[2]
         elseif isTitle(id) then
             local ship = "ship" .. id:match"%d+"
             result = Ship:new(build[ship]):getTitleImages(build[id].name)[2]
         elseif isDirective(id) then
-            result = Directive:new(build[id]):getImagePaths()[1]
+            result = Directive:new(build[id]):getImages()[1]
         elseif isEquipment(id) then
-            result = Equipment:new(build[id]):getImagePaths()
+            result = Equipment:new(build[id]):getImages()
         end
     else
         result = ASSET_ROOT .. defaultImages[id]
@@ -400,7 +400,7 @@ function updateImages()
         self.UI.setAttribute(type, "image", image)
     end
     for i, equip in ipairs(build.equipment) do
-        local images = Equipment:new(equip):getImagePaths()
+        local images = Equipment:new(equip):getImages()
         self.UI.setAttributes("eq" .. i, {image = images.back or images[2], color = "White"})
         self.UI.setAttributes("ed" .. i, {value = build.equipment[i].n - 1, active = true})
         self.UI.setAttribute("ex" .. i, "active", true)
