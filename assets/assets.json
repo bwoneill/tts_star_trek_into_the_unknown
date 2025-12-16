@@ -206,7 +206,7 @@
                     {"type": "anomalies", "name": "Distress bouy", "quantity": 4, "description": "Treacherous 2"},
                     {"type": "cloud", "name": "Nebula", "quantity": 2, "description": "Obscuring 1"}
                 ],
-                "ships": {"raider": 1}
+                "ships": [{"raider": 1}]
             },
             {
                 "name": "Disruptive Ion Storms", "tags": ["Situation", "Threat"],
@@ -245,12 +245,12 @@
             {
                 "name": "Surface Strikes", "tags": ["Complication", "Battle", "Politics", "Intrigue"],
                 "objectives": [{"type": "solid", "name": "Entrenched Base", "add_description": "Capacity 2", "quantity": 6}],
-                "ships": {"artifact": 1}
+                "ships": [{"artifact": 1}]
             },
             {
                 "name": "Inscrutable Entity", "tags": ["Complication", "Study", "Threat", "Mystery"],
                 "objectives": [{"type": "ping", "name": "Clue", "quantity": 4}],
-                "ships": {"tinman": 1}
+                "ships": [{"tinman": 1}]
             }
         ],
         "overture": [
@@ -277,7 +277,7 @@
             {
                 "name": "Critical Supply Drop", "tags": ["Overture", "Politics", "Trinary"],
                 "objectives": [{"type": "solid", "name": "Outpost", "quantity": 3, "description": "Capacity 2"}],
-                "ships": {"supply": 2}
+                "ships": [{"supply": 2}]
             },
             {
                 "name": "Missing Survey Teams", "tags": ["Overture", "Politics", "Helix"],
