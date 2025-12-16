@@ -184,106 +184,108 @@
     "missions": {
         "situation": [
             {
-                "name": "Unexplained Biosigns", "tags": ["Situation", "Mystery"],
-                "features": [{"type": "anomalies", "name": "Phantom life signs", "quantity": 6}]
+                "name": "Unexplained Biosigns", "tags": ["Situation", "Mystery"], "gtype": "situation",
+                "features": [{"gtype": "feature", "type": "anomalies", "name": "Phantom life signs", "quantity": 6}]
             },
             {
-                "name": "Delicate Treaty", "tags": ["Situation", "Intrigue"],
-                "anomalies": {"name": "Warning buoy", "quanity": 4},
-                "features": [{"type": "rift", "name": "Gravity rift", "quantity": 2, "description": "Massive 1\nTreacherous 3"}]
-            },
-            {
-                "name": "Anomalous Objects", "tags": ["Situation", "Mystery"],
-                "features": [{"type": "anomalies", "name": "Strange beacon", "quantity": 6, "description": "Capacity 2"}]
-            },
-            {
-                "name": "Gamma Quadrant Anomalies", "tags": ["Situation", "Threat"],
-                "features": [{"type": "anomalies", "name": "Anomalous readings", "quantity": 6}]
-            },
-            {
-                "name": "Hostile Raiders", "tags": ["Situation", "Intrigue"],
+                "name": "Delicate Treaty", "tags": ["Situation", "Intrigue"], "gtype": "situation",
                 "features": [
-                    {"type": "anomalies", "name": "Distress bouy", "quantity": 4, "description": "Treacherous 2"},
-                    {"type": "cloud", "name": "Nebula", "quantity": 2, "description": "Obscuring 1"}
+                    {"gtype": "feature", "type": "anomalies", "name": "Warning buoy", "quanity": 4},
+                    {"gtype": "feature", "type": "rift", "name": "Gravity rift", "quantity": 2, "description": "Massive 1\nTreacherous 3"}
+                ]
+            },
+            {
+                "name": "Anomalous Objects", "tags": ["Situation", "Mystery"], "gtype": "situation",
+                "features": [{"gtype": "feature", "type": "anomalies", "name": "Strange beacon", "quantity": 6, "description": "Capacity 2"}]
+            },
+            {
+                "name": "Gamma Quadrant Anomalies", "tags": ["Situation", "Threat"], "gtype": "situation",
+                "features": [{"gtype": "feature", "type": "anomalies", "name": "Anomalous readings", "quantity": 6}]
+            },
+            {
+                "name": "Hostile Raiders", "tags": ["Situation", "Intrigue"], "gtype": "situation",
+                "features": [
+                    {"gtype": "feature", "type": "anomalies", "name": "Distress bouy", "quantity": 4, "description": "Treacherous 2"},
+                    {"gtype": "feature", "type": "cloud", "name": "Nebula", "quantity": 2, "description": "Obscuring 1"}
                 ],
                 "ships": [{"raider": 1}]
             },
             {
-                "name": "Disruptive Ion Storms", "tags": ["Situation", "Threat"],
-                "features": [{"type": "cloud", "name": "Ion cloud", "quantity": 4, "description": "Obscuring 1\nTreacherous 3"}]
+                "name": "Disruptive Ion Storms", "tags": ["Situation", "Threat"], "gtype": "situation",
+                "features": [{"gtype": "feature", "type": "cloud", "name": "Ion cloud", "quantity": 4, "description": "Obscuring 1\nTreacherous 3"}]
             }
         ],
         "complication": [
             {
-                "name": "Race for Knowledge", "tags": ["Complication", "Study", "Intrigue", "Mystery"],
-                "objectives": [{"type": "solid", "name": "Archealogical site", "add_description": "Capacity 3\nUnstable 2", "quantity": 8}]
+                "name": "Race for Knowledge", "tags": ["Complication", "Study", "Intrigue", "Mystery"], "gtype": "complication",
+                "objectives": [{"gtype": "objective", "type": "solid", "name": "Archealogical site", "add_description": "Capacity 3\nUnstable 2", "quantity": 8}]
             },
             {
-                "name": "Infection", "tags": ["Complication", "Study", "Battle", "Threat"],
-                "objectives": [{"type": "solid", "name": "Infection origin", "add_description": "Capacity 3", "quantity": 6}]
+                "name": "Infection", "tags": ["Complication", "Study", "Battle", "Threat"], "gtype": "complication",
+                "objectives": [{"gtype": "objective", "type": "solid", "name": "Infection origin", "add_description": "Capacity 3", "quantity": 6}]
             },
             {
-                "name": "Missing Crew", "tags": ["Complication", "Politics", "Mystery"],
-                "objectives": [{"type": "ping", "name": "Cryptic signal", "quantity": 4, "description": "Treacherous 3\nUnstable 2"}]
+                "name": "Missing Crew", "tags": ["Complication", "Politics", "Mystery"], "gtype": "complication",
+                "objectives": [{"gtype": "objective", "type": "ping", "name": "Cryptic signal", "quantity": 4, "description": "Treacherous 3\nUnstable 2"}]
             },
             {
-                "name": "Cloak and Dagger", "tags": ["Complication", "Politics", "Intrigue"],
-                "objectives": [{"type": "solid", "name": "Secret base", "add_description": "Capacity 3", "quantity": 8}]
+                "name": "Cloak and Dagger", "tags": ["Complication", "Politics", "Intrigue"], "gtype": "complication",
+                "objectives": [{"gtype": "objective", "type": "solid", "name": "Secret base", "add_description": "Capacity 3", "quantity": 8}]
             },
             {
-                "name": "Tactical Extraction", "tags": ["Complication", "Battle", "Threat"],
-                "objectives": [{"type": "solid", "name": "Embedded base", "add_description": "Capacity 2", "quantity": 6}]
+                "name": "Tactical Extraction", "tags": ["Complication", "Battle", "Threat"], "gtype": "complication",
+                "objectives": [{"gtype": "objective", "type": "solid", "name": "Embedded base", "add_description": "Capacity 2", "quantity": 6}]
             },
             {
-                "name": "On the Tide of Ages", "tags": ["Complication", "Politic", "Study", "Mystery"],
-                "objectives": [{"type": "solid", "name": "Ancient Ports", "add_description": "Capacity 3", "quantity": 3}]
+                "name": "On the Tide of Ages", "tags": ["Complication", "Politic", "Study", "Mystery"], "gtype": "complication",
+                "objectives": [{"gtype": "objective", "type": "solid", "name": "Ancient Ports", "add_description": "Capacity 3", "quantity": 3}]
             },
             {
-                "name": "Contested Territory", "tags": ["Complication", "Battle", "Politics", "Intrigue"],
-                "objectives": [{"type": "solid", "name": "Strategic holding", "add_description": "Capacity 3"}]
+                "name": "Contested Territory", "tags": ["Complication", "Battle", "Politics", "Intrigue"], "gtype": "complication",
+                "objectives": [{"gtype": "objective", "type": "solid", "name": "Strategic holding", "add_description": "Capacity 3"}]
             },
             {
-                "name": "Surface Strikes", "tags": ["Complication", "Battle", "Politics", "Intrigue"],
-                "objectives": [{"type": "solid", "name": "Entrenched Base", "add_description": "Capacity 2", "quantity": 6}],
+                "name": "Surface Strikes", "tags": ["Complication", "Battle", "Politics", "Intrigue"], "gtype": "complication",
+                "objectives": [{"gtype": "objective", "type": "solid", "name": "Entrenched Base", "add_description": "Capacity 2", "quantity": 6}],
                 "ships": [{"artifact": 1}]
             },
             {
-                "name": "Inscrutable Entity", "tags": ["Complication", "Study", "Threat", "Mystery"],
-                "objectives": [{"type": "ping", "name": "Clue", "quantity": 4}],
+                "name": "Inscrutable Entity", "tags": ["Complication", "Study", "Threat", "Mystery"], "gtype": "complication",
+                "objectives": [{"gtype": "objective", "type": "ping", "name": "Clue", "quantity": 4}],
                 "ships": [{"tinman": 1}]
             }
         ],
         "overture": [
             {
-                "name": "Unstable Discovery", "tags": ["Overture", "Study", "Solitary"],
-                "objectives": [{"type": "ping", "name": "Unusual readings", "quantity": 6, "description": "Treacherous 2"}]
+                "name": "Unstable Discovery", "tags": ["Overture", "Study", "Solitary"], "gtype": "overture",
+                "objectives": [{"gtype": "objective", "type": "ping", "name": "Unusual readings", "quantity": 6, "description": "Treacherous 2"}]
             },
             {
-                "name": "Distress Call", "tags": ["Overture", "Study", "Trinary"],
-                "objectives": [{"type": "solid", "name": "Signal location", "quantity": 6, "description": "Capacity 3\nUnstable 2"}]
+                "name": "Distress Call", "tags": ["Overture", "Study", "Trinary"], "gtype": "overture",
+                "objectives": [{"gtype": "objective", "type": "solid", "name": "Signal location", "quantity": 6, "description": "Capacity 3\nUnstable 2"}]
             },
             {
-                "name": "Show the Flag", "tags": ["Overture", "Battle", "Helix"],
-                "objectives": [{"type": "solid", "name": "Rally point", "quantity": 4, "description": "Capacity 2"}]
+                "name": "Show the Flag", "tags": ["Overture", "Battle", "Helix"], "gtype": "overture",
+                "objectives": [{"gtype": "objective", "type": "solid", "name": "Rally point", "quantity": 4, "description": "Capacity 2"}]
             },
             {
-                "name": "Battlefield Rescue", "tags": ["Overture", "Battle", "Solitary"],
-                "objectives": [{"type": "solid", "name": "Wreckage drift", "quantity": 4, "description": "Capacity 2\nUnstable 1"}]
+                "name": "Battlefield Rescue", "tags": ["Overture", "Battle", "Solitary"], "gtype": "overture",
+                "objectives": [{"gtype": "objective", "type": "solid", "name": "Wreckage drift", "quantity": 4, "description": "Capacity 2\nUnstable 1"}]
             },
             {
-                "name": "Neutral Zone Survey", "tags": ["Overture", "Politics", "Helix"],
-                "objectives": [{"type": "ping", "name": "Signal", "quantity": 6}]
+                "name": "Neutral Zone Survey", "tags": ["Overture", "Politics", "Helix"], "gtype": "overture",
+                "objectives": [{"gtype": "objective", "type": "ping", "name": "Signal", "quantity": 6}]
             },
             {
                 "name": "Critical Supply Drop", "tags": ["Overture", "Politics", "Trinary"],
-                "objectives": [{"type": "solid", "name": "Outpost", "quantity": 3, "description": "Capacity 2"}],
+                "objectives": [{"gtype": "objective", "type": "solid", "name": "Outpost", "quantity": 3, "description": "Capacity 2"}],
                 "ships": [{"supply": 2}]
             },
             {
-                "name": "Missing Survey Teams", "tags": ["Overture", "Politics", "Helix"],
+                "name": "Missing Survey Teams", "tags": ["Overture", "Politics", "Helix"], "gtype": "overture",
                 "objectives": [
-                    {"type": "solid", "name": "Scouting point", "quantity": 3, "description": "Capacity 3\nMassive 1"},
-                    {"type": "ping", "name": "Suspicous readings", "quantity": 3, "description": "Treacherous 2\nUnstable 2"}
+                    {"gtype": "objective", "type": "solid", "name": "Scouting point", "quantity": 3, "description": "Capacity 3\nMassive 1"},
+                    {"gtype": "objective", "type": "ping", "name": "Suspicous readings", "quantity": 3, "description": "Treacherous 2\nUnstable 2"}
                 ]
             }
         ]
