@@ -231,6 +231,20 @@ function Directive:spawnObject(pos, rot)
     return card
 end
 
+Mission = Card:new{gtype = "mission"}
+
+function Mission:getImages()
+    local path = ROOT .. "assets/cards/" .. self.gtype .. "/"
+    local images = {
+        string.gsub(path .. self.name .. ".png", " ", "_"), path .. "back.png"
+    }
+    return images
+end
+
+Overture = Mission:new{gtype = "overture"}
+Situation = Mission:new{gtype = "situation"}
+Complication = Mission:new{gtype = "complication"}
+
 Keyword = GameType:new{gtype = "keyword"}
 
 function Keyword:toString()
@@ -302,5 +316,5 @@ end
 
 gtype = {
     ship = Ship, auxiliary = Auxiliary, officer = Officer, equipment = Equipment, keyword = Keyword,
-    feature = Feature, objective = Objective
+    feature = Feature, objective = Objective, overture = Overture, situation = Situation, complication = Complication
 }
