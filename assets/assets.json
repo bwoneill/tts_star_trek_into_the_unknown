@@ -1023,7 +1023,7 @@
                 }
             }
         },
-        "feature": {
+        "features": {
             "anomalies": {},
             "cloud": {"name": "Cloud", "image": "feature_cloud.png"},
             "comet": {"name": "Comet", "image": "feature_comet.png"},
@@ -1032,7 +1032,7 @@
             "wormhole": {"name": "Wormhole", "image": "feature_wormhole.png"},
             "wreck": {"name": "Wreck", "image": "feature_wreck.png"}
         },
-        "objective": {
+        "objectives": {
             "solid": {"name": "Solid Objective", "image": "objective_solid.png"},
             "ping": {"name": "Ping Objective", "image": "objective_ping.png"}
         },
