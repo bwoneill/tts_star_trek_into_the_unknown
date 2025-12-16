@@ -1,11 +1,17 @@
 require("utilities/classes")
+require("vscode/console")
 
 --[[ Lua code. See documentation: https://api.tabletopsimulator.com/ --]]
 
 --[[ The onLoad event is called after the game save finishes loading. --]]
 function onLoad()
     --[[ print('onLoad!') --]]
-    ASSETS = JSON.decode(string.gsub(Global.call("getFile", "assets/assets.json"), "ROOT", ROOT))
+    local start = os.clock()
+    local text = Global.call("getFile", "assets/assets.json")
+    log(string.format("%0.2fs to download assets", os.clock() - start))
+    start = os.clock()
+    ASSETS = JSON.decode(string.gsub(text, "ROOT", ROOT))
+    log(string.format("%0.2fs to parse assets", os.clock() - start))
     buildLibrary()
 end
 
@@ -126,8 +132,6 @@ function overlap(l1, l2)
     return result
 end
 
-require("vscode/console")
-
 -- Constants: DO NOT MODIFY
 
 zoneGUIDS = {overture = "737129", situation = "da2ad6", complication = "5860dd"}
@@ -140,98 +144,8 @@ CODE_ROOT = ROOT .. "code/"
 FILE_CACHE = {}
 LIBRARY = {}
 
-turning_tool_script = [[function onDrop()
-    local rulers = getObjectsWithTag("Ruler")
-    local closest = nil
-    local dist = 12
-    local pos = self.getPosition()
-    for _, ruler in pairs(rulers) do
-        local d = (pos - ruler.getPosition()):magnitude()
-        if d < dist then
-            d = dist
-            closest = ruler
-        end
-    end
-    if closest then
-        local rot = closest.getRotation().y
-        local d = (pos - closest.getPosition()):rotateOver("y", -rot)
-        if d.z > 0 then
-            d.z = 1.3
-            self.setRotation(Vector(0, rot - 90, 0))
-        else
-            d.z = -1.3
-            self.setRotation(Vector(0, rot + 90, 0))
-        end
-        d:rotateOver("y", rot)
-        self.setPosition(d + closest.getPosition())
-    end
-end]]
-
-range_script = [[-- geometry/ranges.lua
-function toggleRanges(player, value, id)
-    if active then
-        self.setVectorLines({})
-        active = false
-    else
-        local lines = {}
-        local points = {}
-        local scale = self.getScale().x
-        local scales = {}
-        for pair in value:gmatch("[^;]+") do
-            local color, range = pair:match("%s*([%S]+)%s*=%s*([%S]+)")
-            scales[color] = range / scale
-            points[color] = {}
-        end
-        for _, g in ipairs(geometry) do
-            local v = Vector(1, 0.05, 0):rotateOver("y", g.start)
-            local focal_point = g.focal_point and g.focal_point:copy():scale(1 / scale) or Vector(0, 0, 0)
-            local radius = g.radius and g.radius / scale or 0
-            for theta = g.start, g.stop do
-                for color, s in pairs(scales) do
-                    table.insert(points[color], v:copy():scale(Vector(s + radius, 1, s + radius)) + focal_point)
-                end
-                v:rotateOver("y", 1)
-            end
-        end
-        for color, p in pairs(points) do
-            table.insert(lines, {points = p, color = color, thickness = 0.05})
-        end
-        self.setVectorLines(lines)
-        active = true
-    end
-end]]
-
-proj_geometry = [[geometry = {
-    {start = 0, stop = 30, focal_point = Vector(0.43, 0, 0)},
-    {start = 30, stop = 90, focal_point = Vector(0.43, 0, 0):rotateOver("y",60)},
-    {start = 90, stop = 150, focal_point = Vector(0.43, 0, 0):rotateOver("y",120)},
-    {start = 150, stop = 210, focal_point = Vector(0.43, 0, 0):rotateOver("y",180)},
-    {start = 210, stop = 270, focal_point = Vector(0.43, 0, 0):rotateOver("y",240)},
-    {start = 270, stop = 330, focal_point = Vector(0.43, 0, 0):rotateOver("y",300)},
-    {start = 330, stop = 360, focal_point = Vector(0.43, 0, 0)}
-}
-]]
-
 feat_geometry = [[geometry = {{start = 0, stop = 360, focal_point = Vector(), radius = 0.625}}
 ]]
-
-probe_xml = [[<Button height = "50" width = "150" position = "0 0 -11" rotation = "0 0 90" color = "rgba(1,1,1,0.25)"
-    onClick = "toggleRanges(Red=2;Yellow=4)" fontSize = "28">Range</Button>
-<Button height = "50" width = "150" position = "0 0 1" rotation = "180 0 270" color = "rgba(1,1,1,0.25)"
-    onClick = "toggleRanges(Red=2;Yellow=4)" fontSize = "28">Range</Button>]]
-
-torpedo_xml = [[<Button height = "50" width = "150" position = "0 0 -11" rotation = "0 0 90" color = "rgba(1,1,1,0.25)"
-    onClick = "toggleRanges(Red=1;Yellow=4)" fontSize = "28">Range</Button>
-<Button height = "50" width = "150" position = "0 0 1" rotation = "180 0 270" color = "rgba(1,1,1,0.25)"
-    onClick = "toggleRanges(Red=1;Yellow=4)" fontSize = "28">Range</Button>]]
-
-escape_xml = [[<Button height = "50" width = "150" position = "0 0 -11" rotation = "0 0 90" color = "rgba(1,1,1,0.25)"
-    onClick = "toggleRanges(Red=2)" fontSize = "28">Range</Button>
-<Button height = "50" width = "150" position = "0 0 1" rotation = "180 0 270" color = "rgba(1,1,1,0.25)"
-    onClick = "toggleRanges(Red=2)" fontSize = "28">Range</Button>]]
-
-feat_xml = [[<Button height = "25" width = "75" position = "0 -35 -11" rotation = "0 0 0" color = "rgba(1,1,1,0.25)"
-    onClick = "toggleRanges(Red=2;Yellow=4;Green=6)">Range</Button>]]
 
 
 function feature_data(name, diffuse)
@@ -242,8 +156,8 @@ function feature_data(name, diffuse)
             ColliderURL = ASSET_ROOT .. "tokens/features/feature_collider.obj",
             DiffuseURL = ASSET_ROOT .. "tokens/features/" .. diffuse
         },
-        LuaScript = feat_geometry .. range_script,
-        XmlUI = feat_xml
+        LuaScript = feat_geometry .. getFile("code/geometry/ranges.lua"),
+        XmlUI = getFile("code/geometry/feature.xml")
     }
     return result
 end
@@ -430,20 +344,16 @@ function getFile(path)
 end
 
 function buildLibrary()
-    for i, o in ipairs(ASSETS.officers) do
-        o.gtype = "equipment"
+    for _, o in pairs(ASSETS.officers) do
         table.insert(LIBRARY, GameType:new(o))
     end
-    for i, o in ipairs(ASSETS.ships) do
-        o.gtype = "equipment"
+    for _, o in pairs(ASSETS.ships) do
         table.insert(LIBRARY, GameType:new(o))
     end
-    for i, o in ipairs(ASSETS.equipment) do
-        o.gtype = "equipment"
+    for _, o in pairs(ASSETS.equipment) do
         table.insert(LIBRARY, GameType:new(o))
     end
-    for i, o in ipairs(ASSETS.keywords) do
-        o.gtype = "keyword"
+    for _, o in pairs(ASSETS.keywords) do
         table.insert(LIBRARY, GameType:new(o))
     end
     LIBRARY = table.sort(LIBRARY, function(a,b)
