@@ -53,26 +53,36 @@ function missionSetup(type, object)
         local types = {isType(situations[1], complication_types), isType(overtures[1], complication_types)}
         getComplications(types)
     end
-    local mission = ASSETS.missions[type][object.getName()]
-    if type == "overture" or type == "situation" then
+    local mission = nil
+    for _, m in pairs(ASSETS.missions[type]) do
+        mission = mission or (m.name == object.getName() and m)
+    end
+    if mission and (type == "overture" or type == "situation") then
         local j = type == "situation" and 2 or 0
-        for i, x in pairs({"feature", "objective"}) do
-            for f, data in pairs(ASSETS.tokens[x]) do
-                local feature = mission[f]
-                if feature then
-                    if f == "anomalies" then
-                        data.data = anomalies_data(feature.name, feature.description)
-                        data.position = Vector(10.25 + 1.25 * i, 1, -19 - 1.25 * j)
-                        j = j + 1
-                        spawnObjectData(data)
-                    else
-                        for i = 1, feature.quantity do
-                            data.position = Vector(10.25 + 1.25 * i, 1, -19 - 1.25 * j)
-                            local obj = spawnObjectData(data)
-                            obj.setName(feature.name)
-                            obj.setDescription(feature.description)
-                        end
-                        j = j + 1
+        if mission.features then
+            for _, feature in pairs(mission.features) do
+                feature = Feature:new(feature)
+                for i = 1, feature.type == "anomalies" and 1 or feature.quantity do
+                    feature:spawnObject(Vector(10.25 + 1.25 * i, 1, -19 - 1.25 * j))
+                end
+                j = j + 1
+            end
+        end
+        if mission.objectives then
+            for _, objective in pairs(mission.objectives) do
+                feature = Objective:new(objective)
+                for i = 1, feature.quantity do
+                    feature:spawnObject(Vector(10.25 + 1.25 * i, 1, -19 - 1.25 * j))
+                end
+                j = j + 1
+            end
+        end
+        if mission.ships then
+            for _, data in pairs(mission.ships) do
+                for name, n in pairs(data) do
+                    ship = Ship:new(ASSETS.ships[name])
+                    for i = 1, n do
+                        ship:spawnObject(Vector(20 + 2 * i, 1, -15), Vector(0, 180, 0))
                     end
                 end
             end
@@ -144,43 +154,6 @@ CODE_ROOT = ROOT .. "code/"
 FILE_CACHE = {}
 LIBRARY = {}
 
-feat_geometry = [[geometry = {{start = 0, stop = 360, focal_point = Vector(), radius = 0.625}}
-]]
-
-
-function feature_data(name, diffuse)
-    local result = {
-        Name = "Custom_Model", Nickname = name, Transform = {scaleX = 1, scaleY = 1, scaleZ = 1},
-        CustomMesh = {
-            MeshURL = ASSET_ROOT .. "tokens/features/feature_mesh.obj",
-            ColliderURL = ASSET_ROOT .. "tokens/features/feature_collider.obj",
-            DiffuseURL = ASSET_ROOT .. "tokens/features/" .. diffuse
-        },
-        LuaScript = feat_geometry .. getFile("code/geometry/ranges.lua"),
-        XmlUI = getFile("code/geometry/feature.xml")
-    }
-    return result
-end
-
-function anomalies_data(name, description)
-    local data = {
-        Name = "Custom_Model_Bag", Nickname = "Anomalies Bag",
-        Transform = {scaleX = 1, scaleY = 1, scaleZ = 1},
-        CustomMesh = {
-            MeshURL = ASSET_ROOT .. "tokens/features/feature_mesh.obj",
-            ColliderURL = ASSET_ROOT .. "tokens/features/feature_mesh.obj",
-            DiffuseURL = ASSET_ROOT .. "tokens/features/anomalies.png",
-            TypeIndex = 6
-        },
-        Bag = {Order = 2},
-        ContainedObjects = {}
-    }
-    for i = 1, 8 do 
-        data.ContainedObjects[i] = feature_data(name, "anomaly_" .. i .. ".png")
-        data.ContainedObjects[i].Description = description
-    end
-    return data
-end
 
 function spawnMission(mission, pos, rot)
     local obj = spawnObject({
@@ -242,6 +215,7 @@ function spawnSystemMarkers(name)
         if system then
             local pos = board.getPosition() + Vector(0, 0.001, 0)
             for i, center in ipairs(system.centers) do
+                center = Vector(center)
                 local marker = spawnObjectData(ASSETS.setup.system_marker)
                 marker.setPosition(pos + center)
                 if i ~= marker.getStateId() then
