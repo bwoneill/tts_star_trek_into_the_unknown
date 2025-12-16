@@ -16,7 +16,7 @@ end
 
 Ship = GameType:new{gtype = "ship", spawnable = true}
 
-function Ship:getImagePaths()
+function Ship:getImages()
     local path = ASSET_ROOT .. "factions/" .. self.faction .. "/ships/" .. self.short .. "/"
     return {path .. "ship_board.png", path .. "image.png"}
 end
@@ -90,7 +90,7 @@ end
 
 Auxiliary = Ship:new()
 
-function Auxiliary:getImagePaths()
+function Auxiliary:getImages()
     local path = ASSET_ROOT .. "factions/" .. self.faction .. "/ships/" .. self.short .. "/"
     return {path .. self.short .. "_front.png", path .. self.short .. "_back.png"}
 end
@@ -98,12 +98,12 @@ end
 function Auxiliary:spawnObject(pos, rot)
     pos = pos or Vector(0,0,0)
     rot = rot or Vector(0,0,0)
-    local path = ASSET_ROOT .. "factions/" .. self.faction .. "/ships/" .. self.short .. "/"
+    local path = "assets/factions/" .. self.faction .. "/ships/" .. self.short .. "/"
     local ship_xml = Global.call("getFile", path .. self.short .. ".xml")
     local script = "default = Global.getTable(\"ASSETS\").ships." .. self.short .. "\n"
-    script = script .. Global.call("getFile", CODE_ROOT .. "/ships/ship.lua")
+    script = script .. Global.call("getFile", "code/ships/ship.lua")
     local card = spawnObject({type = "CardCustom", position = pos, rotation = rot, scale = {1.47, 1, 1.47}})
-    local images = self:getImagePaths()
+    local images = self:getImages()
     card.setCustomObject({face = images[1], back = images[2], sound = false})
     card.setLuaScript(script)
     card.setName(self.name)
@@ -120,13 +120,13 @@ function Card:new(o)
     return o
 end
 
-function Card:getImagePaths()
+function Card:getImages()
     return self.images
 end
 
 function Card:spawnObject(pos, rot)
     local card = spawnObject({type = "CardCustom", position = pos, rotation = rot})
-    local images = self:getImagePaths()
+    local images = self:getImages()
     card.setCustomObject({face = images[1], back = images[2]})
     return card
 end
@@ -148,7 +148,7 @@ function Officer:new(o)
     return o
 end
 
-function Officer:getImagePaths()
+function Officer:getImages()
     local fullName = string.gsub(self.name .. (self.subtitle and "_" .. self.subtitle or ""), "%s", "_")
     local path = ASSET_ROOT .. "officers/" .. fullName:gsub("[^%w%d%s-_]", ""):gsub("%s", "_")
     local result = {path .. ".png", path .. "_back.png"}
@@ -180,7 +180,7 @@ end
 
 Equipment = Card:new{gtype = "equipment"}
 
-function Equipment:getImagePaths()
+function Equipment:getImages()
     local path = ASSET_ROOT .. "/equipment/" .. string.gsub(self.name, " ", "_")
     local result = {path .. ".png", path .. "_back.png"}
     return result
@@ -201,7 +201,7 @@ end
 
 Directive = Card:new{gtype = "directive"}
 
-function Directive:getImagePaths()
+function Directive:getImages()
     local path = ASSET_ROOT .. "/factions/" .. self.faction .. "/directives/"
     local result = {}
     for i, name in ipairs(self.names) do
@@ -214,7 +214,7 @@ function Directive:spawnObject(pos, rot)
     pos = pos or Vector(0, 0, 0)
     rot = rot or Vector(0, 0, 0)
     local card = spawnObject({type = "CardCustom", position = pos, rotation = rot})
-    local images = self:getImagePaths()
+    local images = self:getImages()
     card.setCustomObject({face = images[1], back = images[2]})
     if self.teams then
         for _, team in ipairs(self.teams) do
@@ -238,4 +238,69 @@ function Keyword:toString()
     return result
 end
 
-gtype = {ship = Ship, auxiliary = Auxiliary, officer = Officer, equipment = Equipment, keyword = Keyword}
+Feature = GameType:new{gtype = "feature", spawnable = true}
+
+function Feature:spawnObject(pos, rot)
+    pos = pos or Vector(0, 0, 0)
+    rot = rot or Vector(0, 0, 0)
+    if not ASSETS then
+        ASSETS = Global.getTable("ASSETS")
+    end
+    self.image = self.image or (ASSETS.tokens.features[self.type] and ASSETS.tokens.features[self.type].image)
+    if self.type == "anomalies" then
+        local data = {
+            Name = "Custom_Model_Bag", Nickname = "Anomalies Bag",
+            Transform = {scaleX = 1, scaleY = 1, scaleZ = 1},
+            CustomMesh = {
+                MeshURL = ROOT .. "assets/tokens/features/feature_mesh.obj",
+                ColliderURL = ROOT .. "assets/tokens/features/feature_mesh.obj",
+                DiffuseURL = ROOT .. "assets/tokens/features/anomalies.png",
+                TypeIndex = 6
+            },
+            Bag = {Order = 2},
+            ContainedObjects = {}
+        }
+        for i = 1, 8 do 
+            data.ContainedObjects[i] = Feature:new({
+                name = self.name, description = self.description, image = "anomaly_" .. i .. ".png"
+            }):createData()
+        end
+        spawnObjectData({data = data, position = pos, rotation = rot})
+    elseif self.image then
+        spawnObjectData({data = self:createData(), position = pos, rotation = rot})
+    end
+end
+
+function Feature:createData()
+    local data = {
+        Name = "Custom_Model", Nickname = self.name, Transform = {scaleX = 1, scaleY = 1, scaleZ = 1},
+        Description = self.description,
+        CustomMesh = {
+            MeshURL = ROOT .. "assets/tokens/features/feature_mesh.obj",
+            ColliderURL = ROOT .. "assets/tokens/features/feature_collider.obj",
+            DiffuseURL = ROOT .. "assets/tokens/features/" .. self.image
+        },
+        LuaScript = Global.call("getFile", "code/geometry/ranges.lua") .. "\ngeometry = feat_geometry",
+        XmlUI = Global.call("getFile", "code/geometry/feature.xml")
+    }
+    return data
+end
+
+Objective = Feature:new{gtype = "objective", spawnable = true}
+
+function Objective:spawnObject(pos, rot)
+    pos = pos or Vector(0, 0, 0)
+    rot = rot or Vector(0, 0, 0)
+    if not ASSETS then
+        ASSETS = Global.getTable("ASSETS")
+    end
+    self.image = self.image or (ASSETS.tokens.objectives[self.type] and ASSETS.tokens.objectives[self.type].image)
+    if self.image then
+        spawnObjectData({data = self:createData(), position = pos, rotation = rot})
+    end
+end
+
+gtype = {
+    ship = Ship, auxiliary = Auxiliary, officer = Officer, equipment = Equipment, keyword = Keyword,
+    feature = Feature, objective = Objective
+}
