@@ -9,7 +9,7 @@ typeImages = {officer = {"cardFront", "cardBack"}, equipment = {"cardFront", "ca
 
 function librarySearch(player, value, id)
     searchResults = searchAssets(value)
-    local newXml = [[<GridLayout id="searchResults" cellSize="400 50" color="Black">"]]
+    local newXml = [[<GridLayout id="searchResults" cellSize="400 50" color="Black">]]
     for i, value in pairs(searchResults) do
         newXml = newXml .. [[<Text id = "sr]] .. i ..  [[" fontSize="28" alignment = "MiddleLeft" onClick = "displayResult">]]
                         .. GameType:new(value):getName() .. "</Text>"
