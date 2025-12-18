@@ -945,7 +945,7 @@ function cloak(player, value, id)
     myShip.setRotation(self.getRotation() + Vector(0, 90, 0))
     -- Spawn wake tracker
     if not TOOLS.wake_tracker.data.LuaScript then
-        TOOLS.wake_tracker.data.LuaScript = Global.call("getFile", TOOLS.wake_tracker.ScriptUrl)
+        TOOLS.wake_tracker.data.LuaScript = Global.call("getFile", TOOLS.wake_tracker.ScriptURL)
     end
     if not TOOLS.wake_tracker.data.XmlUI then
         local xml = Global.call("getFile", TOOLS.wake_tracker.XmlURL)
@@ -988,4 +988,4 @@ function getCloakOffset(pos)
     end
 end
 
--- build 1.1.0.40
+-- build 1.1.0.41
