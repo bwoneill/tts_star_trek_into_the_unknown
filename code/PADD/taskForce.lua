@@ -100,6 +100,7 @@ end
 
 function showStaging()
     updateImages()
+    updateFlexPoints()
     cp = 0
     for _, role in pairs(coreOfficers) do
         if build[role] then
@@ -578,94 +579,10 @@ function import(player, value, id)
                 end
             end
         end
-        updateImages()
+        showStaging()
     else
         broadcastToColor("No isolinear chips in range", player.color, Color.Red)
     end
-end
-
-function trim(s)
-    if s then
-        return s:match'^()%s*$' and '' or s:match'^%s*(.*%S)'
-    else
-        return nil
-    end
-end
-
-function readLines(s)
-    local result = {}
-    for m in string.gmatch(s, "([^\n]+)") do
-        table.insert(result, m)
-    end
-    return result
-end
-
-function split(s, d)
-    local temp = {}
-    for m in string.gmatch(s, "([^" .. d .. "]+)") do
-        table.insert(temp, trim(m))
-    end
-    return temp[1], temp[2]
-end
-
-function toNameSubtitle(s)
-    local name = trim(s:match'([^%[]+)')
-    local subtitle = trim(s:match'%[(.+)%]')
-    return name, subtitle
-end
-
-function findOfficer(faction, value)
-    local name, subtitle = toNameSubtitle(value)
-    local result = nil
-    for _, officer in pairs(factions[faction].officers) do
-        if officer.name == name and officer.subtitle == subtitle then
-            result = officer
-        end
-    end
-    return result
-end
-
-function findShip(faction, type)
-    for _, ship in pairs(ASSETS.ships) do
-        if ship.type == type then
-            return ship
-        end
-    end
-end
-
-function findTitle(ship, name)
-    local result = nil
-    for _, title in pairs(ship.titles) do
-        if title.name == name then
-            result = title
-        end
-    end
-    return result
-end
-
-function findDirective(faction, type, name)
-    for _, directive in pairs(ASSETS.directives) do
-        if directive.names[1] == name or directives.names[2] == name then
-            return directive
-        end
-    end
-end
-
-function findEquipment(name)
-    for _, equip in pairs(ASSETS.equipment) do
-        if equip.name == name then
-            return equip
-        end
-    end
-end
-
-function toArray(value)
-    value = string.gsub(value, "[%[%]]", "")
-    local result = {}
-    for v in string.gmatch(value, "([^,]+)") do
-        table.insert(result, v)
-    end
-    return result
 end
 
 function spawn(player, value, id)
