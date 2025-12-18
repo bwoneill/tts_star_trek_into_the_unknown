@@ -152,7 +152,7 @@ BASE_CONST = {
         }
     },
     large = {
-        warpAttachment = Vector(1.275, 0, 0.43),
+        warpAttachment = Vector(-1.275, 0, 0.43),
         toolAttachment = {
             starboard = {pos = Vector(-1.53, 0, 0), rot = 0},
             aft = {pos = Vector(0, 0, 2.82), rot = 90},
@@ -988,4 +988,4 @@ function getCloakOffset(pos)
     end
 end
 
--- build 1.1.0.37
+-- build 1.1.0.38
