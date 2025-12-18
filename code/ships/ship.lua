@@ -883,7 +883,7 @@ function swapShip()
         if saveData.detached then
             shipData = default
         else
-            if not default.alternative.instruments then
+            if not default.alternate.instruments then
                 default.alternate.instruments = shipData.instruments
             end
             shipData = default.alternate
@@ -988,4 +988,4 @@ function getCloakOffset(pos)
     end
 end
 
--- build 1.1.0.35
+-- build 1.1.0.36
