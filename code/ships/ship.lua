@@ -837,9 +837,9 @@ function detach(player, value, id)
         }
         auxCard = spawnObjectData(parameters)
         saveData.auxGUID = auxCard.getGUID()
-        launchAuxiliary(shipData.auxiliary.direction)
         -- swap ship models
         swapShip()
+        launchAuxiliary(shipData.auxiliary.direction)
         -- check dial ranges
         for name, data in pairs(saveData.dials) do
             rotateDial(name, 0)
@@ -883,6 +883,9 @@ function swapShip()
         if saveData.detached then
             shipData = default
         else
+            if not default.alternative.instruments then
+                default.alternate.instruments = shipData.instruments
+            end
             shipData = default.alternate
         end
         saveData.detached = not saveData.detached
@@ -985,4 +988,4 @@ function getCloakOffset(pos)
     end
 end
 
--- build 1.1.0.33
+-- build 1.1.0.35
