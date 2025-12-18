@@ -828,7 +828,7 @@ function detach(player, value, id)
         altCard.jointTo(self, {type = "Fixed"})
         altCard.interactable = false
         saveData.altGUID = altCard.getGUID()
-        local path = "factions/" .. shipData.faction .. "/ships/" .. shipData.short .. "/auxiliary.xml"
+        local path = "assets/factions/" .. shipData.faction .. "/ships/" .. shipData.short .. "/auxiliary.xml"
         shipData.auxiliary.ship_board.data.XmlUI = Global.call("getFile", path)
         parameters = {
             data = shipData.auxiliary.ship_board.data,
