@@ -957,7 +957,7 @@ function cloak(player, value, id)
     obj_data.callback_function = function(obj)
         obj.call("setData", wake_data)
     end
-    obj_data.data.Nickname = self.getName .. " (" .. self.getGUID() .. ")"
+    obj_data.data.Nickname = self.getName() .. " (" .. self.getGUID() .. ")"
     local wake = spawnObjectData(obj_data)
     -- Set wake tracker position
     local attach = Vector(BASE_CONST.wake.toolAttachment.aft.pos) + Vector(0, 0, -0.25)
@@ -988,4 +988,4 @@ function getCloakOffset(pos)
     end
 end
 
--- build 1.1.0.39
+-- build 1.1.0.40
