@@ -839,7 +839,7 @@ function detach(player, value, id)
         saveData.auxGUID = auxCard.getGUID()
         -- swap ship models
         swapShip()
-        launchAuxiliary(shipData.auxiliary.direction)
+        launchAuxiliary(default.auxiliary.direction)
         -- check dial ranges
         for name, data in pairs(saveData.dials) do
             rotateDial(name, 0)
@@ -988,4 +988,4 @@ function getCloakOffset(pos)
     end
 end
 
--- build 1.1.0.36
+-- build 1.1.0.37
