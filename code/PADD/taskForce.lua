@@ -469,9 +469,9 @@ function export(player, value, id)
         end
     end
     -- Directives
-    for _, type in pairs({"combat", "diplomacy", "exploration"}) do
+    for _, type in pairs(dirTypes) do
         if build[type] then
-            save_data[type] = build[type].name
+            save_data[type] = build[type].names[1]
         end
     end
     -- Ships
@@ -486,11 +486,10 @@ function export(player, value, id)
         end
     end
     -- Equipment
-    if #build.equipment > 0 then
+    if build.equipment and #build.equipment > 0 then
         save_data.equipment = {}
-        local temp = {}
-        for _, equip in ipairs(build.equipment) do
-            table.insert({name = equip.name, n = equip.n})
+        for _, equip in pairs(build.equipment) do
+            table.insert(save_data.equipment, {name = equip.name, n = equip.n})
         end
     end
     local data = {
@@ -514,6 +513,7 @@ function import(player, value, id)
     local distance = 1000
     local save = nil
     local pos = self.getPosition()
+    build = {equipment = {}}
     for _, c in pairs(chips) do
         local d = (pos - c.getPosition()):magnitude()
         if d < distance then
@@ -527,7 +527,58 @@ function import(player, value, id)
             broadcastToColor("Save versions do not match, this may not work", player.color, Color.Red)
         end
         build.faction = data.faction
-        
+        -- Officers
+        for _, role in pairs(allOfficers) do
+            local temp = data[role]
+            if temp then
+                for _, officer in pairs(ASSETS.officers) do
+                    if temp.name == officer.name and temp.subtitle == officer.subtitle then
+                        build[role] = officer
+                    end
+                end
+            end
+        end
+        -- Directives
+        for _, type in pairs(dirTypes) do
+            if data[type] then
+                for _, dir in pairs(ASSETS.directives) do
+                    if data[type] == dir.names[1] then
+                        build[type] = dir
+                    end
+                end
+            end
+        end
+        -- Ships
+        for i = 1, 3 do
+            local ship = "ship" .. i
+            local title = "title" .. i
+            if data[ship] then
+                for _, shipData in pairs(ASSETS.ships) do
+                    if data[ship] == shipData.short then
+                        build[ship] = shipData
+                    end
+                    if data[title] and shipData.titles then
+                        for _, titleData in pairs(shipData.titles) do
+                            if data[title] == titleData.name then
+                                build[title] = titleData
+                            end
+                        end
+                    end
+                end
+            end
+        end
+        -- Equipment
+        if data.equipment and #data.equipment > 0 then
+            for i, equip in ipairs(data.equipment) do
+                for _, eData in pairs(ASSETS.equipment) do
+                    if equip.name == eData.name then
+                        build.equipment[i] = eData
+                        build.equipment[i].n = equip.n
+                    end
+                end
+            end
+        end
+        updateImages()
     else
         broadcastToColor("No isolinear chips in range", player.color, Color.Red)
     end
