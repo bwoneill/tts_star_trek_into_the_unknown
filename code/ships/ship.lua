@@ -1,6 +1,6 @@
 -- Basic ship script
 -- Usage:
--- default = Global.getTable("ASSETS").factions.<faction>.ships.<ship_class>
+-- default = Global.getTable("ASSETS").ships.<short_name>
 -- require("ship")
 
 ignore_save = false -- set to true for updates on data in Global
@@ -8,6 +8,8 @@ ignore_save = false -- set to true for updates on data in Global
 saveData = {thickness = 0.02}
 
 ASSET_ROOT = Global.getVar("ASSET_ROOT")
+
+CODE_ROOT = Global.getVar("CODE_ROOT")
 
 TOOLS = Global.getTable("ASSETS").tools
 
@@ -20,185 +22,227 @@ DIAL_CONST = {
 
 BASE_CONST = {
     shuttle = {
-        warpAttachment = Vector(0.319, 0, 0.38),
+        warpAttachment = Vector(-0.38, 0, 0.319),
         toolAttachment = {
-            fore = {pos = Vector(-1.14, 0 , 0), rot = 0},
-            aft = {pos = Vector(1.14, 0, 0), rot = 180},
-            port = {pos = Vector(0, 0, -0.765), rot = 270},
-            starboard = {pos = Vector(0, 0, 0.765), rot = 90}
+            starboard = {pos = Vector(-0.765, 0, 0), rot = 0},
+            aft = {pos = Vector(0, 0, 1.14), rot = 90},
+            port = {pos = Vector(0.765, 0, 0), rot = 180},
+            fore = {pos = Vector(0, 0 , -1.14), rot = 270}
         },
         arcs = {
             all = {
-                {point = Vector( 0.735, 0,  0.293), start = 0, stop = 0},
-                {point = Vector( 0.735, 0, -0.293), start = 0, stop = 64},
-                {point = Vector( 0.577, 0, -0.380), start = 64, stop = 90},
-                {point = Vector(-0.577, 0, -0.380), start = 90, stop = 116},
-                {point = Vector(-0.735, 0, -0.293), start = 116, stop = 180},
-                {point = Vector(-0.735, 0,  0.293), start = 180, stop = 244},
-                {point = Vector(-0.557, 0,  0.380), start = 244, stop = 270},
-                {point = Vector( 0.577, 0,  0.380), start = 270, stop = 296},
-                {point = Vector( 0.735, 0,  0.293), start = 296, stop = 360}
+                {point = Vector( 0.380, 0, -0.577), start = 0, stop = 26},
+                {point = Vector( 0.293, 0, -0.735), start = 26, stop = 90},
+                {point = Vector(-0.293, 0, -0.735), start = 90, stop = 154},
+                {point = Vector(-0.380, 0, -0.557), start = 154, stop = 180},
+                {point = Vector(-0.380, 0,  0.577), start = 180, stop = 206},
+                {point = Vector(-0.293, 0,  0.735), start = 206, stop = 270},
+                {point = Vector( 0.293, 0,  0.735), start = 270, stop = 334},
+                {point = Vector( 0.380, 0,  0.577), start = 334, stop = 360},
+                {point = Vector( 0.380, 0, -0.577), start = 0, stop = 0},
             },
         }
     },
     small = {
-        warpAttachment = Vector(0.404, 0, 0.77),
+        warpAttachment = Vector(-0.77, 0, 0.404),
         toolAttachment = {
-            fore = {pos = Vector(-1.41, 0 , 0), rot = 0},
-            aft = {pos = Vector(1.41, 0, 0), rot = 180},
-            port = {pos = Vector(0, 0, -1.065), rot = 270},
-            starboard = {pos = Vector(0, 0, 1.065), rot = 90}
+            starboard = {pos = Vector(-1.065, 0, 0), rot = 0},
+            aft = {pos = Vector(0, 0, 1.41), rot = 90},
+            port = {pos = Vector(1.065, 0, 0), rot = 180},
+            fore = {pos = Vector(0, 0 , -1.41), rot = 270}
         },
+        cloakOffset = {A = 1.121, B = 0.889},
         arcs = {
             aft_port = {
-                {point = Vector( 1.070, 0,  0.000), start = 0, stop = 0},
-                {point = Vector( 1.070, 0, -0.367), start = 0, stop = 27},
-                {point = Vector( 0.920, 0, -0.661), start = 27, stop = 47},
-                {point = Vector( 0.804, 0, -0.770), start = 47, stop = 90},
-                {point = Vector( 0.000, 0, -0.770), start = 90, stop = 90}
+                {point = Vector( 0.000, 0,  1.070), start = 270, stop = 270},
+                {point = Vector( 0.367, 0,  1.070), start = 270, stop = 297},
+                {point = Vector( 0.661, 0,  0.920), start = 297, stop = 317},
+                {point = Vector( 0.770, 0,  0.804), start = 317, stop = 360},
+                {point = Vector( 0.770, 0,  0.000), start = 360, stop = 360}
             },
             fore_port = {
-                {point = Vector( 0.000, 0, -0.770), start = 90, stop = 90},
-                {point = Vector(-0.804, 0, -0.770), start = 90, stop = 133},
-                {point = Vector(-0.920, 0, -0.661), start = 133, stop = 153},
-                {point = Vector(-1.070, 0, -0.367), start = 153, stop = 180},
-                {point = Vector(-1.070, 0,  0.000), start = 180, stop = 180},
+                {point = Vector( 0.770, 0,  0.000), start = 0, stop = 0},
+                {point = Vector( 0.770, 0, -0.804), start = 0, stop = 43},
+                {point = Vector( 0.661, 0, -0.920), start = 43, stop = 63},
+                {point = Vector( 0.367, 0, -1.070), start = 63, stop = 90},
+                {point = Vector( 0.000, 0, -1.070), start = 90, stop = 90},
             },
             fore_starboard = {
-                {point = Vector(-1.070, 0,  0.000), start = 180, stop = 180},
-                {point = Vector(-1.070, 0,  0.367), start = 180, stop = 207},
-                {point = Vector(-0.920, 0,  0.661), start = 207, stop = 227},
-                {point = Vector(-0.804, 0,  0.770), start = 227, stop = 270},
-                {point = Vector( 0.000, 0,  0.770), start = 270, stop = 270},
+                {point = Vector( 0.000, 0, -1.070), start = 90, stop = 90},
+                {point = Vector(-0.367, 0, -1.070), start = 90, stop = 117},
+                {point = Vector(-0.661, 0, -0.920), start = 117, stop = 137},
+                {point = Vector(-0.770, 0, -0.804), start = 137, stop = 180},
+                {point = Vector(-0.770, 0,  0.000), start = 180, stop = 180},
             },
             aft_starboard = {
-                {point = Vector( 0.000, 0,  0.770), start = 270, stop = 270},
-                {point = Vector( 0.804, 0,  0.770), start = 270, stop = 313},
-                {point = Vector( 0.920, 0,  0.661), start = 313, stop = 333},
-                {point = Vector( 1.070, 0,  0.367), start = 333, stop = 360},
-                {point = Vector( 1.070, 0,  0.000), start = 0, stop = 0},
+                {point = Vector(-0.770, 0,  0.000), start = 180, stop = 180},
+                {point = Vector(-0.770, 0,  0.804), start = 180, stop = 223},
+                {point = Vector(-0.661, 0,  0.920), start = 223, stop = 243},
+                {point = Vector(-0.367, 0,  1.070), start = 243, stop = 270},
+                {point = Vector(-0.000, 0,  1.070), start = 270, stop = 270},
             },
             stern = {
-                {point = Vector( 1.032, 0,  0.442), start = 315, stop = 333},
-                {point = Vector( 1.070, 0,  0.367), start = 333, stop = 360},
-                {point = Vector( 1.070, 0, -0.367), start = 0, stop = 27},
-                {point = Vector( 1.032, 0, -0.442), start = 27, stop = 45}
+                {point = Vector(-0.442, 0,  1.032), start = 225, stop = 243},
+                {point = Vector(-0.367, 0,  1.070), start = 243, stop = 270},
+                {point = Vector( 0.367, 0,  1.070), start = 270, stop = 297},
+                {point = Vector( 0.442, 0,  1.032), start = 279, stop = 315}
             },
             bow = {
-                {point = Vector(-1.032, 0, -0.442), start = 135, stop = 153},
-                {point = Vector(-1.070, 0, -0.367), start = 153, stop = 180},
-                {point = Vector(-1.070, 0,  0.367), start = 180, stop = 207},
-                {point = Vector(-1.032, 0,  0.442), start = 207, stop = 225}
+                {point = Vector( 0.442, 0, -1.032), start = 45, stop = 63},
+                {point = Vector( 0.367, 0, -1.070), start = 63, stop = 90},
+                {point = Vector(-0.367, 0, -1.070), start = 90, stop = 117},
+                {point = Vector(-0.442, 0, -1.032), start = 117, stop = 135}
             }
         }
     },
     medium = {
-        warpAttachment = Vector(0.427, 0, 1.03),
+        warpAttachment = Vector(-1.03, 0, 0.427),
         toolAttachment = {
-            fore = {pos = Vector(-2.065, 0 , 0), rot = 0},
-            aft = {pos = Vector(2.065, 0, 0), rot = 180},
-            port = {pos = Vector(0, 0, -1.29), rot = 270},
-            starboard = {pos = Vector(0, 0, 1.29), rot = 90}
+            starboard = {pos = Vector(-1.29, 0, 0), rot = 0},
+            aft = {pos = Vector(0, 0, 2.065), rot = 90},
+            port = {pos = Vector(1.29, 0, 0), rot = 180},
+            fore = {pos = Vector(0, 0 , -2.065), rot = 270}
         },
+        cloakOffset = {A = 1.781, B = 1.184},
         arcs = {
             aft_port = {
-                {point = Vector( 1.740, 0,  0.000), start = 0, stop = 0},
-                {point = Vector( 1.740, 0, -0.380), start = 0, stop = 10},
-                {point = Vector( 1.707, 0, -0.567), start = 10, stop = 27},
-                {point = Vector( 1.471, 0, -1.030), start = 27, stop = 90},
-                {point = Vector( 0.000, 0, -1.030), start = 90, stop = 90}
+                {point = Vector( 0.000, 0,  1.740), start = 270, stop = 270},
+                {point = Vector( 0.380, 0,  1.740), start = 270, stop = 280},
+                {point = Vector( 0.567, 0,  1.707), start = 280, stop = 297},
+                {point = Vector( 1.030, 0,  1.471), start = 297, stop = 360},
+                {point = Vector( 1.030, 0,  0.000), start = 360, stop = 360}
             },
             fore_port = {
-                {point = Vector( 0.000, 0, -1.030), start = 90, stop = 90},
-                {point = Vector(-1.471, 0, -1.030), start = 90, stop = 153},
-                {point = Vector(-1.707, 0, -0.567), start = 153, stop = 170},
-                {point = Vector(-1.740, 0, -0.380), start = 170, stop = 180},
-                {point = Vector(-1.740, 0, -0.000), start = 180, stop = 180},
+                {point = Vector( 1.030, 0,  0.000), start = 0, stop = 0},
+                {point = Vector( 1.030, 0, -1.471), start = 0, stop = 63},
+                {point = Vector( 0.567, 0, -1.707), start = 63, stop = 80},
+                {point = Vector( 0.380, 0, -1.740), start = 80, stop = 90},
+                {point = Vector( 0.000, 0, -1.740), start = 90, stop = 90},
             },
             fore_starboard = {
-                {point = Vector(-1.740, 0,  0.000), start = 180, stop = 180},
-                {point = Vector(-1.740, 0,  0.380), start = 180, stop = 190},
-                {point = Vector(-1.707, 0,  0.567), start = 190, stop = 207},
-                {point = Vector(-1.471, 0,  1.030), start = 207, stop = 270},
-                {point = Vector( 0.000, 0,  1.030), start = 270, stop = 270}
+                {point = Vector( 0.000, 0, -1.740), start = 90, stop = 90},
+                {point = Vector(-0.380, 0, -1.740), start = 90, stop = 100},
+                {point = Vector(-0.567, 0, -1.707), start = 100, stop = 117},
+                {point = Vector(-1.030, 0, -1.471), start = 117, stop = 180},
+                {point = Vector(-1.030, 0,  0.000), start = 180, stop = 180}
             },
             aft_starboard = {
-                {point = Vector( 0.000, 0,  1.030), start = 270, stop = 270},
-                {point = Vector( 1.471, 0,  1.030), start = 270, stop = 333},
-                {point = Vector( 1.707, 0,  0.567), start = 333, stop = 350},
-                {point = Vector( 1.740, 0,  0.380), start = 350, stop = 360},
-                {point = Vector( 1.740, 0,  0.000), start = 360, stop = 360},
+                {point = Vector(-1.030, 0,  0.000), start = 180, stop = 180},
+                {point = Vector(-1.030, 0,  1.471), start = 180, stop = 243},
+                {point = Vector(-0.567, 0,  1.707), start = 243, stop = 260},
+                {point = Vector(-0.380, 0,  1.740), start = 260, stop = 27},
+                {point = Vector( 0.000, 0,  1.740), start = 270, stop = 270},
             },
             stern = {
-                {point = Vector( 1.601, 0,  0.776), start = 315, stop = 333},
-                {point = Vector( 1.707, 0,  0.567), start = 333, stop = 350},
-                {point = Vector( 1.740, 0,  0.380), start = 350, stop = 360},
-                {point = Vector( 1.740, 0, -0.380), start = 0, stop = 10},
-                {point = Vector( 1.707, 0, -0.567), start = 10, stop = 27},
-                {point = Vector( 1.601, 0, -0.776), start = 27, stop = 45}
+                {point = Vector(-0.776, 0,  1.601), start = 225, stop = 243},
+                {point = Vector(-0.567, 0,  1.707), start = 243, stop = 260},
+                {point = Vector(-0.380, 0,  1.740), start = 260, stop = 270},
+                {point = Vector( 0.380, 0,  1.740), start = 270, stop = 280},
+                {point = Vector( 0.567, 0,  1.707), start = 270, stop = 297},
+                {point = Vector( 0.776, 0,  1.601), start = 297, stop = 315}
             },
             bow = {
-                {point = Vector(-1.601, 0, -0.776), start = 135, stop = 153},
-                {point = Vector(-1.707, 0, -0.567), start = 153, stop = 170},
-                {point = Vector(-1.740, 0, -0.380), start = 170, stop = 180},
-                {point = Vector(-1.740, 0,  0.380), start = 180, stop = 190},
-                {point = Vector(-1.707, 0,  0.567), start = 190, stop = 207},
-                {point = Vector(-1.601, 0,  0.776), start = 207, stop = 225}
+                {point = Vector( 0.776, 0, -1.601), start = 45, stop = 63},
+                {point = Vector( 0.567, 0, -1.707), start = 63, stop = 80},
+                {point = Vector( 0.380, 0, -1.740), start = 80, stop = 90},
+                {point = Vector(-0.380, 0, -1.740), start = 90, stop = 100},
+                {point = Vector(-0.567, 0, -1.707), start = 100, stop = 117},
+                {point = Vector(-0.776, 0, -1.601), start = 117, stop = 135}
             }
         }
     },
     large = {
-        warpAttachment = Vector(0.43, 0, 1.275),
+        warpAttachment = Vector(-1.275, 0, 0.43),
         toolAttachment = {
-            fore = {pos = Vector(-2.82, 0 , 0), rot = 0},
-            aft = {pos = Vector(2.82, 0, 0), rot = 180},
-            port = {pos = Vector(0, 0, -1.53), rot = 270},
-            starboard = {pos = Vector(0, 0, 1.53), rot = 90}
+            starboard = {pos = Vector(-1.53, 0, 0), rot = 0},
+            aft = {pos = Vector(0, 0, 2.82), rot = 90},
+            port = {pos = Vector(1.53, 0, 0), rot = 180},
+            fore = {pos = Vector(0, 0 , -2.82), rot = 270}
+        },
+        cloakOffset = {A = 2.533, B = 1.472},
+        arcs = {
+            aft_port = {
+                {point = Vector( 0.000, 0,  2.500), start = 270, stop = 270},
+                {point = Vector( 0.384, 0,  2.500), start = 270, stop = 280},
+                {point = Vector( 0.812, 0,  2.425), start = 280, stop = 297},
+                {point = Vector( 1.275, 0,  2.189), start = 297, stop = 360},
+                {point = Vector( 1.275, 0,  0.000), start = 360, stop = 360}
+            },
+            fore_port = {
+                {point = Vector( 1.275, 0,  0.000), start = 0, stop = 0},
+                {point = Vector( 1.275, 0, -2.189), start = 0, stop = 63},
+                {point = Vector( 0.812, 0, -2.425), start = 63, stop = 80},
+                {point = Vector( 0.384, 0, -2.500), start = 80, stop = 90},
+                {point = Vector( 0.000, 0, -2.500), start = 90, stop = 90},
+            },
+            fore_starboard = {
+                {point = Vector( 0.000, 0, -2.500), start = 90, stop = 90},
+                {point = Vector(-0.384, 0, -2.500), start = 90, stop = 100},
+                {point = Vector(-0.812, 0, -2.425), start = 100, stop = 117},
+                {point = Vector(-1.275, 0, -2.189), start = 117, stop = 180},
+                {point = Vector(-1.275, 0,  0.000), start = 180, stop = 180}
+            },
+            aft_starboard = {
+                {point = Vector(-1.275, 0,  0.000), start = 180, stop = 180},
+                {point = Vector(-1.275, 0,  2.189), start = 180, stop = 243},
+                {point = Vector(-0.812, 0,  2.425), start = 243, stop = 260},
+                {point = Vector(-0.384, 0,  2.500), start = 260, stop = 260},
+                {point = Vector( 0.000, 0,  2.500), start = 270, stop = 270},
+            },
+            stern = {
+                {point = Vector(-1.066, 0,  2.296), start = 225, stop = 243},
+                {point = Vector(-0.812, 0,  2.425), start = 243, stop = 260},
+                {point = Vector(-0.384, 0,  2.500), start = 260, stop = 270},
+                {point = Vector( 0.384, 0,  2.500), start = 270, stop = 280},
+                {point = Vector( 0.812, 0,  2.425), start = 280, stop = 297},
+                {point = Vector( 1.066, 0,  2.296), start = 297, stop = 315}
+            },
+            bow = {
+                {point = Vector( 1.066, 0, -2.296), start = 45, stop = 63},
+                {point = Vector( 0.812, 0, -2.425), start = 63, stop = 80},
+                {point = Vector( 0.384, 0, -2.500), start = 80, stop = 90},
+                {point = Vector(-0.384, 0, -2.500), start = 90, stop = 100},
+                {point = Vector(-0.812, 0, -2.425), start = 100, stop = 117},
+                {point = Vector(-1.066, 0, -2.296), start = 117, stop = 135}
+            }
+        }
+    },
+    wake = {
+        warpAttachment = Vector(0.367, 0, 0.77),
+        toolAttachment = {
+            starboard = {pos = Vector(-1.065, 0, 0), rot = 0},
+            aft = {pos = Vector(0, 0, 1.065), rot = 90},
+            port = {pos = Vector(1.065, 0, 0), rot = 180},
+            fore = {pos = Vector(0, 0 , -1.065), rot = 270}
         },
         arcs = {
             aft_port = {
-                {point = Vector( 2.500, 0,  0.000), start = 0, stop = 0},
-                {point = Vector( 2.500, 0, -0.384), start = 0, stop = 10},
-                {point = Vector( 2.425, 0, -0.812), start = 10, stop = 27},
-                {point = Vector( 2.189, 0, -1.275), start = 27, stop = 90},
-                {point = Vector( 0.000, 0, -1.275), start = 90, stop = 90}
+                {point = Vector( 0.000, 0,  0.770), start = 270, stop = 270},
+                {point = Vector( 0.367, 0,  0.770), start = 270, stop = 297},
+                {point = Vector( 0.661, 0,  0.661), start = 297, stop = 317},
+                {point = Vector( 0.770, 0,  0.367), start = 317, stop = 360},
+                {point = Vector( 0.770, 0,  0.000), start = 360, stop = 360}
             },
             fore_port = {
-                {point = Vector( 0.000, 0, -1.275), start = 90, stop = 90},
-                {point = Vector(-2.189, 0, -1.275), start = 90, stop = 153},
-                {point = Vector(-2.425, 0, -0.812), start = 153, stop = 170},
-                {point = Vector(-2.500, 0, -0.384), start = 170, stop = 180},
-                {point = Vector(-2.500, 0, -0.000), start = 180, stop = 180},
+                {point = Vector( 0.770, 0,  0.000), start = 0, stop = 0},
+                {point = Vector( 0.770, 0, -0.367), start = 0, stop = 43},
+                {point = Vector( 0.661, 0, -0.611), start = 43, stop = 63},
+                {point = Vector( 0.367, 0, -0.770), start = 63, stop = 90},
+                {point = Vector( 0.000, 0, -0.770), start = 90, stop = 90},
             },
             fore_starboard = {
-                {point = Vector(-2.500, 0,  0.000), start = 180, stop = 180},
-                {point = Vector(-2.500, 0,  0.384), start = 180, stop = 190},
-                {point = Vector(-2.425, 0,  0.812), start = 190, stop = 207},
-                {point = Vector(-2.189, 0,  1.275), start = 207, stop = 270},
-                {point = Vector( 0.000, 0,  1.275), start = 270, stop = 270}
+                {point = Vector( 0.000, 0, -0.770), start = 90, stop = 90},
+                {point = Vector(-0.367, 0, -0.770), start = 90, stop = 117},
+                {point = Vector(-0.661, 0, -0.661), start = 117, stop = 137},
+                {point = Vector(-0.770, 0, -0.367), start = 137, stop = 180},
+                {point = Vector(-0.770, 0,  0.000), start = 180, stop = 180},
             },
             aft_starboard = {
-                {point = Vector( 0.000, 0,  1.275), start = 270, stop = 270},
-                {point = Vector( 2.189, 0,  1.275), start = 270, stop = 333},
-                {point = Vector( 2.425, 0,  0.812), start = 333, stop = 350},
-                {point = Vector( 2.500, 0,  0.384), start = 350, stop = 360},
-                {point = Vector( 2.500, 0,  0.000), start = 360, stop = 360},
-            },
-            stern = {
-                {point = Vector( 2.296, 0,  1.066), start = 315, stop = 333},
-                {point = Vector( 2.425, 0,  0.812), start = 333, stop = 350},
-                {point = Vector( 2.500, 0,  0.384), start = 350, stop = 360},
-                {point = Vector( 2.500, 0, -0.384), start = 0, stop = 10},
-                {point = Vector( 2.425, 0, -0.812), start = 10, stop = 27},
-                {point = Vector( 2.296, 0, -1.066), start = 27, stop = 45}
-            },
-            bow = {
-                {point = Vector(-2.296, 0, -1.066), start = 135, stop = 153},
-                {point = Vector(-2.425, 0, -0.812), start = 153, stop = 170},
-                {point = Vector(-2.500, 0, -0.384), start = 170, stop = 180},
-                {point = Vector(-2.500, 0,  0.384), start = 180, stop = 190},
-                {point = Vector(-2.425, 0,  0.812), start = 190, stop = 207},
-                {point = Vector(-2.296, 0,  1.066), start = 207, stop = 225}
+                {point = Vector(-0.770, 0,  0.000), start = 180, stop = 180},
+                {point = Vector(-0.770, 0,  0.367), start = 180, stop = 223},
+                {point = Vector(-0.661, 0,  0.661), start = 223, stop = 243},
+                {point = Vector(-0.367, 0,  0.770), start = 243, stop = 270},
+                {point = Vector(-0.000, 0,  0.770), start = 270, stop = 270},
             }
         }
     }
@@ -290,7 +334,7 @@ function setUp(player, value, id)
         local parameters = {
             data = generateShipModelData(shipData, Color.fromString(player.color):setAt("a", 0.33)),
             position = pos + Vector(5.5, 0, -5.5):rotateOver("y", rot.y),
-            rotation = rot
+            rotation = rot + Vector(0, 90, 0)
         }
         local myShip = spawnObjectData(parameters)
         saveData.shipGUID = myShip.getGUID()
@@ -303,7 +347,7 @@ function generateDialData(dial_type)
     local result = {
         Name = "Custom_Token", Transform = {scaleX = scale, scaleY = 1, scaleZ = scale},
         CustomImage = {
-            ImageURL = ASSET_ROOT .. "factions/" .. shipData.faction ..  "/ships/" .. shipData.type .. "/" .. dial_type .. "_dial.png",
+            ImageURL = ASSET_ROOT .. "factions/" .. shipData.faction ..  "/ships/" .. shipData.short .. "/" .. dial_type .. "_dial.png",
             CustomToken = {Thickness = 0.1}
         }
     }
@@ -312,8 +356,7 @@ end
 
 function generateShipModelData(ship_data, player_color, delta)
     local faction = ship_data.faction
-    local folder = ship_data.folder
-    local class = ship_data.type
+    local class = ship_data.short
     local size = ship_data.size
     local transform = ship_data.model_transform or {scaleX = 1}
     transform.scaleX = transform.scaleX or 1
@@ -322,6 +365,7 @@ function generateShipModelData(ship_data, player_color, delta)
     local color = type(player_color) == "string" and Color.fromString(player_color) or player_color
     local data = {
         Name = "Custom_Model", Transform = {scaleX = 1, scaleY = 1, scaleZ = 1}, Tags = {"Ship"},
+        Nickname = self.getName() .. " (" .. self.getGUID() .. ")",
         ColorDiffuse = color,
         CustomMesh = {
             MeshURL = ASSET_ROOT .. "misc/bases/" .. size ..  "_base.obj",
@@ -332,10 +376,11 @@ function generateShipModelData(ship_data, player_color, delta)
             {
                 Name = "Custom_Model", Transform = transform,
                 CustomMesh = {
-                    MeshURL = ASSET_ROOT .. "factions/" .. faction .. "/" .. folder .. "/" .. class .. "/" .. class .. "_mesh.obj",
-                    DiffuseURL = ASSET_ROOT .. "factions/" .. faction .. "/" .. folder .. "/" .. class .. "/" .. class .. "_skin.png",
+                    MeshURL = ASSET_ROOT .. "factions/" .. faction .. "/ships/" .. class .. "/" .. class .. "_mesh.obj",
+                    DiffuseURL = ASSET_ROOT .. "factions/" .. faction .. "/ships/" .. class .. "/" .. class .. "_skin.png",
                     ColliderURL = ASSET_ROOT .. "misc/no_collide.obj", MaterialIndex = 3
-                }
+                },
+                ColorDiffuse = ship_data.color_transform
             }
         }
     }
@@ -430,19 +475,20 @@ function placeTracker(side)
     if tracker then
         tracker.destroy()
     end
-    local myShip = getObjectFromGUID(saveData.shipGUID)
-    local attachment = BASE_CONST[shipData.size].toolAttachment[side]
+    local myShip = getShipObject()
+    local attachment = getBaseGeometry().toolAttachment[side]
     oldPos = myShip.getPosition()
     oldRot = myShip.getRotation()
     tracker = spawnObjectData(TOOLS.tracker)
-    tracker.setPosition(oldPos + (Vector(attachment.pos) + Vector(side == "aft" and -0.25 or 0.25, 0.05, 0)):rotateOver("y", oldRot.y))
+    tracker.setPosition(oldPos + (Vector(attachment.pos) + Vector(0, 0, side == "aft" and -0.25 or 0.25)):rotateOver("y", oldRot.y))
     tracker.setRotation({0, oldRot.y + attachment.rot + 90, 0})
     tracker.createButton({function_owner = self, click_function = "cancelMove", label = "Cancel", position = {0, 0.2, 0}, rotation = {0, 180, 0}, width = 400, height = 180})
     tracker.lock()
+    return oldPos, oldRot
 end
 
-function placeTrackerFore() placeTracker("fore") end
-function placeTrackerAft() placeTracker("aft") end
+function placeTrackerFore() return placeTracker("fore") end
+function placeTrackerAft() return placeTracker("aft") end
 
 function cancelMove()
     if template then
@@ -459,7 +505,12 @@ function cancelMove()
         rulerB.destroy()
         rulerB = nil
     end
-    local myShip = getObjectFromGUID(saveData.shipGUID)
+    if saveData.wakeGUID and not saveData.cloaked then
+        local wake = getObjectFromGUID(saveData.wakeGUID)
+        wake.destroy()
+        saveData.wakeGUID = nil
+    end
+    local myShip = getShipObject()
     myShip.setPosition(oldPos)
     myShip.setRotation(oldRot)
     tracker.destroy()
@@ -469,11 +520,11 @@ end
 -- Impulse
 
 function impulseMoveStart()
-    local myShip = getObjectFromGUID(saveData.shipGUID)
-    myShip.createButton({function_owner = self, click_function = "impulseMoveFront",label = "Fore", position = {1.5,.2,0}, rotation = {0, 90, 0}, width = 350, height = 150 })
-    myShip.createButton({function_owner = self, click_function = "impulseMoveBack",label = "Aft", position = {-1.5,.2,0}, rotation = {0, 90, 0}, width = 350, height = 150 })
-    myShip.createButton({function_owner = self, click_function = "impulseMoveLeft",label = "Port", position = {-0.1,.2,-1.2}, rotation = {0, 90, 0}, width = 350, height = 150})
-    myShip.createButton({function_owner = self, click_function = "impulseMoveRight",label = "Starboard", position = {-0.1,.2,1.2}, rotation = {0, 90, 0}, width = 550, height = 150})
+    local myShip = getShipObject()
+    myShip.createButton({function_owner = self, click_function = "impulseMoveFront",label = "Fore", position = {0,.2,-1.5}, width = 350, height = 150 })
+    myShip.createButton({function_owner = self, click_function = "impulseMoveBack",label = "Aft", position = {0,.2,1.5}, width = 350, height = 150 })
+    myShip.createButton({function_owner = self, click_function = "impulseMoveLeft",label = "Port", position = {-1.2,.2,0.1}, width = 350, height = 150})
+    myShip.createButton({function_owner = self, click_function = "impulseMoveRight",label = "Starboard", position = {1.2,.2,0.1}, width = 550, height = 150})
 end
 
 function impulseMoveFront() placeToolToShipFront() end
@@ -484,7 +535,7 @@ function impulseMoveRight() placeToolToShipRight() end
 -- Turning tool
 
 function placeTurningTool(side, tracker)
-    local myShip = getObjectFromGUID(saveData.shipGUID)
+    local myShip = getShipObject()
     myShip.clearButtons()
     myShip.lock()
     shipDirection = side
@@ -493,7 +544,7 @@ function placeTurningTool(side, tracker)
     else
         placeTrackerAft()
     end
-    local attachment = BASE_CONST[shipData.size].toolAttachment[side]
+    local attachment = getBaseGeometry().toolAttachment[side]
     local pos = myShip.getPosition()
     local rot = myShip.getRotation().y
     template = spawnObjectData(TOOLS.turning_tool)
@@ -528,7 +579,7 @@ end
 
 -- Step 2: Position the Ruler
 function positionRuler(direction)
-    local myShip = getObjectFromGUID(saveData.shipGUID)
+    local myShip = getShipObject()
     ruler = spawnObjectData(TOOLS.ruler_12in)
     local sign = direction == "right" and 1 or -1
     local pos = template.getPosition()
@@ -555,11 +606,11 @@ end
 
 
 -- Step 3: Position Ship to the Template and Remove Ruler
-function positionShip()
-    local myShip = getObjectFromGUID(saveData.shipGUID)
+function positionShip(param)
+    local myShip = getShipObject()
     local spawnPos = template.getPosition()
     local spawnRot = template.getRotation()
-    local attachment = BASE_CONST[shipData.size].toolAttachment[shipDirection]
+    local attachment = getBaseGeometry().toolAttachment[shipDirection]
     local leftVector = template.getTransformRight()
     spawnRot.y = spawnRot.y - attachment.rot
     spawnPos = spawnPos + (leftVector * Vector(attachment.pos):magnitude())
@@ -578,14 +629,21 @@ function positionShip()
 end
 
 function clearTemplates()
-    local myShip = getObjectFromGUID(saveData.shipGUID)
+    local myShip = getShipObject()
     myShip.clearButtons()
     myShip.lock()
-    template.destroy()
-    template = nil
+    if template then
+        template.destroy()
+        template = nil
+    end
     if tracker then
         tracker.destroy()
         tracker = nil
+    end
+    if saveData.wakeGUID and not saveData.cloaked then
+        local wake = getObjectFromGUID(saveData.wakeGUID)
+        wake.destroy()
+        saveData.wakeGUID = nil
     end
 end
 
@@ -601,22 +659,22 @@ function clearWarp()
 end
 
 function placeWarpTemplate()
-    local myShip = getObjectFromGUID(saveData.shipGUID)
+    local myShip = getShipObject()
     myShip.unlock()
     local pos = myShip.getPosition()
     local angle = myShip.getRotation().y
-    local offset = Vector(BASE_CONST[shipData.size].warpAttachment):rotateOver("y", angle)
-    local offsetA = offset + Vector(-6, 0.05, 0.3):rotateOver("y", angle)
-    local offsetB = offset + Vector(-18, 0.05, 0.3):rotateOver("y", angle)
+    local offset = Vector(getBaseGeometry().warpAttachment):rotateOver("y", angle)
+    local offsetA = offset + Vector(-0.3, 0.05, -6):rotateOver("y", angle)
+    local offsetB = offset + Vector(-0.3, 0.05, -18):rotateOver("y", angle)
     rulerA = spawnObjectData(TOOLS.ruler_12in)
     rulerA.setPosition(pos + offsetA)
-    rulerA.setRotation({0, angle , 0})
+    rulerA.setRotation({0, angle - 90, 0})
     -- Lock the ruler in place
     rulerA.lock()
 	
     rulerB = spawnObjectData(TOOLS.ruler_12in)
     rulerB.setPosition(pos + offsetB)
-    rulerB.setRotation({0, angle , 0})
+    rulerB.setRotation({0, angle - 90, 0})
 
     -- Lock the ruler in place
     rulerB.lock()
@@ -636,11 +694,11 @@ end
 -- Assumes all objects are scale = 1 and their dimensions returned by getBounds() are in inches.
 
 function drawArc(system, jammed) -- system is "sensors", "comms", "weapons"
-    local myShip = getObjectFromGUID(saveData.shipGUID)
+    local myShip = getShipObject()
     local stats = shipData[system]
     local clr = myShip.getColorTint()
     clr.a = 1
-    local geometry = BASE_CONST[shipData.size].arcs
+    local geometry = getBaseGeometry().arcs
     local lines = {}
     -- Axis overlay
     -- local lines = {
@@ -649,10 +707,10 @@ function drawArc(system, jammed) -- system is "sensors", "comms", "weapons"
     --     {points = {{0,1,0}, {0,1,5}},color = {0,0,1}}
     -- } 
     for name, range in pairs(stats) do
-        if name ~= "instruments" then
+        if name == "all" or not saveData.wakeGUID and name ~= "instruments" then
             local arcs
             -- Calculate range
-            if jammed and system ~= "weapons" then
+            if jammed and system ~= "weapons" or saveData.wakeGUID then
                 range = 2
             elseif stats.instruments and stats.instruments[name] then
                 range = range + shipData.instruments[saveData.dials.alert.value + 1]
@@ -692,8 +750,8 @@ function sweepOverPoints(points, geometry, range)
 end
 
 function drawBase()
-    local myShip = getObjectFromGUID(saveData.shipGUID)
-    local geometry = BASE_CONST[shipData.size].arcs
+    local myShip = getShipObject()
+    local geometry = getBaseGeometry().arcs
     local lines = {}
     local points = {}
     local arcs = COMPOUND_ARCS["all"]
@@ -725,7 +783,7 @@ function commsJammed()
 end
 
 function clearArc(_rangeCir, _range)
-    local myShip = getObjectFromGUID(saveData.shipGUID)
+    local myShip = getShipObject()
     myShip.setVectorLines({})
 end
 
@@ -740,16 +798,16 @@ function launch(direction)
 end
 
 function launchAuxiliary(direction)
-    local myShip = getObjectFromGUID(saveData.shipGUID)
+    local myShip = getShipObject()
     if direction == "fore" then
-        myShip.createButton({function_owner = self, click_function = "launchFore",label = "Fore", position = {1.5,.2,0}, rotation = {0, 90, 0}, width = 350, height = 150 })
+        myShip.createButton({function_owner = self, click_function = "launchFore",label = "Fore", position = {0, 0.2, -1.5}, rotation = {0, 0, 0}, width = 350, height = 150 })
     elseif direction == "aft" then
-        myShip.createButton({function_owner = self, click_function = "launchAft",label = "Aft", position = {-1.5,.2,0}, rotation = {0, 90, 0}, width = 350, height = 150 })
+        myShip.createButton({function_owner = self, click_function = "launchAft",label = "Aft", position = {0, 0.2, 1.5}, rotation = {0, 0, 0}, width = 350, height = 150 })
     else
         return
     end
-    myShip.createButton({function_owner = self, click_function = "launchPort",label = "Port", position = {-0.1,.2,-1.2}, rotation = {0, 90, 0}, width = 350, height = 150})
-    myShip.createButton({function_owner = self, click_function = "launchStarboard",label = "Starboard", position = {-0.1,.2,1.2}, rotation = {0, 90, 0}, width = 550, height = 150})
+    myShip.createButton({function_owner = self, click_function = "launchPort",label = "Port", position = {-1.2, 0.2, 0.1}, rotation = {0, 0, 0}, width = 350, height = 150})
+    myShip.createButton({function_owner = self, click_function = "launchStarboard",label = "Starboard", position = {1.2, 0.2, 0.1}, rotation = {0, 0, 0}, width = 550, height = 150})
 end
 
 function launchAuxFore() launchAuxiliary("fore") end
@@ -770,15 +828,8 @@ function detach(player, value, id)
         altCard.jointTo(self, {type = "Fixed"})
         altCard.interactable = false
         saveData.altGUID = altCard.getGUID()
-        local path = ASSET_ROOT .. "factions/" .. shipData.faction .. "/" .. shipData.folder .. "/" .. shipData.type .. "/auxiliary.xml"
-        local request = WebRequest.get(path)
-        repeat until request.is_done
-        if request.is_error or request.text == "404: Not Found" then
-            log("Error downloading " .. ship.type .. ".xml")
-            return
-        else
-            shipData.auxiliary.ship_board.data.XmlUI = request.text
-        end
+        local path = "assets/factions/" .. shipData.faction .. "/ships/" .. shipData.short .. "/auxiliary.xml"
+        shipData.auxiliary.ship_board.data.XmlUI = Global.call("getFile", path)
         parameters = {
             data = shipData.auxiliary.ship_board.data,
             position = pos + Vector(5.25, 0, -5.25):rotateOver("y", rot.y),
@@ -786,9 +837,9 @@ function detach(player, value, id)
         }
         auxCard = spawnObjectData(parameters)
         saveData.auxGUID = auxCard.getGUID()
-        launchAuxiliary(shipData.auxiliary.direction)
         -- swap ship models
         swapShip()
+        launchAuxiliary(default.auxiliary.direction)
         -- check dial ranges
         for name, data in pairs(saveData.dials) do
             rotateDial(name, 0)
@@ -832,6 +883,9 @@ function swapShip()
         if saveData.detached then
             shipData = default
         else
+            if not default.alternate.instruments then
+                default.alternate.instruments = shipData.instruments
+            end
             shipData = default.alternate
         end
         saveData.detached = not saveData.detached
@@ -874,4 +928,64 @@ function adjust_thickness(player, value, id)
     self.UI.setAttribute("thicknessText", "text", "Thickness: " .. saveData.thickness .. "\"")
 end
 
--- build 1.0.3.01
+function getShipObject()
+    return getObjectFromGUID(saveData.cloaked and saveData.wakeGUID or saveData.shipGUID)
+end
+
+function getBaseGeometry()
+    return BASE_CONST[saveData.wakeGUID and "wake" or shipData.size]
+end
+
+function cloak(player, value, id)
+    clearArc()
+    -- Move ship
+    local pos, rot = placeTrackerAft()
+    local myShip = getObjectFromGUID(saveData.shipGUID)
+    myShip.setPosition(self.getPosition() + Vector(5.5, 0, -5.5):rotateOver("y", self.getRotation().y))
+    myShip.setRotation(self.getRotation() + Vector(0, 90, 0))
+    -- Spawn wake tracker
+    if not TOOLS.wake_tracker.data.LuaScript then
+        TOOLS.wake_tracker.data.LuaScript = Global.call("getFile", TOOLS.wake_tracker.ScriptURL)
+    end
+    if not TOOLS.wake_tracker.data.XmlUI then
+        local xml = Global.call("getFile", TOOLS.wake_tracker.XmlURL)
+        xml = xml:gsub("Black", player.color)
+        TOOLS.wake_tracker.data.XmlUI = xml
+    end
+    local obj_data = {data = TOOLS.wake_tracker.data}
+    local wake_data = {owner = player.color, parent = self.getGUID(), ship_type = shipData.name}
+    obj_data.callback_function = function(obj)
+        obj.call("setData", wake_data)
+    end
+    obj_data.data.Nickname = self.getName() .. " (" .. self.getGUID() .. ")"
+    local wake = spawnObjectData(obj_data)
+    -- Set wake tracker position
+    local attach = Vector(BASE_CONST.wake.toolAttachment.aft.pos) + Vector(0, 0, -0.25)
+    wake.setPosition(tracker.getPosition() - attach:rotateOver("y", rot.y))
+    wake.setRotation(rot)
+    saveData.wakeGUID = wake.getGUID()
+end
+
+function completeCloak()
+    saveData.cloaked = true
+    clearTemplates()
+end
+
+function decloak(param)
+    saveData.cloaked = false
+    clearTemplates()
+end
+
+function clearCloak()
+    saveData.wakeGUID = nil
+end
+
+function getCloakOffset(pos)
+    if pos == "A" or pos == "D" or pos == "E" or pos == "H" then
+        return BASE_CONST[shipData.size].cloakOffset["A"]
+    else
+        return BASE_CONST[shipData.size].cloakOffset["B"]
+    end
+end
+
+-- build 1.1.0.41

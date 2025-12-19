@@ -4,7 +4,7 @@
         <Text fontSize = "48" offsetXY = "0 375">Choose a Faction</Text>
         <Button class = "back" onClick = "close(taskForce)"/>
         <Button class = "import"/>
-        <VerticalScrollView>
+        <VerticalScrollView class = "TFVS">
             <GridLayout cellSize = "330 330" spacing = "10 10">
                 <Panel class = "fLayout" id = "faction1">
                     <Image id = "fLogo1" class = "fLogo"/>
@@ -28,7 +28,7 @@
         <Button class = "next"/>
         <Button class = "import"/>
         <Button class = "export"/>
-        <VerticalScrollView>
+        <VerticalScrollView class = "TFVS">
             <Panel height = "1560" width = "1000">
                 <TableLayout>
                     <Row class = "text"><Cell columnSpan = "3"><Text>Core Officers</Text></Cell></Row>
@@ -71,7 +71,7 @@
         <Button class = "export"/>
         <Button class = "import"/>
         <Button class = "spawn"/>
-        <VerticalScrollView>
+        <VerticalScrollView class = "TFVS">
             <Panel height = "1960" width = "1000" id = "fleetPanel">
                 <TableLayout>
                     <Row class = "text"><Cell columnSpan = "3"><Text>Transfer Officers</Text></Cell></Row>
@@ -92,9 +92,24 @@
                     </Row>
                     <Row class = "text"><Cell columnSpan = "3"><Text>Ships</Text></Cell></Row>
                     <Row preferredHeight = "245">
-                        <Cell><Image class = "shipSel" id = "ship1" onClick = "selectShip(capital)"/></Cell>
-                        <Cell><Image class = "shipSel" id = "ship2" onClick = "selectShip(noncapital)"/></Cell>
-                        <Cell><Image class = "shipSel" id = "ship3" onClick = "selectShip(noncapital)"/></Cell>
+                        <Cell>
+                            <Panel>
+                                <Image class = "shipSel" id = "ship1" onClick = "selectShip(capital)"/>
+                                <Button class = "remove" active = "false" id = "sx1"/>
+                            </Panel>
+                        </Cell>
+                        <Cell>
+                            <Panel>
+                                <Image class = "shipSel" id = "ship2" onClick = "selectShip(noncapital)"/>
+                                <Button class = "remove" active = "false" id = "sx2"/>
+                            </Panel>
+                        </Cell>
+                        <Cell>
+                            <Panel>
+                                <Image class = "shipSel" id = "ship3" onClick = "selectShip(noncapital)"/>
+                                <Button class = "remove" active = "false" id = "sx3"/>
+                            </Panel>
+                        </Cell>
                     </Row>
                     <Row class = "text"><Cell columnSpan = "3"><Text>Titles</Text></Cell></Row>
                     <Row preferredHeight = "300">
@@ -174,7 +189,7 @@
     <!-- Ship Selection Panel -->
     <Panel id = "selectShip" active = "false">
         <Button class = "back" onClick = "close(selectShip)"/>
-        <VerticalScrollView>
+        <VerticalScrollView class = "TFVS">
             <Panel id = "shipScrollPanel" height = "1960">
                 <GridLayout cellSize = "400 300" spacing = "5 5" colors = "Black">
                     <Image class = "ship" id = "s1"/>
@@ -189,44 +204,21 @@
     <!-- Vertical card selector -->
     <Panel id = "vertCardSelector" active = "false">
         <Button class = "back" id = "vcsBack" onClick = "close(vertCardSelector)"/>
-        <VerticalScrollView>
+        <VerticalScrollView class = "TFVS">
             <Panel id = "vCardScrollPanel" height = "1960">
-                <GridLayout cellSize = "400 300" spacing = "10 10" colors = "Black">
-                    <Panel class = "vertPanel" id = "vc1"><Image class = "vertFront" id = "vb1"/><Image class = "vertBack" id = "vf1"/></Panel>
-                    <Panel class = "vertPanel" id = "vc2"><Image class = "vertFront" id = "vb2"/><Image class = "vertBack" id = "vf2"/></Panel>
-                    <Panel class = "vertPanel" id = "vc3"><Image class = "vertFront" id = "vb3"/><Image class = "vertBack" id = "vf3"/></Panel>
-                    <Panel class = "vertPanel" id = "vc4"><Image class = "vertFront" id = "vb4"/><Image class = "vertBack" id = "vf4"/></Panel>
-                    <Panel class = "vertPanel" id = "vc5"><Image class = "vertFront" id = "vb5"/><Image class = "vertBack" id = "vf5"/></Panel>
-                    <Panel class = "vertPanel" id = "vc6"><Image class = "vertFront" id = "vb6"/><Image class = "vertBack" id = "vf6"/></Panel>
-                    <Panel class = "vertPanel" id = "vc7"><Image class = "vertFront" id = "vb7"/><Image class = "vertBack" id = "vf7"/></Panel>
-                    <Panel class = "vertPanel" id = "vc8"><Image class = "vertFront" id = "vb8"/><Image class = "vertBack" id = "vf8"/></Panel>
-                    <Panel class = "vertPanel" id = "vc9"><Image class = "vertFront" id = "vb9"/><Image class = "vertBack" id = "vf9"/></Panel>
-                    <Panel class = "vertPanel" id = "vc10"><Image class = "vertFront" id = "vb10"/><Image class = "vertBack" id = "vf10"/></Panel>
-                    <Panel class = "vertPanel" id = "vc11"><Image class = "vertFront" id = "vb11"/><Image class = "vertBack" id = "vf11"/></Panel>
-                    <Panel class = "vertPanel" id = "vc12"><Image class = "vertFront" id = "vb12"/><Image class = "vertBack" id = "vf12"/></Panel>
-                    <Panel class = "vertPanel" id = "vc13"><Image class = "vertFront" id = "vb13"/><Image class = "vertBack" id = "vf13"/></Panel>
-                    <Panel class = "vertPanel" id = "vc14"><Image class = "vertFront" id = "vb14"/><Image class = "vertBack" id = "vf14"/></Panel>
-                    <Panel class = "vertPanel" id = "vc15"><Image class = "vertFront" id = "vb15"/><Image class = "vertBack" id = "vf15"/></Panel>
-                    <Panel class = "vertPanel" id = "vc16"><Image class = "vertFront" id = "vb16"/><Image class = "vertBack" id = "vf16"/></Panel>
-                    <Panel class = "vertPanel" id = "vc17"><Image class = "vertFront" id = "vb17"/><Image class = "vertBack" id = "vf17"/></Panel>
-                    <Panel class = "vertPanel" id = "vc18"><Image class = "vertFront" id = "vb18"/><Image class = "vertBack" id = "vf18"/></Panel>
-                    <Panel class = "vertPanel" id = "vc19"><Image class = "vertFront" id = "vb19"/><Image class = "vertBack" id = "vf19"/></Panel>
-                    <Panel class = "vertPanel" id = "vc20"><Image class = "vertFront" id = "vb20"/><Image class = "vertBack" id = "vf20"/></Panel>
+                <GridLayout id = "vGridLayout" cellSize = "400 300" spacing = "10 10" colors = "Black">
+                    <Text>None</Text>
                 </GridLayout>
             </Panel>
         </VerticalScrollView>
     </Panel>
     <!-- Horizontal card selector -->
     <Panel id = "horCardSelector" active = "false">
-        <Button class = "back" id = "hcsBack" onClick = "horCardSelector"/>
-        <VerticalScrollView>
+        <Button class = "back" id = "hcsBack" onClick = "close(horCardSelector)"/>
+        <VerticalScrollView class = "TFVS">
             <Panel id = "hCardScrollPanel" height = "1960">
-                <GridLayout cellSize = "800 300" spacing = "5 5" colors = "Black">
-                    <Panel class = "horPanel" id = "hc1"><Image class = "horFront" id = "hf1"/><Image class = "horBack" id = "hb1"/></Panel>
-                    <Panel class = "horPanel" id = "hc2"><Image class = "horFront" id = "hf2"/><Image class = "horBack" id = "hb2"/></Panel>
-                    <Panel class = "horPanel" id = "hc3"><Image class = "horFront" id = "hf3"/><Image class = "horBack" id = "hb3"/></Panel>
-                    <Panel class = "horPanel" id = "hc4"><Image class = "horFront" id = "hf4"/><Image class = "horBack" id = "hb4"/></Panel>
-                    <Panel class = "horPanel" id = "hc5"><Image class = "horFront" id = "hf5"/><Image class = "horBack" id = "hb5"/></Panel>
+                <GridLayout id = "hGridLayout" cellSize = "800 300" spacing = "5 5" colors = "Black">
+                    <Text>None</Text>
                 </GridLayout>
             </Panel>
         </VerticalScrollView>

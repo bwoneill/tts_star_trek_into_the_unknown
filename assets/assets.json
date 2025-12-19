@@ -1,0 +1,1113 @@
+{
+    "branch": "v1.1.0",
+    "directives": [
+        {
+            "faction": "dominion", "gtype": "directive", "type": "combat",
+            "names": ["Tactful Approach", "Make an Example"]
+        },
+        {
+            "faction": "dominion", "gtype": "directive", "type": "diplomacy",
+            "names": ["Spread the Founders Influence", "Seed Doubt"]
+        },
+        {
+            "faction": "dominion", "gtype": "directive", "type": "exploration",
+            "names": ["Test Local Powers", "Seize Control"],
+            "teams": [
+                ["diplomatic_a", "assault_a"],
+                ["diplomatic_b", "assault_b"],
+                ["damage_c", "assault_c"]
+            ]
+        },
+        {
+            "faction": "federation", "gtype": "directive", "type": "combat",
+            "names": ["We Come In Peace", "Proportionate Response"]
+        },
+        {
+            "faction": "federation", "gtype": "directive", "type": "diplomacy",
+            "names": ["Seek Out New Life and Civilizations", "Protect Federation Interests"]
+        },
+        {
+            "faction": "federation", "gtype": "directive", "type": "exploration",
+            "names": ["Explore Strange New Worlds", "Right to Self-Determination"],
+            "teams": [
+                ["survey_a", "security_a"],
+                ["survey_b", "security_b"],
+                ["engineering_c", "security_c"]
+            ]
+        },
+        {
+            "faction": "klingon", "gtype": "directive", "type": "combat",
+            "names": ["Uphold the Empires Oaths", "It is a Good Day to Die"]
+        },
+        {
+            "faction": "klingon", "gtype": "directive", "type": "diplomacy",
+            "names": ["Boisterous Demeanor", "Actions Surpass Words"]
+        },
+        {
+            "faction": "klingon", "gtype": "directive", "type": "exploration",
+            "names": ["Glory Awaits", "Deeds Worthy of Song"],
+            "teams": [
+                ["honor_guard_a", "boarding_a"],
+                ["honor_guard_b", "boarding_b"],
+                ["honor_guard_c", "repair_c"]
+            ]
+        }
+    ],
+    "equipment": [
+        {"name": "Class 1 Probes", "gtype": "equipment", "fp": 5, "card": ["probe_class_1.png", "pod_escape.png"]},
+        {"name": "Escape Pods", "gtype": "equipment", "fp": 3, "card": ["pod_escape.png","probe_class_1.png"]},
+        {"name": "Personnel Transponders", "gtype": "equipment","fp": 6, "factions": { "dominion": true}},
+        {"name": "Quantum Torpedoes Reload", "gtype": "equipment", "fp": 6, "card": ["torpedo_quantum.png","torpedo_photon.png"],
+            "factions": {"federation": true, "dominion": true}},
+        {"name": "Runabout Berth", "gtype": "equipment", "fp": 3, "factions": {"federation": true}},
+        {"name": "Modernized Drive System", "gtype": "equipment", "fp": 2, "factions": {"federation": true}},
+        {"name": "Relic Armory", "gtype": "equipment", "fp": 2, "factions": {"klingon": true}},
+        {"name": "Romulan Cloaking Device", "gtype": "equipment", "fp": 0, "factions": {"federation": true}},
+        {"name": "Toron Class Shuttle Berth", "gtype": "equipment", "fp": 2, "factions": {"klingon": true}}
+    ],
+    "factions": {
+        "dominion": {
+            "playable": true,
+            "displayName": "Dominion"
+        },
+        "federation": {
+            "playable": true,
+            "displayName": "United Federation of Planets"
+        },
+        "romulan": {
+            "playable": false,
+            "displayName": "Romulan Star Empire"
+        },
+        "klingon": {
+            "playable": true,
+            "displayName": "Klingon Empire"
+        }
+    },
+    "keywords": [
+        {
+            "name": "Augmented X", "gtype": "keyword",
+            "text": "While this officer leads a test, you may replace up to X intuition (blue) dice with that many expertise (black) dice."
+        },
+        {
+            "name": "Changeling X", "gtype": "keyword",
+            "text": "After this officer leads a test, add X peril to each opposing unit at this officer's location."
+        },
+        {
+            "name": "Glib X", "gtype": "keyword",
+            "text": "After this officer leads a hail, if you were accommodating, add X peril to a unit of your choice at Comms range."
+        },
+        {
+            "name": "Handy X", "gtype": "keyword",
+            "text": "While this officer leads a repair test, you may reroll up to X dice."
+        },
+        {
+            "name": "Inspiring [one or more stat icons]", "gtype": "keyword",
+            "text": "While this officer leads a test with the specified stat, you can spend two analysis results to inspire their unit."
+        },
+        {
+            "name": "Medic X", "gtype": "keyword",
+            "text": "During your turn in the Ready Phase, you may test (difficulty 2) science stat + Biology.\nSuccess: Remove up to X trauma from personnel at this location. You can choose more than one personnel (officers and\/or team units), in which case you decide how to split the total of X trauma removed this way."
+        },
+        {
+            "name": "Perceptive X", "gtype": "keyword",
+            "text": "While this officer leads a test, treat their unit's instruments power stat as increased by X."
+        },
+        {
+            "name": "Qapla'", "gtype": "keyword",
+            "text": "After this officer leads an action that scores 1 or more victory points, you may bank up to 1 of the tokens on their card. While this officer has 1 or more victory point banked on their card, they gain the bracketed abilities, skills, or other game text in brackets. At the end of the game, unless this officer is captured, score all victory points banked on them."
+        },
+        {
+            "name": "Relentless X", "gtype": "keyword",
+            "text": "While this officer leads an attack or a test for which the relevant skill comes from the security skill category, you can reroll up to X dice. For each die rerolled this way that results in breakthrough success, this officer�s unit sustains 1 health damage during the Post Effects step."
+        },
+        {
+            "name": "Detonation X", "gtype": "keyword",
+            "text": "This unit detonates if it is at X\" of an opposing unit before or after it moves. Then it uses its weapon profile to perform an attack against each unit at X\" (both friendly and opposing)."
+        },
+        {
+            "name": "Guided", "gtype": "keyword",
+            "text": "If this unit begins its move at Sensors range of a locked opposing unit, it can move along one of its fore sides (instead of its lateral sides). A unit with this keyword shows these sides with striped lines on its unit card."
+        },
+        {
+            "name": "Inertia", "gtype": "keyword",
+            "text": "This unit must activate to engage impulse and move during the Standby Phase if it has 1 or more endurance markers remaining. The unit must move a distance equal to its full engine power stat, if able."
+        },
+        {
+            "name": "Relay X", "gtype": "keyword",
+            "text": "While there is a friendly unit with combined Comms range to this unit (adding both units' Comms ranges), this unit can use the friendly unit's X stat value instead of its own."
+        },
+        {
+            "name": "Blast X", "gtype": "keyword",
+            "text": "When this unit detonates, it attacks each unit at X\" with this weapon profile. If there are one or more opposing units with a friendly lock token at X\", only those units are attacked."
+        },
+        {
+            "name": "Breach X", "gtype": "keyword",
+            "text": "If the target has hull, during the resolve damage step, the defender does not stop reducing their hull value after their dial or track changes to the next hull status; its hull can be reduced up to X additional steps."
+        },
+        {
+            "name": "Lethal X", "gtype": "keyword",
+            "text": "During the post effects step, you may resolve the following effect:\nAnalysis+: If the attack hit and the defender sustained damage, for each analysis result spent, up to X, the defender must sustain 1 additional health damage.\n� If the defender has a crew dial, its hull must have been reduced by the damage sustained."
+        },
+        {
+            "name": "Pierce X", "gtype": "keyword",
+            "text": "If the target has shields, during the determine outcome step, you may resolve the following effect:\nAnalysis+: For each analysis spent, the defender's shield value is reduced by 1 until the end of the action. This effect is cumulative up to X, including across additional attacks during the same action."
+        },
+        {
+            "name": "Pulse X", "gtype": "keyword",
+            "text": "During the modify dice step, you may reroll a number of dice up to X."
+        },
+        {
+            "name": "Abundant X", "gtype": "keyword",
+            "text": "Each unit with no advantage at 2\" gains the following action:\n\tCargo Bay station - GATHER RESOURCES: Test (difficulty 3) science stat + Commerce or Fieldcraft (reroll instruments).\n\tSuccess: The unit adds 1 advantage, plus 1 per point by which it exceeded the difficulty, to a maximum of X."
+        },
+        {
+            "name": "Capacity X", "gtype": "keyword",
+            "text": "This feature has one section, which can accommodate an unlimited number of officers and up to X ground units (per player). Units inside of the feature cannot be attacked by units outside of the feature."
+        },
+        {
+            "name": "Massive X", "gtype": "keyword",
+            "text": "After a space unit performs a maneuver, if it is at 2\" of this feature, it must make the following test: test (difficulty X) command stat + Navigation (reroll impulse turn value ).\nSuccess: Add 2 peril.\nBreakthrough Success+: Remove 1 peril added this way per breakthrough success result.\nFailure: Add 1 peril, plus 1 peril per point by which the test failed. Then an opponent may rotate the space unit up to 1 impulse turn."
+        },
+        {
+            "name": "Obscuring X", "gtype": "keyword",
+            "text": "Each unit at 2\" of this feature increases its evasion stat by X and treats its Comms and Sensors range as 2\"."
+        },
+        {
+            "name": "Treacherous X", "gtype": "keyword",
+            "text": "While a space unit performs a warp maneuver that crosses this feature, it must immediately resolve the following: test (difficulty X) ops stat + Navigation (reroll instruments).\nSuccess: Complete the maneuver. Add 2 peril.\nBreakthrough Success+: Remove 1 peril added this way per breakthrough success.\nFailure: Add 1 peril, plus 1 per point by which the test failed. Then an opponent places the space unit touching the feature. Finally, the unit sustains 3 damage to its fore end."
+        },
+        {
+            "name": "Unstable X", "gtype": "keyword",
+            "text": "During the Hazard Phase, each unit at 2\" of this feature must make the following test: test (difficulty X) ops stat + Mechanics (reroll impulse turn):\nSuccess: Add 2 peril.\nBreakthrough Success+: Remove 1 peril gained this way per breakthrough success.\nFailure: Add 1 peril, plus 1 per point by which the test failed. Then if the ship has 3 or more <per>, any opponent may remove 3 peril from the ship to have it sustain 1 crew loss."
+        }
+    ],
+    "missions": {
+        "situation": [
+            {
+                "name": "Unexplained Biosigns", "tags": ["Situation", "Mystery"], "gtype": "situation",
+                "features": [{"gtype": "feature", "type": "anomalies", "name": "Phantom life signs", "quantity": 6}]
+            },
+            {
+                "name": "Delicate Treaty", "tags": ["Situation", "Intrigue"], "gtype": "situation",
+                "features": [
+                    {"gtype": "feature", "type": "anomalies", "name": "Warning buoy", "quanity": 4},
+                    {"gtype": "feature", "type": "rift", "name": "Gravity rift", "quantity": 2, "description": "Massive 1\nTreacherous 3"}
+                ]
+            },
+            {
+                "name": "Anomalous Objects", "tags": ["Situation", "Mystery"], "gtype": "situation",
+                "features": [{"gtype": "feature", "type": "anomalies", "name": "Strange beacon", "quantity": 6, "description": "Capacity 2"}]
+            },
+            {
+                "name": "Gamma Quadrant Anomalies", "tags": ["Situation", "Threat"], "gtype": "situation",
+                "features": [{"gtype": "feature", "type": "anomalies", "name": "Anomalous readings", "quantity": 6}]
+            },
+            {
+                "name": "Hostile Raiders", "tags": ["Situation", "Intrigue"], "gtype": "situation",
+                "features": [
+                    {"gtype": "feature", "type": "anomalies", "name": "Distress bouy", "quantity": 4, "description": "Treacherous 2"},
+                    {"gtype": "feature", "type": "cloud", "name": "Nebula", "quantity": 2, "description": "Obscuring 1"}
+                ],
+                "ships": [{"raider": 1}]
+            },
+            {
+                "name": "Disruptive Ion Storms", "tags": ["Situation", "Threat"], "gtype": "situation",
+                "features": [{"gtype": "feature", "type": "cloud", "name": "Ion cloud", "quantity": 4, "description": "Obscuring 1\nTreacherous 3"}]
+            }
+        ],
+        "complication": [
+            {
+                "name": "Race for Knowledge", "tags": ["Complication", "Study", "Intrigue", "Mystery"], "gtype": "complication",
+                "objectives": [{"gtype": "objective", "type": "solid", "name": "Archealogical site", "add_description": "Capacity 3\nUnstable 2", "quantity": 8}]
+            },
+            {
+                "name": "Infection", "tags": ["Complication", "Study", "Battle", "Threat"], "gtype": "complication",
+                "objectives": [{"gtype": "objective", "type": "solid", "name": "Infection origin", "add_description": "Capacity 3", "quantity": 6}]
+            },
+            {
+                "name": "Missing Crew", "tags": ["Complication", "Politics", "Mystery"], "gtype": "complication",
+                "objectives": [{"gtype": "objective", "type": "ping", "name": "Cryptic signal", "quantity": 4, "description": "Treacherous 3\nUnstable 2"}]
+            },
+            {
+                "name": "Cloak and Dagger", "tags": ["Complication", "Politics", "Intrigue"], "gtype": "complication",
+                "objectives": [{"gtype": "objective", "type": "solid", "name": "Secret base", "add_description": "Capacity 3", "quantity": 8}]
+            },
+            {
+                "name": "Tactical Extraction", "tags": ["Complication", "Battle", "Threat"], "gtype": "complication",
+                "objectives": [{"gtype": "objective", "type": "solid", "name": "Embedded base", "add_description": "Capacity 2", "quantity": 6}]
+            },
+            {
+                "name": "On the Tide of Ages", "tags": ["Complication", "Politic", "Study", "Mystery"], "gtype": "complication",
+                "objectives": [{"gtype": "objective", "type": "solid", "name": "Ancient Ports", "add_description": "Capacity 3", "quantity": 3}]
+            },
+            {
+                "name": "Contested Territory", "tags": ["Complication", "Battle", "Politics", "Intrigue"], "gtype": "complication",
+                "objectives": [{"gtype": "objective", "type": "solid", "name": "Strategic holding", "add_description": "Capacity 3"}]
+            },
+            {
+                "name": "Surface Strikes", "tags": ["Complication", "Battle", "Politics", "Intrigue"], "gtype": "complication",
+                "objectives": [{"gtype": "objective", "type": "solid", "name": "Entrenched Base", "add_description": "Capacity 2", "quantity": 6}],
+                "ships": [{"artifact": 1}]
+            },
+            {
+                "name": "Inscrutable Entity", "tags": ["Complication", "Study", "Threat", "Mystery"], "gtype": "complication",
+                "objectives": [{"gtype": "objective", "type": "ping", "name": "Clue", "quantity": 4}],
+                "ships": [{"tinman": 1}]
+            }
+        ],
+        "overture": [
+            {
+                "name": "Unstable Discovery", "tags": ["Overture", "Study", "Solitary"], "gtype": "overture",
+                "objectives": [{"gtype": "objective", "type": "ping", "name": "Unusual readings", "quantity": 6, "description": "Treacherous 2"}]
+            },
+            {
+                "name": "Distress Call", "tags": ["Overture", "Study", "Trinary"], "gtype": "overture",
+                "objectives": [{"gtype": "objective", "type": "solid", "name": "Signal location", "quantity": 6, "description": "Capacity 3\nUnstable 2"}]
+            },
+            {
+                "name": "Show the Flag", "tags": ["Overture", "Battle", "Helix"], "gtype": "overture",
+                "objectives": [{"gtype": "objective", "type": "solid", "name": "Rally point", "quantity": 4, "description": "Capacity 2"}]
+            },
+            {
+                "name": "Battlefield Rescue", "tags": ["Overture", "Battle", "Solitary"], "gtype": "overture",
+                "objectives": [{"gtype": "objective", "type": "solid", "name": "Wreckage drift", "quantity": 4, "description": "Capacity 2\nUnstable 1"}]
+            },
+            {
+                "name": "Neutral Zone Survey", "tags": ["Overture", "Politics", "Helix"], "gtype": "overture",
+                "objectives": [{"gtype": "objective", "type": "ping", "name": "Signal", "quantity": 6}]
+            },
+            {
+                "name": "Critical Supply Drop", "tags": ["Overture", "Politics", "Trinary"],
+                "objectives": [{"gtype": "objective", "type": "solid", "name": "Outpost", "quantity": 3, "description": "Capacity 2"}],
+                "ships": [{"supply": 2}]
+            },
+            {
+                "name": "Missing Survey Teams", "tags": ["Overture", "Politics", "Helix"], "gtype": "overture",
+                "objectives": [
+                    {"gtype": "objective", "type": "solid", "name": "Scouting point", "quantity": 3, "description": "Capacity 3\nMassive 1"},
+                    {"gtype": "objective", "type": "ping", "name": "Suspicous readings", "quantity": 3, "description": "Treacherous 2\nUnstable 2"}
+                ]
+            }
+        ]
+    },
+    "officers": [
+        {
+            "name": "Eris", "subtitle": "Manipulative Agent", "gtype": "officer",
+            "factions": {"dominion": true},
+            "roles": {"command": true, "ops": true},
+            "cp": 8, "fp": 4, "unique": true
+        },
+        {
+            "name": "Founder", "gtype": "officer",
+            "factions": {"dominion": true},
+            "roles": {"command": true, "science": true, "ops": true},
+            "cp": 9, "fp": 6
+        },
+        {
+            "name": "Hanok", "subtitle": "Sanctimonious Minister", "gtype": "officer",
+            "factions": {"dominion": true},
+            "roles": {"ops": true, "science": true},
+            "sway": {"ferengi": 1},
+            "cp": 9, "fp": 3, "unique": true
+        },
+        {
+            "name": "Jem'Hadar First", "gtype": "officer",
+            "factions": {"dominion": true},
+            "roles": {"ops": true},
+            "cp": 8, "fp": 3
+        },
+        {
+            "name": "Jem'Hadar Second", "gtype": "officer",
+            "factions": {"dominion": true},
+            "roles": {"ops": true},
+            "cp": 7, "fp": 2
+        },
+        {
+            "name": "Karemma Researcher", "gtype": "officer",
+            "factions": {"dominion": true},
+            "roles": {"science": true},
+            "cp": 7, "fp": 3
+        },
+        {
+            "name": "Omet'iklan", "subtitle": "Loyal First", "gtype": "officer",
+            "factions": {"dominion": true},
+            "roles": {"ops": true},
+            "cp": 11, "fp": 4, "unique": true
+        },
+        {
+            "name": "Talak'talan", "subtitle": "Menacing Third", "gtype": "officer",
+            "factions": {"dominion": true},
+            "roles": {"ops": true },
+            "cp": 9, "fp": 3, "unique": true
+        },
+        {
+            "name": "The Female Changeling", "subtitle": "Divine Ruler", "gtype": "officer",
+            "factions": {"dominion": true},
+            "roles": {"command": true, "science": true, "ops": true},
+            "cp": 10, "fp": 3, "unique": true
+        },
+        {
+            "name": "Vorta Diplomat", "gtype": "officer",
+            "factions": {"dominion": true},
+            "roles": {"command": true},
+            "cp": 6, "fp": 3
+        },
+        {
+            "name": "Vorta Supervisor", "gtype": "officer",
+            "factions": {"dominion": true},
+            "roles": {"command": true},
+            "cp": 0, "fp": 2, "line_officer": true
+        },
+        {
+            "name": "Weyoun 4", "subtitle": "Unctuous Envoy", "gtype": "officer",
+            "factions": {"dominion": true},
+            "roles": {"command": true},
+            "cp": 9, "fp": 3, "unique": true
+        },
+        {
+            "name": "Benjamin Sisko", "subtitle": "Reluctant Emissary", "gtype": "officer",
+            "factions": {"federation": true},
+            "roles": {"command": true, "ops": true},
+            "sway": {"bajoran": 1},
+            "cp": 11, "fp": 4, "unique": true
+        },
+        {
+            "name": "Daring First Officer", "gtype": "officer",
+            "factions": {"federation": true},
+            "roles": {"command": true, "ops": true},
+            "cp": 6, "fp": 3
+        },
+        {
+            "name": "Geordi LaForge", "subtitle": "Inquisitive Engineer", "gtype": "officer",
+            "factions": {"federation": true},
+            "roles": {"ops": true, "science": true},
+            "cp": 11, "fp": 4, "unique": true
+        },
+        {
+            "name": "Intrepid Captain", "gtype": "officer",
+            "factions": {"federation": true},
+            "roles": {"command": true},
+            "cp": 7, "fp": 4
+        },
+        {
+            "name": "Jadzia Dax", "subtitle": "Vivacious Host", "gtype": "officer",
+            "factions": {"federation": true},
+            "roles": {"ops": true, "science": true},
+            "sway": {"klingon": 1, "ferengi": 1},
+            "cp": 10, "fp": 4, "unique": true
+        },
+        {
+            "name": "Jean-Luc Picard", "subtitle": "Principled Captain", "gtype": "officer",
+            "factions": {"federation": true},
+            "roles": {"command": true, "science": true, "ops": true},
+            "cp": 14, "fp": 6, "unique": true
+        },
+        {
+            "name": "Julian Bashir", "subtitle": "Inquisitive Doctor", "gtype": "officer",
+            "factions": {"federation": true},
+            "roles": {"science": true},
+            "cp": 9, "fp": 3, "unique": true
+        },
+        {
+            "name": "Kira Nerys", "subtitle": "Bajoran Hero", "gtype": "officer",
+            "factions": {"bajoran": true, "federation": true},
+            "sway": {"federation": 1, "bajoran": 2},
+            "roles": {"command": true, "ops": true},
+            "cp": 10, "fp": 4, "unique": true
+        },
+        {
+            "name": "Miles OBrien", "subtitle": "Chief of Operations", "gtype": "officer",
+            "factions": {"federation": true},
+            "roles": {"ops": true},
+            "cp": 12, "fp": 5, "unique": true
+        },
+        {
+            "name": "Odo", "subtitle": "Stern Constable", "gtype": "officer",
+            "factions": {"bajoran": true, "federation": true},
+            "roles": {"ops": true},
+            "sway": {"cardasian": 1, "bajoran": 1},
+            "cp": 10, "fp": 5, "unique": true
+        },
+        {
+            "name": "Redoubtable Engineer", "gtype": "officer",
+            "factions": {"federation": true},
+            "roles": {"ops": true,"science": true},
+            "cp": 6, "fp": 3
+        },
+        {
+            "name": "Reliable Commander", "gtype": "officer",
+            "factions": {"federation": true},
+            "roles": {"command": true},
+            "cp": 0, "fp": 3, "line_officer": true
+        },
+        {
+            "name": "Scholarly Doctor", "gtype": "officer",
+            "factions": {"federation": true},
+            "roles": {"science": true},
+            "cp": 6, "fp": 3
+        },
+        {
+            "name": "Vigilant Security Chief", "gtype": "officer",
+            "factions": {"federation": true},
+            "roles": {"ops": true},
+            "cp": 6, "fp": 2
+        },
+        {
+            "name": "Worf", "subtitle": "Son of Mogh", "gtype": "officer",
+            "factions": {"klingon": true, "federation": true},
+            "roles": {"command": true, "ops": true },
+            "sway": {"federation": 1, "klingon": 1},
+            "cp": 11, "fp": 3, "unique": true
+        },
+        {
+            "name": "Beverly Crusher", "subtitle": "Expert Physician", "gtype": "officer",
+            "factions": {"federation": true},
+            "roles": {"command": true, "science": true},
+            "cp": 9, "fp": 4, "unique": true
+        },
+        {
+            "name": "Data", "subtitle": "Positronic Prodigy", "gtype": "officer",
+            "factions": {"federation": true},
+            "roles": {"ops": true, "science": true},
+            "cp": 15, "fp": 6, "unique": true
+        },
+        {
+            "name": "Deanna Troi", "subtitle": "Insightful Counsellor", "gtype": "officer",
+            "factions": {"federation": true},
+            "roles": {"science": true},
+            "cp": 9, "fp": 3, "unique": true
+        },
+        {
+            "name": "William Riker", "subtitle": "Dashing Commander", "gtype": "officer",
+            "factions": {"federation": true},
+            "roles": {"command": true, "ops": true},
+            "cp": 12, "fp": 6, "unique": true
+        },
+        {
+            "name": "T'Rul", "subtitle": "Acerbic Subcommander", "gtype": "officer",
+            "factions": {"federation": true, "romulan": true},
+            "roles": {"science": true},
+            "cp": 8, "fp": 4, "unique": true
+        },
+        {
+            "name": "Cunning Weapons Officer", "gtype": "officer",
+            "factions": {"klingon": true},
+            "roles": {"ops": true},
+            "cp": 7, "fp": 3
+        },
+        {
+            "name": "Gowron", "subtitle": "Canny Chancellor", "gtype": "officer",
+            "factions": {"klingon": true},
+            "roles": {"command": true},
+            "cp": 15, "fp": 4, "unique": true
+        },
+        {
+            "name": "Grilka", "subtitle": "Indomitable Leader", "gtype": "officer",
+            "factions": {"klingon": true},
+            "roles": {"command": true},
+            "sway": {"ferengi": 2},
+            "cp": 12, "fp": 3, "unique": true
+        },
+        {
+            "name": "K'Ehleyr", "subtitle": "Ambassador of Two Worlds", "gtype": "officer",
+            "factions": {"federation": true, "klingon": true},
+            "roles": {"ops": true, "science": true},
+            "sway": {"federation": 1, "klingon": 1},
+            "cp": 9, "fp": 5, "unique": true
+        },
+        {
+            "name": "Kurn", "subtitle": "Steadfast Supporter", "gtype": "officer",
+            "factions": {"klingon": true},
+            "roles": {"command": true, "ops": true},
+            "cp": 12, "fp": 4, "unique": true
+        },
+        {
+            "name": "Loyal Commander", "gtype": "officer",
+            "factions": {"klingon": true},
+            "roles": {"command": true},
+            "cp": 0, "fp": 3, "line_officer": true
+        },
+        {
+            "name": "Proud Captain", "gtype": "officer",
+            "factions": {"klingon": true},
+            "roles": {"command": true},
+            "cp": 8, "fp": 3
+        },
+        {
+            "name": "Restless First Officer", "gtype": "officer",
+            "factions": {"klingon": true},
+            "roles": {"ops": true},
+            "cp": 8, "fp": 3
+        },
+        {
+            "name": "Savvy Engineer", "gtype": "officer",
+            "factions": {"klingon": true},
+            "roles": {"ops": true},
+            "cp": 8,"fp": 3
+        },
+        {
+            "name": "Wary Science Officer", "gtype": "officer",
+            "factions": {"klingon": true},
+            "roles": {"science": true},
+            "cp": 7, "fp": 2
+        },
+        {
+            "name": "Duras", "subtitle": "Son of Ja'rod", "gtype": "officer",
+            "factions": {"klingon": true},
+            "roles": {"command": true},
+            "sway": {"romulan": 2},
+            "cp": 10, "fp": 2, "unique": true
+        }
+    ],
+    "setup": {
+        "system_marker": {
+            "data": {
+                "Name": "Custom_Tile", "Tags": ["Marker", "System"],
+                "CustomImage": {
+                    "CustomTile": {"Thickness": 0.1, "Type": 2, "Stretch": false},
+                    "ImageURL": "ROOT\/assets\/markers\/system_marker_1.png"
+                },
+                "Transform": {"scaleY": 1, "scaleX": 1.009268, "scaleZ": 1.009268},
+                "ColorDiffuse": {"r": 1, "g": 1, "b": 1, "a": 0.7},
+                "States": {
+                    "2": {
+                        "Name": "Custom_Tile", "Tags": ["Marker", "System"],
+                        "CustomImage": {
+                            "CustomTile": {"Thickness": 0.1, "Type": 2, "Stretch": false},
+                            "ImageURL": "ROOT\/assets\/markers\/system_marker_2.png"
+                        },
+                        "Transform": {"scaleY": 1, "scaleX": 1.009268, "scaleZ": 1.009268},
+                        "ColorDiffuse": {"r": 1, "g": 1, "b": 1, "a": 0.7}
+                    },
+                    "3": {
+                        "Name": "Custom_Tile", "Tags": ["Marker", "System"],
+                        "CustomImage": {
+                            "CustomTile": {"Thickness": 0.1, "Type": 2, "Stretch": false},
+                            "ImageURL": "ROOT\/assets\/markers\/system_marker_3.png"
+                        },
+                        "Transform": {"scaleY": 1, "scaleX": 1.009268, "scaleZ": 1.009268},
+                        "ColorDiffuse": {"r": 1, "g": 1, "b": 1, "a": 0.7}
+                    }
+                }
+            }
+        },
+        "system_border": {
+            "data": {
+                "Name": "Custom_Token", "Tags": ["Marker"],
+                "CustomImage": {
+                    "CustomToken": {"Thickness": 0.1},
+                    "ImageURL": "ROOT\/assets\/markers\/system_border.png"
+                },
+                "Transform": {"scaleY": 1, "scaleX": 0.4790743, "scaleZ": 0.4790743},
+                "ColorDiffuse": {"r": 1, "g": 1, "b": 1, "a": 0.7}
+            }
+        },
+        "systems": {
+            "solitary": {
+                "deployment": {
+                    "ruler_12in": [
+                        {"rot": [0, 270, 0], "pos": [-11.75, 1, -12]},
+                        {"rot": [0, 90, 0], "pos": [11.75, 1, 12]}
+                    ],
+                    "ruler_6in": [
+                        {"rot": [0, 180, 0], "pos": [-15, 1, -5.75]},
+                        {"rot": [0, 0, 0], "pos": [15, 1, 5.75]}
+                    ]
+                },
+                "radius": [13],
+                "centers": [[0, 0, 0]],
+                "borders": [[0, 45, 90, 135, 180, 225, 270, 315]]
+            },
+            "helix": {
+                "deployment": {
+                    "ruler_12in": [
+                        {"rot": [0, 270, 0], "pos": [-11.75, 1, -12]},
+                        {"rot": [0, 90, 0], "pos": [11.75, 1, 12]}
+                    ],
+                    "ruler_6in": [
+                        {"rot": [0, 180, 0], "pos": [-15, 1, -5.75]},
+                        {"rot": [0, 0, 0], "pos": [15, 1, 5.75]}
+                    ]
+                },
+                "radius": [13, 13],
+                "centers": [[5, 0, -17], [-5, 0, 17]],
+                "borders": [[105, 155, 205, 255], [25, 75, 285, 335]]
+            },
+            "trinary": {
+                "deployment": {
+                    "ruler_12in": [
+                        {"rot": [0, 270, 0], "pos": [-11.75, 1, -3]},
+                        {"rot": [0, 90, 0], "pos": [11.75, 1, -3]}
+                    ],
+                    "ruler_6in": [
+                        {"rot": [0, 180, 0], "pos": [-15, 1, -9.25]},
+                        {"rot": [0, 0, 0], "pos": [15, 1, 3.25]},
+                        {"rot": [0, 180, 0], "pos": [-15, 1, 3.25]},
+                        {"rot": [0, 0, 0], "pos": [15, 1, -9.25]}
+                    ]
+                },
+                "radius": [13, 13, 13],
+                "centers": [[17, 0, 17], [-17, 0, 17], [0, 0, -14]],
+                "borders": [[20, 70], [290, 340], [90, 150, 210, 270]]
+            }
+        }
+    },
+    "ships": {
+        "fighter": {
+            "name": "Jem'Hadar Fighter", "faction": "dominion", "role": "scout", "size": "small",
+            "short": "fighter", "gtype": "ship",
+            "dials": {
+                "hull": {"min": 0, "max": 6},
+                "crew": {"min": -2, "max": 4},
+                "alert": {"min": 0, "max": 4},
+                "power": {"min": 0, "max": 7}
+            },
+            "sensors": {
+                "all": 4, "fore": 4,
+                "instruments": {"fore": true}
+            },
+            "comms": {
+                "all": 4, "fore": 4,
+                "instruments": {"fore": true}
+            },
+            "instruments": [1, 2, 2, 1, 0],
+            "model_transform": {"scaleX": 1.548, "posY": 0.25, "rotY": -90},
+            "weapons": {"aft": 6, "fore": 6},
+            "crit_deck_size": 4
+        },
+        "battlecruiser": {
+            "name": "Jem'Hadar Battle Cruiser", "faction": "dominion", "role": "capital", "size": "large",
+            "short": "battlecruiser", "gtype": "ship",
+            "dials": {
+                "hull": {"min": 0, "max": 9},
+                "crew": {"min": -2, "max": 5},
+                "alert": {"min": 0, "max": 5},
+                "power": {"min": 0, "max": 8}
+            },
+            "sensors": {
+                "all": 4, "fore": 4,
+                "instruments": {"fore": true}
+            },
+            "comms": {
+                "all": 6, "fore": 6,
+                "instruments": {"fore": true}
+            },
+            "instruments": [2, 3, 2, 2, 1, 0],
+            "model_transform": {"rotY": -90, "scaleX": 1.698},
+            "weapons": {"aft": 6, "fore": 6},
+            "crit_deck_size": 6
+        },
+        "type6": {
+            "name": "Type 6 Shuttle", "faction": "federation", "size": "shuttle",
+            "short": "type6", "gtype": "auxiliary",
+            "comms": {"all": 3},
+            "sensors": {"all": 3},
+            "weapons": {"all": 4},
+            "model_transform": {"posY": 0.5, "rotY": -90}
+        },
+        "runabout": {
+            "name": "Danube-Class Runabout", "faction": "federation", "size": "shuttle",
+            "short": "runabout", "gtype": "auxiliary",
+            "comms": {"all": 3},
+            "sensors": {"all": 3},
+            "weapons": {"all": 4},
+            "model_transform": {"posY": 0.25, "scaleX": 0.25}
+        },
+        "defiant": {
+            "name": "Defiant-Class Escort", "faction": "federation", "role": "scout", "size": "small",
+            "short": "defiant", "gtype": "ship",
+            "dials": {
+                "hull": {"min": 0, "max": 7},
+                "crew": {"min": -2, "max": 4},
+                "alert": {"min": 0, "max": 4},
+                "power": {"min": 0, "max": 6}
+            },
+            "sensors": {
+                "all": 2, "bow": 4,
+                "instruments": {"bow": true}
+            },
+            "comms": {
+                "all": 2, "bow": 6,
+                "instruments": {"bow": true}
+            },
+            "instruments": [2, 2, 1, 1, 0],
+            "model_transform": {"scaleX": 1.52, "posY": 0.35, "rotY": -90},
+            "weapons": {"all": 6, "fore": 6, "fore_port": 4, "fore_starboard": 4, "aft": 6},
+            "crit_deck_size": 5, "fp": 3,
+            "titles": [
+                {"name": "Defiant", "fp": 3},
+                {"name": "Valiant", "fp": 3}
+            ]
+        },
+        "galaxy": {
+            "name": "Galaxy-Class Starship", "faction": "federation", "role": "capital", "size": "large",
+            "short": "galaxy", "gtype": "ship",
+            "dials": {
+                "hull": {"min": 0, "max": 9},
+                "crew": {"min": -2, "max": 5},
+                "alert": {"min": 0, "max": 6},
+                "power": {"min": 0, "max": 8}
+            },
+            "sensors": {
+                "all": 4, "bow": 4,
+                "instruments": {"bow": true}
+            },
+            "comms": {
+                "all": 6, "bow": 6,
+                "instruments": {"bow": true}
+            },
+            "instruments": [3, 3, 2, 2, 1, 1, 0],
+            "model_transform": {"rotY": 270, "scaleX": 1.416},
+            "weapons": {"fore": 6, "aft": 6},
+            "crit_deck_size": 6,
+            "titles": [
+                {"name": "Enterprise D", "fp": 2}
+            ],
+            "alternate": {
+                "name": "Galaxy-Class Stardrive", "faction": "federation", "role": "capital", "size": "large",
+                "short": "galaxy", "gtype": "ship",
+                "comms": {
+                    "all": 2, "bow": 4,
+                    "instruments": {"bow": true}
+                },
+                "sensors": {
+                    "all": 2,"bow": 4,
+                    "instruments": {"bow": true}
+                },
+                "dials": {
+                    "hull": {"min": 0, "max": 9},
+                    "crew": {"min": 2, "max": 5},
+                    "alert": {"min": 1, "max": 5},
+                    "power": {"min": 0, "max": 8}
+                },
+                "ship_board": {
+                    "data": {
+                        "Name": "Custom_Tile",
+                        "CustomImage": {
+                            "ImageSecondaryURL": "ROOT\/assets\/factions\/federation\/ships\/galaxy\/stardrive_card_back.png",
+                            "CustomTile": {"Thickness": 0.01, "Type": 3, "Stretch": true},
+                            "ImageURL": "ROOT\/assets\/factions\/federation\/ships\/galaxy\/stardrive_card.png"
+                        },
+                        "Transform": {"scaleY": 1, "scaleX": 2.1, "scaleZ": 2.1, "rotY": 270}
+                    }
+                },
+                "model": {
+                    "ChildObjects": [
+                        {
+                            "CustomMesh": {"MeshURL": "ROOT\/assets\/factions\/federation\/ships\/galaxy\/stardrive_mesh.obj"},
+                            "Transform": {"rotY": 270}
+                        }
+                    ]
+                }
+            },
+            "auxiliary": {
+                "name": "Galaxy-Class Saucer", "faction": "federation", "role": "auxiliary", "size": "medium",
+                "short": "galaxy", "gtype": "auxiliary",
+                "direction": "fore",
+                "comms": {"all": 6, "bow": 8},
+                "sensors": {"all": 4, "bow": 6},
+                "weapons": {"fore": 6},
+                "ship_board": {
+                    "data": {
+                        "Name": "Custom_Tile",
+                        "CustomImage": {
+                            "ImageSecondaryURL": "ROOT\/assets\/factions\/federation\/ships\/galaxy\/saucer_card_back.png",
+                            "CustomTile": {"Thickness": 0.01, "Type": 3, "Stretch": true},
+                            "ImageURL": "ROOT\/assets\/factions\/federation\/ships\/galaxy\/saucer_card.png"
+                        },
+                        "Transform": {"scaleY": 1, "scaleX": 2.1, "scaleZ": 2.1, "rotY": 270}
+                    }
+                },
+                "model": {
+                    "ChildObjects": [
+                        {
+                            "CustomMesh": {"MeshURL": "ROOT\/assets\/factions\/federation\/ships\/galaxy\/saucer_mesh.obj"},
+                            "Transform": {"rotY": 270}
+                        }
+                    ]
+                }
+            }
+        },
+        "miranda": {
+            "name": "Miranda-Class Starship", "faction": "federation", "role": "support", "size": "small",
+            "short": "miranda", "gtype": "ship",
+            "dials": {
+                "hull": {"min": 0, "max": 7},
+                "crew": {"min": -2, "max": 4},
+                "alert": {"min": 0, "max": 4},
+                "power": {"min": 0, "max": 7}
+            },
+            "sensors": {
+                "all": 3, "bow": 3,
+                "instruments": {"bow": true}
+            },
+            "comms": {
+                "all": 4, "bow": 4,
+                "instruments": {"bow": true}
+            },
+            "instruments": [2, 2, 1, 0, 0],
+            "model_transform": {"posY": 0.75, "scaleX": 1.695},
+            "weapons": {"fore_port": 6, "fore_starboard": 6, "bow": 4, "aft": 6},
+            "crit_deck_size": 5, "fp": -2,
+            "titles": [
+                {"name": "Trial", "fp": 1}
+            ]
+        },
+        "constellation": {
+            "name": "Constellation-Class Starship", "faction": "federation", "role": "support", "size": "medium",
+            "short": "constellation", "gtype": "ship",
+            "dials": {
+                "hull": {"min": 0, "max": 8},
+                "crew": {"min": -2, "max": 4},
+                "alert": {"min": 0, "max": 5},
+                "power": {"min": 0, "max": 7}
+            },
+            "sensors": {
+                "all": 4, "bow": 4,
+                "instruments": {"bow": true}
+            },
+            "comms": {
+                "all": 6, "bow": 6,
+                "instruments": {"bow": true}
+            },
+            "instruments": [2, 3, 2, 1, 1, 0],
+            "model_transform": {"rotY": -90, "scaleX": 1.388},
+            "weapons": {"fore_port": 6, "fore_starboard": 6, "stern": 6},
+            "crit_deck_size": 5, "fp": -3,
+            "titles": [
+                {"name": "Hathaway", "fp": 3}
+            ]
+        },
+        "artifact": {
+            "name": "Artifact Ship", "faction": "neutral", "size": "medium",
+            "short": "artifact", "gtype": "auxiliary",
+            "color_transform": {"a": 1, "b": 1, "g": 0.71, "r": 0.62},
+            "comms": {"all": 6},
+            "sensors": {"all": 6},
+            "weapons": {"fore_port": 5, "fore_starboard": 5},
+            "model_transform": {"posY": 0.6, "scaleX": 1.8}
+        },
+        "tinman": {
+            "name": "Inscrutable Entity", "faction": "neutral", "size": "medium",
+            "short": "tinman", "gtype": "auxiliary",
+            "comms": {"all": 3},
+            "sensors": {"all": 3},
+            "weapons": {"all": 4, "fore": 4},
+            "model_transform": {"posY": 0.9, "rotY": 270}
+        },
+        "supply": {
+            "name": "Supply Ship", "faction": "neutral", "size": "medium",
+            "short": "supply", "gtype": "auxiliary",
+            "comms": {"all": 3},
+            "sensors": {"all": 3},
+            "weapons": {},
+            "model_transform": {"posY": 0.6, "scaleX": 1.8}
+        },
+        "raider": {
+            "name": "Hostile Raider", "faction": "neutral", "size": "medium",
+            "short": "raider", "gtype": "auxiliary",
+            "comms": {"all": 3},
+            "sensors": {"all": 3},
+            "weapons": {"all": 4, "fore": 4},
+            "model_transform": {"rotY": 180, "posY": 0.6, "scaleX": 0.325}
+        },
+        "toron": {
+            "name": "Toron-Class", "faction": "klingon", "size": "shuttle",
+            "short": "toron", "gtype": "auxiliary",
+            "comms": {"all": 3},
+            "sensors": {"all": 3},
+            "weapons": {"all": 3},
+            "model_transform": {"posY": 0.5, "rotY": 270}
+        },
+        "vorcha": {
+            "name": "Vor'cha-Class Attack Cruiser", "faction": "klingon", "role": "support", "size": "large",
+            "short": "vorcha", "gtype": "ship",
+            "dials": {
+                "hull": {"min": 0, "max": 8},
+                "crew": {"min": -2, "max": 5},
+                "alert": {"min": 0, "max": 5},
+                "power": {"min": 0, "max": 7}
+            },
+            "sensors": {
+                "all": 4, "bow": 4,
+                "instruments": {"bow": true}
+            },
+            "comms": {
+                "all": 6, "bow": 6,
+                "instruments": {"bow": true}
+            },
+            "instruments": [2, 3, 2, 1, 1, 0],
+            "model_transform": {"scaleX": 2.505, "posY": 0.75, "rotY": 90},
+            "weapons": {"fore_port": 4, "fore_starboard": 4,"bow": 6},
+            "crit_deck_size": 6, "fp": 1,
+            "titles": [
+                {"name": "Bortas", "fp": 3}
+            ]
+        },
+        "brel": {
+            "name": "B'rel-Class Bird-of-Prey", "faction": "klingon", "role": "scout", "size": "small",
+            "short": "brel", "gtype": "ship",
+            "dials": {
+                "hull": {"min": 0,"max": 6},
+                "crew": {"min": -2, "max": 4},
+                "alert": {"min": 0, "max": 4},
+                "power": {"min": 0, "max": 6}
+            },
+            "sensors": {
+                "all": 2, "bow": 4,
+                "instruments": {"bow": true}
+            },
+            "comms": {
+                "all": 2, "bow": 4,
+                "instruments": {"bow": true}
+            },
+            "instruments": [1, 2, 1, 0, 0],
+            "model_transform": {"scaleX": 0.989,  "posY": 0.88, "posX": 0.35, "posZ": 0.75, "rotY": -90},
+            "weapons": {"fore_port": 4, "fore_starboard": 4},
+            "crit_deck_size": 5, "fp": -1,
+            "titles": [
+                {"name": "Buruk", "fp": 2}
+            ]
+        }
+    },
+    "tokens": {
+        "projectile": {
+            "quantum": {
+                "data": {
+                    "Name": "Custom_Tile", "Tags": ["Projectile"],
+                    "CustomImage": {
+                        "ImageSecondaryURL": "ROOT\/assets\/tokens\/proj_quantum_orange_tile.png",
+                        "CustomTile": {"Thickness": 0.1, "Type": 1, "Stretch": false},
+                        "ImageURL": "ROOT\/assets\/tokens\/proj_quantum_blue_tile.png"
+                    },
+                    "Transform": {"scaleY": 1, "scaleX": 0.4329358, "scaleZ": 0.4329358, "rotY": 90},
+                    "XmlURL": "code\/tokens\/torpedo.xml",
+                    "ScriptURL": "code\/geometry\/ranges.lua"
+                }
+            },
+            "escape": {
+                "data": {
+                    "Name": "Custom_Tile", "Tags": ["Projectile"],
+                    "CustomImage": {
+                        "ImageSecondaryURL": "ROOT\/assets\/tokens\/proj_escape_pod_orange_tile.png",
+                        "CustomTile": {"Thickness": 0.1, "Type": 1, "Stretch": false},
+                        "ImageURL": "ROOT\/assets\/tokens\/proj_escape_pod_blue_tile.png"
+                    },
+                    "Transform": {"scaleY": 1, "scaleX": 0.4329358, "scaleZ": 0.4329358, "rotY": 90},
+                    "XmlURL": "code\/geometry\/escape_pod.xml",
+                    "ScriptURL": "code\/geometry\/ranges.lua"
+                }
+            },
+            "photon": {
+                "data": {
+                    "Name": "Custom_Tile", "Tags": ["Projectile"],
+                    "CustomImage": {
+                        "ImageSecondaryURL": "ROOT\/assets\/tokens\/proj_photon_orange_tile.png",
+                        "CustomTile": {"Thickness": 0.1, "Type": 1, "Stretch": false},
+                        "ImageURL": "ROOT\/assets\/tokens\/proj_photon_blue_tile.png"
+                    },
+                    "Transform": {"scaleY": 1, "scaleX": 0.4329358, "scaleZ": 0.4329358, "rotY": 90},
+                    "XmlURL": "code\/tokens\/torpedo.xml",
+                    "ScriptURL": "code\/geometry\/ranges.lua"
+                }
+            },
+            "class1": {
+                "data": {
+                    "Name": "Custom_Tile", "Tags": ["Projectile"],
+                    "CustomImage": {
+                        "ImageSecondaryURL": "ROOT\/assets\/tokens\/proj_probe_orange_tile.png",
+                        "CustomTile": {"Thickness": 0.1, "Type": 1, "Stretch": false},
+                        "ImageURL": "ROOT\/assets\/tokens\/proj_probe_blue_tile.png"
+                    },
+                    "Transform": {"scaleY": 1, "scaleX": 0.4329358, "scaleZ": 0.4329358, "rotY": 90},
+                    "XmlURL": "code\/tokens\/class_1_probe.xml",
+                    "ScriptURL": "code\/geometry\/ranges.lua"
+                }
+            }
+        },
+        "features": {
+            "anomalies": {},
+            "cloud": {"name": "Cloud", "image": "feature_cloud.png"},
+            "comet": {"name": "Comet", "image": "feature_comet.png"},
+            "rift": {"name": "Rift", "image": "feature_rift.png"},
+            "stellar": {"name": "Stellar", "image": "feature_stellar.png"},
+            "wormhole": {"name": "Wormhole", "image": "feature_wormhole.png"},
+            "wreck": {"name": "Wreck", "image": "feature_wreck.png"}
+        },
+        "objectives": {
+            "solid": {"name": "Solid Objective", "image": "objective_solid.png"},
+            "ping": {"name": "Ping Objective", "image": "objective_ping.png"}
+        },
+        "commodore": {
+            "data": {
+                "Name": "Custom_Tile",
+                "CustomImage": {
+                    "ImageSecondaryURL": "ROOT\/assets\/tokens\/commodore_orange.png",
+                    "CustomTile": {"Thickness": 0.1, "Type": 2, "Stretch": true},
+                    "ImageURL": "ROOT\/assets\/tokens\/commodore_blue.png"
+                },
+                "Transform": {"scaleY": 1, "scaleX": 0.427587271, "scaleZ": 0.427587271}
+            }
+        }
+    },
+    "tools": {
+        "ruler_6in": {
+            "data": {
+                "Name": "Custom_Token", "Tags": ["Ruler"],
+                "CustomImage": {
+                    "CustomToken": {"Thickness": 0.1 },
+                    "ImageURL": "ROOT\/assets\/tools\/ruler\/ruler_06.png"
+                },
+                "Transform": {"scaleY": 1, "scaleX": 0.4625709, "scaleZ": 0.4625709},
+                "ColorDiffuse": {"r": 1, "g": 1, "b": 1, "a": 0.7}
+            }
+        },
+        "ruler_12in": {
+            "data": {
+                "Name": "Custom_Token", "Tags": ["Ruler"],
+                "CustomImage": {
+                    "CustomToken": {"Thickness": 0.1},
+                    "ImageURL": "ROOT\/assets\/tools\/ruler\/ruler_12.png"
+                },
+                "Transform": {"scaleY": 1, "scaleX": 0.654653668, "scaleZ": 0.654653668},
+                "ColorDiffuse": {"r": 1, "g": 1, "b": 1, "a": 0.7}
+            }
+        },
+        "tracker": {
+            "data": {
+                "Name": "Custom_Model",
+                "CustomMesh": {
+                    "DiffuseURL": "ROOT\/assets\/tokens\/tracker.png",
+                    "MeshURL": "ROOT\/assets\/tokens\/tracker.obj",
+                    "ColliderURL": "ROOT\/assets\/misc\/no_collide.obj"
+                },
+                "Transform": {"scaleY": 1, "scaleX": 1, "scaleZ": 1}
+            }
+        },
+        "turning_tool": {
+            "data": {
+                "Name": "Custom_Model",
+                "CustomMesh": {
+                    "DiffuseURL": "ROOT\/assets\/tools\/turning_tool\/turning_tool_diffuse.png",
+                    "MeshURL": "ROOT\/assets\/tools\/turning_tool\/turning_tool_mesh.obj",
+                    "ColliderURL": "ROOT\/assets\/tools\/turning_tool\/turning_tool_collider.obj"
+                },
+                "Transform": {"scaleY": 1, "scaleX": 1, "scaleZ": 1},
+                "ScriptURL": "code\/tools\/turning_tool.lua"
+            }
+        },
+        "wake_tracker": {
+            "data": {
+                "Name": "Custom_Model",
+                "CustomMesh": {
+                    "DiffuseURL": "ROOT\/assets\/tools\/wake_tracker\/wake_texture.png",
+                    "MeshURL": "ROOT\/assets\/tools\/wake_tracker\/wake_tracker.obj",
+                    "ColliderURL": "ROOT\/assets\/tools\/wake_tracker\/wake_tracker.obj"
+                },
+                "Transform": {"scaleY": 1, "scaleX": 1, "scaleZ": 1}
+            },
+            "XmlURL": "code\/\/tools\/wake_tracker.xml",
+            "ScriptURL": "code\/\/tools\/wake_tracker.lua"
+        }
+    }
+}

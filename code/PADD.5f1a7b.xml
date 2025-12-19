@@ -2,3 +2,4 @@
 <Include src="PADD/core.xml"/>
 <Include src="PADD/taskForce.xml"/>
 <Include src="PADD/maps.xml"/>
+<Include src="PADD/library.xml"/>
