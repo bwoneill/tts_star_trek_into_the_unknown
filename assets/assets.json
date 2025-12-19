@@ -1,5 +1,5 @@
 {
-    "branch": "v1.1.0",
+    "branch": "v1.1.0.1",
     "directives": [
         {
             "faction": "dominion", "gtype": "directive", "type": "combat",
