@@ -11,8 +11,6 @@ ASSET_ROOT = Global.getVar("ASSET_ROOT")
 
 CODE_ROOT = Global.getVar("CODE_ROOT")
 
-TOOLS = Global.getTable("ASSETS").tools
-
 DIAL_CONST = {
     alert = {pos = Vector(-2.7, -0.1, 0.2), rot = -40, scale = 1.25},
     crew = {pos = Vector(3.4, -0.1, 0.2), rot = 40, scale = 0.85},
@@ -257,6 +255,9 @@ COMPOUND_ARCS = {
 }
 
 function onLoad(script_state)
+    ASSETS = Global.getTable("ASSETS")
+    default = ASSETS.ships[default]
+    TOOLS = ASSETS.tools
     shipData = default
     local state = JSON.decode(script_state)
     if state and not ignore_save then
@@ -988,4 +989,4 @@ function getCloakOffset(pos)
     end
 end
 
--- build 1.1.0.41
+-- build 1.1.0.42

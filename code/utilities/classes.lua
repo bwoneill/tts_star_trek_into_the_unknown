@@ -46,7 +46,7 @@ function Ship:spawnObject(pos, rot, title)
     rot = rot or Vector(0,0,0)
     local path = "assets/factions/" .. self.faction .. "/ships/" .. self.short .. "/"
     local ship_xml = Global.call("getFile", path .. self.short .. ".xml")
-    local script = "default = Global.getTable(\"ASSETS\").ships." .. self.short .. "\n"
+    local script = "default = \"" .. self.short .. "\"\n"
     script = script .. Global.call("getFile", "code/ships/ship.lua")
     local result = {
         data = {
