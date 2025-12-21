@@ -100,7 +100,7 @@ function Auxiliary:spawnObject(pos, rot)
     rot = rot or Vector(0,0,0)
     local path = "assets/factions/" .. self.faction .. "/ships/" .. self.short .. "/"
     local ship_xml = Global.call("getFile", path .. self.short .. ".xml")
-    local script = "default = Global.getTable(\"ASSETS\").ships." .. self.short .. "\n"
+    local script = "default = \"" .. self.short .. "\"\n"
     script = script .. Global.call("getFile", "code/ships/ship.lua")
     local card = spawnObject({type = "CardCustom", position = pos, rotation = rot, scale = {1.47, 1, 1.47}})
     local images = self:getImages()
