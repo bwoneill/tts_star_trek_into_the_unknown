@@ -879,7 +879,7 @@
             ]
         },
         "artifact": {
-            "name": "Artifact Ship", "faction": "neutral", "size": "medium",
+            "name": "Artifact Ship", "faction": "neutral", "size": "small",
             "short": "artifact", "gtype": "auxiliary",
             "color_transform": {"a": 1, "b": 1, "g": 0.71, "r": 0.62},
             "comms": {"all": 6},
@@ -896,7 +896,7 @@
             "model_transform": {"posY": 0.9, "rotY": 270}
         },
         "supply": {
-            "name": "Supply Ship", "faction": "neutral", "size": "medium",
+            "name": "Supply Ship", "faction": "neutral", "size": "small",
             "short": "supply", "gtype": "auxiliary",
             "comms": {"all": 3},
             "sensors": {"all": 3},
