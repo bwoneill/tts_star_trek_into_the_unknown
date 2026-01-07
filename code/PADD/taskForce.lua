@@ -607,7 +607,9 @@ function spawn(player, value, id)
         end
     end
     for _, equip in pairs(build.equipment) do
-        Equipment:new(equip):spawnObject(cardPos, Vector(0, rot.y + 180, 180))
+        for i = 1, equip.n do
+            Equipment:new(equip):spawnObject(cardPos, Vector(0, rot.y + 180, 180))
+        end
     end
     for i = 1, 3 do
         local ship = build["ship" .. i]
