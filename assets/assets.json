@@ -179,6 +179,14 @@
         {
             "name": "Unstable X", "gtype": "keyword",
             "text": "During the Hazard Phase, each unit at 2\" of this feature must make the following test: test (difficulty X) ops stat + Mechanics (reroll impulse turn):\nSuccess: Add 2 peril.\nBreakthrough Success+: Remove 1 peril gained this way per breakthrough success.\nFailure: Add 1 peril, plus 1 per point by which the test failed. Then if the ship has 3 or more <per>, any opponent may remove 3 peril from the ship to have it sustain 1 crew loss."
+        },
+        {
+            "name": "Empathic X", "gtype": "keyword",
+            "text": "After this officer's unit participates in a hail, add X advantage to their unit."
+        },
+        {
+            "name": "Synthetic X", "gtype": "keyword",
+            "text": "While this officer leads a test, during the Tester Modifies Dice step, you may spend a number of advantage tokens banked on this officer to change an equal number of analysis results ot breakthrough success results. If you do not, during the Resolve Post Outcome Effects step, you may spend a number of analysis from the roll to bank an equal number of advantage tokens on this officer. This officer can have a maximum of X advantage tokens banked on them."
         }
     ],
     "missions": {
@@ -879,13 +887,13 @@
             ]
         },
         "artifact": {
-            "name": "Artifact Ship", "faction": "neutral", "size": "medium",
+            "name": "Artifact Ship", "faction": "neutral", "size": "small",
             "short": "artifact", "gtype": "auxiliary",
             "color_transform": {"a": 1, "b": 1, "g": 0.71, "r": 0.62},
             "comms": {"all": 6},
             "sensors": {"all": 6},
             "weapons": {"fore_port": 5, "fore_starboard": 5},
-            "model_transform": {"posY": 0.6, "scaleX": 1.8}
+            "model_transform": {"posY": 0.6, "scaleX": 1.3}
         },
         "tinman": {
             "name": "Inscrutable Entity", "faction": "neutral", "size": "medium",
@@ -896,12 +904,12 @@
             "model_transform": {"posY": 0.9, "rotY": 270}
         },
         "supply": {
-            "name": "Supply Ship", "faction": "neutral", "size": "medium",
+            "name": "Supply Ship", "faction": "neutral", "size": "small",
             "short": "supply", "gtype": "auxiliary",
             "comms": {"all": 3},
             "sensors": {"all": 3},
             "weapons": {},
-            "model_transform": {"posY": 0.6, "scaleX": 1.8}
+            "model_transform": {"posY": 0.6, "scaleX": 1.3}
         },
         "raider": {
             "name": "Hostile Raider", "faction": "neutral", "size": "medium",
