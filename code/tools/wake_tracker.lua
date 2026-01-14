@@ -58,7 +58,11 @@ rotation = {
     A = 210, B = 240, C = 300, D = 330, E = 30, F = 60, G = 120, H = 150
 }
 
-reset_ui = false
+distance = {
+    A = 0.62, B = 0.58, C = 0.58, D = 0.62, E = 0.62, F = 0.58, G = 0.58, H = 0.62
+}
+
+reset_ui = true
 
 function setData(new_data)
     data = new_data or {
@@ -162,7 +166,7 @@ function placeRuler(player, value, id)
     ruler_pos = id
     local pos = self.getPosition()
     local rot = self.getRotation()
-    local offset = Vector(0, 0.2, 6.4):rotateOver("y", rot.y + rotation[id])
+    local offset = Vector(0, 0.2, 6 + distance[id]):rotateOver("y", rot.y + rotation[id])
     local ruler_data = Global.getTable("ASSETS").tools.ruler_12in
     ruler = spawnObjectData(ruler_data)
     ruler.lock()
@@ -191,7 +195,7 @@ function placeShip(dis)
     local myShip = getObjectFromGUID(parent.getTable("saveData").shipGUID)
     myShip.setRotation(self.getRotation())
     local offset = parent.call("getCloakOffset", ruler_pos)
-    local delta = Vector(0, 0, dis + offset + 0.4):rotateOver("y", self.getRotation().y + rotation[ruler_pos])
+    local delta = Vector(0, 0, dis + offset + distance[ruler_pos]):rotateOver("y", self.getRotation().y + rotation[ruler_pos])
     myShip.setPosition(self.getPosition() + delta)
     local buttons = ruler.getButtons()
     for i = #buttons, 1, -1 do
@@ -205,4 +209,4 @@ function placeShip(dis)
     end
 end
 
--- build v1.1.0.11
+-- build v1.1.1.01
