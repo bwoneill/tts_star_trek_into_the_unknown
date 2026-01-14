@@ -1306,12 +1306,12 @@
             }
         },
         "wake": {
-            "warpAttachment": [0.367, 0, 0.77],
+            "warpAttachment": [1.000, 0, 0.534],
             "toolAttachment": {
-                "starboard": {"pos": [-1.065, 0, 0], "rot": 0},
-                "aft": {"pos": [0, 0, 1.065], "rot": 90},
-                "port": {"pos": [1.065, 0, 0], "rot": 180},
-                "fore": {"pos": [0, 0 , -1.065], "rot": 270}
+                "starboard": {"pos": [-1.19, 0, 0], "rot": 0},
+                "aft": {"pos": [0, 0, 1.325], "rot": 90},
+                "port": {"pos": [1.19, 0, 0], "rot": 180},
+                "fore": {"pos": [0, 0 , -1.325], "rot": 270}
             },
             "arcs": {
                 "aft_port": [
