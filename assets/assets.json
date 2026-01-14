@@ -1106,7 +1106,7 @@
         },
         "wake_tracker": {
             "data": {
-                "Name": "Custom_Model",
+                "Name": "Custom_Model", "MaterialIndex": 3,
                 "CustomMesh": {
                     "DiffuseURL": "ROOT\/assets\/tools\/wake_tracker\/wake_texture.png",
                     "MeshURL": "ROOT\/assets\/tools\/wake_tracker\/wake_tracker.obj",
