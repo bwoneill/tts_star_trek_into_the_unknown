@@ -498,11 +498,11 @@ function drawArc(system, jammed) -- system is "sensors", "comms", "weapons"
             end
             if arcs then
                 local points = {}
-                local start = geometry[arcs[1]][1].point + Vector(0, 0.1, 0)
+                local start = Vector(geometry[arcs[1]][1].point) + Vector(0, 0.1, 0)
                 local stop
                 for _, arc in ipairs(arcs) do
                     sweepOverPoints(points, geometry[arc], range)
-                    stop = geometry[arc][#geometry[arc]].point + Vector(0, 0.1, 0)
+                    stop = Vector(geometry[arc][#geometry[arc]].point) + Vector(0, 0.1, 0)
                 end
                 if name ~= "all" then
                     table.insert(points, 1, start)
@@ -518,7 +518,7 @@ end
 function sweepOverPoints(points, geometry, range)
     for _, vertex in ipairs(geometry) do
         for theta = vertex.start, vertex.stop do
-            table.insert(points, vertex.point + Vector(range * math.cos(math.rad(theta)), 0.1, - range * math.sin(math.rad(theta))))
+            table.insert(points, Vector(vertex.point) + Vector(range * math.cos(math.rad(theta)), 0.1, - range * math.sin(math.rad(theta))))
         end
     end
 end
@@ -763,4 +763,4 @@ function getCloakOffset(pos)
     end
 end
 
--- build 1.1.1.02
+-- build 1.1.1.03
