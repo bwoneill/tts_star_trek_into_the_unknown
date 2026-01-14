@@ -62,7 +62,7 @@ distance = {
     A = 0.62, B = 0.58, C = 0.58, D = 0.62, E = 0.62, F = 0.58, G = 0.58, H = 0.62
 }
 
-reset_ui = true
+reset_ui = false
 
 function setData(new_data)
     data = new_data or {
