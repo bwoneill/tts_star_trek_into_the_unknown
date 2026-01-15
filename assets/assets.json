@@ -301,270 +301,302 @@
     "officers": [
         {
             "name": "Eris", "subtitle": "Manipulative Agent", "gtype": "officer",
-            "factions": {"dominion": true},
-            "roles": {"command": true, "ops": true},
-            "cp": 8, "fp": 4, "unique": true
+            "factions": {"dominion": true}, "roles": {"command": true, "ops": true},
+            "abilities": ["Glib 2", "Sow Discord: Test ops + Fieldcraft to add 1 peril to a unit at the same location. Difficulty is equal to the unit's command + highest social skill."],
+            "skills": {"Diplomacy": 1, "Fieldcraft": 2, "Logic": 1, "Navigation": 1, "Social": 1, "Security": 2, "Technical": 1},
+            "cp": 8, "fp": 4, "unique": true, "rank": "capt"
         },
         {
             "name": "Founder", "gtype": "officer",
-            "factions": {"dominion": true},
-            "roles": {"command": true, "science": true, "ops": true},
-            "cp": 9, "fp": 6
+            "factions": {"dominion": true}, "roles": {"command": true, "science": true, "ops": true},
+            "abilities": ["Changeling 1", "Inspiring [Command]"],
+            "skills": {"Diplomacy": 2, "Fieldcraft": 2, "Biology": 2, "Social": 2, "Security": 2, "Technical": 2},
+            "cp": 9, "fp": 6, "rank": "fcapt"
         },
         {
             "name": "Hanok", "subtitle": "Sanctimonious Minister", "gtype": "officer",
-            "factions": {"dominion": true},
-            "roles": {"ops": true, "science": true},
-            "sway": {"ferengi": 1},
-            "cp": 9, "fp": 3, "unique": true
+            "factions": {"dominion": true}, "sway": {"ferengi": 1}, "roles": {"ops": true, "science": true},
+            "abilities": ["Perceptive 1", "After Hanok leads a hail, add advantage to his unit equal to the differenece between the highest and lowest trust token."],
+            "skills": {"Commerce": 2, "Culture": 1, "Diplomacy": 1, "Mechanics": 1, "Navigation": 1, "Social": 2, "Security": 0, "Technical": 1},
+            "cp": 9, "fp": 3, "unique": true, "rank": "ltjg"
         },
         {
             "name": "Jem'Hadar First", "gtype": "officer",
-            "factions": {"dominion": true},
-            "roles": {"ops": true},
-            "cp": 8, "fp": 3
+            "factions": {"dominion": true}, "roles": {"ops": true},
+            "abilities": ["Relentless 1"],
+            "skills": {"Discipline": 2, "Ordnance": 1, "Skirmish": 1, "Social": 2, "Security": 1, "Technical": 0},
+            "cp": 8, "fp": 3, "rank": "ltcmdr"
         },
         {
             "name": "Jem'Hadar Second", "gtype": "officer",
-            "factions": {"dominion": true},
-            "roles": {"ops": true},
-            "cp": 7, "fp": 2
+            "factions": {"dominion": true}, "roles": {"ops": true},
+            "abilities": ["Relentless 1"],
+            "skills": {"Fieldcraft": 1, "Ordnance": 1, "Skirmish": 2, "Social": 0, "Security": 2, "Technical": 0},
+            "cp": 7, "fp": 2, "rank": "lt"
         },
         {
             "name": "Karemma Researcher", "gtype": "officer",
-            "factions": {"dominion": true},
-            "roles": {"science": true},
-            "cp": 7, "fp": 3
+            "factions": {"dominion": true}, "roles": {"science": true},
+            "abilities": ["Perceptive 1"],
+            "skills": {"Empathy": 1, "Mechanics": 2, "Navigation": 1, "Social": 1, "Security": 0, "Technical": 2},
+            "cp": 7, "fp": 3, "rank": "ltjg"
         },
         {
             "name": "Omet'iklan", "subtitle": "Loyal First", "gtype": "officer",
-            "factions": {"dominion": true},
-            "roles": {"ops": true},
-            "cp": 11, "fp": 4, "unique": true
+            "factions": {"dominion": true}, "roles": {"ops": true},
+            "abilities": ["Relentless 2", "After Omet'iklan sustains damage, you may add 1 advantage to a unit at Comms range."],
+            "skills": {"Discipline": 2, "Empathy": 1, "Fieldcraft": 1, "Ordnance": 1, "Skirmish": 2, "Social": 2, "Security": 2, "Technical": 0},
+            "cp": 11, "fp": 4, "unique": true, "rank": "ltcmdr"
         },
         {
             "name": "Talak'talan", "subtitle": "Menacing Third", "gtype": "officer",
-            "factions": {"dominion": true},
-            "roles": {"ops": true },
-            "cp": 9, "fp": 3, "unique": true
+            "factions": {"dominion": true}, "roles": {"ops": true },
+            "abilities": ["Relentless 1", "After Talak'talan's unit locks an opposing unit, add 1 peril to the opposing unit."],
+            "skills": {"Discipline": 1, "Fieldcraft": 1, "Ordnance": 2, "Skirmish": 2, "Social": 1, "Security": 2, "Technical": 0},
+            "cp": 9, "fp": 3, "unique": true, "rank": "ltjg"
         },
         {
             "name": "The Female Changeling", "subtitle": "Divine Ruler", "gtype": "officer",
-            "factions": {"dominion": true},
-            "roles": {"command": true, "science": true, "ops": true},
-            "cp": 10, "fp": 3, "unique": true
+            "factions": {"dominion": true}, "roles": {"command": true, "science": true, "ops": true},
+            "abilities": ["Changeling 2", "Inspiring [Command]", "Duplication: Choose an opposing officer at the Female Changeling's location. She becomes a copy of that officer with this action an Changeling 2."],
+            "skills": {"Culture": 1, "Diplomacy": 1, "Discipline": 1, "Fieldcraft": 1, "Biology": 1, "Navigation": 1, "Social": 1, "Security": 1, "Technical": 1},
+            "cp": 10, "fp": 3, "unique": true, "rank": "fcapt"
         },
         {
             "name": "Vorta Diplomat", "gtype": "officer",
-            "factions": {"dominion": true},
-            "roles": {"command": true},
-            "cp": 6, "fp": 3
+            "factions": {"dominion": true}, "roles": {"command": true},
+            "abilities": ["Glib 1"],
+            "skills": {"Diplomacy": 2, "Biology": 1, "Navigation": 1, "Social": 2, "Security": 0, "Technical": 1},
+            "cp": 6, "fp": 3, "rank": "srcmdr"
         },
         {
             "name": "Vorta Supervisor", "gtype": "officer",
-            "factions": {"dominion": true},
-            "roles": {"command": true},
-            "cp": 0, "fp": 2, "line_officer": true
+            "factions": {"dominion": true}, "roles": {"command": true},
+            "abilities": ["Glib 1"],
+            "skills": {"Diplomacy": 1, "Biology": 1, "Navigation": 1, "Social": 1, "Security": 0, "Technical": 1},
+            "cp": 0, "fp": 2, "line_officer": true, "rank": "srcmdr"
         },
         {
             "name": "Weyoun 4", "subtitle": "Unctuous Envoy", "gtype": "officer",
-            "factions": {"dominion": true},
-            "roles": {"command": true},
-            "cp": 9, "fp": 3, "unique": true
+            "factions": {"dominion": true}, "roles": {"command": true},
+            "abilities": ["Glib 2", "After Weyoun leads a hail, if you were accomodating, you may exchange your spent trust token with one of your unspent trust tokens."],
+            "cp": 9, "fp": 3, "unique": true, "rank": "capt"
         },
         {
             "name": "Benjamin Sisko", "subtitle": "Reluctant Emissary", "gtype": "officer",
-            "factions": {"federation": true},
-            "roles": {"command": true, "ops": true},
-            "sway": {"bajoran": 1},
-            "cp": 11, "fp": 4, "unique": true
+            "factions": {"federation": true}, "sway": {"bajoran": 1}, "roles": {"command": true, "ops": true},
+            "abilities": ["Inspiring [Command]", "While another officer in the same unit leads a test, you may spend 1 advantage or commit Benjamin Sisko to add 1 intuition die."],
+            "skills": {"Culture": 2, "Diplomacy": 1, "Discipline": 2, "Mysticism": 1, "Ordnance": 1, "Skirmish": 1, "Navigation": 1, "Social": 2, "Security": 1, "Technical": 1},
+            "cp": 11, "fp": 4, "unique": true, "rank": "srcmdr"
         },
         {
             "name": "Daring First Officer", "gtype": "officer",
-            "factions": {"federation": true},
-            "roles": {"command": true, "ops": true},
-            "cp": 6, "fp": 3
+            "factions": {"federation": true}, "roles": {"command": true, "ops": true},
+            "abilities": [],
+            "skills": {"Discipline": 1, "Skirmish": 1, "Mechanics": 1, "Navigation": 1, "Social": 1, "Security": 1, "Technical": 1},
+            "cp": 6, "fp": 3, "rank": "cmdr"
         },
         {
             "name": "Geordi LaForge", "subtitle": "Inquisitive Engineer", "gtype": "officer",
-            "factions": {"federation": true},
-            "roles": {"ops": true, "science": true},
-            "cp": 11, "fp": 4, "unique": true
+            "factions": {"federation": true}, "roles": {"ops": true, "science": true},
+            "abilities": ["Perceptive 2", "Engineering Station Reaction - When Geordi LaForge's unit takes an action, choose 1 of its alert stats. Treat the value of that stat as 1 higher while resolving that action."],
+            "skills": {"Empathy": 1, "Fieldcraft": 1, "Mechanics": 2, "Navigation": 2, "Social": 1, "Security": 1, "Technical": 2},
+            "cp": 11, "fp": 4, "unique": true, "rank": "ltcmdr"
         },
         {
             "name": "Intrepid Captain", "gtype": "officer",
-            "factions": {"federation": true},
-            "roles": {"command": true},
-            "cp": 7, "fp": 4
+            "factions": {"federation": true}, "roles": {"command": true},
+            "abilities": ["Inspiring [Command]"],
+            "skills": {"Diplomacy": 2, "Ordnance": 1, "Navigation": 1, "Social": 2, "Security": 1, "Technical": 1},
+            "cp": 7, "fp": 4, "rank": "capt"
         },
         {
             "name": "Jadzia Dax", "subtitle": "Vivacious Host", "gtype": "officer",
-            "factions": {"federation": true},
-            "roles": {"ops": true, "science": true},
-            "sway": {"klingon": 1, "ferengi": 1},
-            "cp": 10, "fp": 4, "unique": true
+            "factions": {"federation": true}, "sway": {"klingon": 1, "ferengi": 1}, "roles": {"ops": true, "science": true},
+            "abilities": ["While Jadzia Dax leads a test for which she has no skill levels, if her unit has no peril, she counts a having that skill at level 1."],
+            "skills": {"Fieldcraft": 1, "Skirmish": 2, "Biology": 1, "Mechanics": 2, "Navigation": 1, "Social": 0, "Security": 2, "Technical": 2},
+            "cp": 10, "fp": 4, "unique": true, "rank": "ltcmdr"
         },
         {
             "name": "Jean-Luc Picard", "subtitle": "Principled Captain", "gtype": "officer",
-            "factions": {"federation": true},
-            "roles": {"command": true, "science": true, "ops": true},
-            "cp": 14, "fp": 6, "unique": true
+            "factions": {"federation": true}, "roles": {"command": true, "science": true, "ops": true},
+            "abilities": ["Inspiring [Command, Ops, Science]", "Captain's Chair Reaction - After an oppossing unit at Sensors range performs an aggressive or hostile act, increase this ship's alert status from any green alert to any yellow alert."],
+            "skills": {"Culture": 1, "Diplomacy": 3, "Discipline": 1, "Fieldcraft": 1, "Biology": 1, "Logic": 2, "Social": 3, "Security": 1, "Technical": 2},
+            "cp": 14, "fp": 6, "unique": true, "rank": "capt"
         },
         {
             "name": "Julian Bashir", "subtitle": "Inquisitive Doctor", "gtype": "officer",
-            "factions": {"federation": true},
-            "roles": {"science": true},
-            "cp": 9, "fp": 3, "unique": true
+            "factions": {"federation": true}, "roles": {"science": true},
+            "abilities": ["Augmented 1", "Medic 1", "While another officer in the same unit leads a test, if Julian Bashir has no levels in the skill used, you may change 1 blank result to analysis."],
+            "cp": 9, "fp": 3, "unique": true, "rank": "lt"
         },
         {
             "name": "Kira Nerys", "subtitle": "Bajoran Hero", "gtype": "officer",
-            "factions": {"bajoran": true, "federation": true},
-            "sway": {"federation": 1, "bajoran": 2},
-            "roles": {"command": true, "ops": true},
-            "cp": 10, "fp": 4, "unique": true
+            "factions": {"bajoran": true, "federation": true}, "sway": {"federation": 1, "bajoran": 2}, "roles": {"command": true, "ops": true},
+            "abilities": ["Inspiring [Ops]", "After Kira Nerys leads a hail, if you were persuasive, you may inspire a unit at Comms range."],
+            "skills": {"Discipline": 1, "Empathy": 2, "Fieldcraft": 2, "Skirmish": 1, "Social": 2, "Security": 2},
+            "cp": 10, "fp": 4, "unique": true, "rank": "cmdr"
         },
         {
             "name": "Miles OBrien", "subtitle": "Chief of Operations", "gtype": "officer",
-            "factions": {"federation": true},
-            "roles": {"ops": true},
-            "cp": 12, "fp": 5, "unique": true
+            "factions": {"federation": true}, "roles": {"ops": true},
+            "abilities": ["Handy 3", "While Miles O'Brien leads a test to transport personnel, reduce the difficulty by 2, to a minimum of 1."],
+            "skills": {"Culture": 1, "Empathy": 1, "Ordnance": 1, "Skirmish": 1, "Mechanics": 3, "Social": 1, "Security": 1, "Technical": 3},
+            "cp": 12, "fp": 5, "unique": true, "rank": "cpo"
         },
         {
             "name": "Odo", "subtitle": "Stern Constable", "gtype": "officer",
-            "factions": {"bajoran": true, "federation": true},
-            "roles": {"ops": true},
-            "sway": {"cardasian": 1, "bajoran": 1},
-            "cp": 10, "fp": 5, "unique": true
+            "factions": {"bajoran": true, "federation": true}, "sway": {"cardasian": 1, "bajoran": 1}, "roles": {"ops": true},
+            "abilities": ["Changeling 1", "Opposing teams in Odo's location increase the difficulty of all tests they make by 1."],
+            "skills": {"Discipline": 2, "Fieldcraft": 2, "Skirmish": 1, "Logic": 1, "Social": 2, "Security": 2, "Technical": 1},
+            "cp": 10, "fp": 5, "unique": true, "rank": "ens"
         },
         {
             "name": "Redoubtable Engineer", "gtype": "officer",
-            "factions": {"federation": true},
-            "roles": {"ops": true,"science": true},
-            "cp": 6, "fp": 3
+            "factions": {"federation": true}, "roles": {"ops": true,"science": true},
+            "abilities": ["Handy 1"],
+            "skills": {"Fieldcraft": 1, "Mechanics": 2, "Navigation": 1, "Social": 0, "Security": 1, "Technical": 2},
+            "cp": 6, "fp": 3, "rank": "lt"
         },
         {
             "name": "Reliable Commander", "gtype": "officer",
-            "factions": {"federation": true},
-            "roles": {"command": true},
-            "cp": 0, "fp": 3, "line_officer": true
+            "factions": {"federation": true}, "roles": {"command": true},
+            "abilities": [],
+            "skills": {"Discipline": 1, "Fieldcraft": 1, "Navigation": 1, "Social": 1, "Security": 1, "Technical": 1},
+            "cp": 0, "fp": 3, "line_officer": true, "rank": "cmdr"
         },
         {
             "name": "Scholarly Doctor", "gtype": "officer",
-            "factions": {"federation": true},
-            "roles": {"science": true},
-            "cp": 6, "fp": 3
+            "factions": {"federation": true}, "roles": {"science": true},
+            "abilities": ["Medic 1"],
+            "skills": {"Empathy": 1, "Biology": 2, "Social": 1, "Security": 0, "Technical": 2},
+            "cp": 6, "fp": 3, "rank": "ltcmdr"
         },
         {
             "name": "Vigilant Security Chief", "gtype": "officer",
-            "factions": {"federation": true},
-            "roles": {"ops": true},
-            "cp": 6, "fp": 2
+            "factions": {"federation": true}, "roles": {"ops": true},
+            "abilities": [],
+            "skills": {"Discipline": 1, "Fieldcraft": 1, "Ordnance": 1, "Skirmish": 1, "Social": 1, "Security": 1, "Technical": 0},
+            "cp": 6, "fp": 2, "rank": "ltjg"
         },
         {
             "name": "Worf", "subtitle": "Son of Mogh", "gtype": "officer",
-            "factions": {"klingon": true, "federation": true},
-            "roles": {"command": true, "ops": true },
-            "sway": {"federation": 1, "klingon": 1},
-            "cp": 11, "fp": 3, "unique": true
+            "factions": {"klingon": true, "federation": true}, "sway": {"federation": 1, "klingon": 1}, "roles": {"command": true, "ops": true },
+            "abilities": ["Qapla' [+1 Ordnance, +1 Skirmish]", "While Worf leads an attack, you can resolve the following during Post Outcome Effects: Analysis: Inspire Worf's unit."],
+            "skills": {"Culture": 1, "Discipline": 1, "Fieldcraft": 1, "Ordnance": 1, "Skirmish": 2, "Social": 1, "Security": 2, "Technical": 0},
+            "cp": 11, "fp": 3, "unique": true, "rank": "ltcmdr"
         },
         {
             "name": "Beverly Crusher", "subtitle": "Expert Physician", "gtype": "officer",
-            "factions": {"federation": true},
-            "roles": {"command": true, "science": true},
-            "cp": 9, "fp": 4, "unique": true
+            "factions": {"federation": true}, "roles": {"command": true, "science": true},
+            "abilities": ["Inspiring [Science]", "Medic 2"],
+            "skills": {"Diplomacy": 1, "Empathy": 1, "Fieldcraft": 1, "Biology": 2, "Social": 1, "Security": 1, "Technical": 2},
+            "cp": 9, "fp": 4, "unique": true, "rank": "cmdr"
         },
         {
             "name": "Data", "subtitle": "Positronic Prodigy", "gtype": "officer",
-            "factions": {"federation": true},
-            "roles": {"ops": true, "science": true},
-            "cp": 15, "fp": 6, "unique": true
+            "factions": {"federation": true}, "roles": {"ops": true, "science": true},
+            "abilities": ["Synthetic 2", "Ready - Remove 2 advantage banked on Data to ready Data."],
+            "skills": {"Discipline": 1, "Fieldcraft": 2, "Ordnance": 1, "Skirmish": 1, "Biology": 1, "Logic": 3, "Mechanics": 1, "Navigation": 1, "Social": 1, "Security": 2, "Technical": 3},
+            "cp": 15, "fp": 6, "unique": true, "rank": "ltcmdr"
         },
         {
             "name": "Deanna Troi", "subtitle": "Insightful Counsellor", "gtype": "officer",
-            "factions": {"federation": true},
-            "roles": {"science": true},
-            "cp": 9, "fp": 3, "unique": true
+            "factions": {"federation": true}, "roles": {"science": true},
+            "abilities": ["Empathic 1", "Read Intentions: Spend 1 advantage from Deanna Troi's unit to move the influence marker once."],
+            "skills": {"Culture": 1, "Diplomacy": 2, "Empathy": 2, "Biology": 1, "Social": 2, "Security": 0, "Technical": 1},
+            "cp": 9, "fp": 3, "unique": true, "rank": "ltcmdr"
         },
         {
             "name": "William Riker", "subtitle": "Dashing Commander", "gtype": "officer",
-            "factions": {"federation": true},
-            "roles": {"command": true, "ops": true},
-            "cp": 12, "fp": 6, "unique": true
+            "factions": {"federation": true}, "roles": {"command": true, "ops": true},
+            "abilities": ["Inspiring [Ops]", "While William Riker is attached to a team or auxiliary unit, treat that unit's evasion as 1 higher.", "Rousing Counsel: Ready an officer of lower rank at Comms range of William Riker's unit."],
+            "skills": {"Diplomacy": 1, "Discipline": 1, "Fieldcraft": 1, "Skirmish": 2, "Navigation": 3, "Social": 1, "Security": 2, "Technical": 3},
+            "cp": 12, "fp": 6, "unique": true, "rank": "cmdr"
         },
         {
             "name": "T'Rul", "subtitle": "Acerbic Subcommander", "gtype": "officer",
-            "factions": {"federation": true, "romulan": true},
-            "roles": {"science": true},
-            "cp": 8, "fp": 4, "unique": true
+            "factions": {"federation": true, "romulan": true}, "roles": {"science": true},
+            "abilities": ["Engineering Station - Remodulate Cloak: If T'Rul's ship is cloaked, it decloaks and then cloaks."],
+            "skills": {"Discipline": 1, "Fieldcraft": 1, "Mechanics": 2, "Social": 1, "Security": 1, "Technical": 2},
+            "cp": 8, "fp": 4, "unique": true, "rank": "cmdr"
         },
         {
             "name": "Cunning Weapons Officer", "gtype": "officer",
-            "factions": {"klingon": true},
-            "roles": {"ops": true},
-            "cp": 7, "fp": 3
-        },
-        {
-            "name": "Gowron", "subtitle": "Canny Chancellor", "gtype": "officer",
-            "factions": {"klingon": true},
-            "roles": {"command": true},
-            "cp": 15, "fp": 4, "unique": true
-        },
-        {
-            "name": "Grilka", "subtitle": "Indomitable Leader", "gtype": "officer",
-            "factions": {"klingon": true},
-            "roles": {"command": true},
-            "sway": {"ferengi": 2},
-            "cp": 12, "fp": 3, "unique": true
-        },
-        {
-            "name": "K'Ehleyr", "subtitle": "Ambassador of Two Worlds", "gtype": "officer",
-            "factions": {"federation": true, "klingon": true},
-            "roles": {"ops": true, "science": true},
-            "sway": {"federation": 1, "klingon": 1},
-            "cp": 9, "fp": 5, "unique": true
-        },
-        {
-            "name": "Kurn", "subtitle": "Steadfast Supporter", "gtype": "officer",
-            "factions": {"klingon": true},
-            "roles": {"command": true, "ops": true},
-            "cp": 12, "fp": 4, "unique": true
-        },
-        {
-            "name": "Loyal Commander", "gtype": "officer",
-            "factions": {"klingon": true},
-            "roles": {"command": true},
-            "cp": 0, "fp": 3, "line_officer": true
-        },
-        {
-            "name": "Proud Captain", "gtype": "officer",
-            "factions": {"klingon": true},
-            "roles": {"command": true},
-            "cp": 8, "fp": 3
-        },
-        {
-            "name": "Restless First Officer", "gtype": "officer",
-            "factions": {"klingon": true},
-            "roles": {"ops": true},
-            "cp": 8, "fp": 3
-        },
-        {
-            "name": "Savvy Engineer", "gtype": "officer",
-            "factions": {"klingon": true},
-            "roles": {"ops": true},
-            "cp": 8,"fp": 3
-        },
-        {
-            "name": "Wary Science Officer", "gtype": "officer",
-            "factions": {"klingon": true},
-            "roles": {"science": true},
-            "cp": 7, "fp": 2
+            "factions": {"klingon": true}, "roles": {"ops": true},
+            "abilities": ["Qapla' [+1 Ordnance]"],
+            "skills": {"Discipline": 1, "Ordnance": 1, "Mechanics": 1, "Social": 1, "Security": 1, "Technical": 1},
+            "cp": 7, "fp": 3, "rank": "ltjg"
         },
         {
             "name": "Duras", "subtitle": "Son of Ja'rod", "gtype": "officer",
-            "factions": {"klingon": true},
-            "roles": {"command": true},
-            "sway": {"romulan": 2},
-            "cp": 10, "fp": 2, "unique": true
+            "factions": {"klingon": true}, "sway": {"romulan": 2}, "roles": {"command": true},
+            "abilities": ["Qapla' [+1 Discipline, +2 Fieldcraft]", "While Duras leads a raid or assault, during post effects, you can spend 2 analysis. If you do, choose an officer in the target unit to suffer damage equal to Duras' ranks in Fieldcraft."],
+            "skills": {"Diplomacy": 1, "Discipline": 1, "Fieldcraft": 1, "Ordnance": 1, "Social": 1, "Security": 1, "Technical": 0},
+            "cp": 10, "fp": 2, "unique": true, "rank": "capt"
+        },
+        {
+            "name": "Gowron", "subtitle": "Canny Chancellor", "gtype": "officer",
+            "factions": {"klingon": true}, "roles": {"command": true},
+            "abilities": ["Qapla' [Ready - You may set 1 of your calm directives to hostile in this sequence: diplomacy, exploration, combat]", "After Gowron leads a hail, if you were persuasive, you may choose a friendly officer in Gowron's unit an move all victory points banked on them to Gowron."],
+            "skills": {"Diplomacy": 2, "Ordnance": 1, "Skirmish": 1, "Navigation": 1, "Social": 2, "Security": 1, "Technical": 1},
+            "cp": 15, "fp": 4, "unique": true, "rank": "fcapt"
+        },
+        {
+            "name": "Grilka", "subtitle": "Indomitable Leader", "gtype": "officer",
+            "factions": {"klingon": true}, "sway": {"ferengi": 2}, "roles": {"command": true},
+            "abilities": ["Qapla' [+1 Discipline, +1 Navigation", "Captain's Chair/Team Reaction - After Grilka's unit gains 1 or more peril, remove up to 3 peril it gained this way and gain 1 advantage."],
+            "skills": {"Commerce": 1, "Culture": 1, "Discipline": 1, "Ordnance": 1, "Navigation": 1, "Social": 1, "Security": 1, "Technical": 1},
+            "cp": 12, "fp": 3, "unique": true, "rank": "cmdr"
+        },
+        {
+            "name": "K'Ehleyr", "subtitle": "Ambassador of Two Worlds", "gtype": "officer",
+            "factions": {"federation": true, "klingon": true}, "sway": {"federation": 1, "klingon": 1}, "roles": {"ops": true, "science": true},
+            "abilities": ["After K'Ehleyr leads a hail, if the trust gap was even (0, 2, or 4), you may exchange 1 of your unspent trust tokens for a spent trust token."],
+            "skills": {"Diplomacy": 2, "Empathy": 1, "Skirmish": 2, "Navigation": 1, "Social": 2, "Security": 2, "Technical": 1},
+            "cp": 9, "fp": 5, "unique": true, "rank": "ltcmdr"
+        },
+        {
+            "name": "Kurn", "subtitle": "Steadfast Supporter", "gtype": "officer",
+            "factions": {"klingon": true}, "roles": {"command": true, "ops": true},
+            "abilities": ["Relentless 1", "Qapla' [+1 Relentless]", "Each other friendly officer in the same section or team unit as Kurn gains Relentless equal to Kurn's Relentless value."],
+            "skills": {"Discipline": 2, "Fieldcraft": 1, "Mechanics": 1, "Social": 2, "Security": 1, "Technical": 1},
+            "cp": 12, "fp": 4, "unique": true, "rank": "srcmdr"
+        },
+        {
+            "name": "Loyal Commander", "gtype": "officer",
+            "factions": {"klingon": true}, "roles": {"command": true},
+            "abilities": ["Qapla' [+1 Navigation]"],
+            "skills": {"Discipline": 1, "Skirmish": 1, "Navigation": 1, "Social": 1, "Security": 1, "Technical": 1},
+            "cp": 0, "fp": 3, "line_officer": true, "rank": "cmdr"
+        },
+        {
+            "name": "Proud Captain", "gtype": "officer",
+            "factions": {"klingon": true}, "roles": {"command": true},
+            "abilities": ["Qapla' [+1 Diplomacy, +1 Discipline]"],
+            "skills": {"Diplomacy": 1, "Discipline": 1, "Skirmish": 2, "Social": 1, "Security": 1, "Technical": 0},
+            "cp": 8, "fp": 3, "rank": "capt"
+        },
+        {
+            "name": "Restless First Officer", "gtype": "officer",
+            "factions": {"klingon": true}, "roles": {"ops": true},
+            "abilities": ["Qapla' [+1 Skirmish]"],
+            "skills": {"Discipline": 1, "Ordnance": 1, "Fieldcraft": 1, "Skirmish":1, "Navigation": 1, "Social": 1, "Security": 1, "Technical": 1},
+            "cp": 8, "fp": 3, "rank": "cmdr"
+        },
+        {
+            "name": "Savvy Engineer", "gtype": "officer",
+            "factions": {"klingon": true}, "roles": {"ops": true},
+            "abilities": ["Handy 1", "Qapla' [+1 Mechanics]"],
+            "skills": {"Ordnance": 1, "Mechanics": 2, "Navigation": 1, "Social": 0, "Security": 1, "Technical": 2},
+            "cp": 8,"fp": 3, "rank": "lt"
+        },
+        {
+            "name": "Wary Science Officer", "gtype": "officer",
+            "factions": {"klingon": true}, "roles": {"science": true},
+            "abilities": ["Qapla' [+1 Biology]"],
+            "skills": {"Fieldcraft": 1, "Biology": 1, "Social": 0, "Security": 1, "Technical": 1},
+            "cp": 7, "fp": 2, "rank": "ltcmdr"
         }
     ],
     "setup": {
