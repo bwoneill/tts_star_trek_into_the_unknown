@@ -1002,7 +1002,7 @@
                 "instruments": {"bow": true}
             },
             "instruments": [1, 2, 1, 0, 0],
-            "model_transform": {"scaleX": 0.989,  "posY": 0.88, "posX": 0.35, "posZ": 0.75, "rotY": -90},
+            "model_transform": {"scaleX": 0.989, "posY": 0.75, "rotY": -90},
             "weapons": {"fore_port": 4, "fore_starboard": 4},
             "crit_deck_size": 5, "fp": -1,
             "titles": [
