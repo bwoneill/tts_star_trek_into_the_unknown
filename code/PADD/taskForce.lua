@@ -615,7 +615,7 @@ function spawn(player, value, id)
         local ship = build["ship" .. i]
         local title = build["title" .. i]
         if ship then
-            GameType:new(ship):spawnObject(pos + Vector(15 * (i - 2), 0, 13):rotateOver("y", rot.y), Vector(0, rot.y + 180, 0), title)
+            GameType:new(ship):spawnObject(pos + Vector(15 * (i - 2), 0, 13):rotateOver("y", rot.y), Vector(0, rot.y + 180, 0), build.faction, title)
         end
     end
 end

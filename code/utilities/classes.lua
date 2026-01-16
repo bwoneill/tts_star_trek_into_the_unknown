@@ -41,7 +41,8 @@ function Ship:toString()
     return result
 end
 
-function Ship:spawnObject(pos, rot, title)
+function Ship:spawnObject(pos, rot, faction, title)
+    faction = faction or self.faction
     pos = pos or Vector(0,0,0)
     rot = rot or Vector(0,0,0)
     local path = "assets/factions/" .. self.faction .. "/ships/" .. self.short .. "/"
@@ -72,7 +73,7 @@ function Ship:spawnObject(pos, rot, title)
     -- Spawn line officer
     local officers = Global.getTable("ASSETS").officers
     for i, officer in ipairs(officers) do
-        if officer.line_officer and officer.factions[self.faction] then
+        if officer.line_officer and officer.factions[faction] then
             local offset = Vector(-3, 0, 6):rotateOver("y", rot.y)
             Officer:new(officer):spawnObject(pos + offset, Vector(0, rot.y, 180))
         end
