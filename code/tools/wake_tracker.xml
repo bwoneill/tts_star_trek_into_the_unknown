@@ -6,21 +6,21 @@
     <Image height = "24" width = "24" onClick = "placeRuler" rotation = "0 0 180"/>
 </Defaults>
 
-<Image id = "A" image = "https://raw.githubusercontent.com/bwoneill/tts_star_trek_into_the_unknown/v1.1.0/assets/tools/wake_tracker/a.png"
+<Image id = "A" image = "https://raw.githubusercontent.com/bwoneill/tts_star_trek_into_the_unknown/v1.1.1/assets/tools/wake_tracker/a.png"
         position = "-26 -45 -6"/>
-<Image id = "B" image = "https://raw.githubusercontent.com/bwoneill/tts_star_trek_into_the_unknown/v1.1.0/assets/tools/wake_tracker/b.png"
+<Image id = "B" image = "https://raw.githubusercontent.com/bwoneill/tts_star_trek_into_the_unknown/v1.1.1/assets/tools/wake_tracker/b.png"
         position = "-41 -24 -6"/>
-<Image id = "C" image = "https://raw.githubusercontent.com/bwoneill/tts_star_trek_into_the_unknown/v1.1.0/assets/tools/wake_tracker/c.png"
+<Image id = "C" image = "https://raw.githubusercontent.com/bwoneill/tts_star_trek_into_the_unknown/v1.1.1/assets/tools/wake_tracker/c.png"
         position = "-41 24 -6"/>
-<Image id = "D" image = "https://raw.githubusercontent.com/bwoneill/tts_star_trek_into_the_unknown/v1.1.0/assets/tools/wake_tracker/d.png"
+<Image id = "D" image = "https://raw.githubusercontent.com/bwoneill/tts_star_trek_into_the_unknown/v1.1.1/assets/tools/wake_tracker/d.png"
         position = "-26 45 -6"/>
-<Image id = "E" image = "https://raw.githubusercontent.com/bwoneill/tts_star_trek_into_the_unknown/v1.1.0/assets/tools/wake_tracker/e.png"
+<Image id = "E" image = "https://raw.githubusercontent.com/bwoneill/tts_star_trek_into_the_unknown/v1.1.1/assets/tools/wake_tracker/e.png"
         position = "26 45 -6"/>
-<Image id = "F" image = "https://raw.githubusercontent.com/bwoneill/tts_star_trek_into_the_unknown/v1.1.0/assets/tools/wake_tracker/f.png"
+<Image id = "F" image = "https://raw.githubusercontent.com/bwoneill/tts_star_trek_into_the_unknown/v1.1.1/assets/tools/wake_tracker/f.png"
         position = "41 24 -6"/>
-<Image id = "G" image = "https://raw.githubusercontent.com/bwoneill/tts_star_trek_into_the_unknown/v1.1.0/assets/tools/wake_tracker/g.png"
+<Image id = "G" image = "https://raw.githubusercontent.com/bwoneill/tts_star_trek_into_the_unknown/v1.1.1/assets/tools/wake_tracker/g.png"
         position = "41 -24 -6"/>
-<Image id = "H" image = "https://raw.githubusercontent.com/bwoneill/tts_star_trek_into_the_unknown/v1.1.0/assets/tools/wake_tracker/h.png"
+<Image id = "H" image = "https://raw.githubusercontent.com/bwoneill/tts_star_trek_into_the_unknown/v1.1.1/assets/tools/wake_tracker/h.png"
         position = "26 -45 -6"/>
 <Button id = "show" text = "+" height = "25" width = "25" position = "0 0 -6" onClick = "show" active = "false" rectAlignment = "MiddleCenter"/>
 
