@@ -234,6 +234,13 @@ end
 
 Mission = Card:new{gtype = "mission"}
 
+function Mission:spawnObject(pos, rot)
+    local card = Card.spawnObject(self, pos, rot)
+    card.setScale(Vector(1.474092, 1, 1.474092))
+    card.setTags(self.tags)
+    return card
+end
+
 function Mission:getImages()
     local path = ROOT .. "assets/cards/" .. self.gtype .. "/"
     local images = {
@@ -245,6 +252,16 @@ end
 Overture = Mission:new{gtype = "overture"}
 Situation = Mission:new{gtype = "situation"}
 Complication = Mission:new{gtype = "complication"}
+
+function Complication:spawnObject(pos, rot)
+    local card = Mission.spawnObject(self, pos, rot)
+    card.setSnapPoints({
+        {position = {-0.6, -0.2,  0.45}},
+        {position = { 0.6, -0.2,  0.45}},
+        {position = { 0.0, -0.2, -0.35}}
+    })
+    return card
+end
 
 Keyword = GameType:new{gtype = "keyword"}
 
