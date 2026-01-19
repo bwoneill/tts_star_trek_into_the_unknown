@@ -5,7 +5,8 @@ end
 
 libraryImages = {"cardFront","cardBack", "shipBoard", "shipImage", "auxFront", "auxBack", "libraryText"}
 typeImages = {officer = {"cardFront", "cardBack"}, equipment = {"cardFront", "cardBack"},
-              ship = {"shipBoard", "shipImage"}, auxiliary = {"auxFront", "auxBack"}}
+              ship = {"shipBoard", "shipImage"}, auxiliary = {"auxFront", "auxBack"},
+              overture = {"auxFront", "auxBack"}, situation = {"auxFront", "auxBack"}, complication = {"auxFront", "auxBack"}}
 
 function librarySearch(player, value, id)
     searchResults = searchAssets(value)
