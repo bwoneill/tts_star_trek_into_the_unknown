@@ -285,7 +285,7 @@
                 "objectives": [{"gtype": "objective", "type": "ping", "name": "Signal", "quantity": 6}]
             },
             {
-                "name": "Critical Supply Drop", "tags": ["Overture", "Politics", "Trinary"],
+                "name": "Critical Supply Drop", "tags": ["Overture", "Politics", "Trinary"], "gtype": "overture",
                 "objectives": [{"gtype": "objective", "type": "solid", "name": "Outpost", "quantity": 3, "description": "Capacity 2"}],
                 "ships": [{"supply": 2}]
             },
