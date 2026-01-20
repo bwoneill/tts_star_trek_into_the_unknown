@@ -202,6 +202,10 @@ end
 
 Directive = Card:new{gtype = "directive"}
 
+function Directive:getName()
+    return self.names[1] .. "/" .. self.names[2]
+end
+
 function Directive:getImages()
     local path = ASSET_ROOT .. "/factions/" .. self.faction .. "/directives/"
     local result = {}
@@ -334,5 +338,6 @@ end
 
 gtype = {
     ship = Ship, auxiliary = Auxiliary, officer = Officer, equipment = Equipment, keyword = Keyword,
-    feature = Feature, objective = Objective, overture = Overture, situation = Situation, complication = Complication
+    feature = Feature, objective = Objective, overture = Overture, situation = Situation, complication = Complication,
+    directive = Directive
 }
