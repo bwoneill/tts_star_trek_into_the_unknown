@@ -6,13 +6,14 @@ end
 libraryImages = {"cardFront","cardBack", "shipBoard", "shipImage", "auxFront", "auxBack", "libraryText"}
 typeImages = {officer = {"cardFront", "cardBack"}, equipment = {"cardFront", "cardBack"},
               ship = {"shipBoard", "shipImage"}, auxiliary = {"auxFront", "auxBack"},
-              overture = {"auxFront", "auxBack"}, situation = {"auxFront", "auxBack"}, complication = {"auxFront", "auxBack"}}
+              overture = {"auxFront", "auxBack"}, situation = {"auxFront", "auxBack"}, complication = {"auxFront", "auxBack"},
+              directive = {"auxFront", "auxBack"}}
 
 function librarySearch(player, value, id)
     searchResults = searchAssets(value)
     local newXml = [[<GridLayout id="searchResults" cellSize="400 50" color="Black">]]
     for i, value in pairs(searchResults) do
-        newXml = newXml .. [[<Text id = "sr]] .. i ..  [[" fontSize="28" alignment = "MiddleLeft" onClick = "displayResult">]]
+        newXml = newXml .. [[<Text id = "sr]] .. i ..  [[" fontSize="28" alignment = "MiddleLeft" onClick = "displayResult" horizontalOverflow = "Overflow">]]
                         .. GameType:new(value):getName() .. "</Text>"
     end
     if #searchResults < 1 then
