@@ -294,24 +294,21 @@ function getFile(path)
 end
 
 function buildLibrary()
-    for _, o in pairs(ASSETS.officers) do
-        table.insert(LIBRARY, GameType:new(o))
-    end
-    for _, o in pairs(ASSETS.ships) do
-        table.insert(LIBRARY, GameType:new(o))
-    end
-    for _, o in pairs(ASSETS.equipment) do
-        table.insert(LIBRARY, GameType:new(o))
-    end
-    for _, o in pairs(ASSETS.keywords) do
-        table.insert(LIBRARY, GameType:new(o))
-    end
-    for _, t in pairs(ASSETS.missions) do
-        for _, o in pairs(t) do
-            table.insert(LIBRARY, GameType:new(o))
-        end
-    end
+    LIBRARY = {}
+    findGtypes(LIBRARY, ASSETS)
     LIBRARY = table.sort(LIBRARY, function(a,b)
         return a:getName():lower() < b:getName():lower()
     end)
+end
+
+function findGtypes(data, assets)
+    if type(assets) == "table" then
+        if assets.gtype then
+            table.insert(data, GameType:new(assets))
+        else
+            for _, asset in pairs(assets) do
+                findGtypes(data, asset)
+            end
+        end
+    end
 end
