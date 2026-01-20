@@ -186,7 +186,7 @@
         },
         {
             "name": "Synthetic X", "gtype": "keyword",
-            "text": "While this officer leads a test, during the Tester Modifies Dice step, you may spend a number of advantage tokens banked on this officer to change an equal number of analysis results ot breakthrough success results. If you do not, during the Resolve Post Outcome Effects step, you may spend a number of analysis from the roll to bank an equal number of advantage tokens on this officer. This officer can have a maximum of X advantage tokens banked on them."
+            "text": "While this officer leads a test, during the Tester Modifies Dice step, you may spend a number of advantage tokens banked on this officer to change an equal number of analysis results to breakthrough success results. If you do not, during the Resolve Post Outcome Effects step, you may spend a number of analysis from the roll to bank an equal number of advantage tokens on this officer. This officer can have a maximum of X advantage tokens banked on them."
         }
     ],
     "missions": {
