@@ -99,6 +99,19 @@ end
 -- Staging
 
 function showStaging()
+    for _, id in pairs(dirTypes) do
+        if not build[id] then
+            local directives = {}
+            for _, dir in pairs(ASSETS.directives) do
+                if dir.faction == build.faction and dir.type == id then
+                    table.insert(directives, dir)
+                end
+            end
+            if #directives == 1 then
+                build[id] = directives[1]
+            end
+        end
+    end
     updateImages()
     updateFlexPoints()
     cp = 0
