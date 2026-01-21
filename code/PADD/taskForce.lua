@@ -100,7 +100,7 @@ end
 
 function showStaging()
     for _, id in pairs(dirTypes) do
-        if not build[id] then
+        if not build[id] or build[id].faction ~= build.faction then
             local directives = {}
             for _, dir in pairs(ASSETS.directives) do
                 if dir.faction == build.faction and dir.type == id then
@@ -109,6 +109,8 @@ function showStaging()
             end
             if #directives == 1 then
                 build[id] = directives[1]
+            else
+                build[id] = nil
             end
         end
     end
