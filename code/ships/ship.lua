@@ -321,6 +321,9 @@ function placeTurningTool(side, tracker)
     local attachment = getBaseGeometry().toolAttachment[side]
     local pos = myShip.getPosition()
     local rot = myShip.getRotation().y
+    if not TOOLS.turning_tool.data.LuaScript then
+        TOOLS.turning_tool.data.LuaScript = Global.call("getFile", TOOLS.turning_tool.ScriptURL)
+    end
     template = spawnObjectData(TOOLS.turning_tool)
     template.setPosition(pos + Vector(attachment.pos):rotateOver("y", rot))
     template.setRotation({0, rot + attachment.rot, 0})
@@ -763,4 +766,4 @@ function getCloakOffset(pos)
     end
 end
 
--- build 1.1.1.03
+-- build 1.1.1.04
