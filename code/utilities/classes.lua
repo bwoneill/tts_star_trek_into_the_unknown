@@ -90,13 +90,12 @@ function Ship:getTitles()
     local results = {}
     if self.titles then
         for _, title in pairs(self.titles) do
-            local name = title.name
-            if self.faction == "federation" then
-                name = "USS " .. name
-            elseif self.faction == "klingon" then
-                name = "IKS " .. name
-            end
-            table.insert(results, GameType:new({gtype = "title", name = name, images = self:getTitleImages(title.name)}))
+            local prefix = ASSETS.factions[self.faction].prefix
+            local name = ((prefix and prefix .. " ") or "") ..  title.name
+            table.insert(results, GameType:new({
+                gtype = "title", name = name, class = self.name, faction = self.faction, role = self.role,
+                size = self.size, short = self.short, images = self:getTitleImages(title.name)
+            }))
         end
     end
     return results
