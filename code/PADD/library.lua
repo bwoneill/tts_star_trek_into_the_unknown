@@ -7,7 +7,7 @@ libraryImages = {"cardFront","cardBack", "shipBoard", "shipImage", "auxFront", "
 typeImages = {officer = {"cardFront", "cardBack"}, equipment = {"cardFront", "cardBack"},
               ship = {"shipBoard", "shipImage"}, auxiliary = {"auxFront", "auxBack"},
               overture = {"auxFront", "auxBack"}, situation = {"auxFront", "auxBack"}, complication = {"auxFront", "auxBack"},
-              directive = {"auxFront", "auxBack"}}
+              directive = {"auxFront", "auxBack"}, title = {"cardFront", "cardBack"}}
 
 function librarySearch(player, value, id)
     searchResults = searchAssets(value)
@@ -41,6 +41,7 @@ function searchAssets(text)
             local obj = GameType:new(value)
             target = cleanSearchText(obj:toString())
         else
+            log(value)
             target = value.name .. " " .. value.text
         end
         if wordMatch(target, text) then

@@ -304,7 +304,13 @@ end
 function findGtypes(data, assets)
     if type(assets) == "table" then
         if assets.gtype then
-            table.insert(data, GameType:new(assets))
+            local temp = GameType:new(assets)
+            table.insert(data, temp)
+            if temp.gtype == "ship" and temp.titles then
+                for i, title in pairs(temp:getTitles()) do
+                    table.insert(data, title)
+                end
+            end
         else
             for _, asset in pairs(assets) do
                 findGtypes(data, asset)

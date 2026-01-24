@@ -87,6 +87,19 @@ function Ship:spawnObject(pos, rot, faction, title)
 end
 
 function Ship:getTitles()
+    local results = {}
+    if self.titles then
+        for _, title in pairs(self.titles) do
+            local name = title.name
+            if self.faction == "federation" then
+                name = "USS " .. name
+            elseif self.faction == "klingon" then
+                name = "IKS " .. name
+            end
+            table.insert(results, GameType:new({gtype = "title", name = name, images = self:getTitleImages(title.name)}))
+        end
+    end
+    return results
 end
 
 Auxiliary = Ship:new()
@@ -139,6 +152,8 @@ function Card:toString()
     end
     return result
 end
+
+Title = Card:new{gtype = "title"}
 
 Officer = Card:new{gtype = "officer"}
 
@@ -339,5 +354,5 @@ end
 gtype = {
     ship = Ship, auxiliary = Auxiliary, officer = Officer, equipment = Equipment, keyword = Keyword,
     feature = Feature, objective = Objective, overture = Overture, situation = Situation, complication = Complication,
-    directive = Directive
+    directive = Directive, title = Title
 }
