@@ -71,7 +71,7 @@
             "displayName": "Dominion"
         },
         "federation": {
-            "playable": true,
+            "playable": true, "prefix": "USS",
             "displayName": "United Federation of Planets"
         },
         "romulan": {
@@ -79,7 +79,7 @@
             "displayName": "Romulan Star Empire"
         },
         "klingon": {
-            "playable": true,
+            "playable": true, "prefix": "IKS",
             "displayName": "Klingon Empire"
         }
     },
