@@ -1132,9 +1132,9 @@
                     "MeshURL": "ROOT\/assets\/tools\/turning_tool\/turning_tool_mesh.obj",
                     "ColliderURL": "ROOT\/assets\/tools\/turning_tool\/turning_tool_collider.obj"
                 },
-                "Transform": {"scaleY": 1, "scaleX": 1, "scaleZ": 1},
-                "ScriptURL": "code\/tools\/turning_tool.lua"
-            }
+                "Transform": {"scaleY": 1, "scaleX": 1, "scaleZ": 1}
+            },
+            "ScriptURL": "code\/tools\/turning_tool.lua"
         },
         "wake_tracker": {
             "data": {
