@@ -229,6 +229,10 @@ function Directive:getImages()
     return result
 end
 
+function Directive:toString()
+    return self:getName() .. Card.toString(self)
+end
+
 function Directive:spawnObject(pos, rot)
     pos = pos or Vector(0, 0, 0)
     rot = rot or Vector(0, 0, 0)
