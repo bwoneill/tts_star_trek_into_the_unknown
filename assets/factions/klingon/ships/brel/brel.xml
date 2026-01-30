@@ -164,20 +164,6 @@
 
 <Button  
     active="false"
-    id="torpedoBtnA" 
-    onClick="fireTorpedoAft" 
-    fontSize="12" 
-    color="#FFFFFF|White|#C8C8C8|rgba(0.78,0.78,0.78,0.5)" 
-    width="40" 
-    height="20" 
-    rectAlignment="UpperLeft" 
-    position="205 270 -2"
-    rotation="0 0 180">
-    Aft
-</Button>
-
-<Button  
-    active="false"
     id="warpBtn" 
     onClick="placeWarpTemplate" 
     fontSize="12" 

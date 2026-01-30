@@ -41,7 +41,8 @@ function Ship:toString()
     return result
 end
 
-function Ship:spawnObject(pos, rot, title)
+function Ship:spawnObject(pos, rot, faction, title)
+    faction = faction or self.faction
     pos = pos or Vector(0,0,0)
     rot = rot or Vector(0,0,0)
     local path = "assets/factions/" .. self.faction .. "/ships/" .. self.short .. "/"
@@ -72,7 +73,7 @@ function Ship:spawnObject(pos, rot, title)
     -- Spawn line officer
     local officers = Global.getTable("ASSETS").officers
     for i, officer in ipairs(officers) do
-        if officer.line_officer and officer.factions[self.faction] then
+        if officer.line_officer and officer.factions[faction] then
             local offset = Vector(-3, 0, 6):rotateOver("y", rot.y)
             Officer:new(officer):spawnObject(pos + offset, Vector(0, rot.y, 180))
         end
@@ -86,6 +87,18 @@ function Ship:spawnObject(pos, rot, title)
 end
 
 function Ship:getTitles()
+    local results = {}
+    if self.titles then
+        for _, title in pairs(self.titles) do
+            local prefix = ASSETS.factions[self.faction].prefix
+            local name = ((prefix and prefix .. " ") or "") ..  title.name
+            table.insert(results, GameType:new({
+                gtype = "title", name = name, class = self.name, faction = self.faction, role = self.role,
+                size = self.size, short = self.short, images = self:getTitleImages(title.name)
+            }))
+        end
+    end
+    return results
 end
 
 Auxiliary = Ship:new()
@@ -138,6 +151,8 @@ function Card:toString()
     end
     return result
 end
+
+Title = Card:new{gtype = "title"}
 
 Officer = Card:new{gtype = "officer"}
 
@@ -201,6 +216,10 @@ end
 
 Directive = Card:new{gtype = "directive"}
 
+function Directive:getName()
+    return self.names[1] .. "/" .. self.names[2]
+end
+
 function Directive:getImages()
     local path = ASSET_ROOT .. "/factions/" .. self.faction .. "/directives/"
     local result = {}
@@ -208,6 +227,10 @@ function Directive:getImages()
         result[i] = string.gsub(path .. name .. ".png", " ", "_")
     end
     return result
+end
+
+function Directive:toString()
+    return self:getName() .. Card.toString(self)
 end
 
 function Directive:spawnObject(pos, rot)
@@ -233,6 +256,13 @@ end
 
 Mission = Card:new{gtype = "mission"}
 
+function Mission:spawnObject(pos, rot)
+    local card = Card.spawnObject(self, pos, rot)
+    card.setScale(Vector(1.474092, 1, 1.474092))
+    card.setTags(self.tags)
+    return card
+end
+
 function Mission:getImages()
     local path = ROOT .. "assets/cards/" .. self.gtype .. "/"
     local images = {
@@ -244,6 +274,16 @@ end
 Overture = Mission:new{gtype = "overture"}
 Situation = Mission:new{gtype = "situation"}
 Complication = Mission:new{gtype = "complication"}
+
+function Complication:spawnObject(pos, rot)
+    local card = Mission.spawnObject(self, pos, rot)
+    card.setSnapPoints({
+        {position = {-0.6, -0.2,  0.45}},
+        {position = { 0.6, -0.2,  0.45}},
+        {position = { 0.0, -0.2, -0.35}}
+    })
+    return card
+end
 
 Keyword = GameType:new{gtype = "keyword"}
 
@@ -316,5 +356,6 @@ end
 
 gtype = {
     ship = Ship, auxiliary = Auxiliary, officer = Officer, equipment = Equipment, keyword = Keyword,
-    feature = Feature, objective = Objective, overture = Overture, situation = Situation, complication = Complication
+    feature = Feature, objective = Objective, overture = Overture, situation = Situation, complication = Complication,
+    directive = Directive, title = Title
 }

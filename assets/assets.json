@@ -1,5 +1,5 @@
 {
-    "branch": "v1.1.0.1",
+    "branch": "v1.1.1",
     "directives": [
         {
             "faction": "dominion", "gtype": "directive", "type": "combat",
@@ -71,7 +71,7 @@
             "displayName": "Dominion"
         },
         "federation": {
-            "playable": true,
+            "playable": true, "prefix": "USS",
             "displayName": "United Federation of Planets"
         },
         "romulan": {
@@ -79,7 +79,7 @@
             "displayName": "Romulan Star Empire"
         },
         "klingon": {
-            "playable": true,
+            "playable": true, "prefix": "IKS",
             "displayName": "Klingon Empire"
         }
     },
@@ -186,7 +186,7 @@
         },
         {
             "name": "Synthetic X", "gtype": "keyword",
-            "text": "While this officer leads a test, during the Tester Modifies Dice step, you may spend a number of advantage tokens banked on this officer to change an equal number of analysis results ot breakthrough success results. If you do not, during the Resolve Post Outcome Effects step, you may spend a number of analysis from the roll to bank an equal number of advantage tokens on this officer. This officer can have a maximum of X advantage tokens banked on them."
+            "text": "While this officer leads a test, during the Tester Modifies Dice step, you may spend a number of advantage tokens banked on this officer to change an equal number of analysis results to breakthrough success results. If you do not, during the Resolve Post Outcome Effects step, you may spend a number of analysis from the roll to bank an equal number of advantage tokens on this officer. This officer can have a maximum of X advantage tokens banked on them."
         }
     ],
     "missions": {
@@ -285,7 +285,7 @@
                 "objectives": [{"gtype": "objective", "type": "ping", "name": "Signal", "quantity": 6}]
             },
             {
-                "name": "Critical Supply Drop", "tags": ["Overture", "Politics", "Trinary"],
+                "name": "Critical Supply Drop", "tags": ["Overture", "Politics", "Trinary"], "gtype": "overture",
                 "objectives": [{"gtype": "objective", "type": "solid", "name": "Outpost", "quantity": 3, "description": "Capacity 2"}],
                 "ships": [{"supply": 2}]
             },
@@ -301,270 +301,302 @@
     "officers": [
         {
             "name": "Eris", "subtitle": "Manipulative Agent", "gtype": "officer",
-            "factions": {"dominion": true},
-            "roles": {"command": true, "ops": true},
-            "cp": 8, "fp": 4, "unique": true
+            "factions": {"dominion": true}, "roles": {"command": true, "ops": true},
+            "abilities": ["Glib 2", "Sow Discord: Test ops + Fieldcraft to add 1 peril to a unit at the same location. Difficulty is equal to the unit's command + highest social skill."],
+            "skills": {"Diplomacy": 1, "Fieldcraft": 2, "Logic": 1, "Navigation": 1, "Social": 1, "Security": 2, "Technical": 1},
+            "cp": 8, "fp": 4, "unique": true, "rank": "capt"
         },
         {
             "name": "Founder", "gtype": "officer",
-            "factions": {"dominion": true},
-            "roles": {"command": true, "science": true, "ops": true},
-            "cp": 9, "fp": 6
+            "factions": {"dominion": true}, "roles": {"command": true, "science": true, "ops": true},
+            "abilities": ["Changeling 1", "Inspiring [Command]"],
+            "skills": {"Diplomacy": 2, "Fieldcraft": 2, "Biology": 2, "Social": 2, "Security": 2, "Technical": 2},
+            "cp": 9, "fp": 6, "rank": "fcapt"
         },
         {
             "name": "Hanok", "subtitle": "Sanctimonious Minister", "gtype": "officer",
-            "factions": {"dominion": true},
-            "roles": {"ops": true, "science": true},
-            "sway": {"ferengi": 1},
-            "cp": 9, "fp": 3, "unique": true
+            "factions": {"dominion": true}, "sway": {"ferengi": 1}, "roles": {"ops": true, "science": true},
+            "abilities": ["Perceptive 1", "After Hanok leads a hail, add advantage to his unit equal to the differenece between the highest and lowest trust token."],
+            "skills": {"Commerce": 2, "Culture": 1, "Diplomacy": 1, "Mechanics": 1, "Navigation": 1, "Social": 2, "Security": 0, "Technical": 1},
+            "cp": 9, "fp": 3, "unique": true, "rank": "ltjg"
         },
         {
             "name": "Jem'Hadar First", "gtype": "officer",
-            "factions": {"dominion": true},
-            "roles": {"ops": true},
-            "cp": 8, "fp": 3
+            "factions": {"dominion": true}, "roles": {"ops": true},
+            "abilities": ["Relentless 1"],
+            "skills": {"Discipline": 2, "Ordnance": 1, "Skirmish": 1, "Social": 2, "Security": 1, "Technical": 0},
+            "cp": 8, "fp": 3, "rank": "ltcmdr"
         },
         {
             "name": "Jem'Hadar Second", "gtype": "officer",
-            "factions": {"dominion": true},
-            "roles": {"ops": true},
-            "cp": 7, "fp": 2
+            "factions": {"dominion": true}, "roles": {"ops": true},
+            "abilities": ["Relentless 1"],
+            "skills": {"Fieldcraft": 1, "Ordnance": 1, "Skirmish": 2, "Social": 0, "Security": 2, "Technical": 0},
+            "cp": 7, "fp": 2, "rank": "lt"
         },
         {
             "name": "Karemma Researcher", "gtype": "officer",
-            "factions": {"dominion": true},
-            "roles": {"science": true},
-            "cp": 7, "fp": 3
+            "factions": {"dominion": true}, "roles": {"science": true},
+            "abilities": ["Perceptive 1"],
+            "skills": {"Empathy": 1, "Mechanics": 2, "Navigation": 1, "Social": 1, "Security": 0, "Technical": 2},
+            "cp": 7, "fp": 3, "rank": "ltjg"
         },
         {
             "name": "Omet'iklan", "subtitle": "Loyal First", "gtype": "officer",
-            "factions": {"dominion": true},
-            "roles": {"ops": true},
-            "cp": 11, "fp": 4, "unique": true
+            "factions": {"dominion": true}, "roles": {"ops": true},
+            "abilities": ["Relentless 2", "After Omet'iklan sustains damage, you may add 1 advantage to a unit at Comms range."],
+            "skills": {"Discipline": 2, "Empathy": 1, "Fieldcraft": 1, "Ordnance": 1, "Skirmish": 2, "Social": 2, "Security": 2, "Technical": 0},
+            "cp": 11, "fp": 4, "unique": true, "rank": "ltcmdr"
         },
         {
             "name": "Talak'talan", "subtitle": "Menacing Third", "gtype": "officer",
-            "factions": {"dominion": true},
-            "roles": {"ops": true },
-            "cp": 9, "fp": 3, "unique": true
+            "factions": {"dominion": true}, "roles": {"ops": true },
+            "abilities": ["Relentless 1", "After Talak'talan's unit locks an opposing unit, add 1 peril to the opposing unit."],
+            "skills": {"Discipline": 1, "Fieldcraft": 1, "Ordnance": 2, "Skirmish": 2, "Social": 1, "Security": 2, "Technical": 0},
+            "cp": 9, "fp": 3, "unique": true, "rank": "ltjg"
         },
         {
             "name": "The Female Changeling", "subtitle": "Divine Ruler", "gtype": "officer",
-            "factions": {"dominion": true},
-            "roles": {"command": true, "science": true, "ops": true},
-            "cp": 10, "fp": 3, "unique": true
+            "factions": {"dominion": true}, "roles": {"command": true, "science": true, "ops": true},
+            "abilities": ["Changeling 2", "Inspiring [Command]", "Duplication: Choose an opposing officer at the Female Changeling's location. She becomes a copy of that officer with this action an Changeling 2."],
+            "skills": {"Culture": 1, "Diplomacy": 1, "Discipline": 1, "Fieldcraft": 1, "Biology": 1, "Navigation": 1, "Social": 1, "Security": 1, "Technical": 1},
+            "cp": 10, "fp": 3, "unique": true, "rank": "fcapt"
         },
         {
             "name": "Vorta Diplomat", "gtype": "officer",
-            "factions": {"dominion": true},
-            "roles": {"command": true},
-            "cp": 6, "fp": 3
+            "factions": {"dominion": true}, "roles": {"command": true},
+            "abilities": ["Glib 1"],
+            "skills": {"Diplomacy": 2, "Biology": 1, "Navigation": 1, "Social": 2, "Security": 0, "Technical": 1},
+            "cp": 6, "fp": 3, "rank": "srcmdr"
         },
         {
             "name": "Vorta Supervisor", "gtype": "officer",
-            "factions": {"dominion": true},
-            "roles": {"command": true},
-            "cp": 0, "fp": 2, "line_officer": true
+            "factions": {"dominion": true}, "roles": {"command": true},
+            "abilities": ["Glib 1"],
+            "skills": {"Diplomacy": 1, "Biology": 1, "Navigation": 1, "Social": 1, "Security": 0, "Technical": 1},
+            "cp": 0, "fp": 2, "line_officer": true, "rank": "srcmdr"
         },
         {
             "name": "Weyoun 4", "subtitle": "Unctuous Envoy", "gtype": "officer",
-            "factions": {"dominion": true},
-            "roles": {"command": true},
-            "cp": 9, "fp": 3, "unique": true
+            "factions": {"dominion": true}, "roles": {"command": true},
+            "abilities": ["Glib 2", "After Weyoun leads a hail, if you were accomodating, you may exchange your spent trust token with one of your unspent trust tokens."],
+            "cp": 9, "fp": 3, "unique": true, "rank": "capt"
         },
         {
             "name": "Benjamin Sisko", "subtitle": "Reluctant Emissary", "gtype": "officer",
-            "factions": {"federation": true},
-            "roles": {"command": true, "ops": true},
-            "sway": {"bajoran": 1},
-            "cp": 11, "fp": 4, "unique": true
+            "factions": {"federation": true}, "sway": {"bajoran": 1}, "roles": {"command": true, "ops": true},
+            "abilities": ["Inspiring [Command]", "While another officer in the same unit leads a test, you may spend 1 advantage or commit Benjamin Sisko to add 1 intuition die."],
+            "skills": {"Culture": 2, "Diplomacy": 1, "Discipline": 2, "Mysticism": 1, "Ordnance": 1, "Skirmish": 1, "Navigation": 1, "Social": 2, "Security": 1, "Technical": 1},
+            "cp": 11, "fp": 4, "unique": true, "rank": "srcmdr"
         },
         {
             "name": "Daring First Officer", "gtype": "officer",
-            "factions": {"federation": true},
-            "roles": {"command": true, "ops": true},
-            "cp": 6, "fp": 3
+            "factions": {"federation": true}, "roles": {"command": true, "ops": true},
+            "abilities": [],
+            "skills": {"Discipline": 1, "Skirmish": 1, "Mechanics": 1, "Navigation": 1, "Social": 1, "Security": 1, "Technical": 1},
+            "cp": 6, "fp": 3, "rank": "cmdr"
         },
         {
             "name": "Geordi LaForge", "subtitle": "Inquisitive Engineer", "gtype": "officer",
-            "factions": {"federation": true},
-            "roles": {"ops": true, "science": true},
-            "cp": 11, "fp": 4, "unique": true
+            "factions": {"federation": true}, "roles": {"ops": true, "science": true},
+            "abilities": ["Perceptive 2", "Engineering Station Reaction - When Geordi LaForge's unit takes an action, choose 1 of its alert stats. Treat the value of that stat as 1 higher while resolving that action."],
+            "skills": {"Empathy": 1, "Fieldcraft": 1, "Mechanics": 2, "Navigation": 2, "Social": 1, "Security": 1, "Technical": 2},
+            "cp": 11, "fp": 4, "unique": true, "rank": "ltcmdr"
         },
         {
             "name": "Intrepid Captain", "gtype": "officer",
-            "factions": {"federation": true},
-            "roles": {"command": true},
-            "cp": 7, "fp": 4
+            "factions": {"federation": true}, "roles": {"command": true},
+            "abilities": ["Inspiring [Command]"],
+            "skills": {"Diplomacy": 2, "Ordnance": 1, "Navigation": 1, "Social": 2, "Security": 1, "Technical": 1},
+            "cp": 7, "fp": 4, "rank": "capt"
         },
         {
             "name": "Jadzia Dax", "subtitle": "Vivacious Host", "gtype": "officer",
-            "factions": {"federation": true},
-            "roles": {"ops": true, "science": true},
-            "sway": {"klingon": 1, "ferengi": 1},
-            "cp": 10, "fp": 4, "unique": true
+            "factions": {"federation": true}, "sway": {"klingon": 1, "ferengi": 1}, "roles": {"ops": true, "science": true},
+            "abilities": ["While Jadzia Dax leads a test for which she has no skill levels, if her unit has no peril, she counts a having that skill at level 1."],
+            "skills": {"Fieldcraft": 1, "Skirmish": 2, "Biology": 1, "Mechanics": 2, "Navigation": 1, "Social": 0, "Security": 2, "Technical": 2},
+            "cp": 10, "fp": 4, "unique": true, "rank": "ltcmdr"
         },
         {
             "name": "Jean-Luc Picard", "subtitle": "Principled Captain", "gtype": "officer",
-            "factions": {"federation": true},
-            "roles": {"command": true, "science": true, "ops": true},
-            "cp": 14, "fp": 6, "unique": true
+            "factions": {"federation": true}, "roles": {"command": true, "science": true, "ops": true},
+            "abilities": ["Inspiring [Command, Ops, Science]", "Captain's Chair Reaction - After an oppossing unit at Sensors range performs an aggressive or hostile act, increase this ship's alert status from any green alert to any yellow alert."],
+            "skills": {"Culture": 1, "Diplomacy": 3, "Discipline": 1, "Fieldcraft": 1, "Biology": 1, "Logic": 2, "Social": 3, "Security": 1, "Technical": 2},
+            "cp": 14, "fp": 6, "unique": true, "rank": "capt"
         },
         {
             "name": "Julian Bashir", "subtitle": "Inquisitive Doctor", "gtype": "officer",
-            "factions": {"federation": true},
-            "roles": {"science": true},
-            "cp": 9, "fp": 3, "unique": true
+            "factions": {"federation": true}, "roles": {"science": true},
+            "abilities": ["Augmented 1", "Medic 1", "While another officer in the same unit leads a test, if Julian Bashir has no levels in the skill used, you may change 1 blank result to analysis."],
+            "cp": 9, "fp": 3, "unique": true, "rank": "lt"
         },
         {
             "name": "Kira Nerys", "subtitle": "Bajoran Hero", "gtype": "officer",
-            "factions": {"bajoran": true, "federation": true},
-            "sway": {"federation": 1, "bajoran": 2},
-            "roles": {"command": true, "ops": true},
-            "cp": 10, "fp": 4, "unique": true
+            "factions": {"bajoran": true, "federation": true}, "sway": {"federation": 1, "bajoran": 2}, "roles": {"command": true, "ops": true},
+            "abilities": ["Inspiring [Ops]", "After Kira Nerys leads a hail, if you were persuasive, you may inspire a unit at Comms range."],
+            "skills": {"Discipline": 1, "Empathy": 2, "Fieldcraft": 2, "Skirmish": 1, "Social": 2, "Security": 2},
+            "cp": 10, "fp": 4, "unique": true, "rank": "cmdr"
         },
         {
             "name": "Miles OBrien", "subtitle": "Chief of Operations", "gtype": "officer",
-            "factions": {"federation": true},
-            "roles": {"ops": true},
-            "cp": 12, "fp": 5, "unique": true
+            "factions": {"federation": true}, "roles": {"ops": true},
+            "abilities": ["Handy 3", "While Miles O'Brien leads a test to transport personnel, reduce the difficulty by 2, to a minimum of 1."],
+            "skills": {"Culture": 1, "Empathy": 1, "Ordnance": 1, "Skirmish": 1, "Mechanics": 3, "Social": 1, "Security": 1, "Technical": 3},
+            "cp": 12, "fp": 5, "unique": true, "rank": "cpo"
         },
         {
             "name": "Odo", "subtitle": "Stern Constable", "gtype": "officer",
-            "factions": {"bajoran": true, "federation": true},
-            "roles": {"ops": true},
-            "sway": {"cardasian": 1, "bajoran": 1},
-            "cp": 10, "fp": 5, "unique": true
+            "factions": {"bajoran": true, "federation": true}, "sway": {"cardasian": 1, "bajoran": 1}, "roles": {"ops": true},
+            "abilities": ["Changeling 1", "Opposing teams in Odo's location increase the difficulty of all tests they make by 1."],
+            "skills": {"Discipline": 2, "Fieldcraft": 2, "Skirmish": 1, "Logic": 1, "Social": 2, "Security": 2, "Technical": 1},
+            "cp": 10, "fp": 5, "unique": true, "rank": "ens"
         },
         {
             "name": "Redoubtable Engineer", "gtype": "officer",
-            "factions": {"federation": true},
-            "roles": {"ops": true,"science": true},
-            "cp": 6, "fp": 3
+            "factions": {"federation": true}, "roles": {"ops": true,"science": true},
+            "abilities": ["Handy 1"],
+            "skills": {"Fieldcraft": 1, "Mechanics": 2, "Navigation": 1, "Social": 0, "Security": 1, "Technical": 2},
+            "cp": 6, "fp": 3, "rank": "lt"
         },
         {
             "name": "Reliable Commander", "gtype": "officer",
-            "factions": {"federation": true},
-            "roles": {"command": true},
-            "cp": 0, "fp": 3, "line_officer": true
+            "factions": {"federation": true}, "roles": {"command": true},
+            "abilities": [],
+            "skills": {"Discipline": 1, "Fieldcraft": 1, "Navigation": 1, "Social": 1, "Security": 1, "Technical": 1},
+            "cp": 0, "fp": 3, "line_officer": true, "rank": "cmdr"
         },
         {
             "name": "Scholarly Doctor", "gtype": "officer",
-            "factions": {"federation": true},
-            "roles": {"science": true},
-            "cp": 6, "fp": 3
+            "factions": {"federation": true}, "roles": {"science": true},
+            "abilities": ["Medic 1"],
+            "skills": {"Empathy": 1, "Biology": 2, "Social": 1, "Security": 0, "Technical": 2},
+            "cp": 6, "fp": 3, "rank": "ltcmdr"
         },
         {
             "name": "Vigilant Security Chief", "gtype": "officer",
-            "factions": {"federation": true},
-            "roles": {"ops": true},
-            "cp": 6, "fp": 2
+            "factions": {"federation": true}, "roles": {"ops": true},
+            "abilities": [],
+            "skills": {"Discipline": 1, "Fieldcraft": 1, "Ordnance": 1, "Skirmish": 1, "Social": 1, "Security": 1, "Technical": 0},
+            "cp": 6, "fp": 2, "rank": "ltjg"
         },
         {
             "name": "Worf", "subtitle": "Son of Mogh", "gtype": "officer",
-            "factions": {"klingon": true, "federation": true},
-            "roles": {"command": true, "ops": true },
-            "sway": {"federation": 1, "klingon": 1},
-            "cp": 11, "fp": 3, "unique": true
+            "factions": {"klingon": true, "federation": true}, "sway": {"federation": 1, "klingon": 1}, "roles": {"command": true, "ops": true },
+            "abilities": ["Qapla' [+1 Ordnance, +1 Skirmish]", "While Worf leads an attack, you can resolve the following during Post Outcome Effects: Analysis: Inspire Worf's unit."],
+            "skills": {"Culture": 1, "Discipline": 1, "Fieldcraft": 1, "Ordnance": 1, "Skirmish": 2, "Social": 1, "Security": 2, "Technical": 0},
+            "cp": 11, "fp": 3, "unique": true, "rank": "ltcmdr"
         },
         {
             "name": "Beverly Crusher", "subtitle": "Expert Physician", "gtype": "officer",
-            "factions": {"federation": true},
-            "roles": {"command": true, "science": true},
-            "cp": 9, "fp": 4, "unique": true
+            "factions": {"federation": true}, "roles": {"command": true, "science": true},
+            "abilities": ["Inspiring [Science]", "Medic 2"],
+            "skills": {"Diplomacy": 1, "Empathy": 1, "Fieldcraft": 1, "Biology": 2, "Social": 1, "Security": 1, "Technical": 2},
+            "cp": 9, "fp": 4, "unique": true, "rank": "cmdr"
         },
         {
             "name": "Data", "subtitle": "Positronic Prodigy", "gtype": "officer",
-            "factions": {"federation": true},
-            "roles": {"ops": true, "science": true},
-            "cp": 15, "fp": 6, "unique": true
+            "factions": {"federation": true}, "roles": {"ops": true, "science": true},
+            "abilities": ["Synthetic 2", "Ready - Remove 2 advantage banked on Data to ready Data."],
+            "skills": {"Discipline": 1, "Fieldcraft": 2, "Ordnance": 1, "Skirmish": 1, "Biology": 1, "Logic": 3, "Mechanics": 1, "Navigation": 1, "Social": 1, "Security": 2, "Technical": 3},
+            "cp": 15, "fp": 6, "unique": true, "rank": "ltcmdr"
         },
         {
             "name": "Deanna Troi", "subtitle": "Insightful Counsellor", "gtype": "officer",
-            "factions": {"federation": true},
-            "roles": {"science": true},
-            "cp": 9, "fp": 3, "unique": true
+            "factions": {"federation": true}, "roles": {"science": true},
+            "abilities": ["Empathic 1", "Read Intentions: Spend 1 advantage from Deanna Troi's unit to move the influence marker once."],
+            "skills": {"Culture": 1, "Diplomacy": 2, "Empathy": 2, "Biology": 1, "Social": 2, "Security": 0, "Technical": 1},
+            "cp": 9, "fp": 3, "unique": true, "rank": "ltcmdr"
         },
         {
             "name": "William Riker", "subtitle": "Dashing Commander", "gtype": "officer",
-            "factions": {"federation": true},
-            "roles": {"command": true, "ops": true},
-            "cp": 12, "fp": 6, "unique": true
+            "factions": {"federation": true}, "roles": {"command": true, "ops": true},
+            "abilities": ["Inspiring [Ops]", "While William Riker is attached to a team or auxiliary unit, treat that unit's evasion as 1 higher.", "Rousing Counsel: Ready an officer of lower rank at Comms range of William Riker's unit."],
+            "skills": {"Diplomacy": 1, "Discipline": 1, "Fieldcraft": 1, "Skirmish": 2, "Navigation": 3, "Social": 1, "Security": 2, "Technical": 3},
+            "cp": 12, "fp": 6, "unique": true, "rank": "cmdr"
         },
         {
             "name": "T'Rul", "subtitle": "Acerbic Subcommander", "gtype": "officer",
-            "factions": {"federation": true, "romulan": true},
-            "roles": {"science": true},
-            "cp": 8, "fp": 4, "unique": true
+            "factions": {"federation": true, "romulan": true}, "roles": {"science": true},
+            "abilities": ["Engineering Station - Remodulate Cloak: If T'Rul's ship is cloaked, it decloaks and then cloaks."],
+            "skills": {"Discipline": 1, "Fieldcraft": 1, "Mechanics": 2, "Social": 1, "Security": 1, "Technical": 2},
+            "cp": 8, "fp": 4, "unique": true, "rank": "cmdr"
         },
         {
             "name": "Cunning Weapons Officer", "gtype": "officer",
-            "factions": {"klingon": true},
-            "roles": {"ops": true},
-            "cp": 7, "fp": 3
-        },
-        {
-            "name": "Gowron", "subtitle": "Canny Chancellor", "gtype": "officer",
-            "factions": {"klingon": true},
-            "roles": {"command": true},
-            "cp": 15, "fp": 4, "unique": true
-        },
-        {
-            "name": "Grilka", "subtitle": "Indomitable Leader", "gtype": "officer",
-            "factions": {"klingon": true},
-            "roles": {"command": true},
-            "sway": {"ferengi": 2},
-            "cp": 12, "fp": 3, "unique": true
-        },
-        {
-            "name": "K'Ehleyr", "subtitle": "Ambassador of Two Worlds", "gtype": "officer",
-            "factions": {"federation": true, "klingon": true},
-            "roles": {"ops": true, "science": true},
-            "sway": {"federation": 1, "klingon": 1},
-            "cp": 9, "fp": 5, "unique": true
-        },
-        {
-            "name": "Kurn", "subtitle": "Steadfast Supporter", "gtype": "officer",
-            "factions": {"klingon": true},
-            "roles": {"command": true, "ops": true},
-            "cp": 12, "fp": 4, "unique": true
-        },
-        {
-            "name": "Loyal Commander", "gtype": "officer",
-            "factions": {"klingon": true},
-            "roles": {"command": true},
-            "cp": 0, "fp": 3, "line_officer": true
-        },
-        {
-            "name": "Proud Captain", "gtype": "officer",
-            "factions": {"klingon": true},
-            "roles": {"command": true},
-            "cp": 8, "fp": 3
-        },
-        {
-            "name": "Restless First Officer", "gtype": "officer",
-            "factions": {"klingon": true},
-            "roles": {"ops": true},
-            "cp": 8, "fp": 3
-        },
-        {
-            "name": "Savvy Engineer", "gtype": "officer",
-            "factions": {"klingon": true},
-            "roles": {"ops": true},
-            "cp": 8,"fp": 3
-        },
-        {
-            "name": "Wary Science Officer", "gtype": "officer",
-            "factions": {"klingon": true},
-            "roles": {"science": true},
-            "cp": 7, "fp": 2
+            "factions": {"klingon": true}, "roles": {"ops": true},
+            "abilities": ["Qapla' [+1 Ordnance]"],
+            "skills": {"Discipline": 1, "Ordnance": 1, "Mechanics": 1, "Social": 1, "Security": 1, "Technical": 1},
+            "cp": 7, "fp": 3, "rank": "ltjg"
         },
         {
             "name": "Duras", "subtitle": "Son of Ja'rod", "gtype": "officer",
-            "factions": {"klingon": true},
-            "roles": {"command": true},
-            "sway": {"romulan": 2},
-            "cp": 10, "fp": 2, "unique": true
+            "factions": {"klingon": true}, "sway": {"romulan": 2}, "roles": {"command": true},
+            "abilities": ["Qapla' [+1 Discipline, +2 Fieldcraft]", "While Duras leads a raid or assault, during post effects, you can spend 2 analysis. If you do, choose an officer in the target unit to suffer damage equal to Duras' ranks in Fieldcraft."],
+            "skills": {"Diplomacy": 1, "Discipline": 1, "Fieldcraft": 1, "Ordnance": 1, "Social": 1, "Security": 1, "Technical": 0},
+            "cp": 10, "fp": 2, "unique": true, "rank": "capt"
+        },
+        {
+            "name": "Gowron", "subtitle": "Canny Chancellor", "gtype": "officer",
+            "factions": {"klingon": true}, "roles": {"command": true},
+            "abilities": ["Qapla' [Ready - You may set 1 of your calm directives to hostile in this sequence: diplomacy, exploration, combat]", "After Gowron leads a hail, if you were persuasive, you may choose a friendly officer in Gowron's unit an move all victory points banked on them to Gowron."],
+            "skills": {"Diplomacy": 2, "Ordnance": 1, "Skirmish": 1, "Navigation": 1, "Social": 2, "Security": 1, "Technical": 1},
+            "cp": 15, "fp": 4, "unique": true, "rank": "fcapt"
+        },
+        {
+            "name": "Grilka", "subtitle": "Indomitable Leader", "gtype": "officer",
+            "factions": {"klingon": true}, "sway": {"ferengi": 2}, "roles": {"command": true},
+            "abilities": ["Qapla' [+1 Discipline, +1 Navigation", "Captain's Chair/Team Reaction - After Grilka's unit gains 1 or more peril, remove up to 3 peril it gained this way and gain 1 advantage."],
+            "skills": {"Commerce": 1, "Culture": 1, "Discipline": 1, "Ordnance": 1, "Navigation": 1, "Social": 1, "Security": 1, "Technical": 1},
+            "cp": 12, "fp": 3, "unique": true, "rank": "cmdr"
+        },
+        {
+            "name": "K'Ehleyr", "subtitle": "Ambassador of Two Worlds", "gtype": "officer",
+            "factions": {"federation": true, "klingon": true}, "sway": {"federation": 1, "klingon": 1}, "roles": {"ops": true, "science": true},
+            "abilities": ["After K'Ehleyr leads a hail, if the trust gap was even (0, 2, or 4), you may exchange 1 of your unspent trust tokens for a spent trust token."],
+            "skills": {"Diplomacy": 2, "Empathy": 1, "Skirmish": 2, "Navigation": 1, "Social": 2, "Security": 2, "Technical": 1},
+            "cp": 9, "fp": 5, "unique": true, "rank": "ltcmdr"
+        },
+        {
+            "name": "Kurn", "subtitle": "Steadfast Supporter", "gtype": "officer",
+            "factions": {"klingon": true}, "roles": {"command": true, "ops": true},
+            "abilities": ["Relentless 1", "Qapla' [+1 Relentless]", "Each other friendly officer in the same section or team unit as Kurn gains Relentless equal to Kurn's Relentless value."],
+            "skills": {"Discipline": 2, "Fieldcraft": 1, "Mechanics": 1, "Social": 2, "Security": 1, "Technical": 1},
+            "cp": 12, "fp": 4, "unique": true, "rank": "srcmdr"
+        },
+        {
+            "name": "Loyal Commander", "gtype": "officer",
+            "factions": {"klingon": true}, "roles": {"command": true},
+            "abilities": ["Qapla' [+1 Navigation]"],
+            "skills": {"Discipline": 1, "Skirmish": 1, "Navigation": 1, "Social": 1, "Security": 1, "Technical": 1},
+            "cp": 0, "fp": 3, "line_officer": true, "rank": "cmdr"
+        },
+        {
+            "name": "Proud Captain", "gtype": "officer",
+            "factions": {"klingon": true}, "roles": {"command": true},
+            "abilities": ["Qapla' [+1 Diplomacy, +1 Discipline]"],
+            "skills": {"Diplomacy": 1, "Discipline": 1, "Skirmish": 2, "Social": 1, "Security": 1, "Technical": 0},
+            "cp": 8, "fp": 3, "rank": "capt"
+        },
+        {
+            "name": "Restless First Officer", "gtype": "officer",
+            "factions": {"klingon": true}, "roles": {"ops": true},
+            "abilities": ["Qapla' [+1 Skirmish]"],
+            "skills": {"Discipline": 1, "Ordnance": 1, "Fieldcraft": 1, "Skirmish":1, "Navigation": 1, "Social": 1, "Security": 1, "Technical": 1},
+            "cp": 8, "fp": 3, "rank": "cmdr"
+        },
+        {
+            "name": "Savvy Engineer", "gtype": "officer",
+            "factions": {"klingon": true}, "roles": {"ops": true},
+            "abilities": ["Handy 1", "Qapla' [+1 Mechanics]"],
+            "skills": {"Ordnance": 1, "Mechanics": 2, "Navigation": 1, "Social": 0, "Security": 1, "Technical": 2},
+            "cp": 8,"fp": 3, "rank": "lt"
+        },
+        {
+            "name": "Wary Science Officer", "gtype": "officer",
+            "factions": {"klingon": true}, "roles": {"science": true},
+            "abilities": ["Qapla' [+1 Biology]"],
+            "skills": {"Fieldcraft": 1, "Biology": 1, "Social": 0, "Security": 1, "Technical": 1},
+            "cp": 7, "fp": 2, "rank": "ltcmdr"
         }
     ],
     "setup": {
@@ -970,7 +1002,7 @@
                 "instruments": {"bow": true}
             },
             "instruments": [1, 2, 1, 0, 0],
-            "model_transform": {"scaleX": 0.989,  "posY": 0.88, "posX": 0.35, "posZ": 0.75, "rotY": -90},
+            "model_transform": {"scaleX": 0.989, "posY": 0.75, "rotY": -90},
             "weapons": {"fore_port": 4, "fore_starboard": 4},
             "crit_deck_size": 5, "fp": -1,
             "titles": [
@@ -1100,9 +1132,9 @@
                     "MeshURL": "ROOT\/assets\/tools\/turning_tool\/turning_tool_mesh.obj",
                     "ColliderURL": "ROOT\/assets\/tools\/turning_tool\/turning_tool_collider.obj"
                 },
-                "Transform": {"scaleY": 1, "scaleX": 1, "scaleZ": 1},
-                "ScriptURL": "code\/tools\/turning_tool.lua"
-            }
+                "Transform": {"scaleY": 1, "scaleX": 1, "scaleZ": 1}
+            },
+            "ScriptURL": "code\/tools\/turning_tool.lua"
         },
         "wake_tracker": {
             "data": {
@@ -1110,12 +1142,240 @@
                 "CustomMesh": {
                     "DiffuseURL": "ROOT\/assets\/tools\/wake_tracker\/wake_texture.png",
                     "MeshURL": "ROOT\/assets\/tools\/wake_tracker\/wake_tracker.obj",
-                    "ColliderURL": "ROOT\/assets\/tools\/wake_tracker\/wake_tracker.obj"
+                    "ColliderURL": "ROOT\/assets\/tools\/wake_tracker\/wake_tracker.obj",
+                    "MaterialIndex": 3
                 },
                 "Transform": {"scaleY": 1, "scaleX": 1, "scaleZ": 1}
             },
             "XmlURL": "code\/\/tools\/wake_tracker.xml",
             "ScriptURL": "code\/\/tools\/wake_tracker.lua"
+        }
+    },
+    "bases":  {
+        "shuttle": {
+            "warpAttachment": [-0.38, 0, 0.319],
+            "toolAttachment": {
+                "starboard": {"pos": [-0.765, 0, 0], "rot": 0},
+                "aft": {"pos": [0, 0, 1.14], "rot": 90},
+                "port": {"pos": [0.765, 0, 0], "rot": 180},
+                "fore": {"pos": [0, 0 , -1.14], "rot": 270}
+            },
+            "arcs": {
+                "all": [
+                    {"point": [ 0.380, 0, -0.577], "start": 0, "stop": 26},
+                    {"point": [ 0.293, 0, -0.735], "start": 26, "stop": 90},
+                    {"point": [-0.293, 0, -0.735], "start": 90, "stop": 154},
+                    {"point": [-0.380, 0, -0.557], "start": 154, "stop": 180},
+                    {"point": [-0.380, 0,  0.577], "start": 180, "stop": 206},
+                    {"point": [-0.293, 0,  0.735], "start": 206, "stop": 270},
+                    {"point": [ 0.293, 0,  0.735], "start": 270, "stop": 334},
+                    {"point": [ 0.380, 0,  0.577], "start": 334, "stop": 360},
+                    {"point": [ 0.380, 0, -0.577], "start": 0, "stop": 0}
+                ]
+            }
+        },
+        "small": {
+            "warpAttachment": [-0.77, 0, 0.404],
+            "toolAttachment": {
+                "starboard": {"pos": [-1.065, 0, 0], "rot": 0},
+                "aft": {"pos": [0, 0, 1.41], "rot": 90},
+                "port": {"pos": [1.065, 0, 0], "rot": 180},
+                "fore": {"pos": [0, 0 , -1.41], "rot": 270}
+            },
+            "cloakOffset": {"A": 1.121, "B": 0.889},
+            "arcs": {
+                "aft_port": [
+                    {"point": [ 0.000, 0,  1.070], "start": 270, "stop": 270},
+                    {"point": [ 0.367, 0,  1.070], "start": 270, "stop": 297},
+                    {"point": [ 0.661, 0,  0.920], "start": 297, "stop": 317},
+                    {"point": [ 0.770, 0,  0.804], "start": 317, "stop": 360},
+                    {"point": [ 0.770, 0,  0.000], "start": 360, "stop": 360}
+                ],
+                "fore_port": [
+                    {"point": [ 0.770, 0,  0.000], "start": 0, "stop": 0},
+                    {"point": [ 0.770, 0, -0.804], "start": 0, "stop": 43},
+                    {"point": [ 0.661, 0, -0.920], "start": 43, "stop": 63},
+                    {"point": [ 0.367, 0, -1.070], "start": 63, "stop": 90},
+                    {"point": [ 0.000, 0, -1.070], "start": 90, "stop": 90}
+                ],
+                "fore_starboard": [
+                    {"point": [ 0.000, 0, -1.070], "start": 90, "stop": 90},
+                    {"point": [-0.367, 0, -1.070], "start": 90, "stop": 117},
+                    {"point": [-0.661, 0, -0.920], "start": 117, "stop": 137},
+                    {"point": [-0.770, 0, -0.804], "start": 137, "stop": 180},
+                    {"point": [-0.770, 0,  0.000], "start": 180, "stop": 180}
+                ],
+                "aft_starboard": [
+                    {"point": [-0.770, 0,  0.000], "start": 180, "stop": 180},
+                    {"point": [-0.770, 0,  0.804], "start": 180, "stop": 223},
+                    {"point": [-0.661, 0,  0.920], "start": 223, "stop": 243},
+                    {"point": [-0.367, 0,  1.070], "start": 243, "stop": 270},
+                    {"point": [-0.000, 0,  1.070], "start": 270, "stop": 270}
+                ],
+                "stern": [
+                    {"point": [-0.442, 0,  1.032], "start": 225, "stop": 243},
+                    {"point": [-0.367, 0,  1.070], "start": 243, "stop": 270},
+                    {"point": [ 0.367, 0,  1.070], "start": 270, "stop": 297},
+                    {"point": [ 0.442, 0,  1.032], "start": 279, "stop": 315}
+                ],
+                "bow": [
+                    {"point": [ 0.442, 0, -1.032], "start": 45, "stop": 63},
+                    {"point": [ 0.367, 0, -1.070], "start": 63, "stop": 90},
+                    {"point": [-0.367, 0, -1.070], "start": 90, "stop": 117},
+                    {"point": [-0.442, 0, -1.032], "start": 117, "stop": 135}
+                ]
+            }
+        },
+        "medium": {
+            "warpAttachment": [-1.03, 0, 0.427],
+            "toolAttachment": {
+                "starboard": {"pos": [-1.29, 0, 0], "rot": 0},
+                "aft": {"pos": [0, 0, 2.065], "rot": 90},
+                "port": {"pos": [1.29, 0, 0], "rot": 180},
+                "fore": {"pos": [0, 0 , -2.065], "rot": 270}
+            },
+            "cloakOffset": {"A": 1.781, "B": 1.184},
+            "arcs": {
+                "aft_port": [
+                    {"point": [ 0.000, 0,  1.740], "start": 270, "stop": 270},
+                    {"point": [ 0.380, 0,  1.740], "start": 270, "stop": 280},
+                    {"point": [ 0.567, 0,  1.707], "start": 280, "stop": 297},
+                    {"point": [ 1.030, 0,  1.471], "start": 297, "stop": 360},
+                    {"point": [ 1.030, 0,  0.000], "start": 360, "stop": 360}
+                ],
+                "fore_port": [
+                    {"point": [ 1.030, 0,  0.000], "start": 0, "stop": 0},
+                    {"point": [ 1.030, 0, -1.471], "start": 0, "stop": 63},
+                    {"point": [ 0.567, 0, -1.707], "start": 63, "stop": 80},
+                    {"point": [ 0.380, 0, -1.740], "start": 80, "stop": 90},
+                    {"point": [ 0.000, 0, -1.740], "start": 90, "stop": 90}
+                ],
+                "fore_starboard": [
+                    {"point": [ 0.000, 0, -1.740], "start": 90, "stop": 90},
+                    {"point": [-0.380, 0, -1.740], "start": 90, "stop": 100},
+                    {"point": [-0.567, 0, -1.707], "start": 100, "stop": 117},
+                    {"point": [-1.030, 0, -1.471], "start": 117, "stop": 180},
+                    {"point": [-1.030, 0,  0.000], "start": 180, "stop": 180}
+                ],
+                "aft_starboard": [
+                    {"point": [-1.030, 0,  0.000], "start": 180, "stop": 180},
+                    {"point": [-1.030, 0,  1.471], "start": 180, "stop": 243},
+                    {"point": [-0.567, 0,  1.707], "start": 243, "stop": 260},
+                    {"point": [-0.380, 0,  1.740], "start": 260, "stop": 27},
+                    {"point": [ 0.000, 0,  1.740], "start": 270, "stop": 270}
+                ],
+                "stern": [
+                    {"point": [-0.776, 0,  1.601], "start": 225, "stop": 243},
+                    {"point": [-0.567, 0,  1.707], "start": 243, "stop": 260},
+                    {"point": [-0.380, 0,  1.740], "start": 260, "stop": 270},
+                    {"point": [ 0.380, 0,  1.740], "start": 270, "stop": 280},
+                    {"point": [ 0.567, 0,  1.707], "start": 270, "stop": 297},
+                    {"point": [ 0.776, 0,  1.601], "start": 297, "stop": 315}
+                ],
+                "bow": [
+                    {"point": [ 0.776, 0, -1.601], "start": 45, "stop": 63},
+                    {"point": [ 0.567, 0, -1.707], "start": 63, "stop": 80},
+                    {"point": [ 0.380, 0, -1.740], "start": 80, "stop": 90},
+                    {"point": [-0.380, 0, -1.740], "start": 90, "stop": 100},
+                    {"point": [-0.567, 0, -1.707], "start": 100, "stop": 117},
+                    {"point": [-0.776, 0, -1.601], "start": 117, "stop": 135}
+                ]
+            }
+        },
+        "large": {
+            "warpAttachment": [-1.275, 0, 0.43],
+            "toolAttachment": {
+                "starboard": {"pos": [-1.53, 0, 0], "rot": 0},
+                "aft": {"pos": [0, 0, 2.82], "rot": 90},
+                "port": {"pos": [1.53, 0, 0], "rot": 180},
+                "fore": {"pos": [0, 0 , -2.82], "rot": 270}
+            },
+            "cloakOffset": {"A": 2.533, "B": 1.472},
+            "arcs": {
+                "aft_port": [
+                    {"point": [ 0.000, 0,  2.500], "start": 270, "stop": 270},
+                    {"point": [ 0.384, 0,  2.500], "start": 270, "stop": 280},
+                    {"point": [ 0.812, 0,  2.425], "start": 280, "stop": 297},
+                    {"point": [ 1.275, 0,  2.189], "start": 297, "stop": 360},
+                    {"point": [ 1.275, 0,  0.000], "start": 360, "stop": 360}
+                ],
+                "fore_port": [
+                    {"point": [ 1.275, 0,  0.000], "start": 0, "stop": 0},
+                    {"point": [ 1.275, 0, -2.189], "start": 0, "stop": 63},
+                    {"point": [ 0.812, 0, -2.425], "start": 63, "stop": 80},
+                    {"point": [ 0.384, 0, -2.500], "start": 80, "stop": 90},
+                    {"point": [ 0.000, 0, -2.500], "start": 90, "stop": 90}
+                ],
+                "fore_starboard": [
+                    {"point": [ 0.000, 0, -2.500], "start": 90, "stop": 90},
+                    {"point": [-0.384, 0, -2.500], "start": 90, "stop": 100},
+                    {"point": [-0.812, 0, -2.425], "start": 100, "stop": 117},
+                    {"point": [-1.275, 0, -2.189], "start": 117, "stop": 180},
+                    {"point": [-1.275, 0,  0.000], "start": 180, "stop": 180}
+                ],
+                "aft_starboard": [
+                    {"point": [-1.275, 0,  0.000], "start": 180, "stop": 180},
+                    {"point": [-1.275, 0,  2.189], "start": 180, "stop": 243},
+                    {"point": [-0.812, 0,  2.425], "start": 243, "stop": 260},
+                    {"point": [-0.384, 0,  2.500], "start": 260, "stop": 260},
+                    {"point": [ 0.000, 0,  2.500], "start": 270, "stop": 270}
+                ],
+                "stern": [
+                    {"point": [-1.066, 0,  2.296], "start": 225, "stop": 243},
+                    {"point": [-0.812, 0,  2.425], "start": 243, "stop": 260},
+                    {"point": [-0.384, 0,  2.500], "start": 260, "stop": 270},
+                    {"point": [ 0.384, 0,  2.500], "start": 270, "stop": 280},
+                    {"point": [ 0.812, 0,  2.425], "start": 280, "stop": 297},
+                    {"point": [ 1.066, 0,  2.296], "start": 297, "stop": 315}
+                ],
+                "bow": [
+                    {"point": [ 1.066, 0, -2.296], "start": 45, "stop": 63},
+                    {"point": [ 0.812, 0, -2.425], "start": 63, "stop": 80},
+                    {"point": [ 0.384, 0, -2.500], "start": 80, "stop": 90},
+                    {"point": [-0.384, 0, -2.500], "start": 90, "stop": 100},
+                    {"point": [-0.812, 0, -2.425], "start": 100, "stop": 117},
+                    {"point": [-1.066, 0, -2.296], "start": 117, "stop": 135}
+                ]
+            }
+        },
+        "wake": {
+            "warpAttachment": [-1.000, 0, 0.534],
+            "toolAttachment": {
+                "starboard": {"pos": [-1.19, 0, 0], "rot": 0},
+                "aft": {"pos": [0, 0, 1.325], "rot": 90},
+                "port": {"pos": [1.19, 0, 0], "rot": 180},
+                "fore": {"pos": [0, 0 , -1.325], "rot": 270}
+            },
+            "arcs": {
+                "fore_port": [
+                    {"point": [ 1.000, 0,  0.000], "start": 0, "stop": 0},
+                    {"point": [ 1.000, 0, -0.795], "start": 0, "stop": 47},
+                    {"point": [ 0.816, 0, -0.965], "start": 47, "stop": 66},
+                    {"point": [ 0.523, 0, -1.115], "start": 66, "stop": 90},
+                    {"point": [ 0.000, 0, -1.115], "start": 90, "stop": 90}
+                ],
+                "fore_starboard": [
+                    {"point": [ 0.000, 0, -1.115], "start": 90, "stop": 90},
+                    {"point": [-0.523, 0, -1.115], "start": 90, "stop": 114},
+                    {"point": [-0.816, 0, -0.965], "start": 114, "stop": 133},
+                    {"point": [-1.000, 0, -0.795], "start": 133, "stop": 180},
+                    {"point": [-1.000, 0,  0.000], "start": 180, "stop": 180}
+                ],
+                "aft_starboard": [
+                    {"point": [-1.000, 0,  0.000], "start": 180, "stop": 180},
+                    {"point": [-1.000, 0,  0.795], "start": 180, "stop": 227},
+                    {"point": [-0.816, 0,  0.965], "start": 227, "stop": 246},
+                    {"point": [-0.523, 0,  1.115], "start": 246, "stop": 270},
+                    {"point": [-0.000, 0,  1.115], "start": 270, "stop": 270}
+                ],
+                "aft_port": [
+                    {"point": [ 0.000, 0,  1.115], "start": 270, "stop": 270},
+                    {"point": [ 0.523, 0,  1.115], "start": 270, "stop": 294},
+                    {"point": [ 0.816, 0,  0.965], "start": 294, "stop": 313},
+                    {"point": [ 1.000, 0,  0.795], "start": 313, "stop": 360},
+                    {"point": [ 1.000, 0,  0.000], "start": 360, "stop": 360}
+                ]
+            }
         }
     }
 }

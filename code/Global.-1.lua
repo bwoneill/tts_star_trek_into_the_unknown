@@ -148,29 +148,12 @@ zoneGUIDS = {overture = "737129", situation = "da2ad6", complication = "5860dd"}
 
 complication_types = {"battle", "intrigue", "mystery", "politics", "study", "threat"}
 
-ROOT = "https://raw.githubusercontent.com/bwoneill/tts_star_trek_into_the_unknown/v1.1.0.1/"
+ROOT = "https://raw.githubusercontent.com/bwoneill/tts_star_trek_into_the_unknown/v1.1.1/"
 ASSET_ROOT =  ROOT .. "assets/"
 CODE_ROOT = ROOT .. "code/"
 FILE_CACHE = {}
 LIBRARY = {}
 
-
-function spawnMission(mission, pos, rot)
-    local obj = spawnObject({
-        type = "CardCustom", position = pos or Vector(0, 0, 0),
-        scale = Vector(1.474092, 1, 1.474092), rotation = rot or Vector(0, 0, 0),
-        sound = false
-    })
-    local m_type = string.lower(mission.tags[1])
-    local filename = string.gsub(mission.name, " ", "_") .. ".png"
-    obj.setCustomObject({
-        face = ASSET_ROOT .. "cards/" .. m_type .. "/" .. filename,
-        back = ASSET_ROOT .. "cards/" .. m_type .. "/back.png"
-    })
-    obj.setName(mission.name)
-    obj.setTags(mission.tags)
-    return obj
-end
 
 function spawnMissionDecks()
     local objs = getObjectsWithAnyTags({"overture", "situation", "complication"})
@@ -186,15 +169,8 @@ function spawnMissionDecks()
         complication = Vector(6.5, 1, -20.5)
     }
     for m_type, missions in pairs(ASSETS.missions) do
-        for name, mission in pairs(missions) do
-            local obj = spawnMission(mission, pos[m_type], Vector(0, 180, 180))
-            if m_type == "complication" then
-                obj.setSnapPoints({
-                    {position = {-0.6, -0.2,  0.45}},
-                    {position = { 0.6, -0.2,  0.45}},
-                    {position = { 0.0, -0.2, -0.35}}
-                })
-            end
+        for _, mission in pairs(missions) do
+            GameType:new(mission):spawnObject(pos[m_type], Vector(0, 180, 180))
         end
     end
 end
@@ -318,19 +294,27 @@ function getFile(path)
 end
 
 function buildLibrary()
-    for _, o in pairs(ASSETS.officers) do
-        table.insert(LIBRARY, GameType:new(o))
-    end
-    for _, o in pairs(ASSETS.ships) do
-        table.insert(LIBRARY, GameType:new(o))
-    end
-    for _, o in pairs(ASSETS.equipment) do
-        table.insert(LIBRARY, GameType:new(o))
-    end
-    for _, o in pairs(ASSETS.keywords) do
-        table.insert(LIBRARY, GameType:new(o))
-    end
+    LIBRARY = {}
+    findGtypes(LIBRARY, ASSETS)
     LIBRARY = table.sort(LIBRARY, function(a,b)
         return a:getName():lower() < b:getName():lower()
     end)
+end
+
+function findGtypes(data, assets)
+    if type(assets) == "table" then
+        if assets.gtype then
+            local temp = GameType:new(assets)
+            table.insert(data, temp)
+            if temp.gtype == "ship" and temp.titles then
+                for i, title in pairs(temp:getTitles()) do
+                    table.insert(data, title)
+                end
+            end
+        else
+            for _, asset in pairs(assets) do
+                findGtypes(data, asset)
+            end
+        end
+    end
 end

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="50.799999mm"
+   height="56.642021mm"
+   viewBox="0 0 50.799999 56.642021"
+   version="1.1"
+   id="svg1"
+   xml:space="preserve"
+   inkscape:version="1.4.2 (f4327f4, 2025-05-13)"
+   sodipodi:docname="wake_tracker_outline.svg"
+   inkscape:export-filename="wake_tracker_outline.png"
+   inkscape:export-xdpi="300"
+   inkscape:export-ydpi="300"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="2.9959384"
+     inkscape:cx="122.66607"
+     inkscape:cy="23.531859"
+     inkscape:window-width="3440"
+     inkscape:window-height="1369"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" /><defs
+     id="defs1" /><g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"><path
+       id="rect1"
+       style="vector-effect:non-scaling-stroke;fill:none;fill-opacity:0;fill-rule:evenodd;stroke:#ff0000;stroke-width:0.264583;stroke-dasharray:none;stroke-opacity:1;-inkscape-stroke:hairline"
+       d="M 0,8.128 V 15.039392 A 15.24,15.24 0 0 1 8.00623,28.453044 15.24,15.24 0 0 1 0,41.867212 V 48.514 L 4.6736,52.832 12.564608,56.642021 A 15.24,15.24 0 0 1 25.532292,49.408354 15.24,15.24 0 0 1 38.499976,56.642021 L 46.1264,52.832 50.8,48.514 V 41.720968 A 15.24,15.24 0 0 1 43.058354,28.453044 15.24,15.24 0 0 1 50.8,15.185636 V 8.128 L 46.1264,3.81 38.659656,0 A 15.24,15.24 0 0 1 25.532292,7.49825 15.24,15.24 0 0 1 12.404928,0 L 4.6736,3.81 Z" /></g></svg>
