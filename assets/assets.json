@@ -855,7 +855,7 @@
                             "CustomTile": {"Thickness": 0.01, "Type": 3, "Stretch": true},
                             "ImageURL": "ROOT\/assets\/factions\/federation\/ships\/galaxy\/saucer_card.png"
                         },
-                        "Transform": {"scaleY": 1, "scaleX": 1, "rotY": 270}
+                        "Transform": {"scaleY": 1, "scaleX": 2.1, "scaleZ": 2.1, "rotY": 270}
                     }
                 },
                 "model": {
