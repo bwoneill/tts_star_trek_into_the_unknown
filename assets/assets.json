@@ -797,7 +797,7 @@
                 "instruments": {"bow": true}
             },
             "instruments": [3, 3, 2, 2, 1, 1, 0],
-            "model_transform": {"rotY": 270, "scaleX": 1.416},
+            "model_transform": {"rotY": 270},
             "weapons": {"fore": 6, "aft": 6},
             "crit_deck_size": 6,
             "titles": [
@@ -855,7 +855,7 @@
                             "CustomTile": {"Thickness": 0.01, "Type": 3, "Stretch": true},
                             "ImageURL": "ROOT\/assets\/factions\/federation\/ships\/galaxy\/saucer_card.png"
                         },
-                        "Transform": {"scaleY": 1, "scaleX": 2.1, "scaleZ": 2.1, "rotY": 270}
+                        "Transform": {"scaleY": 1, "scaleX": 1, "rotY": 270}
                     }
                 },
                 "model": {
