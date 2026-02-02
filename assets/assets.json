@@ -862,7 +862,7 @@
                     "ChildObjects": [
                         {
                             "CustomMesh": {"MeshURL": "ROOT\/assets\/factions\/federation\/ships\/galaxy\/saucer_mesh.obj"},
-                            "Transform": {"rotY": 270}
+                            "Transform": {"rotY": 270, "posZ": 1.24}
                         }
                     ]
                 }
