@@ -797,7 +797,7 @@
                 "instruments": {"bow": true}
             },
             "instruments": [3, 3, 2, 2, 1, 1, 0],
-            "model_transform": {"rotY": 270, "scaleX": 1.416},
+            "model_transform": {"rotY": 270},
             "weapons": {"fore": 6, "aft": 6},
             "crit_deck_size": 6,
             "titles": [
@@ -862,7 +862,7 @@
                     "ChildObjects": [
                         {
                             "CustomMesh": {"MeshURL": "ROOT\/assets\/factions\/federation\/ships\/galaxy\/saucer_mesh.obj"},
-                            "Transform": {"rotY": 270}
+                            "Transform": {"rotY": 270, "posZ": 1.24}
                         }
                     ]
                 }
