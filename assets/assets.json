@@ -1,5 +1,5 @@
 {
-    "branch": "v1.1.1",
+    "branch": "v1.1.2",
     "directives": [
         {
             "faction": "dominion", "gtype": "directive", "type": "combat",
@@ -733,7 +733,7 @@
                 "instruments": {"fore": true}
             },
             "instruments": [2, 3, 2, 2, 1, 0],
-            "model_transform": {"rotY": -90, "scaleX": 1.698},
+            "model_transform": {"rotY": -90, "posY": 1.5},
             "weapons": {"aft": 6, "fore": 6},
             "crit_deck_size": 6
         },
