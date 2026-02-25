@@ -8,9 +8,14 @@ function onLoad()
     --[[ print('onLoad!') --]]
     local start = os.clock()
     local text = Global.call("getFile", "assets/assets.json")
+    text = string.gsub(text, "ROOT", ROOT)
+    text = string.gsub(text, "\\/", "/")
     log(string.format("%0.2fs to download assets", os.clock() - start))
     start = os.clock()
-    ASSETS = JSON.decode(string.gsub(text, "ROOT", ROOT))
+    if not pcall(function () ASSETS = json.parse(text) end) then
+        log("json.parse failed, falling back to JSON.decode")
+        ASSETS = JSON.decode(text)
+    end
     log(string.format("%0.2fs to parse assets", os.clock() - start))
     buildLibrary()
 end
