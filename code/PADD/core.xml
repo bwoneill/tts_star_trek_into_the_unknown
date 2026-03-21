@@ -8,6 +8,6 @@
         <Button class = "appButton" text = "Tactical Database" onClick = "start(library)" color = "Purple"/>
         <!-- <Button class = "appButton" text = "Library Access" onClick = "start(library)" colors = "Purple|||#644478"/> -->
         <Button class = "appButton" text = "Stellar Cartography" onClick = "start(maps)" color = "Yellow"/>
-        <Button class = "appButton" text = "Tutorial" onClick = "start(tutorial)" colors = "Blue|||#476280" interactable = "false"/>
+        <Button class = "appButton" text = "Tutorial (Coming Soon)" onClick = "start(tutorial)" colors = "Blue|||#476280" interactable = "false"/>
     </GridLayout>
 </Panel>
