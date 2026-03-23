@@ -81,6 +81,10 @@
         "klingon": {
             "playable": true, "prefix": "IKS",
             "displayName": "Klingon Empire"
+        },
+        "cardassian": {
+            "playable": false, "prefix": "CUW",
+            "displayName": "Cardassian Union"
         }
     },
     "keywords": [
@@ -1008,6 +1012,28 @@
             "titles": [
                 {"name": "Buruk", "fp": 2}
             ]
+        },
+        "galor": {
+            "name": "Galor-Class Cruiser", "faction": "cardassian", "role": "support", "size": "medium",
+            "short": "galor", "gtype": "ship",
+            "dials": {
+                "hull": {"min": 0,"max": 8},
+                "crew": {"min": -2, "max": 4},
+                "alert": {"min": 0, "max": 4},
+                "power": {"min": 0, "max": 8}
+            },
+            "sensors": {
+                "all": 0, "bow": 0,
+                "instruments": {"bow": true}
+            },
+            "comms": {
+                "all": 0, "bow": 0,
+                "instruments": {"bow": true}
+            },
+            "instruments": [0, 0, 0, 0, 0],
+            "model_transform": {"scaleX": 1, "posY": 0.75, "rotY": -90},
+            "weapons": {"all": 6},
+            "crit_deck_size": 0, "fp": 0
         }
     },
     "tokens": {
