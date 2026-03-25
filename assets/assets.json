@@ -1034,6 +1034,26 @@
             "model_transform": {"scaleX": 1, "posY": 0.75, "rotY": -90},
             "weapons": {"all": 6},
             "crit_deck_size": 0, "fp": 0
+        },
+        "groumall": {
+            "name": "Groumall-Type Freighter", "faction": "cardassian", "role": "support", "size": "small",
+            "short": "groumall", "gtype": "ship",
+            "dials": {
+                "hull": {"min": 0,"max": 6},
+                "crew": {"min": -2, "max": 4},
+                "alert": {"min": 0, "max": 4},
+                "power": {"min": 0, "max": 6}
+            },
+            "sensors": {
+                "all": 0
+            },
+            "comms": {
+                "all": 0
+            },
+            "instruments": [1, 2, 1, 0, 0],
+            "model_transform": {"posY": 0.75, "rotY": -90},
+            "weapons": {"all": 0},
+            "crit_deck_size": 5, "fp": 0
         }
     },
     "tokens": {
