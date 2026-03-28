@@ -8,9 +8,14 @@ function onLoad()
     --[[ print('onLoad!') --]]
     local start = os.clock()
     local text = Global.call("getFile", "assets/assets.json")
+    text = string.gsub(text, "ROOT", ROOT)
+    text = string.gsub(text, "\\/", "/")
     log(string.format("%0.2fs to download assets", os.clock() - start))
     start = os.clock()
-    ASSETS = JSON.decode(string.gsub(text, "ROOT", ROOT))
+    if not pcall(function () ASSETS = json.parse(text) end) then
+        log("json.parse failed, falling back to JSON.decode")
+        ASSETS = JSON.decode(text)
+    end
     log(string.format("%0.2fs to parse assets", os.clock() - start))
     buildLibrary()
 end
@@ -148,7 +153,7 @@ zoneGUIDS = {overture = "737129", situation = "da2ad6", complication = "5860dd"}
 
 complication_types = {"battle", "intrigue", "mystery", "politics", "study", "threat"}
 
-ROOT = "https://raw.githubusercontent.com/bwoneill/tts_star_trek_into_the_unknown/v1.1.1/"
+ROOT = "https://raw.githubusercontent.com/bwoneill/tts_star_trek_into_the_unknown/v1.1.2/"
 ASSET_ROOT =  ROOT .. "assets/"
 CODE_ROOT = ROOT .. "code/"
 FILE_CACHE = {}

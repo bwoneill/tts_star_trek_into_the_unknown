@@ -1,5 +1,5 @@
 {
-    "branch": "v1.1.1",
+    "branch": "v1.1.2",
     "directives": [
         {
             "faction": "dominion", "gtype": "directive", "type": "combat",
@@ -81,6 +81,10 @@
         "klingon": {
             "playable": true, "prefix": "IKS",
             "displayName": "Klingon Empire"
+        },
+        "cardassian": {
+            "playable": false, "prefix": "CUW",
+            "displayName": "Cardassian Union"
         }
     },
     "keywords": [
@@ -446,7 +450,7 @@
         },
         {
             "name": "Odo", "subtitle": "Stern Constable", "gtype": "officer",
-            "factions": {"bajoran": true, "federation": true}, "sway": {"cardasian": 1, "bajoran": 1}, "roles": {"ops": true},
+            "factions": {"bajoran": true, "federation": true}, "sway": {"cardassian": 1, "bajoran": 1}, "roles": {"ops": true},
             "abilities": ["Changeling 1", "Opposing teams in Odo's location increase the difficulty of all tests they make by 1."],
             "skills": {"Discipline": 2, "Fieldcraft": 2, "Skirmish": 1, "Logic": 1, "Social": 2, "Security": 2, "Technical": 1},
             "cp": 10, "fp": 5, "unique": true, "rank": "ens"
@@ -655,8 +659,8 @@
                     ]
                 },
                 "radius": [13],
-                "centers": [[0, 0, 0]],
-                "borders": [[0, 45, 90, 135, 180, 225, 270, 315]]
+                "centers": [ [0, 0, 0] ],
+                "borders": [ [0, 45, 90, 135, 180, 225, 270, 315] ]
             },
             "helix": {
                 "deployment": {
@@ -670,8 +674,8 @@
                     ]
                 },
                 "radius": [13, 13],
-                "centers": [[5, 0, -17], [-5, 0, 17]],
-                "borders": [[105, 155, 205, 255], [25, 75, 285, 335]]
+                "centers": [ [5, 0, -17], [-5, 0, 17] ],
+                "borders": [ [105, 155, 205, 255], [25, 75, 285, 335] ]
             },
             "trinary": {
                 "deployment": {
@@ -687,8 +691,8 @@
                     ]
                 },
                 "radius": [13, 13, 13],
-                "centers": [[17, 0, 17], [-17, 0, 17], [0, 0, -14]],
-                "borders": [[20, 70], [290, 340], [90, 150, 210, 270]]
+                "centers": [ [17, 0, 17], [-17, 0, 17], [0, 0, -14] ],
+                "borders": [ [20, 70], [290, 340], [90, 150, 210, 270] ]
             }
         }
     },
@@ -733,7 +737,7 @@
                 "instruments": {"fore": true}
             },
             "instruments": [2, 3, 2, 2, 1, 0],
-            "model_transform": {"rotY": -90, "scaleX": 1.698},
+            "model_transform": {"rotY": -90, "posY": 1.5},
             "weapons": {"aft": 6, "fore": 6},
             "crit_deck_size": 6
         },
@@ -1008,6 +1012,48 @@
             "titles": [
                 {"name": "Buruk", "fp": 2}
             ]
+        },
+        "galor": {
+            "name": "Galor-Class Cruiser", "faction": "cardassian", "role": "support", "size": "medium",
+            "short": "galor", "gtype": "ship",
+            "dials": {
+                "hull": {"min": 0,"max": 8},
+                "crew": {"min": -2, "max": 4},
+                "alert": {"min": 0, "max": 4},
+                "power": {"min": 0, "max": 8}
+            },
+            "sensors": {
+                "all": 0, "bow": 0,
+                "instruments": {"bow": true}
+            },
+            "comms": {
+                "all": 0, "bow": 0,
+                "instruments": {"bow": true}
+            },
+            "instruments": [0, 0, 0, 0, 0],
+            "model_transform": {"posY": 1, "rotY": -90},
+            "weapons": {"all": 0},
+            "crit_deck_size": 0, "fp": 0
+        },
+        "groumall": {
+            "name": "Groumall-Type Freighter", "faction": "cardassian", "role": "support", "size": "small",
+            "short": "groumall", "gtype": "ship",
+            "dials": {
+                "hull": {"min": 0,"max": 6},
+                "crew": {"min": -2, "max": 4},
+                "alert": {"min": 0, "max": 4},
+                "power": {"min": 0, "max": 6}
+            },
+            "sensors": {
+                "all": 0
+            },
+            "comms": {
+                "all": 0
+            },
+            "instruments": [0, 0, 0, 0, 0],
+            "model_transform": {"posY": 1, "rotY": -90},
+            "weapons": {"all": 0},
+            "crit_deck_size": 0, "fp": 0
         }
     },
     "tokens": {

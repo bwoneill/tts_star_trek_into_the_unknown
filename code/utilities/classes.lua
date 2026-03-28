@@ -173,10 +173,13 @@ end
 function Officer:toString()
     local result = "officer"
     for k, v in pairs(self) do
-        if k == "factions" or k == "sway" or k == "roles" then
+        if k == "factions" or k == "sway" or k == "roles" or k == "abilities" or k == "skills" then
             result = result .. (k == "sway" and " sway" or "")
             for i, j in pairs(v) do
                 result = result .. " " .. i
+                if type(j) ~= "boolean" then
+                    result = result .. "" .. j
+                end
             end
         elseif k == "unique" then
             result = result .. (v and " unique" or "")
