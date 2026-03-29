@@ -37,7 +37,7 @@
         },
         {
             "faction": "klingon", "gtype": "directive", "type": "combat",
-            "names": ["Uphold the Empires Oaths", "It is a Good Day to Die"]
+            "names": ["Uphold the Empire's Oaths", "It is a Good Day to Die"]
         },
         {
             "faction": "klingon", "gtype": "directive", "type": "diplomacy",
