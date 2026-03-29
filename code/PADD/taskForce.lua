@@ -634,3 +634,5 @@ function spawn(player, value, id)
         end
     end
 end
+
+apps.taskForce = {start = taskForce}
