@@ -60,7 +60,7 @@ function missionSetup(type, object)
     end
     local mission = nil
     for _, m in pairs(ASSETS.missions[type]) do
-        mission = mission or (m.name == object.getName() and m)
+        mission = mission or (m.name == object.getGMNotes() and m)
     end
     if mission and (type == "overture" or type == "situation") then
         local j = type == "situation" and 2 or 0

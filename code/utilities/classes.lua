@@ -263,6 +263,7 @@ function Mission:spawnObject(pos, rot)
     local card = Card.spawnObject(self, pos, rot)
     card.setScale(Vector(1.474092, 1, 1.474092))
     card.setTags(self.tags)
+    card.setGMNotes(self:getName())
     return card
 end
 
