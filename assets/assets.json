@@ -225,6 +225,14 @@
             {
                 "name": "Disruptive Ion Storms", "tags": ["Situation", "Threat"], "gtype": "situation",
                 "features": [{"gtype": "feature", "type": "cloud", "name": "Ion cloud", "quantity": 4, "description": "Obscuring 1\nTreacherous 3"}]
+            },
+            {
+                "name": "Incriminating Wreckage", "tags": ["Situation", "Intrigue"], "gtype":"situation",
+                "features": [{"gtype": "feature", "type": "anomalies", "name": "Suspicous wrecks", "quanity": 6}]
+            },
+            {
+                "name": "Temporary Wormhole", "tags": ["Situation", "Mystery"], "gtype": "situation",
+                "features": [{"gtype": "feature", "type": "anomalies", "name": "Tachyon pulse"}]
             }
         ],
         "complication": [
@@ -265,6 +273,14 @@
                 "name": "Inscrutable Entity", "tags": ["Complication", "Study", "Threat", "Mystery"], "gtype": "complication",
                 "objectives": [{"gtype": "objective", "type": "ping", "name": "Clue", "quantity": 4}],
                 "ships": [{"tinman": 1}]
+            },
+            {
+                "name": "Rallying Action", "tags": ["Complication", "Battle", "Intrigue", "Mystery"], "gtype": "complication",
+                "objectives": [{"gtype": "objective", "type": "ping", "name": "Subspace distortion", "quantity": 4, "description": "Treacherous 2"}]
+            },
+            {
+                "name": "Checkmate", "tags": ["Complication", "Battle", "Intrigue", "Mystery"], "gtype": "complication",
+                "objectives": [{"gtype": "objective", "type": "solid", "name": "Strategic supspace beacon", "add_description":"Capacity 3", "quanity": 4}]
             }
         ],
         "overture": [
@@ -299,6 +315,13 @@
                     {"gtype": "objective", "type": "solid", "name": "Scouting point", "quantity": 3, "description": "Capacity 3\nMassive 1"},
                     {"gtype": "objective", "type": "ping", "name": "Suspicous readings", "quantity": 3, "description": "Treacherous 2\nUnstable 2"}
                 ]
+            },
+            {
+                "name": "Heat of Battle", "tags": ["Overture", "Battle", "Solitary"], "gtype": "overture"
+            },
+            {
+                "name": "On Sinking Ground", "tags": ["Overture", "Battle", "Helix"], "gtype": "overture",
+                "objectives": [{"gtype": "objective", "type": "ping", "name": "Cosmic eddy", "quanity": 6, "description": "Obscuring 3\nTreacherous 4"}]
             }
         ]
     },
