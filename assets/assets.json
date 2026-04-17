@@ -1077,6 +1077,26 @@
             "model_transform": {"posY": 1, "rotY": -90},
             "weapons": {"all": 0},
             "crit_deck_size": 0, "fp": 0
+        },
+        "neghvar": {
+            "name": "Negh'var-Class Warship", "faction": "klingon", "role": "capital", "size": "large",
+            "short": "neghvar", "gtype": "ship",
+            "dials": {
+                "hull": {"min": 0, "max": 9},
+                "crew": {"min": -2, "max": 5},
+                "alert": {"min": 0, "max": 5},
+                "power": {"min": 0, "max": 8}
+            },
+            "sensors": {
+                "all": 0
+            },
+            "comms": {
+                "all": 0
+            },
+            "instruments": [2, 3, 2, 2, 1, 0],
+            "model_transform": {"rotY": -90, "posY": 1.5},
+            "weapons": {"all": 0},
+            "crit_deck_size": 0
         }
     },
     "tokens": {
