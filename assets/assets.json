@@ -1040,63 +1040,67 @@
             "name": "Galor-Class Cruiser", "faction": "cardassian", "role": "support", "size": "medium",
             "short": "galor", "gtype": "ship",
             "dials": {
-                "hull": {"min": 0,"max": 8},
+                "hull": {"min": 0,"max": 7},
                 "crew": {"min": -2, "max": 4},
                 "alert": {"min": 0, "max": 4},
-                "power": {"min": 0, "max": 8}
+                "power": {"min": 0, "max": 7}
             },
             "sensors": {
-                "all": 0, "bow": 0,
+                "all": 2, "bow": 4,
                 "instruments": {"bow": true}
             },
             "comms": {
-                "all": 0, "bow": 0,
+                "all": 2, "bow": 4,
                 "instruments": {"bow": true}
             },
             "instruments": [0, 0, 0, 0, 0],
             "model_transform": {"posY": 1, "rotY": -90},
-            "weapons": {"all": 0},
-            "crit_deck_size": 0, "fp": 0
+            "weapons": {"bow": 6, "fore_port": 6, "fore_starboard": 6, "aft": 6},
+            "crit_deck_size": 0, "fp": -1
         },
         "groumall": {
-            "name": "Groumall-Type Freighter", "faction": "cardassian", "role": "support", "size": "small",
+            "name": "Groumall-Type Military Freighter", "faction": "cardassian", "role": "support", "size": "small",
             "short": "groumall", "gtype": "ship",
             "dials": {
-                "hull": {"min": 0,"max": 6},
+                "hull": {"min": 0,"max": 7},
                 "crew": {"min": -2, "max": 4},
                 "alert": {"min": 0, "max": 4},
                 "power": {"min": 0, "max": 6}
             },
             "sensors": {
-                "all": 0
+                "all": 4, "bow": 4,
+                "instruments": {"bow": true}
             },
             "comms": {
-                "all": 0
+                "all": 3, "bow": 3,
+                "instruments": {"bow": true}
             },
             "instruments": [0, 0, 0, 0, 0],
             "model_transform": {"posY": 1, "rotY": -90},
-            "weapons": {"all": 0},
-            "crit_deck_size": 0, "fp": 0
+            "weapons": {"bow": 4, "stern": 4},
+            "crit_deck_size": 0, "fp": -2
         },
         "neghvar": {
             "name": "Negh'var-Class Warship", "faction": "klingon", "role": "capital", "size": "large",
             "short": "neghvar", "gtype": "ship",
             "dials": {
-                "hull": {"min": 0, "max": 9},
+                "hull": {"min": 0, "max": 8},
                 "crew": {"min": -2, "max": 5},
                 "alert": {"min": 0, "max": 5},
                 "power": {"min": 0, "max": 8}
             },
             "sensors": {
-                "all": 0
+                "all": 4, "bow": 4,
+                "instruments": {"bow": true}
             },
             "comms": {
-                "all": 0
+                "all": 6, "bow": 6,
+                "instruments": {"bow": true}
             },
             "instruments": [2, 3, 2, 2, 1, 0],
             "model_transform": {"rotY": -90, "posY": 1.5},
-            "weapons": {"all": 0},
-            "crit_deck_size": 0
+            "weapons": {"fore": 4, "fore_port": 6, "fore_starboard": 6, "aft_port": 6, "aft_starboard": 6},
+            "crit_deck_size": 0, "fp": 1
         }
     },
     "tokens": {
