@@ -83,7 +83,7 @@
             "displayName": "Klingon Empire"
         },
         "cardassian": {
-            "playable": false, "prefix": "CUW",
+            "playable": true, "prefix": "CUW",
             "displayName": "Cardassian Union"
         }
     },
@@ -1059,7 +1059,7 @@
             "crit_deck_size": 0, "fp": -1
         },
         "groumall": {
-            "name": "Groumall-Type Military Freighter", "faction": "cardassian", "role": "support", "size": "small",
+            "name": "Groumall-Type Military Freighter", "faction": "cardassian", "role": "specialist", "size": "small",
             "short": "groumall", "gtype": "ship",
             "dials": {
                 "hull": {"min": 0,"max": 7},
