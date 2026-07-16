@@ -227,7 +227,7 @@ function Directive:getImages()
     local path = ASSET_ROOT .. "/factions/" .. self.faction .. "/directives/"
     local result = {}
     for i, name in ipairs(self.names) do
-        result[i] = string.gsub(path .. name .. ".png", " ", "_")
+        result[i] = string.gsub(string.gsub(path .. name .. ".png", " ", "_"), "'", "")
     end
     return result
 end
