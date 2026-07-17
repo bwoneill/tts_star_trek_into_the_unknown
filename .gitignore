@@ -1,4 +1,4 @@
 .vscode/
-.internal/
+internal/
 **/*.xcf
 **/*.blend1
