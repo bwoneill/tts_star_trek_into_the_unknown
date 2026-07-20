@@ -1,5 +1,5 @@
 {
-    "branch": "v1.1.2",
+    "branch": "v1.1.3",
     "directives": [
         {
             "faction": "dominion", "gtype": "directive", "type": "combat",
@@ -63,7 +63,9 @@
         {"name": "Modernized Drive System", "gtype": "equipment", "fp": 2, "factions": {"federation": true}},
         {"name": "Relic Armory", "gtype": "equipment", "fp": 2, "factions": {"klingon": true}},
         {"name": "Romulan Cloaking Device", "gtype": "equipment", "fp": 0, "factions": {"federation": true}},
-        {"name": "Toron Class Shuttle Berth", "gtype": "equipment", "fp": 2, "factions": {"klingon": true}}
+        {"name": "Toron Class Shuttle Berth", "gtype": "equipment", "fp": 2, "factions": {"klingon": true}},
+        {"name": "Rapid Deployment Transporters", "gtype": "equipment", "fp": 4, "factions": {"federation": true, "klingon": true}},
+        {"name": "Regenerative Capacitors", "gtype": "equipment", "fp": 4, "factions": {"cardassian": true, "dominion": true}}
     ],
     "factions": {
         "dominion": {
@@ -83,7 +85,7 @@
             "displayName": "Klingon Empire"
         },
         "cardassian": {
-            "playable": true, "prefix": "CUW",
+            "playable": true,
             "displayName": "Cardassian Union"
         }
     },
@@ -191,6 +193,10 @@
         {
             "name": "Synthetic X", "gtype": "keyword",
             "text": "While this officer leads a test, during the Tester Modifies Dice step, you may spend a number of advantage tokens banked on this officer to change an equal number of analysis results to breakthrough success results. If you do not, during the Resolve Post Outcome Effects step, you may spend a number of analysis from the roll to bank an equal number of advantage tokens on this officer. This officer can have a maximum of X advantage tokens banked on them."
+        },
+        {
+            "name": "Dutiful X", "gtype": "keyword",
+            "text": "When this officer orders an action that causes you to score 1 or more negative victory points, you must bank 1 of those negative victory points on this officer and add 1 threat to their unit. At the end of the game, score all negative victory points banked on this officer unless they have X or fewer negative victory points or they are incapacitated or lost."
         }
     ],
     "missions": {
@@ -624,6 +630,118 @@
             "abilities": ["Qapla' [+1 Biology]"],
             "skills": {"Fieldcraft": 1, "Biology": 1, "Social": 0, "Security": 1, "Technical": 1},
             "cp": 7, "fp": 2, "rank": "ltcmdr"
+        },
+        {
+            "name": "Damar", "subtitle": "Grim Legate", "gtype": "officer",
+            "factions": {"cardassian": true, "dominion": true}, "sway": {"cardassian": 1, "dominion": 1}, "roles": {"command": true},
+            "abilities": ["Dutiful 2", "When Damar leads a test, if he has 1 or fewer negative victory points banked on his card and the difficulty is equal to or higher than the number of dice rolled, add an intuition die to the roll."],
+            "skills": {"Discipline": 2, "Fieldcraft": 1, "Ordnance": 1, "Mechanics": 1, "Social": 2, "Security": 1, "Technical": 1},
+            "cp": 12, "fp": 4, "unique": true, "rank": "srcmdr"
+        },
+        {
+            "name": "Dukat", "subtitle": "Opportunistic Dictator", "gtype": "officer",
+            "factions": {"cardassian": true, "dominion": true}, "sway": {"cardassian": 1, "dominion": 1}, "roles": {"command": true},
+            "abilities": ["SETUP: Secretly choose 1 of your trust tokens and replace it with Dukat's trust token.", "When Dukat's trust token is resolved, the persuasive player's unit adds 2 threat.", "END OF GAME: Reveal the replaced trust token. If you have scored exactly that many negative victory points, remove them."],
+            "skills": {"Diplomacy": 2, "Ordnance": 1, "Skirmish": 1, "Navigation": 1, "Social": 2, "Security": 1, "Technical": 1},
+            "cp": 12, "fp": 4, "unique": true, "rank": "fcapt"
+        },
+        {
+            "name": "Gilora Rejal", "subtitle": "Subspace Researcher", "gtype": "officer",
+            "factions": {"cardassian": true}, "roles": {"science": true},
+            "abilities": ["Handy 1"],
+            "skills": {"Logic": 1, "Mechanics": 2, "Navigation": 2, "Social": 0, "Security": 0, "Technical": 2},
+            "cp": 7, "fp": 2, "unique": true, "rank": "ens"
+        },
+        {
+            "name": "Madred", "subtitle": "Pitiless Interrogator", "gtype": "officer",
+            "factions": {"cardassian": true}, "roles": {"command": true, "ops": true},
+            "abilities": ["Dutiful 3", "After Madred's unit coerces another unit, the coerced unit adds 1 additional threat for each negative victory point banked on Madred."],
+            "skills": {"Diplomacy": 1, "Discipline": 1, "Fieldcraft": 2, "Biology": 2, "Social": 1, "Security": 2, "Technical": 2},
+            "cp": 11, "fp": 5, "unique": true, "rank": "capt"
+        },
+        {
+            "name": "Ocett", "subtitle": "Ambitious Gul", "gtype": "officer",
+            "factions": {"cardassian": true}, "roles": {"command": true, "ops": true},
+            "abilities": ["Dutiful 1", "When Ocett leads a science test, youj can spend 2 analysis to choose 1 unit in Comms range and add 1 advantage or 1 threat to that unit."],
+            "skills": {"Culture": 1, "Diplomacy": 2, "Skirmish": 1, "Fieldcraft": 1, "Biology": 1, "Mechanics": 1, "Navigation": 2, "Social": 2, "Security": 1, "Technical": 2},
+            "cp": 11, "fp": 5, "unique": true, "rank": "capt"
+        },
+        {
+            "name": "Methodical Glinn", "gtype": "officer",
+            "factions": {"cardassian": true}, "roles": {"ops": true},
+            "abilities": [],
+            "skills": {"Discipline": 1, "Navigation": 1, "Social": 1, "Security": 0, "Technical": 1},
+            "cp": 0, "fp": 2, "line_officer": true, "rank": "ltcmdr"
+        },
+        {
+            "name": "Ardent First Officer", "gtype": "officer",
+            "factions": {"cardassian": true}, "roles": {"ops": true},
+            "abilities": ["Dutiful 1"],
+            "skills": {"Diplomacy": 1, "Skirmish": 1, "Navigation": 1},
+            "cp": 7, "fp": 3, "rank": "ltcmdr"
+        },
+        {
+            "name": "Authoritative Legate", "gtype": "officer",
+            "factions": {"cardassian": true, "dominion": true}, "sway": {"cardassian": 1, "dominion": 1}, "roles": {"command": true},
+            "abilities": ["Dutiful 1"],
+            "skills": {"Diplomacy": 2, "Ordnance": 1, "Navigation": 1, "Social": 2, "Security": 1, "Technical": 1},
+            "cp": 7, "fp": 4, "rank": "cmdr"
+        },
+        {
+            "name": "Drilled Weapons Officer", "gtype": "officer",
+            "factions": {"cardassian": true}, "roles": {"ops": true},
+            "abilities": ["Dutiful 1"],
+            "skills": {"Discipline": 1, "Ordnance": 1, "Skirmish": 2, "Social": 1, "Security": 2, "Technical": 0},
+            "cp": 7, "fp": 3, "rank": "lt"
+        },
+        {
+            "name": "Skeptical Sensors Officer", "gtype": "officer",
+            "factions": {"cardassian": true}, "roles": {"science": true},
+            "abilities": [],
+            "skills": {"Culture": 1, "Fieldcraft": 1, "Biology": 1, "Mechanics": 1, "Social": 1, "Security": 1, "Technical": 1},
+            "cp": 6, "fp": 3, "rank": "ens"
+        },
+        {
+            "name": "Tireless Engineer", "gtype": "officer",
+            "factions": {"cardassian": true}, "roles": {"ops": true},
+            "abilities": ["Handy 1"],
+            "skills": {"Fieldcraft": 1, "Mechanics": 2, "Social": 0, "Security": 1, "Technical": 2},
+            "cp": 6, "fp": 3, "rank": "ltjg"
+        },
+        {
+            "name": "Kang", "subtitle": "Dahar Master", "gtype": "officer",
+            "factions": {"klingon": true}, "roles": {"command": true},
+            "abilities": ["Inspiring [Ops]", "Qapla' [Gain READY : Choose 1 friendly unit at Comms range and inspire it. After Kange becomes incapacitated or lost, choose 2 friendly units in the sector and inpsire them.", "After Kang leads a hail, you may inspire each player's hailing unit."],
+            "skills": {"Diplomacy": 2, "Discipline": 1, "Empathy": 1, "Ordnance": 2, "Skirmish": 1, "Logic": 1, "Social": 2, "Security": 2, "Technical": 1},
+            "cp": 13, "fp": 5, "unique": true, "rank": "ltcmdr"
+        },
+        {
+            "name": "Kor", "subtitle": "Loquacious Hero", "gtype": "officer",
+            "factions": {"klingon": true}, "sway": {"federation": 1}, "roles": {"command": true, "ops": true},
+            "abilities": ["Inspiring [Command]", "Qapla' [+1 Discipline, +1 Skirmish]", "Each of your other officers has Qapla' [Skirmish +1]."],
+            "skills": {"Culture": 2, "Mysticism": 1, "Fieldcraft": 1, "Skirmish": 1, "Biology": 1, "Social": 2, "Security": 1, "Technical": 1},
+            "cp": 13, "fp": 4, "unique": true, "rank": "cmdr"
+        },
+        {
+            "name": "Kurak", "subtitle": "Warp Specialist", "gtype": "officer",
+            "factions": {"klingon": true}, "roles": {"science": true},
+            "abilities":["Qapla' [Gain Inspiring [Science]]", "Engineering Station REACTION: When Kurak's ship takes a WARP action, you may commit Korak to test difficulty 3 Science + Navigation. On success, inrease the maximum distance of the engage warp maneuver by 4\" and add 1 threat to the ship."],
+            "skills": {"Skirmish": 1, "Mechanics": 1, "Navigation": 2, "Social": 0, "Security": 1, "Technical": 2},
+            "cp": 9, "fp": 3, "unique": true, "rank": "cpo"
+        },
+        {
+            "name": "Martok", "subtitle": "Shrewd General", "gtype": "officer",
+            "factions": {"klingon": true}, "sway": {"federation": 1}, "roles": {"command": true},
+            "abilities": ["Qapla' [Gain +2 Discipline, +1 Ordnance]", "COORDINATED AMBUSH: Any number of friendly Klingon ships at Comms range my decloak or spend 2 reserve energy to cloak if able to cloak."],
+            "skills": {"Diplomacy": 1, "Discipline": 1, "Ordnance": 2, "Skirmish": 1, "Navigation": 1, "Social": 1, "Security": 2, "Technical": 1},
+            "cp": 13, "fp": 4, "unique": true, "rank": "capt"
+        },
+        {
+            "name": "Tavana", "subtitle": "Ambitious Engineer", "gtype": "officer",
+            "factions": {"klingon": true}, "roles": {"science": true},
+            "abilities": ["Qapla' [Gain + 1 Mechanics]","REACTION: After Tavana's ship decloaks, you may commit Tavana to add 2 advantage to it."],
+            "skills": {"Discipline": 1, "Empathy": 1, "Fieldcraft": 1, "Mechanics": 1, "Social": 1, "Security": 1, "Technical": 1},
+            "cp": 10, "fp": 3, "unique": true, "rank": "lt"
         }
     ],
     "setup": {
@@ -1033,7 +1151,8 @@
             "weapons": {"fore_port": 4, "fore_starboard": 4},
             "crit_deck_size": 5, "fp": -1,
             "titles": [
-                {"name": "Buruk", "fp": 2}
+                {"name": "Buruk", "fp": 2},
+                {"name": "Rotarran", "fp": 1}
             ]
         },
         "galor": {
@@ -1056,7 +1175,10 @@
             "instruments": [0, 0, 0, 0, 0],
             "model_transform": {"posY": 1, "rotY": -90},
             "weapons": {"bow": 6, "fore_port": 6, "fore_starboard": 6, "aft": 6},
-            "crit_deck_size": 0, "fp": -1
+            "crit_deck_size": 0, "fp": -1,
+            "titles": [
+                {"name": "Prakesh", "fp": 3}
+            ]
         },
         "groumall": {
             "name": "Groumall-Type Military Freighter", "faction": "cardassian", "role": "specialist", "size": "small",
@@ -1078,7 +1200,10 @@
             "instruments": [0, 0, 0, 0, 0],
             "model_transform": {"posY": 1, "rotY": -90},
             "weapons": {"bow": 4, "stern": 4},
-            "crit_deck_size": 0, "fp": -2
+            "crit_deck_size": 0, "fp": -2,
+            "titles": [
+                {"name": "Groumall", "fp": 4}
+            ]
         },
         "neghvar": {
             "name": "Negh'var-Class Warship", "faction": "klingon", "role": "capital", "size": "large",
@@ -1100,7 +1225,10 @@
             "instruments": [2, 3, 2, 2, 1, 0],
             "model_transform": {"rotY": -90, "posY": 1.5},
             "weapons": {"fore": 4, "fore_port": 6, "fore_starboard": 6, "aft_port": 6, "aft_starboard": 6},
-            "crit_deck_size": 0, "fp": 1
+            "crit_deck_size": 0, "fp": 1,
+            "titles": [
+                {"name": "Negh'Var", "fp": 2}
+            ]
         }
     },
     "tokens": {
