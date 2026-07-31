@@ -1,6 +1,6 @@
 <Button onClick = "attach" height="25" width = "50" position = "-80 -140 -100" rotation = "0 0 180">
     Attach
 </Button>
-<Button onClick = "onClick(launch)" height="25" width = "80" position = "40 130 -100" rotation = "0 0 180">
+<Button onClick = "onClick(launch)" height="25" width = "0" position = "40 130 -100" rotation = "0 0 180">
     Launch
 </Button>
