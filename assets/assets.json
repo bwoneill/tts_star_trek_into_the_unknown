@@ -55,7 +55,7 @@
     ],
     "equipment": [
         {"name": "Class 1 Probes", "gtype": "equipment", "fp": 5, "card": ["probe_class_1.png", "pod_escape.png"],
-            "script": "code\/utilities\/attachable.lua", "xml": "code\/equipment\/Class_1_Probe.xml"},
+            "script": "code\/utilities\/attachable.lua", "xml": "code\/equipment\/Class_1_Probes.xml"},
         {"name": "Escape Pods", "gtype": "equipment", "fp": 3, "card": ["pod_escape.png","probe_class_1.png"]},
         {"name": "Personnel Transponders", "gtype": "equipment","fp": 6, "factions": { "dominion": true}},
         {"name": "Quantum Torpedoes Reload", "gtype": "equipment", "fp": 6, "card": ["torpedo_quantum.png","torpedo_photon.png"],
