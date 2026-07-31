@@ -1162,7 +1162,7 @@
             "dials": {
                 "hull": {"min": 0,"max": 7},
                 "crew": {"min": -2, "max": 4},
-                "alert": {"min": 0, "max": 4},
+                "alert": {"min": 0, "max": 5},
                 "power": {"min": 0, "max": 7}
             },
             "sensors": {
