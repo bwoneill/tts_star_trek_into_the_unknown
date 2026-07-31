@@ -54,8 +54,7 @@
         }
     ],
     "equipment": [
-        {"name": "Class 1 Probes", "gtype": "equipment", "fp": 5, "card": ["probe_class_1.png", "pod_escape.png"],
-            "script": "code\/utilities\/attachable.lua", "xml": "code\/equipment\/Class_1_Probes.xml"},
+        {"name": "Class 1 Probes", "gtype": "equipment", "fp": 5, "card": ["probe_class_1.png", "pod_escape.png"]},
         {"name": "Escape Pods", "gtype": "equipment", "fp": 3, "card": ["pod_escape.png","probe_class_1.png"]},
         {"name": "Personnel Transponders", "gtype": "equipment","fp": 6, "factions": { "dominion": true}},
         {"name": "Quantum Torpedoes Reload", "gtype": "equipment", "fp": 6, "card": ["torpedo_quantum.png","torpedo_photon.png"],
@@ -66,7 +65,10 @@
         {"name": "Romulan Cloaking Device", "gtype": "equipment", "fp": 0, "factions": {"federation": true}},
         {"name": "Toron Class Shuttle Berth", "gtype": "equipment", "fp": 2, "factions": {"klingon": true}},
         {"name": "Rapid Deployment Transporters", "gtype": "equipment", "fp": 4, "factions": {"federation": true, "klingon": true}},
-        {"name": "Regenerative Capacitors", "gtype": "equipment", "fp": 4, "factions": {"cardassian": true, "dominion": true}}
+        {"name": "Regenerative Capacitors", "gtype": "equipment", "fp": 4, "factions": {"cardassian": true, "dominion": true}},
+        {"name": "Science Ministry Suite", "gtype": "equipment", "fp": 5, "factions": {"cardassian": true, "dominion": true},
+            "script": "code\/utilities\/attachable.lua", "xml": "code\/equipment\/Science_Ministry_Suite.xml",
+            "orders": {"launchPort": {"call": "launch", "par": "port"}, "launchStarboard": {"call": "launch", "par": "port"}}}
     ],
     "factions": {
         "dominion": {
