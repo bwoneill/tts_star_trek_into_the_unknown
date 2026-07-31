@@ -139,15 +139,17 @@ end
 
 function Card:spawnObject(pos, rot)
     local card = spawnObject({type = "CardCustom", position = pos, rotation = rot})
-    if self.xml then
-        card.UI.setXml(Global.call("getFile", path .. self.xml))
-    end
-    if self.script then
-        card.setLuaScript(Global.call("getFile", path .. self.script))
-    end
     local images = self:getImages()
     card.setCustomObject({face = images[1], back = images[2]})
-    return card
+    data = card.getData()
+    card.destroy()
+    if self.xml then
+        data.XmlUI = Global.call("getFile", self.xml)
+    end
+    if self.script then
+        data.LuaScript = Global.call("getFile", self.script)
+    end
+    return spawnObjectData({data = data})
 end
 
 function Card:toString()

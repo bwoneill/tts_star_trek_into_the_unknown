@@ -9,6 +9,9 @@
 attaching = false
 
 function onLoad(script_state)
+    if not data then
+        data = {}
+    end
     if data.xml then
         self.UI.setXml()
     end
@@ -29,14 +32,21 @@ function onClick(player, value, id)
 end
 
 function attach(player, value, id)
+    attaching = player.color
+    log("attach")
+    log(player.color)
     -- display message
-    Global.broadcastToColor("Pick up a ship to attach", player)
-    attaching = player
+    broadcastToColor("Pick up a ship to attach", player.color)
 end
 
 function onObjectPickUp(player_color, object)
+    log("onObjectPickUp")
+    log(player_color)
+    log(attaching)
+    log(object)
     if player_color == attaching then
-        data.parent = object
+        data.parent = object.getGUID()
         attaching = false
+        broadcastToColor("Equipment attached", player.color)
     end
 end
