@@ -1173,7 +1173,7 @@
                 "all": 2, "bow": 4,
                 "instruments": {"bow": true}
             },
-            "instruments": [0, 0, 0, 0, 0],
+            "instruments": [2, 2, 1, 1, 0],
             "model_transform": {"posY": 1, "rotY": -90},
             "weapons": {"bow": 6, "fore_port": 6, "fore_starboard": 6, "aft": 6},
             "crit_deck_size": 0, "fp": -1,
@@ -1198,7 +1198,7 @@
                 "all": 3, "bow": 3,
                 "instruments": {"bow": true}
             },
-            "instruments": [0, 0, 0, 0, 0],
+            "instruments": [2, 3, 2, 1, 0],
             "model_transform": {"posY": 1, "rotY": -90},
             "weapons": {"bow": 4, "stern": 4},
             "crit_deck_size": 0, "fp": -2,
@@ -1223,7 +1223,7 @@
                 "all": 6, "bow": 6,
                 "instruments": {"bow": true}
             },
-            "instruments": [2, 3, 2, 2, 1, 0],
+            "instruments": [3, 3, 2, 2, 1, 0],
             "model_transform": {"rotY": -90, "posY": 1.5},
             "weapons": {"fore": 4, "fore_port": 6, "fore_starboard": 6, "aft_port": 6, "aft_starboard": 6},
             "crit_deck_size": 0, "fp": 1,
