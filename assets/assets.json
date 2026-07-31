@@ -59,16 +59,22 @@
         {"name": "Personnel Transponders", "gtype": "equipment","fp": 6, "factions": { "dominion": true}},
         {"name": "Quantum Torpedoes Reload", "gtype": "equipment", "fp": 6, "card": ["torpedo_quantum.png","torpedo_photon.png"],
             "factions": {"federation": true, "dominion": true}},
-        {"name": "Runabout Berth", "gtype": "equipment", "fp": 3, "factions": {"federation": true}},
+        {"name": "Runabout Berth", "gtype": "equipment", "fp": 3, "factions": {"federation": true},
+            "script": "code\/utilities\/attachable.lua", "xml": "code\/equipment\/Runabout_Berth.xml",
+            "data": "data = {orders = {launch = {call = 'launch', par = 'aft'}}}"},
         {"name": "Modernized Drive System", "gtype": "equipment", "fp": 2, "factions": {"federation": true}},
         {"name": "Relic Armory", "gtype": "equipment", "fp": 2, "factions": {"klingon": true}},
-        {"name": "Romulan Cloaking Device", "gtype": "equipment", "fp": 0, "factions": {"federation": true}},
-        {"name": "Toron Class Shuttle Berth", "gtype": "equipment", "fp": 2, "factions": {"klingon": true}},
+        {"name": "Romulan Cloaking Device", "gtype": "equipment", "fp": 0, "factions": {"federation": true},
+            "script": "code\/utilities\/attachable.lua", "xml": "code\/equipment\/Romulan_Cloaking_Device.xml",
+            "data": "data = {orders = {cloak = {call = 'cloak', par = 'player'}, decloak = {call = 'decloak', par = 'player'}}}"},
+        {"name": "Toron Class Shuttle Berth", "gtype": "equipment", "fp": 2, "factions": {"klingon": true},
+            "script": "code\/utilities\/attachable.lua", "xml": "code\/equipment\/Toron_Class_Shuttle_Berth.xml",
+            "data": "data = {orders = {launch = {call = 'launch', par = 'aft'}}}"},
         {"name": "Rapid Deployment Transporters", "gtype": "equipment", "fp": 4, "factions": {"federation": true, "klingon": true}},
         {"name": "Regenerative Capacitors", "gtype": "equipment", "fp": 4, "factions": {"cardassian": true, "dominion": true}},
         {"name": "Science Ministry Suite", "gtype": "equipment", "fp": 5, "factions": {"cardassian": true, "dominion": true},
             "script": "code\/utilities\/attachable.lua", "xml": "code\/equipment\/Science_Ministry_Suite.xml",
-            "data": "data = {orders = {launchPort = {call = 'launch', par = 'port'}, launchStarboard = {call = 'launch', par = 'port'}}"}
+            "data": "data = {orders = {launchPort = {call = 'launch', par = 'port'}, launchStarboard = {call = 'launch', par = 'port'}}}"}
     ],
     "factions": {
         "dominion": {

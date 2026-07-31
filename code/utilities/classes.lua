@@ -57,7 +57,7 @@ function Ship:spawnObject(pos, rot, faction, title)
                 DiffuseURL = ROOT .. path .. "ship_board.png",
                 MaterialIndex = 3, Convex = false
             },
-            LuaScript = script, XmlUI = ship_xml
+            LuaScript = script, XmlUI = ship_xml, Tags = {"Ship"}
         },
         position = pos,
         rotation = rot
@@ -141,13 +141,16 @@ function Card:spawnObject(pos, rot)
     local card = spawnObject({type = "CardCustom", position = pos, rotation = rot})
     local images = self:getImages()
     card.setCustomObject({face = images[1], back = images[2]})
-    data = card.getData()
+    local data = card.getData()
     card.destroy()
     if self.xml then
         data.XmlUI = Global.call("getFile", self.xml)
     end
     if self.script then
         data.LuaScript = Global.call("getFile", self.script)
+        if self.data then
+            data.LuaScript = data.LuaScript .. "\n" .. self.data
+        end
     end
     return spawnObjectData({data = data})
 end
