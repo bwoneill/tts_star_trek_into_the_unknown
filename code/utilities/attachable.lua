@@ -2,11 +2,11 @@
 --     station = "text",
 --     requirements = {requirement = value},
 --     xml = "text",
---     parent = object,
 --     orders = {id = {call = "callableFunction", par = "parameters"}}
 -- }
 
 attaching = false
+parent = nil
 
 function onLoad(script_state)
     if not data then
@@ -15,8 +15,9 @@ function onLoad(script_state)
     if data.xml then
         self.UI.setXml()
     end
-    if script_state and script_state.parent then
-        data.parent = script_state.parent
+    if script_state and script_state.parentGUID then
+        data.parentGUID = script_state.parentGUID
+        parent = getObjectFromGUID(data.parentGUID)
     end
 end
 
@@ -26,27 +27,21 @@ end
 
 function onClick(player, value, id)
     order = data.orders[value]
-    if order and data.parent then
-        data.parent.call(order.call, order.par)
+    if order and parent then
+        parent.call(order.call, order.par)
     end
 end
 
 function attach(player, value, id)
     attaching = player.color
-    log("attach")
-    log(player.color)
-    -- display message
     broadcastToColor("Pick up a ship to attach", player.color)
 end
 
 function onObjectPickUp(player_color, object)
-    log("onObjectPickUp")
-    log(player_color)
-    log(attaching)
-    log(object)
     if player_color == attaching then
-        data.parent = object.getGUID()
+        data.parentGUID = object.getGUID()
+        parent = getObjectFromGUID(data.parentGUID)
         attaching = false
-        broadcastToColor("Equipment attached", player.color)
+        broadcastToColor("Equipment attached", player_color)
     end
 end
