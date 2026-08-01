@@ -50,10 +50,10 @@ function onObjectPickUp(player_color, object)
         if object.hasTag("Ship") then
             data.parentGUID = object.getGUID()
             parent = getObjectFromGUID(data.parentGUID)
-            attaching = false
             broadcastToColor("Card attached", player_color)
         else
-            broadcastToColor("Must select a ship board", player_color)
+            broadcastToColor("Attachment canceled\nOnly ship boards can be attached to", player_color)
         end
+        attaching = false
     end
 end
