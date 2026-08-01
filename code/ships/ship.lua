@@ -720,7 +720,7 @@ end
 
 function cloak(player, value, id)
     local myShip = getObjectFromGUID(saveData.shipGUID)
-    if myShip then
+    if myShip and not saveData.cloaked then
         local pos, rot = placeTrackerAft()
         clearArc()
         myShip.setPosition(self.getPosition() + Vector(5.5, 0, -5.5):rotateOver("y", self.getRotation().y))
