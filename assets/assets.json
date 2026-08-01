@@ -74,7 +74,7 @@
         {"name": "Regenerative Capacitors", "gtype": "equipment", "fp": 4, "factions": {"cardassian": true, "dominion": true}},
         {"name": "Science Ministry Suite", "gtype": "equipment", "fp": 5, "factions": {"cardassian": true, "dominion": true},
             "script": "code\/utilities\/attachable.lua", "xml": "code\/equipment\/Science_Ministry_Suite.xml",
-            "data": "data = {orders = {launchPort = {call = 'launch', par = 'port'}, launchStarboard = {call = 'launch', par = 'port'}}}"}
+            "data": "data = {orders = {launchPort = {call = 'launch', par = 'port'}, launchStarboard = {call = 'launch', par = 'starboard'}}}"}
     ],
     "factions": {
         "dominion": {
