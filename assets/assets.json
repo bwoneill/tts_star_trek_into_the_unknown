@@ -1229,9 +1229,11 @@
             "weapons": {"bow": 4, "stern": 4},
             "crit_deck_size": 0, "fp": -2,
             "titles": [
-                {"name": "Groumall", "fp": 4,
-                "script": "code\/utilities\/attachable.lua", "xml": "code\/equipment\/Groumall.xml",
-                "data": "data = {orders = {fire = {call = 'drawArc', par = {fore = 6}}}}"}
+                {
+                    "name": "Groumall", "fp": 4,
+                    "script": "code\/utilities\/attachable.lua", "xml": "code\/equipment\/Groumall.xml",
+                    "data": "data = {orders = {fire = {call = 'drawArc', par = {fore = 6}}}}"
+                }
             ]
         },
         "neghvar": {
