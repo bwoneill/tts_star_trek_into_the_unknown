@@ -51,6 +51,24 @@
                 ["honor_guard_b", "boarding_b"],
                 ["honor_guard_c", "repair_c"]
             ]
+        },
+        {
+            "faction": "cardassian", "gtype": "directive", "type": "diplomacy",
+            "names": ["Establish Favorable Terms", "Assert Cardassian Authority"]
+        },
+        {
+            "faction": "cardassian", "gtype": "directive", "type": "combat",
+            "names": ["Maintain Treaties", "Crush Opposition"]
+        },
+        {
+            "faction": "cardassian", "gtype": "directive", "type": "exploration",
+            "names": ["Protect Cardassian Interests", "Exploit New Worlds"],
+            "teams": [
+                ["military_a", "obsdian_order_a"],
+                ["military_b", "science_b"],
+                ["obsdian_order_c", "obsdian_order_c"],
+                ["military_d", "science_d"]
+            ]
         }
     ],
     "equipment": [
@@ -1169,7 +1187,7 @@
             "short": "galor", "gtype": "ship",
             "dials": {
                 "hull": {"min": 0,"max": 7},
-                "crew": {"min": -2, "max": 4},
+                "crew": {"min": -2, "max": 5},
                 "alert": {"min": 0, "max": 5},
                 "power": {"min": 0, "max": 7}
             },
@@ -1193,7 +1211,7 @@
             "name": "Groumall-Type Military Freighter", "faction": "cardassian", "role": "specialist", "size": "small",
             "short": "groumall", "gtype": "ship",
             "dials": {
-                "hull": {"min": 0,"max": 7},
+                "hull": {"min": 0,"max": 8},
                 "crew": {"min": -2, "max": 4},
                 "alert": {"min": 0, "max": 4},
                 "power": {"min": 0, "max": 6}
@@ -1211,15 +1229,17 @@
             "weapons": {"bow": 4, "stern": 4},
             "crit_deck_size": 0, "fp": -2,
             "titles": [
-                {"name": "Groumall", "fp": 4}
+                {"name": "Groumall", "fp": 4,
+                "script": "code\/utilities\/attachable.lua", "xml": "code\/equipment\/Groumall.xml",
+                "data": "data = {orders = {fire = {call = 'drawArc', par = {fore = 6}}}}"}
             ]
         },
         "neghvar": {
             "name": "Negh'var-Class Warship", "faction": "klingon", "role": "capital", "size": "large",
             "short": "neghvar", "gtype": "ship",
             "dials": {
-                "hull": {"min": 0, "max": 8},
-                "crew": {"min": -2, "max": 5},
+                "hull": {"min": 0, "max": 9},
+                "crew": {"min": -2, "max": 4},
                 "alert": {"min": 0, "max": 5},
                 "power": {"min": 0, "max": 8}
             },
