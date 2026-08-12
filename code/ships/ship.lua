@@ -474,7 +474,10 @@ end
 
 function drawArc(system, jammed) -- system is "sensors", "comms", "weapons"
     local myShip = getShipObject()
-    local stats = shipData[system]
+    local stats = system
+    if type(system) == "string" then
+        stats = shipData[system]
+    end
     local clr = myShip.getColorTint()
     clr.a = 1
     local geometry = getBaseGeometry().arcs
