@@ -1,5 +1,4 @@
 require("utilities/classes")
-require("vscode/console")
 
 --[[ Lua code. See documentation: https://api.tabletopsimulator.com/ --]]
 
