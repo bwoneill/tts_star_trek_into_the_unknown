@@ -94,7 +94,8 @@ function Ship:getTitles()
             local name = ((prefix and prefix .. " ") or "") ..  title.name
             table.insert(results, GameType:new({
                 gtype = "title", name = name, class = self.name, faction = self.faction, role = self.role,
-                size = self.size, short = self.short, images = self:getTitleImages(title.name)
+                size = self.size, short = self.short, images = self:getTitleImages(title.name),
+                script = title.script, xml = title.xml, data = title.data
             }))
         end
     end
