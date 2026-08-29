@@ -670,7 +670,7 @@
             "factions": {"cardassian": true, "dominion": true}, "sway": {"cardassian": 1, "dominion": 1}, "roles": {"command": true},
             "abilities": ["SETUP: Secretly choose 1 of your trust tokens and replace it with Dukat's trust token.", "When Dukat's trust token is resolved, the persuasive player's unit adds 2 threat.", "END OF GAME: Reveal the replaced trust token. If you have scored exactly that many negative victory points, remove them."],
             "skills": {"Diplomacy": 2, "Ordnance": 1, "Skirmish": 1, "Navigation": 1, "Social": 2, "Security": 1, "Technical": 1},
-            "cp": 12, "fp": 4, "unique": true, "rank": "fcapt"
+            "cp": 12, "fp": 4, "unique": true, "rank": "fcapt", "token": "dukat_trust"
         },
         {
             "name": "Gilora Rejal", "subtitle": "Subspace Researcher", "gtype": "officer",
