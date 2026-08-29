@@ -153,6 +153,13 @@ function Card:spawnObject(pos, rot)
             data.LuaScript = data.LuaScript .. "\n" .. self.data
         end
     end
+    if self.token then
+        local token_data = {data = ASSETS.tokens[self.token].data}
+        local offset = Vector(-2, 0, 0):rotateOver("y", rot.y)
+        token_data.rotation = rot
+        token_data.position = pos + offset
+        spawnObjectData(token_data)
+    end
     return spawnObjectData({data = data})
 end
 
