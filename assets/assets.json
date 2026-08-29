@@ -1342,7 +1342,48 @@
             }
         },
         "dukat_trust": {
-
+            "data": {
+                "ObjectStates": [
+                    {
+                        "Name": "Custom_Tile",
+                        "Transform": {
+                            "scaleX": 0.4,
+                            "scaleY": 1.0,
+                            "scaleZ": 0.4
+                        },
+                        "CustomImage": {
+                            "ImageURL": "https://raw.githubusercontent.com/bwoneill/tts_star_trek_into_the_unknown/v1.2.0/assets/tokens/trust_2_blue.png",
+                            "ImageSecondaryURL": "https://raw.githubusercontent.com/bwoneill/tts_star_trek_into_the_unknown/v1.2.0/assets/tokens/trust_back_blue.png",
+                            "CustomTile": {
+                                "Type": 0,
+                                "Thickness": 0.1,
+                                "Stackable": false,
+                                "Stretch": true
+                            }
+                        },
+                        "States": {
+                            "2": {
+                                "Name": "Custom_Tile",
+                                "Transform": {
+                                    "scaleX": 0.4,
+                                    "scaleY": 1.0,
+                                    "scaleZ": 0.4
+                                },
+                                "CustomImage": {
+                                    "ImageURL": "https://raw.githubusercontent.com/bwoneill/tts_star_trek_into_the_unknown/v1.2.0/assets/tokens/trust_2_orange.png",
+                                    "ImageSecondaryURL": "https://raw.githubusercontent.com/bwoneill/tts_star_trek_into_the_unknown/v1.2.0/assets/tokens/trust_back_orange.png",
+                                    "CustomTile": {
+                                        "Type": 0,
+                                        "Thickness": 0.1,
+                                        "Stackable": false,
+                                        "Stretch": true
+                                    }
+                                }
+                            }
+                        }
+                    }
+                ]
+            }
         }
     },
     "tools": {
