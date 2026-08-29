@@ -1186,7 +1186,7 @@
             "name": "Galor-Class Cruiser", "faction": "cardassian", "role": "support", "size": "medium",
             "short": "galor", "gtype": "ship",
             "dials": {
-                "hull": {"min": 0,"max": 7},
+                "hull": {"min": 0,"max": 8},
                 "crew": {"min": -2, "max": 5},
                 "alert": {"min": 0, "max": 5},
                 "power": {"min": 0, "max": 7}
@@ -1199,7 +1199,7 @@
                 "all": 2, "bow": 4,
                 "instruments": {"bow": true}
             },
-            "instruments": [2, 2, 1, 1, 0],
+            "instruments": [2, 2, 1, 1, 0, 0],
             "model_transform": {"posY": 1, "rotY": -90},
             "weapons": {"bow": 6, "fore_port": 6, "fore_starboard": 6, "aft": 6},
             "crit_deck_size": 0, "fp": -1,
@@ -1241,7 +1241,7 @@
             "short": "neghvar", "gtype": "ship",
             "dials": {
                 "hull": {"min": 0, "max": 9},
-                "crew": {"min": -2, "max": 4},
+                "crew": {"min": -2, "max": 5},
                 "alert": {"min": 0, "max": 5},
                 "power": {"min": 0, "max": 8}
             },
