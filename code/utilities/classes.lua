@@ -25,7 +25,7 @@ function Ship:getTitleImages(name)
     local result
     for i, v in ipairs(self.titles) do
         if v.name == name then
-            name = name:gsub(" ", "_"):lower()
+            name = name:gsub(" ", "_"):gsub("'", ""):lower()
             local path = ASSET_ROOT .. "factions/" .. self.faction .. "/ships/" .. self.short .. "/title_" .. name
             result = {path .. "_front.png", path .. "_back.png"}
         end
