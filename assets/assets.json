@@ -675,7 +675,7 @@
         {
             "name": "Gilora Rejal", "subtitle": "Subspace Researcher", "gtype": "officer",
             "factions": {"cardassian": true}, "roles": {"science": true},
-            "abilities": ["Handy 1"],
+            "abilities": ["Handy 1", "Perceptive 1"],
             "skills": {"Logic": 1, "Mechanics": 2, "Navigation": 2, "Social": 0, "Security": 0, "Technical": 2},
             "cp": 7, "fp": 2, "unique": true, "rank": "ens"
         },
@@ -688,7 +688,7 @@
         },
         {
             "name": "Ocett", "subtitle": "Ambitious Gul", "gtype": "officer",
-            "factions": {"cardassian": true}, "roles": {"command": true, "ops": true},
+            "factions": {"cardassian": true}, "roles": {"command": true, "science": true},
             "abilities": ["Dutiful 1", "When Ocett leads a science test, youj can spend 2 analysis to choose 1 unit in Comms range and add 1 advantage or 1 threat to that unit."],
             "skills": {"Culture": 1, "Diplomacy": 2, "Skirmish": 1, "Fieldcraft": 1, "Biology": 1, "Mechanics": 1, "Navigation": 2, "Social": 2, "Security": 1, "Technical": 2},
             "cp": 11, "fp": 5, "unique": true, "rank": "capt"
