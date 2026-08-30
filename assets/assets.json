@@ -266,6 +266,10 @@
             {
                 "name": "Temporary Wormhole", "tags": ["Situation", "Mystery"], "gtype": "situation",
                 "features": [{"gtype": "feature", "type": "anomalies", "name": "Tachyon pulse"}]
+            },
+            {
+                "name": "Wake of Disaster", "tags": ["Situation", "Threat"], "gtype": "situation",
+                "features": [{"gtype": "feature", "type": "anomalies", "name": "Wrecked vessel"}]
             }
         ],
         "complication": [
@@ -299,7 +303,7 @@
             },
             {
                 "name": "Surface Strikes", "tags": ["Complication", "Battle", "Politics", "Intrigue"], "gtype": "complication",
-                "objectives": [{"gtype": "objective", "type": "solid", "name": "Entrenched Base", "add_description": "Capacity 2", "quantity": 6}],
+                "objectives": [{"gtype": "objective", "type": "solid", "name": "Entrenched base", "add_description": "Capacity 3\nObscuring 1", "quantity": 6}],
                 "ships": [{"artifact": 1}]
             },
             {
@@ -314,6 +318,10 @@
             {
                 "name": "Checkmate", "tags": ["Complication", "Battle", "Intrigue", "Mystery"], "gtype": "complication",
                 "objectives": [{"gtype": "objective", "type": "solid", "name": "Strategic supspace beacon", "add_description":"Capacity 3", "quanity": 4}]
+            },
+            {
+                "name": "Treacherous Infiltrators", "tags": ["Complication", "Battle", "Intrigue", "Mystery"], "gtype": "complication",
+                "objectives": [{"gtype": "objective", "type": "solid", "name": "Clue site", "add_description": "Capacity 2"}]
             }
         ],
         "overture": [
@@ -355,6 +363,10 @@
             {
                 "name": "On Sinking Ground", "tags": ["Overture", "Battle", "Helix"], "gtype": "overture",
                 "objectives": [{"gtype": "objective", "type": "ping", "name": "Cosmic eddy", "quanity": 6, "description": "Obscuring 3\nTreacherous 4"}]
+            },
+            {
+                "name": "Tense Evacuation", "tags": ["Overture", "Battle", "Helix"], "gtype": "overture",
+                "objectives": [{"gtype": "objective", "type": "solid", "name": "Colony", "quanity": 4, "description": "Capacity 2\nMassive 2"}]
             }
         ]
     },
