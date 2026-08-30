@@ -80,7 +80,6 @@ function Ship:spawnObject(pos, rot, faction, title)
     end
     -- Spawn title
     if title and title.name then
-        log(title)
         local offset = Vector(-6.25, 0, -2):rotateOver("y", rot.y)
         local title_data = {
             images = self:getTitleImages(title.name),
