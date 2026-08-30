@@ -295,16 +295,16 @@
             },
             {
                 "name": "On the Tide of Ages", "tags": ["Complication", "Politic", "Study", "Mystery"], "gtype": "complication",
-                "objectives": [{"gtype": "objective", "type": "solid", "name": "Ancient Ports", "add_description": "Capacity 3", "quantity": 3}]
+                "objectives": [{"gtype": "objective", "type": "solid", "name": "Ancient Ports", "add_description": "Capacity 3", "quantity": 3}],
+                "ships": [{"artifact": 1}]
             },
             {
                 "name": "Contested Territory", "tags": ["Complication", "Battle", "Politics", "Intrigue"], "gtype": "complication",
                 "objectives": [{"gtype": "objective", "type": "solid", "name": "Strategic holding", "add_description": "Capacity 3"}]
             },
             {
-                "name": "Surface Strikes", "tags": ["Complication", "Battle", "Politics", "Intrigue"], "gtype": "complication",
-                "objectives": [{"gtype": "objective", "type": "solid", "name": "Entrenched base", "add_description": "Capacity 3\nObscuring 1", "quantity": 6}],
-                "ships": [{"artifact": 1}]
+                "name": "Surface Strikes (RT)", "tags": ["Complication", "Battle", "Politics", "Intrigue"], "gtype": "complication",
+                "objectives": [{"gtype": "objective", "type": "solid", "name": "Entrenched base", "add_description": "Capacity 2", "quantity": 6}]
             },
             {
                 "name": "Inscrutable Entity", "tags": ["Complication", "Study", "Threat", "Mystery"], "gtype": "complication",
@@ -322,6 +322,10 @@
             {
                 "name": "Treacherous Infiltrators", "tags": ["Complication", "Battle", "Intrigue", "Mystery"], "gtype": "complication",
                 "objectives": [{"gtype": "objective", "type": "solid", "name": "Clue site", "add_description": "Capacity 2"}]
+            },
+            {
+                "name": "Surface Strikes (GZ)", "tags": ["Complication", "Battle", "Politic", "Intrigue"], "gtype": "complication",
+                "objectives": [{"gtype": "objective", "type": "solid", "name": "Contested colony", "add_description": "Capacity 3\nObscuring 1", "quanity": 4}]
             }
         ],
         "overture": [
