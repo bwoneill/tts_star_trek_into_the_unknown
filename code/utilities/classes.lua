@@ -80,8 +80,15 @@ function Ship:spawnObject(pos, rot, faction, title)
     end
     -- Spawn title
     if title and title.name then
+        log(title)
         local offset = Vector(-6.25, 0, -2):rotateOver("y", rot.y)
-        Card:new({images = self:getTitleImages(title.name)}):spawnObject(pos + offset, Vector(0, rot.y, 180))
+        local title_data = {
+            images = self:getTitleImages(title.name),
+            script = title.script,
+            xml = title.xml,
+            data = title.data
+        }
+        Card:new(title_data):spawnObject(pos + offset, Vector(0, rot.y, 180))
     end
     return spawnObjectData(result)
 end
