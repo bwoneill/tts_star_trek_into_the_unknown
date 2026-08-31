@@ -156,8 +156,8 @@ end
 
 function offChoice(player, value, id)
     local values = parseValues(value)
-    for id, i in pairs(values) do
-        build[id] = ASSETS.officers[i]
+    for n, i in pairs(values) do
+        build[n] = ASSETS.officers[i]
     end
     self.UI.hide("vertCardSelector")
     showStaging()
@@ -185,8 +185,8 @@ end
 
 function dirChoice(player, value, id)
     local values = parseValues(value)
-    for id, i in pairs(values) do
-        build[id] = ASSETS.directives[i]
+    for n, i in pairs(values) do
+        build[n] = ASSETS.directives[i]
     end
     self.UI.hide("horCardSelector")
     showStaging()
@@ -277,8 +277,8 @@ end
 
 function equipChoice(player, value, id)
     local values = parseValues(value)
-    for id, i in pairs(values) do
-        local index = tonumber(id)
+    for n, i in pairs(values) do
+        local index = tonumber(n) or 0
         build.equipment[index] = ASSETS.equipment[i]
         build.equipment[index].n = 1
     end
@@ -537,7 +537,7 @@ function import(player, value, id)
             distance = d
         end
     end
-    if distance < 12 then
+    if distance < 12 and save then
         local data = JSON.decode(save.script_state)
         if data.version ~= SAVE_VERSION then
             broadcastToColor("Save versions do not match, this may not work", player.color, Color.Red)
