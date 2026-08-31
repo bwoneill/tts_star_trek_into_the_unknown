@@ -1,5 +1,5 @@
 {
-    "branch": "v1.2.0",
+    "branch": "v1.2.1",
     "directives": [
         {
             "faction": "dominion", "gtype": "directive", "type": "combat",
@@ -963,8 +963,8 @@
             "weapons": {"all": 6, "fore": 6, "fore_port": 4, "fore_starboard": 4, "aft": 6},
             "crit_deck_size": 5, "fp": 3,
             "titles": [
-                {"name": "Defiant", "fp": 3},
-                {"name": "Valiant", "fp": 3}
+                {"name": "Defiant", "fp": 3, "factions": {"federation": "true"}},
+                {"name": "Valiant", "fp": 3, "factions": {"federation": "true"}}
             ]
         },
         "galaxy": {
@@ -989,7 +989,7 @@
             "weapons": {"fore": 6, "aft": 6},
             "crit_deck_size": 6,
             "titles": [
-                {"name": "Enterprise D", "fp": 2}
+                {"name": "Enterprise D", "fp": 2, "factions": {"federation": "true"}}
             ],
             "alternate": {
                 "name": "Galaxy-Class Stardrive", "faction": "federation", "role": "capital", "size": "large",
@@ -1078,7 +1078,7 @@
             "weapons": {"fore_port": 6, "fore_starboard": 6, "bow": 4, "aft": 6},
             "crit_deck_size": 5, "fp": -2,
             "titles": [
-                {"name": "Trial", "fp": 1}
+                {"name": "Trial", "fp": 1, "factions": {"federation": "true"}}
             ]
         },
         "constellation": {
@@ -1103,7 +1103,7 @@
             "weapons": {"fore_port": 6, "fore_starboard": 6, "stern": 6},
             "crit_deck_size": 5, "fp": -3,
             "titles": [
-                {"name": "Hathaway", "fp": 3}
+                {"name": "Hathaway", "fp": 3, "factions": {"federation": "true"}}
             ]
         },
         "artifact": {
@@ -1169,7 +1169,7 @@
             "weapons": {"fore_port": 4, "fore_starboard": 4,"bow": 6},
             "crit_deck_size": 6, "fp": 1,
             "titles": [
-                {"name": "Bortas", "fp": 3}
+                {"name": "Bortas", "fp": 3, "factions": {"klingon": "true"}}
             ]
         },
         "brel": {
@@ -1194,8 +1194,8 @@
             "weapons": {"fore_port": 4, "fore_starboard": 4},
             "crit_deck_size": 5, "fp": -1,
             "titles": [
-                {"name": "Buruk", "fp": 2},
-                {"name": "Rotarran", "fp": 1}
+                {"name": "Buruk", "fp": 2, "factions": {"klingon": "true"}},
+                {"name": "Rotarran", "fp": 1, "factions": {"klingon": "true"}}
             ]
         },
         "galor": {
@@ -1220,7 +1220,7 @@
             "weapons": {"bow": 6, "fore_port": 6, "fore_starboard": 6, "aft": 6},
             "crit_deck_size": 5, "fp": -1,
             "titles": [
-                {"name": "Prakesh", "fp": 3}
+                {"name": "Prakesh", "fp": 3, "factions": {"cardassian": true, "dominion": true}}
             ]
         },
         "groumall": {
@@ -1246,7 +1246,7 @@
             "crit_deck_size": 5, "fp": -2,
             "titles": [
                 {
-                    "name": "Groumall", "fp": 4,
+                    "name": "Groumall", "fp": 4, "factions": {"cardassian": true, "dominion": true},
                     "script": "code\/utilities\/attachable.lua", "xml": "code\/equipment\/Groumall.xml",
                     "data": "data = {orders = {fire = {call = 'drawArc', par = {fore = 6}}}}"
                 }
@@ -1274,7 +1274,7 @@
             "weapons": {"fore": 4, "fore_port": 6, "fore_starboard": 6, "aft_port": 6, "aft_starboard": 6},
             "crit_deck_size": 6, "fp": 1,
             "titles": [
-                {"name": "Negh'Var", "fp": 2}
+                {"name": "Negh'Var", "fp": 2, "factions": {"klingon": "true"}}
             ]
         }
     },
