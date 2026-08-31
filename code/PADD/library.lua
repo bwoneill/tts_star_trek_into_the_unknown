@@ -3,21 +3,15 @@ function library()
     librarySearch()
 end
 
-libraryImages = {"cardFront","cardBack", "shipBoard", "shipImage", "auxFront", "auxBack", "libraryText"}
-typeImages = {officer = {"cardFront", "cardBack"}, equipment = {"cardFront", "cardBack"},
-              ship = {"shipBoard", "shipImage"}, auxiliary = {"auxFront", "auxBack"},
-              overture = {"auxFront", "auxBack"}, situation = {"auxFront", "auxBack"}, complication = {"auxFront", "auxBack"},
-              directive = {"auxFront", "auxBack"}, title = {"cardFront", "cardBack"}}
-
-function librarySearch(player, value, id)
-    searchResults = searchAssets(value)
+function initLibrary()
+    if not LIBRARY then
+        LIBRARY = Global.getTable("LIBRARY")
+    end
     local newXml = [[<GridLayout id="searchResults" cellSize="400 50" color="Black">]]
-    for i, value in pairs(searchResults) do
+    newXml = newXml .. [[<Text id = "sr0" fontSize = "28" alignment = "LowerLeft">None</Text>]]
+    for i, value in pairs(LIBRARY) do
         newXml = newXml .. [[<Text id = "sr]] .. i ..  [[" fontSize="28" alignment = "MiddleLeft" onClick = "displayResult" horizontalOverflow = "Overflow">]]
                         .. GameType:new(value):getName() .. "</Text>"
-    end
-    if #searchResults < 1 then
-        newXml = newXml .. [[<Text fontSize = "28" alignment = "LowerLeft">None</Text>]]
     end
     newXml = newXml .. "</GridLayout>"
     local xml = self.UI.getXml()
@@ -25,17 +19,21 @@ function librarySearch(player, value, id)
     local _, stop = string.find(xml, "</GridLayout>", start)
     xml = string.sub(xml, 1, start -1) .. newXml .. string.sub(xml, stop + 1)
     self.UI.setXml(xml)
-    self.UI.setAttribute("searchField", "text", value)
-    self.UI.setAttribute("searchScrollPanel", "height", math.max(50 * #searchResults, 700))
 end
 
-function searchAssets(text)
+libraryImages = {"cardFront","cardBack", "shipBoard", "shipImage", "auxFront", "auxBack", "libraryText"}
+typeImages = {officer = {"cardFront", "cardBack"}, equipment = {"cardFront", "cardBack"},
+              ship = {"shipBoard", "shipImage"}, auxiliary = {"auxFront", "auxBack"},
+              overture = {"auxFront", "auxBack"}, situation = {"auxFront", "auxBack"}, complication = {"auxFront", "auxBack"},
+              directive = {"auxFront", "auxBack"}, title = {"cardFront", "cardBack"}}
+
+function librarySearch(player, text, id)
     text = cleanSearchText(text)
     if not LIBRARY then
         LIBRARY = Global.getTable("LIBRARY")
     end
-    local results = {}
-    for _, value in pairs(LIBRARY) do
+    local count = 0
+    for i, value in pairs(LIBRARY) do
         local target = ""
         if gtype[value.gtype] then
             local obj = GameType:new(value)
@@ -44,19 +42,21 @@ function searchAssets(text)
             log(value)
             target = value.name .. " " .. value.text
         end
-        if wordMatch(target, text) then
-            table.insert(results, value)
-        end
+        local match = wordMatch(target, text)
+        self.UI.setAttribute("sr" .. i, "active", match and true or false)
+        count = count + (match and 1 or 0)
     end
+    self.UI.setAttribute("sr0", "active", count == 0)
+    self.UI.setAttribute("searchScrollPanel", "height", math.max(50 * count, 700))
     return results
 end
 
 function displayResult(player, value, id)
     local index = tonumber(string.match(id, "%d+"))
-    for i = 1, #searchResults do
+    for i = 1, #LIBRARY do
         self.UI.setAttribute("sr" .. i, "color", index == i and "Blue" or "White")
     end
-    selected = searchResults[index]
+    selected = LIBRARY[index]
     for _, element in ipairs(libraryImages) do
         self.UI.setAttribute(element, "active", false)
     end
@@ -110,3 +110,5 @@ function wordMatch(target, words)
     end
     return match
 end
+
+apps.library = {start = library, init = initLibrary}

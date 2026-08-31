@@ -310,24 +310,26 @@ function impulseMoveRight() placeToolToShipRight() end
 
 function placeTurningTool(side, tracker)
     local myShip = getShipObject()
-    myShip.clearButtons()
-    myShip.lock()
-    shipDirection = side
-    if side == "aft" then
-        placeTrackerFore()
-    else
-        placeTrackerAft()
+    if myShip then
+        myShip.clearButtons()
+        myShip.lock()
+        shipDirection = side
+        if side == "aft" then
+            placeTrackerFore()
+        else
+            placeTrackerAft()
+        end
+        local attachment = getBaseGeometry().toolAttachment[side]
+        local pos = myShip.getPosition()
+        local rot = myShip.getRotation().y
+        if not TOOLS.turning_tool.data.LuaScript then
+            TOOLS.turning_tool.data.LuaScript = Global.call("getFile", TOOLS.turning_tool.ScriptURL)
+        end
+        template = spawnObjectData(TOOLS.turning_tool)
+        template.setPosition(pos + Vector(attachment.pos):rotateOver("y", rot))
+        template.setRotation({0, rot + attachment.rot, 0})
+        template.jointTo(myShip, {type = "Hinge", collision = false, break_force = 1000.0, axis = {0,1,0}, anchor = {0,0,0}})
     end
-    local attachment = getBaseGeometry().toolAttachment[side]
-    local pos = myShip.getPosition()
-    local rot = myShip.getRotation().y
-    if not TOOLS.turning_tool.data.LuaScript then
-        TOOLS.turning_tool.data.LuaScript = Global.call("getFile", TOOLS.turning_tool.ScriptURL)
-    end
-    template = spawnObjectData(TOOLS.turning_tool)
-    template.setPosition(pos + Vector(attachment.pos):rotateOver("y", rot))
-    template.setRotation({0, rot + attachment.rot, 0})
-    template.jointTo(myShip, {type = "Hinge", collision = false, break_force = 1000.0, axis = {0,1,0}, anchor = {0,0,0}})
 end
 
 function placeToolToShipFront()
@@ -472,7 +474,10 @@ end
 
 function drawArc(system, jammed) -- system is "sensors", "comms", "weapons"
     local myShip = getShipObject()
-    local stats = shipData[system]
+    local stats = system
+    if type(system) == "string" then
+        stats = shipData[system]
+    end
     local clr = myShip.getColorTint()
     clr.a = 1
     local geometry = getBaseGeometry().arcs
@@ -571,7 +576,10 @@ function launchStarboard() launch("starboard") end
 
 function launch(direction)
     placeTurningTool(direction)
-    template.createButton({ click_function = "clearTemplates",function_owner = self,label= "Clear", position= {.8, .2, 0},rotation= {0, 180, 0},width= 300,height= 200,font_size= 95,color= {1,1,1},font_color= {0,0,0}, tooltip= "Place Ruler aliened with template",})
+    if template then
+        template.createButton({click_function = "clearTemplates",function_owner = self,label = "Clear", position = {.8, .2, 0},
+                               rotation = {0, 180, 0}, width = 300, height = 200, font_size = 95, color = {1,1,1}, font_color = {0,0,0}})
+    end
 end
 
 function launchAuxiliary(direction)
@@ -714,34 +722,35 @@ function getBaseGeometry()
 end
 
 function cloak(player, value, id)
-    clearArc()
-    -- Move ship
-    local pos, rot = placeTrackerAft()
     local myShip = getObjectFromGUID(saveData.shipGUID)
-    myShip.setPosition(self.getPosition() + Vector(5.5, 0, -5.5):rotateOver("y", self.getRotation().y))
-    myShip.setRotation(self.getRotation() + Vector(0, 90, 0))
-    -- Spawn wake tracker
-    if not TOOLS.wake_tracker.data.LuaScript then
-        TOOLS.wake_tracker.data.LuaScript = Global.call("getFile", TOOLS.wake_tracker.ScriptURL)
+    if myShip and not saveData.cloaked then
+        local pos, rot = placeTrackerAft()
+        clearArc()
+        myShip.setPosition(self.getPosition() + Vector(5.5, 0, -5.5):rotateOver("y", self.getRotation().y))
+        myShip.setRotation(self.getRotation() + Vector(0, 90, 0))
+        -- Spawn wake tracker
+        if not TOOLS.wake_tracker.data.LuaScript then
+            TOOLS.wake_tracker.data.LuaScript = Global.call("getFile", TOOLS.wake_tracker.ScriptURL)
+        end
+        if not TOOLS.wake_tracker.data.XmlUI then
+            local xml = Global.call("getFile", TOOLS.wake_tracker.XmlURL)
+            xml = xml:gsub("Black", player.color)
+            TOOLS.wake_tracker.data.XmlUI = xml
+        end
+        local obj_data = {data = TOOLS.wake_tracker.data}
+        local wake_data = {owner = player.color, parent = self.getGUID(), ship_type = shipData.name}
+        obj_data.callback_function = function(obj)
+            obj.call("setData", wake_data)
+        end
+        obj_data.data.Nickname = self.getName() .. " (" .. self.getGUID() .. ")"
+        local wake = spawnObjectData(obj_data)
+        wake.lock()
+        -- Set wake tracker position
+        local attach = Vector(BASE_CONST.wake.toolAttachment.aft.pos) + Vector(0, 0, -0.25)
+        wake.setPosition(tracker.getPosition() - attach:rotateOver("y", rot.y))
+        wake.setRotation(rot)
+        saveData.wakeGUID = wake.getGUID()
     end
-    if not TOOLS.wake_tracker.data.XmlUI then
-        local xml = Global.call("getFile", TOOLS.wake_tracker.XmlURL)
-        xml = xml:gsub("Black", player.color)
-        TOOLS.wake_tracker.data.XmlUI = xml
-    end
-    local obj_data = {data = TOOLS.wake_tracker.data}
-    local wake_data = {owner = player.color, parent = self.getGUID(), ship_type = shipData.name}
-    obj_data.callback_function = function(obj)
-        obj.call("setData", wake_data)
-    end
-    obj_data.data.Nickname = self.getName() .. " (" .. self.getGUID() .. ")"
-    local wake = spawnObjectData(obj_data)
-    wake.lock()
-    -- Set wake tracker position
-    local attach = Vector(BASE_CONST.wake.toolAttachment.aft.pos) + Vector(0, 0, -0.25)
-    wake.setPosition(tracker.getPosition() - attach:rotateOver("y", rot.y))
-    wake.setRotation(rot)
-    saveData.wakeGUID = wake.getGUID()
 end
 
 function completeCloak()

@@ -1,2 +1,5 @@
 .vscode/
+.tts/
+internal/
 **/*.xcf
+**/*.blend1

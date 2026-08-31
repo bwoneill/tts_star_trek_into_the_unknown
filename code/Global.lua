@@ -1,5 +1,4 @@
 require("utilities/classes")
-require("vscode/console")
 
 --[[ Lua code. See documentation: https://api.tabletopsimulator.com/ --]]
 
@@ -60,7 +59,7 @@ function missionSetup(type, object)
     end
     local mission = nil
     for _, m in pairs(ASSETS.missions[type]) do
-        mission = mission or (m.name == object.getName() and m)
+        mission = mission or (m.name == object.getGMNotes() and m)
     end
     if mission and (type == "overture" or type == "situation") then
         local j = type == "situation" and 2 or 0
@@ -153,7 +152,7 @@ zoneGUIDS = {overture = "737129", situation = "da2ad6", complication = "5860dd"}
 
 complication_types = {"battle", "intrigue", "mystery", "politics", "study", "threat"}
 
-ROOT = "https://raw.githubusercontent.com/bwoneill/tts_star_trek_into_the_unknown/v1.1.2/"
+ROOT = "https://raw.githubusercontent.com/bwoneill/tts_star_trek_into_the_unknown/v1.2.0/"
 ASSET_ROOT =  ROOT .. "assets/"
 CODE_ROOT = ROOT .. "code/"
 FILE_CACHE = {}

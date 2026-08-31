@@ -1,5 +1,5 @@
 {
-    "branch": "v1.1.2",
+    "branch": "v1.2.0",
     "directives": [
         {
             "faction": "dominion", "gtype": "directive", "type": "combat",
@@ -37,7 +37,7 @@
         },
         {
             "faction": "klingon", "gtype": "directive", "type": "combat",
-            "names": ["Uphold the Empires Oaths", "It is a Good Day to Die"]
+            "names": ["Uphold the Empire's Oaths", "It is a Good Day to Die"]
         },
         {
             "faction": "klingon", "gtype": "directive", "type": "diplomacy",
@@ -51,6 +51,24 @@
                 ["honor_guard_b", "boarding_b"],
                 ["honor_guard_c", "repair_c"]
             ]
+        },
+        {
+            "faction": "cardassian", "gtype": "directive", "type": "diplomacy",
+            "names": ["Establish Favorable Terms", "Assert Cardassian Authority"]
+        },
+        {
+            "faction": "cardassian", "gtype": "directive", "type": "combat",
+            "names": ["Maintain Treaties", "Crush Opposition"]
+        },
+        {
+            "faction": "cardassian", "gtype": "directive", "type": "exploration",
+            "names": ["Protect Cardassian Interests", "Exploit New Worlds"],
+            "teams": [
+                ["military_a", "obsdian_order_a"],
+                ["military_b", "science_b"],
+                ["obsdian_order_c", "obsdian_order_c"],
+                ["military_d", "science_d"]
+            ]
         }
     ],
     "equipment": [
@@ -59,11 +77,22 @@
         {"name": "Personnel Transponders", "gtype": "equipment","fp": 6, "factions": { "dominion": true}},
         {"name": "Quantum Torpedoes Reload", "gtype": "equipment", "fp": 6, "card": ["torpedo_quantum.png","torpedo_photon.png"],
             "factions": {"federation": true, "dominion": true}},
-        {"name": "Runabout Berth", "gtype": "equipment", "fp": 3, "factions": {"federation": true}},
+        {"name": "Runabout Berth", "gtype": "equipment", "fp": 3, "factions": {"federation": true},
+            "script": "code\/utilities\/attachable.lua", "xml": "code\/equipment\/Runabout_Berth.xml",
+            "data": "data = {orders = {launch = {call = 'launch', par = 'aft'}}}"},
         {"name": "Modernized Drive System", "gtype": "equipment", "fp": 2, "factions": {"federation": true}},
         {"name": "Relic Armory", "gtype": "equipment", "fp": 2, "factions": {"klingon": true}},
-        {"name": "Romulan Cloaking Device", "gtype": "equipment", "fp": 0, "factions": {"federation": true}},
-        {"name": "Toron Class Shuttle Berth", "gtype": "equipment", "fp": 2, "factions": {"klingon": true}}
+        {"name": "Romulan Cloaking Device", "gtype": "equipment", "fp": 0, "factions": {"federation": true},
+            "script": "code\/utilities\/attachable.lua", "xml": "code\/equipment\/Romulan_Cloaking_Device.xml",
+            "data": "data = {orders = {cloak = {call = 'cloak', par = 'player'}, decloak = {call = 'decloak', par = 'player'}}}"},
+        {"name": "Toron Class Shuttle Berth", "gtype": "equipment", "fp": 2, "factions": {"klingon": true},
+            "script": "code\/utilities\/attachable.lua", "xml": "code\/equipment\/Toron_Class_Shuttle_Berth.xml",
+            "data": "data = {orders = {launch = {call = 'launch', par = 'aft'}}}"},
+        {"name": "Rapid Deployment Transporters", "gtype": "equipment", "fp": 4, "factions": {"federation": true, "klingon": true}},
+        {"name": "Regenerative Capacitors", "gtype": "equipment", "fp": 4, "factions": {"cardassian": true, "dominion": true}},
+        {"name": "Science Ministry Suite", "gtype": "equipment", "fp": 5, "factions": {"cardassian": true, "dominion": true},
+            "script": "code\/utilities\/attachable.lua", "xml": "code\/equipment\/Science_Ministry_Suite.xml",
+            "data": "data = {orders = {launchPort = {call = 'launch', par = 'port'}, launchStarboard = {call = 'launch', par = 'starboard'}}}"}
     ],
     "factions": {
         "dominion": {
@@ -83,7 +112,7 @@
             "displayName": "Klingon Empire"
         },
         "cardassian": {
-            "playable": false, "prefix": "CUW",
+            "playable": true,
             "displayName": "Cardassian Union"
         }
     },
@@ -191,6 +220,10 @@
         {
             "name": "Synthetic X", "gtype": "keyword",
             "text": "While this officer leads a test, during the Tester Modifies Dice step, you may spend a number of advantage tokens banked on this officer to change an equal number of analysis results to breakthrough success results. If you do not, during the Resolve Post Outcome Effects step, you may spend a number of analysis from the roll to bank an equal number of advantage tokens on this officer. This officer can have a maximum of X advantage tokens banked on them."
+        },
+        {
+            "name": "Dutiful X", "gtype": "keyword",
+            "text": "When this officer orders an action that causes you to score 1 or more negative victory points, you must bank 1 of those negative victory points on this officer and add 1 threat to their unit. At the end of the game, score all negative victory points banked on this officer unless they have X or fewer negative victory points or they are incapacitated or lost."
         }
     ],
     "missions": {
@@ -233,6 +266,10 @@
             {
                 "name": "Temporary Wormhole", "tags": ["Situation", "Mystery"], "gtype": "situation",
                 "features": [{"gtype": "feature", "type": "anomalies", "name": "Tachyon pulse"}]
+            },
+            {
+                "name": "Wake of Disaster", "tags": ["Situation", "Threat"], "gtype": "situation",
+                "features": [{"gtype": "feature", "type": "anomalies", "name": "Wrecked vessel"}]
             }
         ],
         "complication": [
@@ -258,16 +295,16 @@
             },
             {
                 "name": "On the Tide of Ages", "tags": ["Complication", "Politic", "Study", "Mystery"], "gtype": "complication",
-                "objectives": [{"gtype": "objective", "type": "solid", "name": "Ancient Ports", "add_description": "Capacity 3", "quantity": 3}]
+                "objectives": [{"gtype": "objective", "type": "solid", "name": "Ancient Ports", "add_description": "Capacity 3", "quantity": 3}],
+                "ships": [{"artifact": 1}]
             },
             {
                 "name": "Contested Territory", "tags": ["Complication", "Battle", "Politics", "Intrigue"], "gtype": "complication",
                 "objectives": [{"gtype": "objective", "type": "solid", "name": "Strategic holding", "add_description": "Capacity 3"}]
             },
             {
-                "name": "Surface Strikes", "tags": ["Complication", "Battle", "Politics", "Intrigue"], "gtype": "complication",
-                "objectives": [{"gtype": "objective", "type": "solid", "name": "Entrenched Base", "add_description": "Capacity 2", "quantity": 6}],
-                "ships": [{"artifact": 1}]
+                "name": "Surface Strikes (RT)", "tags": ["Complication", "Battle", "Politics", "Intrigue"], "gtype": "complication",
+                "objectives": [{"gtype": "objective", "type": "solid", "name": "Entrenched base", "add_description": "Capacity 2", "quantity": 6}]
             },
             {
                 "name": "Inscrutable Entity", "tags": ["Complication", "Study", "Threat", "Mystery"], "gtype": "complication",
@@ -281,6 +318,14 @@
             {
                 "name": "Checkmate", "tags": ["Complication", "Battle", "Intrigue", "Mystery"], "gtype": "complication",
                 "objectives": [{"gtype": "objective", "type": "solid", "name": "Strategic supspace beacon", "add_description":"Capacity 3", "quanity": 4}]
+            },
+            {
+                "name": "Treacherous Infiltrators", "tags": ["Complication", "Battle", "Intrigue", "Mystery"], "gtype": "complication",
+                "objectives": [{"gtype": "objective", "type": "solid", "name": "Clue site", "add_description": "Capacity 2"}]
+            },
+            {
+                "name": "Surface Strikes (GZ)", "tags": ["Complication", "Battle", "Politic", "Intrigue"], "gtype": "complication",
+                "objectives": [{"gtype": "objective", "type": "solid", "name": "Contested colony", "add_description": "Capacity 3\nObscuring 1", "quanity": 4}]
             }
         ],
         "overture": [
@@ -322,6 +367,10 @@
             {
                 "name": "On Sinking Ground", "tags": ["Overture", "Battle", "Helix"], "gtype": "overture",
                 "objectives": [{"gtype": "objective", "type": "ping", "name": "Cosmic eddy", "quanity": 6, "description": "Obscuring 3\nTreacherous 4"}]
+            },
+            {
+                "name": "Tense Evacuation", "tags": ["Overture", "Battle", "Helix"], "gtype": "overture",
+                "objectives": [{"gtype": "objective", "type": "solid", "name": "Colony", "quanity": 4, "description": "Capacity 2\nMassive 2"}]
             }
         ]
     },
@@ -624,6 +673,118 @@
             "abilities": ["Qapla' [+1 Biology]"],
             "skills": {"Fieldcraft": 1, "Biology": 1, "Social": 0, "Security": 1, "Technical": 1},
             "cp": 7, "fp": 2, "rank": "ltcmdr"
+        },
+        {
+            "name": "Damar", "subtitle": "Grim Legate", "gtype": "officer",
+            "factions": {"cardassian": true, "dominion": true}, "sway": {"cardassian": 1, "dominion": 1}, "roles": {"command": true},
+            "abilities": ["Dutiful 2", "When Damar leads a test, if he has 1 or fewer negative victory points banked on his card and the difficulty is equal to or higher than the number of dice rolled, add an intuition die to the roll."],
+            "skills": {"Discipline": 2, "Fieldcraft": 1, "Ordnance": 1, "Mechanics": 1, "Social": 2, "Security": 1, "Technical": 1},
+            "cp": 12, "fp": 4, "unique": true, "rank": "srcmdr"
+        },
+        {
+            "name": "Dukat", "subtitle": "Opportunistic Dictator", "gtype": "officer",
+            "factions": {"cardassian": true, "dominion": true}, "sway": {"cardassian": 1, "dominion": 1}, "roles": {"command": true},
+            "abilities": ["SETUP: Secretly choose 1 of your trust tokens and replace it with Dukat's trust token.", "When Dukat's trust token is resolved, the persuasive player's unit adds 2 threat.", "END OF GAME: Reveal the replaced trust token. If you have scored exactly that many negative victory points, remove them."],
+            "skills": {"Diplomacy": 2, "Ordnance": 1, "Skirmish": 1, "Navigation": 1, "Social": 2, "Security": 1, "Technical": 1},
+            "cp": 12, "fp": 4, "unique": true, "rank": "fcapt", "token": "dukat_trust"
+        },
+        {
+            "name": "Gilora Rejal", "subtitle": "Subspace Researcher", "gtype": "officer",
+            "factions": {"cardassian": true}, "roles": {"science": true},
+            "abilities": ["Handy 1", "Perceptive 1"],
+            "skills": {"Logic": 1, "Mechanics": 2, "Navigation": 2, "Social": 0, "Security": 0, "Technical": 2},
+            "cp": 7, "fp": 2, "unique": true, "rank": "ens"
+        },
+        {
+            "name": "Madred", "subtitle": "Pitiless Interrogator", "gtype": "officer",
+            "factions": {"cardassian": true}, "roles": {"command": true, "ops": true},
+            "abilities": ["Dutiful 3", "After Madred's unit coerces another unit, the coerced unit adds 1 additional threat for each negative victory point banked on Madred."],
+            "skills": {"Diplomacy": 1, "Discipline": 1, "Fieldcraft": 2, "Biology": 2, "Social": 1, "Security": 2, "Technical": 2},
+            "cp": 11, "fp": 5, "unique": true, "rank": "capt"
+        },
+        {
+            "name": "Ocett", "subtitle": "Ambitious Gul", "gtype": "officer",
+            "factions": {"cardassian": true}, "roles": {"command": true, "science": true},
+            "abilities": ["Dutiful 1", "When Ocett leads a science test, youj can spend 2 analysis to choose 1 unit in Comms range and add 1 advantage or 1 threat to that unit."],
+            "skills": {"Culture": 1, "Diplomacy": 2, "Skirmish": 1, "Fieldcraft": 1, "Biology": 1, "Mechanics": 1, "Navigation": 2, "Social": 2, "Security": 1, "Technical": 2},
+            "cp": 11, "fp": 5, "unique": true, "rank": "capt"
+        },
+        {
+            "name": "Methodical Glinn", "gtype": "officer",
+            "factions": {"cardassian": true}, "roles": {"ops": true},
+            "abilities": [],
+            "skills": {"Discipline": 1, "Navigation": 1, "Social": 1, "Security": 0, "Technical": 1},
+            "cp": 0, "fp": 2, "line_officer": true, "rank": "ltcmdr"
+        },
+        {
+            "name": "Ardent First Officer", "gtype": "officer",
+            "factions": {"cardassian": true}, "roles": {"ops": true},
+            "abilities": ["Dutiful 1"],
+            "skills": {"Diplomacy": 1, "Skirmish": 1, "Navigation": 1},
+            "cp": 7, "fp": 3, "rank": "ltcmdr"
+        },
+        {
+            "name": "Authoritative Legate", "gtype": "officer",
+            "factions": {"cardassian": true, "dominion": true}, "sway": {"cardassian": 1, "dominion": 1}, "roles": {"command": true},
+            "abilities": ["Dutiful 1"],
+            "skills": {"Diplomacy": 2, "Ordnance": 1, "Navigation": 1, "Social": 2, "Security": 1, "Technical": 1},
+            "cp": 7, "fp": 4, "rank": "cmdr"
+        },
+        {
+            "name": "Drilled Weapons Officer", "gtype": "officer",
+            "factions": {"cardassian": true}, "roles": {"ops": true},
+            "abilities": ["Dutiful 1"],
+            "skills": {"Discipline": 1, "Ordnance": 1, "Skirmish": 2, "Social": 1, "Security": 2, "Technical": 0},
+            "cp": 7, "fp": 3, "rank": "lt"
+        },
+        {
+            "name": "Skeptical Sensors Officer", "gtype": "officer",
+            "factions": {"cardassian": true}, "roles": {"science": true},
+            "abilities": [],
+            "skills": {"Culture": 1, "Fieldcraft": 1, "Biology": 1, "Mechanics": 1, "Social": 1, "Security": 1, "Technical": 1},
+            "cp": 6, "fp": 3, "rank": "ens"
+        },
+        {
+            "name": "Tireless Engineer", "gtype": "officer",
+            "factions": {"cardassian": true}, "roles": {"ops": true},
+            "abilities": ["Handy 1"],
+            "skills": {"Fieldcraft": 1, "Mechanics": 2, "Social": 0, "Security": 1, "Technical": 2},
+            "cp": 6, "fp": 3, "rank": "ltjg"
+        },
+        {
+            "name": "Kang", "subtitle": "Dahar Master", "gtype": "officer",
+            "factions": {"klingon": true}, "roles": {"command": true},
+            "abilities": ["Inspiring [Ops]", "Qapla' [Gain READY : Choose 1 friendly unit at Comms range and inspire it. After Kange becomes incapacitated or lost, choose 2 friendly units in the sector and inpsire them.", "After Kang leads a hail, you may inspire each player's hailing unit."],
+            "skills": {"Diplomacy": 2, "Discipline": 1, "Empathy": 1, "Ordnance": 2, "Skirmish": 1, "Logic": 1, "Social": 2, "Security": 2, "Technical": 1},
+            "cp": 13, "fp": 5, "unique": true, "rank": "ltcmdr"
+        },
+        {
+            "name": "Kor", "subtitle": "Loquacious Hero", "gtype": "officer",
+            "factions": {"klingon": true}, "sway": {"federation": 1}, "roles": {"command": true, "ops": true},
+            "abilities": ["Inspiring [Command]", "Qapla' [+1 Discipline, +1 Skirmish]", "Each of your other officers has Qapla' [Skirmish +1]."],
+            "skills": {"Culture": 2, "Mysticism": 1, "Fieldcraft": 1, "Skirmish": 1, "Biology": 1, "Social": 2, "Security": 1, "Technical": 1},
+            "cp": 13, "fp": 4, "unique": true, "rank": "cmdr"
+        },
+        {
+            "name": "Kurak", "subtitle": "Warp Specialist", "gtype": "officer",
+            "factions": {"klingon": true}, "roles": {"science": true},
+            "abilities":["Qapla' [Gain Inspiring [Science]]", "Engineering Station REACTION: When Kurak's ship takes a WARP action, you may commit Korak to test difficulty 3 Science + Navigation. On success, inrease the maximum distance of the engage warp maneuver by 4\" and add 1 threat to the ship."],
+            "skills": {"Skirmish": 1, "Mechanics": 1, "Navigation": 2, "Social": 0, "Security": 1, "Technical": 2},
+            "cp": 9, "fp": 3, "unique": true, "rank": "cpo"
+        },
+        {
+            "name": "Martok", "subtitle": "Shrewd General", "gtype": "officer",
+            "factions": {"klingon": true}, "sway": {"federation": 1}, "roles": {"command": true},
+            "abilities": ["Qapla' [Gain +2 Discipline, +1 Ordnance]", "COORDINATED AMBUSH: Any number of friendly Klingon ships at Comms range my decloak or spend 2 reserve energy to cloak if able to cloak."],
+            "skills": {"Diplomacy": 1, "Discipline": 1, "Ordnance": 2, "Skirmish": 1, "Navigation": 1, "Social": 1, "Security": 2, "Technical": 1},
+            "cp": 13, "fp": 4, "unique": true, "rank": "capt"
+        },
+        {
+            "name": "Tavana", "subtitle": "Ambitious Engineer", "gtype": "officer",
+            "factions": {"klingon": true}, "roles": {"science": true},
+            "abilities": ["Qapla' [Gain + 1 Mechanics]","REACTION: After Tavana's ship decloaks, you may commit Tavana to add 2 advantage to it."],
+            "skills": {"Discipline": 1, "Empathy": 1, "Fieldcraft": 1, "Mechanics": 1, "Social": 1, "Security": 1, "Technical": 1},
+            "cp": 10, "fp": 3, "unique": true, "rank": "lt"
         }
     ],
     "setup": {
@@ -1033,7 +1194,8 @@
             "weapons": {"fore_port": 4, "fore_starboard": 4},
             "crit_deck_size": 5, "fp": -1,
             "titles": [
-                {"name": "Buruk", "fp": 2}
+                {"name": "Buruk", "fp": 2},
+                {"name": "Rotarran", "fp": 1}
             ]
         },
         "galor": {
@@ -1041,42 +1203,79 @@
             "short": "galor", "gtype": "ship",
             "dials": {
                 "hull": {"min": 0,"max": 8},
-                "crew": {"min": -2, "max": 4},
-                "alert": {"min": 0, "max": 4},
-                "power": {"min": 0, "max": 8}
+                "crew": {"min": -2, "max": 5},
+                "alert": {"min": 0, "max": 5},
+                "power": {"min": 0, "max": 7}
             },
             "sensors": {
-                "all": 0, "bow": 0,
+                "all": 2, "bow": 4,
                 "instruments": {"bow": true}
             },
             "comms": {
-                "all": 0, "bow": 0,
+                "all": 2, "bow": 4,
                 "instruments": {"bow": true}
             },
-            "instruments": [0, 0, 0, 0, 0],
+            "instruments": [2, 2, 1, 1, 0, 0],
             "model_transform": {"posY": 1, "rotY": -90},
-            "weapons": {"all": 0},
-            "crit_deck_size": 0, "fp": 0
+            "weapons": {"bow": 6, "fore_port": 6, "fore_starboard": 6, "aft": 6},
+            "crit_deck_size": 5, "fp": -1,
+            "titles": [
+                {"name": "Prakesh", "fp": 3}
+            ]
         },
         "groumall": {
-            "name": "Groumall-Type Freighter", "faction": "cardassian", "role": "support", "size": "small",
+            "name": "Groumall-Type Military Freighter", "faction": "cardassian", "role": "specialist", "size": "small",
             "short": "groumall", "gtype": "ship",
             "dials": {
-                "hull": {"min": 0,"max": 6},
+                "hull": {"min": 0,"max": 8},
                 "crew": {"min": -2, "max": 4},
                 "alert": {"min": 0, "max": 4},
                 "power": {"min": 0, "max": 6}
             },
             "sensors": {
-                "all": 0
+                "all": 4, "bow": 4,
+                "instruments": {"bow": true}
             },
             "comms": {
-                "all": 0
+                "all": 3, "bow": 3,
+                "instruments": {"bow": true}
             },
-            "instruments": [0, 0, 0, 0, 0],
+            "instruments": [2, 3, 2, 1, 0],
             "model_transform": {"posY": 1, "rotY": -90},
-            "weapons": {"all": 0},
-            "crit_deck_size": 0, "fp": 0
+            "weapons": {"bow": 4, "stern": 4},
+            "crit_deck_size": 5, "fp": -2,
+            "titles": [
+                {
+                    "name": "Groumall", "fp": 4,
+                    "script": "code\/utilities\/attachable.lua", "xml": "code\/equipment\/Groumall.xml",
+                    "data": "data = {orders = {fire = {call = 'drawArc', par = {fore = 6}}}}"
+                }
+            ]
+        },
+        "neghvar": {
+            "name": "Negh'var-Class Warship", "faction": "klingon", "role": "capital", "size": "large",
+            "short": "neghvar", "gtype": "ship",
+            "dials": {
+                "hull": {"min": 0, "max": 9},
+                "crew": {"min": -2, "max": 5},
+                "alert": {"min": 0, "max": 5},
+                "power": {"min": 0, "max": 8}
+            },
+            "sensors": {
+                "all": 4, "bow": 4,
+                "instruments": {"bow": true}
+            },
+            "comms": {
+                "all": 6, "bow": 6,
+                "instruments": {"bow": true}
+            },
+            "instruments": [3, 3, 2, 2, 1, 0],
+            "model_transform": {"rotY": -90, "posY": 1.5},
+            "weapons": {"fore": 4, "fore_port": 6, "fore_starboard": 6, "aft_port": 6, "aft_starboard": 6},
+            "crit_deck_size": 6, "fp": 1,
+            "titles": [
+                {"name": "Negh'Var", "fp": 2}
+            ]
         }
     },
     "tokens": {
@@ -1156,6 +1355,46 @@
                     "ImageURL": "ROOT\/assets\/tokens\/commodore_blue.png"
                 },
                 "Transform": {"scaleY": 1, "scaleX": 0.427587271, "scaleZ": 0.427587271}
+            }
+        },
+        "dukat_trust": {
+            "data": {
+                "Name": "Custom_Tile",
+                "Transform": {
+                    "scaleX": 0.4,
+                    "scaleY": 1.0,
+                    "scaleZ": 0.4
+                },
+                "CustomImage": {
+                    "ImageURL": "https://raw.githubusercontent.com/bwoneill/tts_star_trek_into_the_unknown/v1.2.0/assets/tokens/trust_dukat_blue.png",
+                    "ImageSecondaryURL": "https://raw.githubusercontent.com/bwoneill/tts_star_trek_into_the_unknown/v1.2.0/assets/tokens/trust_back_blue.png",
+                    "CustomTile": {
+                        "Type": 0,
+                        "Thickness": 0.1,
+                        "Stackable": false,
+                        "Stretch": true
+                    }
+                },
+                "States": {
+                    "2": {
+                        "Name": "Custom_Tile",
+                        "Transform": {
+                            "scaleX": 0.4,
+                            "scaleY": 1.0,
+                            "scaleZ": 0.4
+                        },
+                        "CustomImage": {
+                            "ImageURL": "https://raw.githubusercontent.com/bwoneill/tts_star_trek_into_the_unknown/v1.2.0/assets/tokens/trust_dukat_orange.png",
+                            "ImageSecondaryURL": "https://raw.githubusercontent.com/bwoneill/tts_star_trek_into_the_unknown/v1.2.0/assets/tokens/trust_back_orange.png",
+                            "CustomTile": {
+                                "Type": 0,
+                                "Thickness": 0.1,
+                                "Stackable": false,
+                                "Stretch": true
+                            }
+                        }
+                    }
+                }
             }
         }
     },

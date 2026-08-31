@@ -25,7 +25,7 @@ function Ship:getTitleImages(name)
     local result
     for i, v in ipairs(self.titles) do
         if v.name == name then
-            name = name:gsub(" ", "_"):lower()
+            name = name:gsub(" ", "_"):gsub("'", ""):lower()
             local path = ASSET_ROOT .. "factions/" .. self.faction .. "/ships/" .. self.short .. "/title_" .. name
             result = {path .. "_front.png", path .. "_back.png"}
         end
@@ -57,7 +57,7 @@ function Ship:spawnObject(pos, rot, faction, title)
                 DiffuseURL = ROOT .. path .. "ship_board.png",
                 MaterialIndex = 3, Convex = false
             },
-            LuaScript = script, XmlUI = ship_xml
+            LuaScript = script, XmlUI = ship_xml, Tags = {"Ship"}
         },
         position = pos,
         rotation = rot
@@ -81,7 +81,13 @@ function Ship:spawnObject(pos, rot, faction, title)
     -- Spawn title
     if title and title.name then
         local offset = Vector(-6.25, 0, -2):rotateOver("y", rot.y)
-        Card:new({images = self:getTitleImages(title.name)}):spawnObject(pos + offset, Vector(0, rot.y, 180))
+        local title_data = {
+            images = self:getTitleImages(title.name),
+            script = title.script,
+            xml = title.xml,
+            data = title.data
+        }
+        Card:new(title_data):spawnObject(pos + offset, Vector(0, rot.y, 180))
     end
     return spawnObjectData(result)
 end
@@ -94,7 +100,8 @@ function Ship:getTitles()
             local name = ((prefix and prefix .. " ") or "") ..  title.name
             table.insert(results, GameType:new({
                 gtype = "title", name = name, class = self.name, faction = self.faction, role = self.role,
-                size = self.size, short = self.short, images = self:getTitleImages(title.name)
+                size = self.size, short = self.short, images = self:getTitleImages(title.name),
+                script = title.script, xml = title.xml, data = title.data
             }))
         end
     end
@@ -141,7 +148,25 @@ function Card:spawnObject(pos, rot)
     local card = spawnObject({type = "CardCustom", position = pos, rotation = rot})
     local images = self:getImages()
     card.setCustomObject({face = images[1], back = images[2]})
-    return card
+    local data = card.getData()
+    card.destroy()
+    if self.xml then
+        data.XmlUI = Global.call("getFile", self.xml)
+    end
+    if self.script then
+        data.LuaScript = Global.call("getFile", self.script)
+        if self.data then
+            data.LuaScript = data.LuaScript .. "\n" .. self.data
+        end
+    end
+    if self.token then
+        local token_data = {data = ASSETS.tokens[self.token].data}
+        local offset = Vector(-2, 0, 0):rotateOver("y", rot.y)
+        token_data.rotation = rot
+        token_data.position = pos + offset
+        spawnObjectData(token_data)
+    end
+    return spawnObjectData({data = data})
 end
 
 function Card:toString()
@@ -227,7 +252,7 @@ function Directive:getImages()
     local path = ASSET_ROOT .. "/factions/" .. self.faction .. "/directives/"
     local result = {}
     for i, name in ipairs(self.names) do
-        result[i] = string.gsub(path .. name .. ".png", " ", "_")
+        result[i] = string.gsub(string.gsub(path .. name .. ".png", " ", "_"), "'", "")
     end
     return result
 end
@@ -263,6 +288,7 @@ function Mission:spawnObject(pos, rot)
     local card = Card.spawnObject(self, pos, rot)
     card.setScale(Vector(1.474092, 1, 1.474092))
     card.setTags(self.tags)
+    card.setGMNotes(self:getName())
     return card
 end
 

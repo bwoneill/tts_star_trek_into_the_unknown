@@ -1,12 +1,17 @@
 ROOT = Global.getVar("ROOT")
 
--- ASSETS = JSON.decode(string.gsub(Global.call("getFile", ROOT .. "/assets/assets.json"), "ROOT", ROOT))
-
 ASSET_ROOT = Global.getVar("ASSET_ROOT")
 
+apps = {}
 
 function onLoad()
     ASSETS = Global.getTable("ASSETS")
+    LIBRARY = Global.getTable("LIBRARY")
+    for name, app in pairs(apps) do
+        if app and app.init then
+            app.init()
+        end
+    end
     start()
 end
 
@@ -14,8 +19,8 @@ function start(player, value, id)
     for name, _  in pairs(apps) do
         self.UI.setAttribute(name, "active", false)
     end
-    if apps[value] then
-        apps[value]()
+    if apps[value] and apps[value].start then
+        apps[value].start()
     end
 end
 

@@ -1,0 +1,9 @@
+<Button onClick = "attach" height="25" width = "50" position = "-80 -140 -100" rotation = "0 0 180">
+    Attach
+</Button>
+<Button onClick = "onClick(launchPort)" height="25" width = "80" position = "40 130 -100" rotation = "0 0 180">
+    Port
+</Button>
+<Button onClick = "onClick(launchStarboard)" height="25" width = "80" position = "-40 130 -100" rotation = "0 0 180">
+    Starboard
+</Button>

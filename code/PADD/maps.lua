@@ -88,3 +88,5 @@ function setLayout(player, value, id)
         Global.call("clearSystemBorders")
     end
 end
+
+apps.maps = {start = maps}

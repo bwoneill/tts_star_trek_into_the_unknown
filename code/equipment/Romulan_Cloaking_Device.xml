@@ -1,0 +1,6 @@
+<Button onClick = "attach" height="25" width = "50" position = "-80 -140 -100" rotation = "0 0 180">
+    Attach
+</Button>
+<Button onClick = "onClick(cloak)" height="25" width = "80" position = "00 130 -100" rotation = "0 0 180">
+    Cloak
+</Button>
