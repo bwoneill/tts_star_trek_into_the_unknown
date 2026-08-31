@@ -40,7 +40,12 @@
                     <Row preferredHeight = "300">
                         <Cell><Panel class = "offSel"><Image class = "offSel" id = "spec1"/></Panel></Cell>
                         <Cell><Panel class = "offSel"><Image class = "offSel" id = "spec2"/></Panel></Cell>
-                        <Cell><Text id = "cp" resizeTextForBestFit = "true"/></Cell>
+                        <Cell>
+                            <VerticalLayout>
+                                <Text id = "cp" resizeTextForBestFit = "true"/>
+                                <Text id = "sway" fontSize = "22" alignment = "MiddleLeft"/>
+                            </VerticalLayout>
+                        </Cell>
                     </Row>
                     <Row class = "text"><Cell columnSpan = "3"><Text>Transfer Pool</Text></Cell></Row>
                     <Row preferredHeight = "300">

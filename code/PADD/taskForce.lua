@@ -116,13 +116,23 @@ function showStaging()
     end
     updateImages()
     updateFlexPoints()
+    updateSway()
     cp = 0
     for _, role in pairs(coreOfficers) do
         if build[role] then
             cp = cp + build[role].cp
         end
     end
-    self.UI.setAttributes("cp",{text = string.format("%i/50", cp), color = cp <= 50 and "White" or "Red"})
+    self.UI.setAttributes("cp", {text = string.format("%i/50", cp), color = cp <= 50 and "White" or "Red"})
+    local text = " Sway:"
+    if sway then
+        for f, n in pairs(sway) do
+            if f ~= build.faction and ASSETS.factions[f] then
+                text = string.format("%s\n %s: %i", text, ASSETS.factions[f].displayName, n)
+            end
+        end
+    end
+    self.UI.setAttributes("sway", {text = text})
     self.UI.show("stagingPanel")
 end
 
@@ -457,6 +467,17 @@ function updateFlexPoints()
     end
     for _, equip in pairs(build.equipment) do
         fp = fp + equip.n * equip.fp
+    end
+end
+
+function updateSway()
+    sway = {}
+    for _, id in ipairs(coreOfficers) do
+        if build[id] and build[id].sway then
+            for name, n in pairs(build[id].sway) do
+                sway[name] = (sway[name] or 0) + n
+            end
+        end
     end
 end
 
