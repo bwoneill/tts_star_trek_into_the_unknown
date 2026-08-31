@@ -114,6 +114,14 @@
         "cardassian": {
             "playable": true,
             "displayName": "Cardassian Union"
+        },
+        "bajoran": {
+            "playable": false,
+            "displayName": "Bajoran Republic"
+        },
+        "ferengi": {
+            "playable": false,
+            "displayName": "Ferengi Alliance"
         }
     },
     "keywords": [
