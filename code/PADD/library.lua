@@ -14,7 +14,9 @@ function initLibrary()
                         .. GameType:new(value):getName() .. "</Text>"
     end
     newXml = newXml .. "</GridLayout>"
-    local xml = self.UI.getXml()
+    if not xml then
+        xml = self.UI.getXml()
+    end
     local start, _ = string.find(xml, [[<GridLayout id="searchResults"]])
     local _, stop = string.find(xml, "</GridLayout>", start)
     xml = string.sub(xml, 1, start -1) .. newXml .. string.sub(xml, stop + 1)

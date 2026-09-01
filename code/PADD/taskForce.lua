@@ -34,6 +34,47 @@ panelIds = {"fPanel", "stagingPanel", "vertCardSelector", "horCardSelector", "se
 
 SAVE_VERSION = "1.1"
 
+hLayoutFormat = [[<Panel id = "hcs%i" class = "horPanel" active = "false">
+    <Image class = "horFront" image = "%s"/>
+    <Image class = "horBack" image = "%s"/>
+</Panel>]]
+
+vLayoutFormat = [[<Panel id = "vcs%i"  class = "vertPanel" active = "false">
+    <Image class = "vertFront" image = "%s"/>
+    <Image class = "vertBack" image = "%s"/>
+</Panel>]]
+
+function initTaskForce()
+    if not LIBRARY then
+        LIBRARY = Global.getTable("LIBRARY")
+    end
+    local vcsXml = [[<GridLayout id = "vGridLayout" cellSize = "400 300" spacing = "10 10" colors = "Black">]]
+    local hcsXml = [[<GridLayout id = "hGridLayout" cellSize = "800 300" spacing = "5 5" colors = "Black">]]
+    for i, value in pairs(LIBRARY) do
+        local obj = GameType:new(value)
+        local images = obj:getImages()
+        if obj.gtype == "directive" then
+            hcsXml = hcsXml .. string.format(hLayoutFormat, i, images[1], images[2])
+        elseif obj.gtype == "officer" or obj.gtype == "equipment" or obj.gtype == "title" then
+            vcsXml = vcsXml .. string.format(vLayoutFormat, i, images[1], images[2])
+        elseif value.gtype == "ship" then
+            -- add to scsXml
+        end
+    end
+    vcsXml = vcsXml .. "</GridLayout>"
+    hcsXml = hcsXml .. "</GridLayout>"
+    if not xml then
+        xml = self.UI.getXml()
+    end
+    local start, _ = string.find(xml, [[<GridLayout id="vGridLayout"]])
+    local _, stop = string.find(xml, [[</GridLayout>]], start)
+    xml = string.sub(xml, 1, start -1) .. vcsXml .. string.sub(xml, stop + 1)
+    start, _ = string.find(xml, [[<GridLayout id="hGridLayout"]])
+    _, stop = string.find(xml, [[</GridLayout>]], start)
+    xml = string.sub(xml, 1, start -1) .. hcsXml .. string.sub(xml, stop + 1)
+    self.UI.setXml(xml)
+end
+
 -- Faction Selection
 
 function taskForce(player, value, id)
@@ -62,19 +103,9 @@ function selectFaction(player, value, id)
     showStaging()
 end
 
-vLayoutFormat = [[<Panel class = "vertPanel" onClick = "%s">
-    <Image class = "vertFront" image = "%s"/>
-    <Image class = "vertBack" image = "%s"/>
-</Panel>]]
-
 function rebuildVertSelector(data)
     rebuildSelector(data, "vGridLayout", [[<GridLayout id = "vGridLayout" cellSize = "400 300" spacing = "10 10" colors = "Black">]], vLayoutFormat)
 end
-
-hLayoutFormat = [[<Panel class = "horPanel" onClick = "%s">
-    <Image class = "horFront" image = "%s"/>
-    <Image class = "horBack" image = "%s"/>
-</Panel>]]
 
 function rebuildHorSelector(data)
     rebuildSelector(data, "hGridLayout", [[<GridLayout id = "hGridLayout" cellSize = "800 300" spacing = "5 5" colors = "Black">]], hLayoutFormat)
@@ -141,33 +172,35 @@ end
 function selectOff(player, value, id)
     -- Build list of available officers
     local filter = (id == "command" or id == "ops" or id == "science") and id or nil
-    local data = {}
-    for i, officer in ipairs(ASSETS.officers) do
-        local available = officer.factions[build.faction] and (not filter or officer.roles[filter]) and not officer.line_officer
-        if officer.unique and not (build[id] and officer.name == build[id].name) then
-            for _, role in pairs(allOfficers) do
-                available = available and not (build[role] and officer.name == build[role].name)
+    local count = 0
+    for i, officer in ipairs(LIBRARY) do
+        local vcs = string.format("vcs%i", i)
+        self.UI.setAttribute(vcs, "active", false)
+        local available = officer.gtype == "officer"
+        if available then
+            available = officer.factions[build.faction]
+            for f, n in ipairs(sway) do
+                available = available or (officer.factions[f] and n >= 1)
+            end
+            available = available and (not filter or officer.roles[filter]) and not officer.line_officer
+            if officer.unique and not (build[id] and officer.name == build[id].name) then
+                for _, role in pairs(allOfficers) do
+                    available = available and not (build[role] and officer.name == build[role].name)
+                end
             end
         end
-        if available then
-            local images = Officer:new(officer):getImages()
-            local element = {
-                onClick = "offChoice(" .. id .. "=" .. i .. ")",
-                images = Officer:new(officer):getImages()
-            }
-            table.insert(data, element)
-        end
+        self.UI.setAttribute(vcs, "onClick", string.format("offChoice(%s=%i)", id, i))
+        self.UI.setAttribute(vcs, "active", available)
+        count = count + (available and 1 or 0)
     end
-    -- Rebuild XML
-    rebuildVertSelector(data)
-    self.UI.setAttributes("vCardScrollPanel", {height = 310 * math.ceil(#data / 2) - 10})
+    self.UI.setAttributes("vCardScrollPanel", {height = 310 * math.ceil(count / 2) - 10})
     self.UI.show("vertCardSelector")
 end
 
 function offChoice(player, value, id)
     local values = parseValues(value)
     for n, i in pairs(values) do
-        build[n] = ASSETS.officers[i]
+        build[n] = LIBRARY[i]
     end
     self.UI.hide("vertCardSelector")
     showStaging()
@@ -177,26 +210,23 @@ end
 
 function selectDir(player, value, id)
     local directives = ASSETS.directives
-    local data = {}
-    for i, directive in ipairs(directives) do
-        local available = directive.faction == build.faction and directive.type == id
-        if available then
-            local element = {
-                onClick = "dirChoice(" .. id .. "=" .. i .. ")",
-                images = Directive:new(directive):getImages()
-            }
-            table.insert(data, element)
-        end
+    local count = 0
+    for i, directive in ipairs(LIBRARY) do
+        local hcs = string.format("hcs%i", i)
+        self.UI.setAttribute(hcs, "active", false)
+        local available = directive.gtype == "directive" and directive.faction == build.faction and directive.type == id
+        self.UI.setAttribute(hcs, "onClick", string.format("dirChoice(%s=%i)", id, i))
+        self.UI.setAttribute(hcs, "active", available)
+        count = count + (available and 1 or 0)
     end
-    rebuildHorSelector(data)
-    self.UI.setAttribute("directiveScrollPanel", "height", #data * 305 - 5)
+    self.UI.setAttribute("directiveScrollPanel", "height", count * 305 - 5)
     self.UI.show("horCardSelector")
 end
 
 function dirChoice(player, value, id)
     local values = parseValues(value)
     for n, i in pairs(values) do
-        build[n] = ASSETS.directives[i]
+        build[n] = LIBRARY[i]
     end
     self.UI.hide("horCardSelector")
     showStaging()
@@ -264,24 +294,21 @@ end
 function selectEquip(player, value, id)
     local index = tonumber(string.gmatch(id, "%d+")())
     local this = build.equipment[index]
-    local data = {}
-    for i, e in ipairs(ASSETS.equipment) do
-        local available = not e.factions or e.factions[build.faction]
+    local count = 0
+    for i, e in ipairs(LIBRARY) do
+        local vcs = string.format("vcs%i", i)
+        self.UI.setAttribute(vcs, "active", false)
+        local available = e.gtype == "equipment" and (not e.factions or e.factions[build.faction])
         if not (this and e.name == this.name) then
             for _, q in ipairs(build.equipment) do
                 available = available and not (e.name == q.name)
             end
         end
-        if available then
-            local element = {
-                onClick = "equipChoice(" .. index .. "=" .. i .. ")",
-                images = Equipment:new(e):getImages()
-            }
-            table.insert(data, element)
-        end
+        self.UI.setAttribute(vcs, "onClick", string.format("equipChoice(%i=%i)", index, i))
+        self.UI.setAttribute(vcs, "active", available)
+        count = count + (available and 1 or 0)
     end
-    rebuildVertSelector(data)
-    self.UI.setAttributes("vCardScrollPanel", {height = 310 * math.ceil(#data / 2) - 10})
+    self.UI.setAttributes("vCardScrollPanel", {height = 310 * math.ceil(count / 2) - 10})
     self.UI.show("vertCardSelector")
 end
 
@@ -289,7 +316,7 @@ function equipChoice(player, value, id)
     local values = parseValues(value)
     for n, i in pairs(values) do
         local index = tonumber(n) or 0
-        build.equipment[index] = ASSETS.equipment[i]
+        build.equipment[index] = LIBRARY[i]
         build.equipment[index].n = 1
     end
     self.UI.hide("vertCardSelector")
@@ -301,24 +328,29 @@ end
 function selectTitle(player, value, id)
     local index = tonumber(id:match"%d+")
     local ship = build["ship" .. index]
+    if ship then
+        ship = Ship:new(ship)
+    end
+    local titles = ship:getTitles()
     local count = 0
-    local data = {}
-    if ship and ship.titles then
-        for i, title in ipairs(ship.titles) do
-            local available = true
-            for j = 1, 3 do
-                available = available and (j == index or build["title" .. j] ~= title)
+    for i, obj in ipairs(LIBRARY) do
+        local vcs = string.format("vcs%i", i)
+        self.UI.setAttribute(vcs, "active", false)
+        local available = obj.gtype == "title" and ship and obj.short == ship.short and ship.titles
+        if available then
+            obj = GameType:new(obj)
+            available = false
+            for _, title in ipairs(titles) do
+                available = available or obj.name == title.name
             end
-            if available then
-                local element = {
-                    onClick = "titleChoice(" .. index .. "=" .. i .. ")",
-                    images = Ship:new(ship):getTitleImages(title.name)
-                }
-                table.insert(data, element)
+            for j = 1, 3 do
+                available = available and (j == index or build["title" .. j] ~= obj)
             end
         end
+        count = count + (available and 1 or 0)
+        self.UI.setAttribute(vcs, "onClick", string.format("titleChoice(%s=%i)", "title" .. index, i))
+        self.UI.setAttribute(vcs, "active", available)
     end
-    rebuildVertSelector(data)
     self.UI.setAttributes("vCardScrollPanel", {height = 310 * math.ceil(count / 2) -10})
     self.UI.show("vertCardSelector")
 end
@@ -326,7 +358,7 @@ end
 function titleChoice(player, value, id)
     local values = parseValues(value)
     for index, i in pairs(values) do
-        build["title" .. index] = build["ship" .. index].titles[i]
+        build[index] = LIBRARY[i]
     end
     self.UI.hide("vertCardSelector")
     fleetStaging()
@@ -367,8 +399,7 @@ function getImage(id)
         elseif isShip(id) then
             result = Ship:new(build[id]):getImages()[2]
         elseif isTitle(id) then
-            local ship = "ship" .. id:match"%d+"
-            result = Ship:new(build[ship]):getTitleImages(build[id].name)[2]
+            result = Title:new(build[id]):getImages()[2]
         elseif isDirective(id) then
             result = Directive:new(build[id]):getImages()[1]
         elseif isEquipment(id) then
@@ -656,4 +687,4 @@ function spawn(player, value, id)
     end
 end
 
-apps.taskForce = {start = taskForce}
+apps.taskForce = {start = taskForce, init = initTaskForce}
