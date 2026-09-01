@@ -14,6 +14,10 @@ function GameType:getName()
     return self.name
 end
 
+function GameType:getImages()
+    return nil
+end
+
 Ship = GameType:new{gtype = "ship", spawnable = true}
 
 function Ship:getImages()
@@ -81,13 +85,7 @@ function Ship:spawnObject(pos, rot, faction, title)
     -- Spawn title
     if title and title.name then
         local offset = Vector(-6.25, 0, -2):rotateOver("y", rot.y)
-        local title_data = {
-            images = self:getTitleImages(title.name),
-            script = title.script,
-            xml = title.xml,
-            data = title.data
-        }
-        Card:new(title_data):spawnObject(pos + offset, Vector(0, rot.y, 180))
+        Title:new(title):spawnObject(pos + offset, Vector(0, rot.y, 180))
     end
     return spawnObjectData(result)
 end
