@@ -1,4 +1,5 @@
 xml_cache = {}
+sway = {}
 
 coreOfficers = {"command", "ops", "science", "spec1", "spec2"}
 allOfficers = {"command", "ops", "science", "spec1", "spec2", "trans1", "trans2", "trans3", "trans4", "trans5", "trans6"}
@@ -103,30 +104,6 @@ function selectFaction(player, value, id)
     showStaging()
 end
 
-function rebuildVertSelector(data)
-    rebuildSelector(data, "vGridLayout", [[<GridLayout id = "vGridLayout" cellSize = "400 300" spacing = "10 10" colors = "Black">]], vLayoutFormat)
-end
-
-function rebuildHorSelector(data)
-    rebuildSelector(data, "hGridLayout", [[<GridLayout id = "hGridLayout" cellSize = "800 300" spacing = "5 5" colors = "Black">]], hLayoutFormat)
-end
-
-function rebuildSelector(data, id, preamble, layout)
-    local newXml = preamble
-    for _, element in ipairs(data) do
-        newXml = newXml .. string.format(layout, element.onClick, element.images[1], element.images[2])
-    end
-    if #data == 0 then
-        newXml = newXml .. [[<Text>None</Text>]]
-    end
-    newXml = newXml .. "</GridLayout>"
-    local xml = self.UI.getXml()
-    local start, _ = string.find(xml, string.format([[<GridLayout id="%s"]], id))
-    local _, stop = string.find(xml, "</GridLayout>", start)
-    xml = string.sub(xml, 1, start -1) .. newXml .. string.sub(xml, stop + 1)
-    self.UI.setXml(xml)
-end
-
 -- Staging
 
 function showStaging()
@@ -172,6 +149,7 @@ end
 function selectOff(player, value, id)
     -- Build list of available officers
     local filter = (id == "command" or id == "ops" or id == "science") and id or nil
+    transfer = string.match(id, "trans") and true or false
     local count = 0
     for i, officer in ipairs(LIBRARY) do
         local vcs = string.format("vcs%i", i)
@@ -179,8 +157,10 @@ function selectOff(player, value, id)
         local available = officer.gtype == "officer"
         if available then
             available = officer.factions[build.faction]
-            for f, n in ipairs(sway) do
-                available = available or (officer.factions[f] and n >= 1)
+            if transfer then
+                for f, n in pairs(sway) do
+                    available = available or (officer.factions[f] and (n >= 1) )
+                end
             end
             available = available and (not filter or officer.roles[filter]) and not officer.line_officer
             if officer.unique and not (build[id] and officer.name == build[id].name) then
@@ -250,9 +230,11 @@ function selectShip(player, value, id)
     local filters = id == "ship1" and {"capital"} or {"scout", "specialist", "support"}
     for i, ship in pairs(ASSETS.ships) do
         local available = false
+        local swayable = (sway[ship.faction] or 0) >= (id == "ship1" and 3 or 2)
         for _, filter in pairs(filters) do
-            available = available or (ship.role == filter and ship.faction == build.faction)
+            available = available or ship.role == filter
         end
+        available = available and (ship.faction == build.faction or swayable)
         if available then
             count = count + 1
             local attributes = {
@@ -336,7 +318,7 @@ function selectTitle(player, value, id)
     for i, obj in ipairs(LIBRARY) do
         local vcs = string.format("vcs%i", i)
         self.UI.setAttribute(vcs, "active", false)
-        local available = obj.gtype == "title" and ship and obj.short == ship.short and ship.titles
+        local available = obj.gtype == "title" and ship and obj.short == ship.short and ship.titles and ship.faction == build.faction
         if available then
             obj = GameType:new(obj)
             available = false
