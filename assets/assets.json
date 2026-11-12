@@ -1068,7 +1068,7 @@
             "name": "Miranda-Class Starship", "faction": "federation", "role": "support", "size": "small",
             "short": "miranda", "gtype": "ship",
             "dials": {
-                "hull": {"min": 0, "max": 7},
+                "hull": {"min": 0, "max": 8},
                 "crew": {"min": -2, "max": 4},
                 "alert": {"min": 0, "max": 4},
                 "power": {"min": 0, "max": 7}
